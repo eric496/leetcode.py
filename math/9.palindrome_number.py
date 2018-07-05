@@ -15,9 +15,14 @@ Example 3:
 Input: 10
 Output: false
 Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
-Follow up:
 
+Follow up:
 Coud you solve it without converting the integer to a string?
+'''
+
+'''
+Thought:
+    
 '''
 
 class Solution(object):
@@ -35,4 +40,3 @@ class Solution(object):
             num, mod = divmod(num, 10)
             rev = rev * 10 + mod
         return rev == x
-
