@@ -16,10 +16,15 @@ What should we return when needle is an empty string? This is a great question t
 For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C's strstr(), Java's indexOf() and Python's find().
 '''
 
+'''
+Thought: 
+    Loop through the string and compare needle to the chunk starting at the current position and extending the same length as needle. 
+'''
+
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
         # length + 1 in order to handle the corner case: haystack = "", needle = "" 
-        for i in range(len(haystack)-len(needle)+1):
-            if haystack[i:i+len(needle)] == needle:
+        for i in range(len(haystack) - len(needle) + 1):
+            if haystack[i: i+len(needle)] == needle:
                 return i
         return -1

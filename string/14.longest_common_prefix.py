@@ -15,13 +15,19 @@ Note:
 All given inputs are in lowercase letters a-z.
 '''
 
+'''
+Thought:
+    Get the shortest string in the list and the common prefix is at most this shortest string. 
+    Loop through the chracters in the shortest string. Compare each character to the character in the same position from each string in the string list. 
+'''
+
 class Solution(object):
     def longestCommonPrefix(self, strs: list) -> str:
         if not strs:
             return ""
-        shortest_word = min(strs, key=len)
-        for i, ch in enumerate(shortest_word):
+        shortest_str = min(strs, key=len)
+        for i, ch in enumerate(shortest_str):
             for word in strs:
                 if word[i] != ch:
-                    return shortest_word[:i]
-        return shortest_word 
+                    return shortest_str[:i]
+        return shortest_str

@@ -20,6 +20,13 @@ Input: [1,3,5,6], 0
 Output: 0
 '''
 
+'''
+Thought:
+    Solution 1: construct a new array with elements smaller than target value only. Count the length of the new array O(n) time
+    Solution 2: linear search O(n) time
+    Solution 3: binary search O(logn) time
+'''
+
 # solution 1: one liner 
 class Solution:
     def searchInsert(self, nums: list, target: int) -> int:

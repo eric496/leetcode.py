@@ -22,8 +22,11 @@ Coud you solve it without converting the integer to a string?
 
 '''
 Thought:
-    
-'''
+    Convert to string and reverse it. 
+
+    Follow up:
+    Similar to 7.reverse_integer, using divmod() to calculate divident and modulo.
+''' 
 
 class Solution(object):
     def isPalindrome(self, x):
@@ -38,5 +41,5 @@ class Solution(object):
         rev, num = 0, x
         while num != 0:
             num, mod = divmod(num, 10)
-            rev = rev * 10 + mod
+            rev = rev*10 + mod
         return rev == x

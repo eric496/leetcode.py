@@ -32,6 +32,11 @@ for (int i = 0; i < len; i++) {
 }
 '''
 
+'''
+Thought:
+    Same to 26.remove_duplicates_from_sorted_array. Use two pointers.
+'''
+
 class Solution:
     def removeElement(self, nums: list, val: int) -> int:
         if nums == []:

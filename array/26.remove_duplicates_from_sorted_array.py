@@ -30,6 +30,13 @@ for (int i = 0; i < len; i++) {
 }
 '''
 
+'''
+Thought:
+    Use two pointers. One pointer points to the tail of the array with only unique elements. 
+    The other pointer loop through the array, replacing the current tail with new unique element but ignoring the duplicated element.
+    Increment the tail pointer if new unique element was inserted. 
+'''
+
 class Solution:
     def removeDuplicates(self, nums: list) -> int:
         if nums == []:
