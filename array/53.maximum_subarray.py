@@ -26,6 +26,16 @@ Thought:
         update the global maximum with whichever is greater.
 '''
 
+# DP
+class Solution:
+    def maxSubArray(self, nums: list) -> int:
+        dp, result = [nums[0]], nums[0]
+        for i in range(1, len(nums)):
+            dp.append(max(dp[i-1]+nums[i], nums[i]))
+            result = max(dp[i], result)
+        return result
+
+# Greedy
 class Solution:
     def maxSubArray(self, nums: list) -> int:
         local_max = global_max = nums[0]
