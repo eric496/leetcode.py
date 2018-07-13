@@ -39,3 +39,8 @@ class Solution:
             else:
                 count -= 1
         return majority
+
+# a smart one-liner solution
+class Solution:
+    def majorityElement(self, nums: list) -> int:
+        return sorted(nums)[len(nums)//2]
