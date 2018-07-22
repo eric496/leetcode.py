@@ -23,4 +23,23 @@ Notes:
 You may assume pattern contains only lowercase letters, and str contains lowercase letters separated by a single space.
 '''
 
-
+class Solution:
+    def wordPattern(self, pattern: str, str: str) -> bool:
+        words = str.split()
+        if len(pattern) != len(words):
+            return False
+        pattern_map = {}
+        str_map = {}
+        for p,s in zip(list(pattern), str.split()):
+            if p in pattern_map:
+                if pattern_map[p] != s:
+                    return False
+            else:
+                pattern_map[p] = s
+            
+            if s in str_map:
+                if str_map[s] != p:
+                    return False
+            else:
+                str_map[s] = p 
+        return len(pattern_map) == len(str_map)
