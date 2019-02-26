@@ -22,7 +22,7 @@ Thought:
 
 class Solution:
     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
-        # pythonic way to check the empty and return the non-empty
+        # Pythonic way to check the empty linked lists
         if None in (l1, l2):
             return l1 or l2
         cur = sentinel = ListNode(-1)
@@ -34,6 +34,6 @@ class Solution:
                 cur.next = l2
                 l2 = l2.next
             cur = cur.next
-        # this is pythonic - None is evaluated to False. The unfinished array will append to the linked list.
+        # This is pythonic! 
         cur.next = l1 or l2
         return sentinel.next
