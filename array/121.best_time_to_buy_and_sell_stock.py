@@ -16,11 +16,17 @@ Output: 0
 Explanation: In this case, no transaction is done, i.e. max profit = 0.
 '''
 
+'''
+Thought:
+    
+'''
+
+
 # Kadane's algorithm
 class Solution:
     def maxProfit(self, prices: list) -> int:
-        global_max = local_max = 0
+        cur_max = global_max = 0
         for i in range(1, len(prices)):
-            local_max = max(0, prices[i]-prices[i-1]+local_max)
-            global_max = max(global_max, local_max)
+            cur_max = max(0, prices[i]-prices[i-1]+cur_max)
+            global_max = max(global_max, cur_max)
         return global_max
