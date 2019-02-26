@@ -29,17 +29,17 @@ Thought:
 # DP
 class Solution:
     def maxSubArray(self, nums: list) -> int:
-        dp, result = [nums[0]], nums[0]
+        dp, res = [nums[0]], nums[0]
         for i in range(1, len(nums)):
             dp.append(max(dp[i-1]+nums[i], nums[i]))
-            result = max(dp[i], result)
-        return result
+            res = max(dp[i], res)
+        return res
 
 # Greedy
 class Solution:
     def maxSubArray(self, nums: list) -> int:
-        local_max = global_max = nums[0]
+        cur_max = global_max = nums[0]
         for n in nums[1:]:
-            local_max = max(n, local_max+n)
-            global_max = max(global_max, local_max)
+            cur_max = max(n, cur_max+n)
+            global_max = max(global_max, cur_max)
         return global_max
