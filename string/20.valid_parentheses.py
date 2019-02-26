@@ -40,16 +40,11 @@ Thought:
 
 class Solution:
     def isValid(self, s: str) -> bool:
-        pairs = {
-            ']': '[', 
-            ')': '(', 
-            '}': '{',
-        }
         stack = []
+        pairs = {'(':')', '{':'}', '[':']'}
         for ch in s:
-            if ch in pairs.values():
-                stack.append(ch)
-            elif ch in pairs:
-                if stack == [] or pairs[ch] != stack.pop():
-                    return False
+            if ch in pairs:
+                stack.append(pairs[ch])
+            elif not stack or stack.pop() != ch:
+                return False
         return stack == []
