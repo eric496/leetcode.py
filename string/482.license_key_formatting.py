@@ -35,3 +35,13 @@ class Solution:
             else:
                 result.append(c)
         return ''.join(result[::-1]).upper()
+
+# A more concise solution
+# Step 1: Remove dashes, convert to upper case, and reverse the string.
+# Step 2: Break the string into a list of strings with the length of the elements equals K (except for the last one).
+# Step 3: Add dashes and reverse the string.
+class Solution:
+    def licenseKeyFormatting(self, S: str, K: int) -> str:
+        rev = ''.join(S.split('-')).upper()[::-1]
+        sp = [rev[ix:ix+K] for ix in range(0,len(rev),K)]
+        return '-'.join(sp)[::-1]
