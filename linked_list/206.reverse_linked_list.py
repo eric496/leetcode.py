@@ -16,13 +16,12 @@ A linked list can be reversed either iteratively or recursively. Could you imple
 #         self.val = x
 #         self.next = None
 
-# iterative
 class Solution:
-    def reverseList(self, head:ListNode) -> ListNode:
-        prev = None
+    def reverseList(self, head: ListNode) -> ListNode:
+        cur = prev = None
         while head:
             cur = head
             head = head.next
             cur.next = prev
             prev = cur
-        return prev
+        return cur
