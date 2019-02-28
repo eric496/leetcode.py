@@ -13,10 +13,29 @@ Input: a = "1010", b = "1011"
 Output: "10101"
 '''
 
-# solution 1
+# solution 1 (most straightforward)
 class Solution:
     def addBinary(self, a: str, b: str) -> str:
-        return bin(int(a, 2) + int(b, 2))[2:]
+        ixa, ixb = len(a)-1, len(b)-1
+        res = ''
+        carry = 0
+        while ixa >= 0 or ixb >= 0:
+            if ixa >= 0 and ixb >= 0:
+                res += str((int(a[ixa])+int(b[ixb])+carry)%2)
+                carry = (int(a[ixa])+int(b[ixb])+carry) // 2
+                ixa -= 1
+                ixb -= 1
+            elif ixa >= 0:
+                res += str((int(a[ixa])+carry)%2)
+                carry = (int(a[ixa])+carry) // 2
+                ixa -= 1
+            elif ixb >= 0:
+                res += str((int(b[ixb])+carry)%2)
+                carry = (int(b[ixb])+carry) // 2
+                ixb -= 1
+        if carry:
+            res += str(carry)
+        return res[::-1]
 
 # solution 2
 class Solution:
@@ -36,3 +55,8 @@ class Solution:
                 result = str(mod) + result
                 b = b[:-1]
         return str(carry)+result if carry else result
+
+# solution 3 (cheating)
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        return bin(int(a, 2) + int(b, 2))[2:]
