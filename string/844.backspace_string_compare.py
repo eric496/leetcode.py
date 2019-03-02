@@ -33,16 +33,43 @@ Can you solve it in O(N) time and O(1) space?
 
 class Solution:
     def backspaceCompare(self, S:str, T:str) -> bool:
-        s_arr = []
-        t_arr = []
-        for c in S:
-            if c == '#' and s_arr:
-                s_arr.pop()
-            elif c != '#':
-                s_arr.append(c)
-        for c in T:
-            if c == '#' and t_arr:
-                t_arr.pop()
-            elif c != '#':
-                t_arr.append(c)
-        return ''.join(s_arr) == ''.join(t_arr)
+        s_stk, t_stk = [], []
+        
+        for ch in S:
+            if ch == '#' and s_stk:
+                s_stk.pop()
+            elif ch != '#':
+                s_stk.append(ch)
+        
+        for ch in T:
+            if ch == '#' and t_stk:
+                t_stk.pop()
+            elif ch != '#':
+                t_stk.append(ch)
+
+        return s_stk == t_stk
+
+# more straightforward solution
+class Solution:
+    def backspaceCompare(self, S:str, T:str) -> bool:
+        s_stk, t_stk = [], []
+        
+        for ch in S:
+            if ch != '#':
+                s_stk.append(ch)
+            else:
+                if not s_stk:
+                    continue
+                else:
+                    s_stk.pop()
+        
+        for ch in T:
+            if ch != '#':
+                t_stk.append(ch)
+            else:
+                if not t_stk:
+                    continue
+                else:
+                    t_stk.pop()
+                    
+        return s_stk == t_stk
