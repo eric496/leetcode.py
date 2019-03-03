@@ -15,12 +15,12 @@ Could you do it without any loop/recursion in O(1) runtime?
 # O(n) time solution
 class Solution:
     def addDigits(self, num:int) -> int:
-        while num // 10 != 0:
-            total = 0
-            while num != 0:
-                total += num % 10
+        while num // 10:
+            res = 0
+            while num:
+                res += num % 10
                 num //= 10
-            num = total
+            num = res
         return num
 
 # O(1) time solution - digital root
