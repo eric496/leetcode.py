@@ -15,9 +15,6 @@ Output: 1->2->3->4->5
 
 class Solution:
     def removeElements(self, head: ListNode, val: int) -> ListNode:
-        if head is None:
-            return None
-        
         sentinel = pt = ListNode(-1)
         pt.next = head
         while pt and pt.next:
