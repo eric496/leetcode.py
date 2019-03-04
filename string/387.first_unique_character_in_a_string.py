@@ -16,7 +16,22 @@ class Solution:
     def firstUniqChar(self, s: str) -> int:
         if not s:
             return -1
-        char_index_map = {}
+        char_ix = {}
         for ix, char in enumerate(s):
-            char_index_map[char] = ix if char_index_map.get(char) is None else len(s)
-        return min(char_index_map.values()) if min(char_index_map.values()) < len(s) else -1 
+            char_ix[char] = ix if char_ix.get(char) is None else len(s)
+        return min(char_ix.values()) if min(char_ix.values()) < len(s) else -1 
+
+
+# A more straightforward solution
+class Solution:
+    def firstUniqChar(self, s: str) -> int:
+        cnt = [0] * 26
+        
+        for ch in s:
+            cnt[ord(ch)-ord('a')] += 1
+        
+        for ix, ch in enumerate(s):
+            if cnt[ord(ch)-ord('a')] == 1:
+                return ix
+            
+        return -1
