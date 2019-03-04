@@ -15,21 +15,25 @@ Explanation:
 
 class Solution:
     def isHappy(self, n: int) -> bool:
-        nums = set()
-        while True:
-            sum_of_squares = 0
-            while n != 0:
-                sum_of_squares += (n%10) ** 2
+        seen = set()
+
+        while 1:
+            cur_sum = 0
+            while n:
+                cur_sum += (n%10) ** 2
                 n //= 10
-            if sum_of_squares == 1:
+            if cur_sum == 1:
                 return True
-            elif sum_of_squares in nums:
+            elif cur_sum in seen:
                 return False
             else:
-                nums.add(sum_of_squares)
-            n = sum_of_squares   
+                seen.add(cur_sum)
+            
+            n = cur_sum  
 
-# a more concise and smart pythonic solution
+        return True
+
+# A more concise and smart pythonic solution
 class Solution:
     def isHappy(self, n: int) -> bool:
         seen = set()
