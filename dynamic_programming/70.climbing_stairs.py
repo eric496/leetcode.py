@@ -36,10 +36,25 @@ class Solution:
             dp.append(dp[i-1] + dp[i-2])
         return dp[n-1]
 
-# simplified solution
+# Simplified solution
 class Solution:
     def climbStairs(self, n: int) -> int:
         a = b = 1
         for _ in range(n):
             a, b = b, a+b
         return a
+
+# Iterative solution
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        if n < 3:
+            return n
+        
+        prevPrev, prev, cur = 1, 2, 3
+        
+        for i in range(3, n+1):
+            cur = prevPrev + prev
+            prevPrev = prev
+            prev = cur
+        
+        return cur
