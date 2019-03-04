@@ -12,8 +12,19 @@ Input: "race a car"
 Output: false
 '''
 
+# Two pointers
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        return [ch.lower() for ch in s if ch.isalnum()] == [ch.lower() for ch in s if ch.isalnum()][::-1]   
+        head, end = 0, len(s)-1
 
-# two pointers
+        while head < end:
+            while head < end and not s[head].isalnum():
+                head += 1
+            while head < end and not s[end].isalnum():
+                end -= 1
+            if s[head].lower() != s[end].lower():
+                return False
+            head += 1
+            end -= 1
+
+        return True
