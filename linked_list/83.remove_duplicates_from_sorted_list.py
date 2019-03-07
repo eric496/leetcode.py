@@ -19,9 +19,22 @@ Output: 1->2->3
 
 class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
-        cur = head
-        while cur:
-            while cur.next and cur.val == cur.next.val:
-                cur.next = cur.next.next
-            cur = cur.next
+        walk = head
+        while walk:
+            while walk.next and walk.val == walk.next.val:
+                walk.next = walk.next.next
+            walk = walk.next
+        return head
+
+# Solution 2
+class Solution:
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        walk = head
+        
+        while walk and walk.next:
+            if walk.val == walk.next.val:
+                walk.next = walk.next.next
+            else:
+                walk = walk.next
+        
         return head
