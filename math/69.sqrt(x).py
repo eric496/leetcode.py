@@ -28,4 +28,4 @@ class Solution:
             r = (r + x//r) // 2
         return r
 
-# binary search
+# Binary search
