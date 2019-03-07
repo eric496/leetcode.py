@@ -16,25 +16,27 @@ Output: 4
 class Solution:
     def singleNumber(self, nums: list) -> int:
         count = {}
-        for num in nums:
-            if count.get(num):
-                count[num] += 1
+        
+        for n in nums:
+            if n in count:
+                count[n] -= 1
             else:
-                count[num] = 1
+                count[n] = 1
+        
         for k,v in count.items():
             if v == 1:
                 return k
         return 0
 
-# bit operation
+# Bit operation
 class Solution:
     def singleNumber(self, nums: list) -> int:
-        result = 0
-        for num in nums:
-            result ^= num
-        return result
+        res = 0
+        for n in nums:
+            res ^= n
+        return res
 
-# a smart and concise one-liner solution
+# One-liner solution
 class Solution:
     def singleNumber(self, nums: list) -> int:
         return sum(set(nums))*2 - sum(nums)
