@@ -38,12 +38,15 @@ Thought:
 '''
 
 class Solution:
-    def removeDuplicates(self, nums: list) -> int:
-        if nums == []:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if not nums:
             return 0
-        tail = 0
+        
+        pt = 0
+        
         for n in nums[1:]:
-            if n != nums[tail]:
-                nums[tail+1] = n
-                tail += 1
-        return tail + 1
+            if n != nums[pt]:
+                nums[pt+1] = n
+                pt += 1
+        
+        return pt + 1 
