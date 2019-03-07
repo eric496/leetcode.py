@@ -37,15 +37,18 @@ class Solution:
     def searchInsert(self, nums: list, target: int) -> int:
         if target in nums:
             return nums.index(target)
+        
         for n in nums:
             if target < n:
                 return nums.index(n)
+        
         return len(nums)
 
 # solution 3: binary search
 class Solution:
     def searchInsert(self, nums: list, target: int) -> int:
         low, high = 0, len(nums)-1
+        
         while low <= high:
             mid = low + (high-low)//2
             if nums[mid] == target:
@@ -54,4 +57,5 @@ class Solution:
                 high = mid - 1
             elif nums[mid] < target:
                 low = mid + 1
+
         return low

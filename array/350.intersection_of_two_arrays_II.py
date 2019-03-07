@@ -16,19 +16,20 @@ What if elements of nums2 are stored on disk, and the memory is limited such tha
 
 class Solution:
     def intersect(self, nums1: list, nums2: list) -> list:
-        result = []
         nums1.sort()
         nums2.sort()
         p1 = p2 = 0
+        res = []
+
         while p1 < len(nums1) and p2 < len(nums2):
             if nums1[p1] == nums2[p2]:
-                result.append(nums1[p1])
+                res.append(nums1[p1])
                 p1 += 1
                 p2 += 1
             elif nums1[p1] < nums2[p2]:
                 p1 += 1
             else:
                 p2 += 1
-        return result
+        return res
 
-# follow up 
+# Follow up 
