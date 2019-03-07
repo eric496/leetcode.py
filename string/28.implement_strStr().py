@@ -21,9 +21,25 @@ Thought:
     Loop through the string and compare needle to the chunk starting at the current position and extending the same length as needle. 
 '''
 
+# Solution 1
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
-        # length + 1 in order to handle the corner case: haystack = "", needle = "" 
+        if needle == haystack:
+            return 0
+        
+        window = len(needle)
+        
+        for ix, ch in enumerate(haystack):
+            if haystack[ix:ix+window] == needle:
+                return ix
+        
+        return -1
+
+# Solution 2
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        # length + 1 in order to handle the corner case: 
+        # haystack = "", needle = "" 
         for i in range(len(haystack) - len(needle) + 1):
             if haystack[i: i+len(needle)] == needle:
                 return i
