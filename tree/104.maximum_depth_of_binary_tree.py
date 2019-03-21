@@ -23,14 +23,30 @@ return its depth = 3.
 #         self.left = None
 #         self.right = None
 
-# recursive solution
+# Recursive solution 1
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:
         if not root:
             return 0
+
+        return self.dfs(root)
+
+
+    def dfs(self, node: TreeNode) -> int:
+        if not node:
+            return 0
+
+        return max(self.dfs(node.left), self.dfs(node.right)) + 1
+
+# Recursive solution 2
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 
-# iteratvie solution
+# Iteratvie solution
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:
         depth = 0
