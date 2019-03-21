@@ -50,14 +50,14 @@ class Solution:
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
         queue = [(p, q)]
         while queue:
-            (node1, node2) = queue.pop(0)
-            if not node1 and not node2:
+            n1, n2 = queue.pop(0)
+            if not n1 and not n2:
                 continue
-            elif None in [node1, node2]:
+            elif None in [n1, n2]:
                 return False
             else:
-                if node1.val != node2.val:
+                if n1.val != n2.val:
                     return False
-                queue.append((node1.left, node2.left))
-                queue.append((node1.right, node2.right))
+                queue.append((n1.left, n2.left))
+                queue.append((n1.right, n2.right))
         return True
