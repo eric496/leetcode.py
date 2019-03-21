@@ -35,14 +35,25 @@ Return false.
 #         self.left = None
 #         self.right = None
 
-# recursive solution
+# Recursive solution
 class Solution:
     def isBalanced(self, root: TreeNode) -> bool:
         if not root:
             return True
-        return abs(self.getHeight(root.left) - self.getHeight(root.right)) < 2 and self.isBalanced(root.left) and self.isBalanced(root.right)
-
-    def getHeight(self, root):
+            
+        left_height = self.getHeight(root.left)
+        right_height = self.getHeight(root.right)
+        
+        if abs(left_height-right_height) > 1:
+            return False
+        
+        return self.isBalanced(root.left) and self.isBalanced(root.right)
+        
+        
+    def getHeight(self, root: TreeNode) -> int:
         if not root:
             return 0
-        return 1 + max(self.getHeight(root.left), self.getHeight(root.right))
+        left = self.getHeight(root.left)
+        right = self.getHeight(root.right)
+        
+        return max(left, right) + 1
