@@ -18,19 +18,33 @@ But the following [1,2,2,null,3,null,3] is not:
 Note:
 Bonus points if you could solve it both recursively and iteratively.
 '''
-# iterative solution
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
 class Solution:
-    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
-        queue = [(p, q)]
-        while queue:
-            (node1, node2) = queue.pop(0)
-            if not node1 and not node2:
-                continue
-            elif None in [node1, node2]:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+        
+        q = [root]
+        
+        while q:
+            res = [node.val if node else None for node in q]
+            if res != res[::-1]:
                 return False
-            else:
-                if node1.val != node2.val:
-                    return False
-                queue.append((node1.left, node2.left))
-                queue.append((node1.right, node2.right))
+
+            level = []
+            
+            for node in q:
+                if node:
+                    level.append(node.left)
+                    level.append(node.right)
+            
+            q = level
+        
         return True
