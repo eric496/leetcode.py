@@ -22,7 +22,23 @@ One possible answer is: [0,-3,9,-10,null,5], which represents the following heig
 #         self.left = None
 #         self.right = None
 
-# recursive solution
+# Recursive solution
+class Solution:
+    def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
+        return self.buildTree(nums)
+
+    def buildTree(self, nums: List[int]) -> TreeNode:
+        if not nums:
+            return None
+        
+        mid = len(nums) // 2
+        node = TreeNode(nums[mid])
+        node.left = self.buildTree(nums[:mid])
+        node.right = self.buildTree(nums[mid+1:])
+        
+        return node
+
+# More concise
 class Solution:
     def sortedArrayToBST(self, nums: list) -> TreeNode:
         if not nums:
