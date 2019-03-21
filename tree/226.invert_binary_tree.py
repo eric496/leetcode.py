@@ -26,11 +26,30 @@ Output:
 #         self.left = None
 #         self.right = None
 
-# recursive solution
+# Recursive solution
 class Solution:
     def invertTree(self, root:TreeNode) -> TreeNode:
         if root:
             root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
             return root
 
-# iterative solution
+# Iterative solution
+class Solution:
+    def invertTree(self, root:TreeNode) -> TreeNode:
+        if not root:
+            return root
+
+        stk = []
+        stk.append(root)
+
+        while stk:
+            node = stk.pop()
+            node.left, node.right = node.right, node.left
+
+            if node.left:
+                stk.append(node.left)
+            if node.right:
+                stk.append(node.right)
+
+
+        return root
