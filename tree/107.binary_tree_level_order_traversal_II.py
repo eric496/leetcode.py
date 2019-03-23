@@ -29,6 +29,7 @@ class Solution:
     def levelOrderBottom(self, root: TreeNode) -> list:
         if not root:
             return []
+
         level, result = [root], [[root.val]]
         while level:
             cur_level = []
@@ -46,13 +47,36 @@ class Solution:
             level = cur_level
         return result[::-1]
 
-# simplified but not well readable
+# Solution 2
+from collections import deque
+
+class Solution:
+    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+        
+        q, res = deque([root]), []
+        
+        while q:
+            level, size = [], len(q)
+            for i in range(size):
+                node = q.popleft()
+                level.append(node.val)
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            res.append(level)
+        
+        return res[::-1]
+
+# Solution 3: more concise but less readable
 class Solution:
     def levelOrderBottom(self, root: TreeNode) -> list:
         if not root:
             return []
-        level, result = [root], []
-        while level:
+        q, result = [root], []
+        while q:
             result.append([node.val for node in level])
-            level = [node for el in level for node in (el.left, el.right) if node]
+            q = [node for el in q for node in (el.left, el.right) if node]
         return result[::-1]
