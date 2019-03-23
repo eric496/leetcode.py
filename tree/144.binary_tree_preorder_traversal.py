@@ -56,3 +56,20 @@ class Solution:
 
         return res
 
+# Solution 3: Stack
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        stk, res, node = [], [], root
+        
+        while stk or node:
+            if node:
+                stk.append(node)
+                res.append(node.val)
+                node = node.left
+            else:
+                node = stk.pop()
+                node = node.right
+        
+        return res
+
+
