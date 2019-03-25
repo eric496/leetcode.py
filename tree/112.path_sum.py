@@ -33,9 +33,8 @@ class Solution:
         if root.val == sum and not root.left and not root.right:
             return True
         
-        sum -= root.val
-        
-        return self.hasPathSum(root.left, sum) or self.hasPathSum(root.right, sum)
+        return self.hasPathSum(root.left, sum-root.val) \ 
+                or self.hasPathSum(root.right, sum-root.val)
 
 # Iterative solution
 class Solution:
@@ -50,7 +49,5 @@ class Solution:
                 else:
                     stk.append((node.left, value-node.val))
                     stk.append((node.right, value-node.val))
-            else:
-                continue
         
         return False
