@@ -31,6 +31,29 @@ class Node:
         self.next = next
 """
 
+# Recursive
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
+        self.dfs(root)
+        return root
+
+    def dfs(self, root: 'Node') -> None:
+        if not root:
+            return
+        
+        if not root.left and not root.right:
+            return
+        
+        if root and root.left and root.right:
+            root.left.next = root.right
+            # If it has next, then we can connect its right child with its next's left child
+            if root.next:
+                root.right.next = root.next.left
+
+            self.connect(root.left)
+            self.connect(root.right)
+
+# Iterative
 class Solution:
     def connect(self, root: 'Node') -> 'Node':        
         if not root:
