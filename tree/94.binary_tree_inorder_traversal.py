@@ -47,9 +47,9 @@ class Solution:
                 stk.append(root)
                 root = root.left
             else:
-                root = stk.pop()
+                node = stk.pop()
                 res.append(root.val)
-                root = root.right
+                root = node.right
 
         return res
 
