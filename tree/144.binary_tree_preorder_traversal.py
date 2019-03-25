@@ -59,16 +59,16 @@ class Solution:
 # Solution 3: Stack
 class Solution:
     def preorderTraversal(self, root: TreeNode) -> List[int]:
-        stk, res, node = [], [], root
+        stk, res = [], []
         
-        while stk or node:
-            if node:
-                stk.append(node)
-                res.append(node.val)
-                node = node.left
+        while stk or root:
+            if root:
+                stk.append(root)
+                res.append(root.val)
+                root = root.left
             else:
                 node = stk.pop()
-                node = node.right
+                root = node.right
         
         return res
 
