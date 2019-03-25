@@ -41,16 +41,15 @@ class Solution:
 class Solution:
     def inorderTraversal(self, root: TreeNode) -> List[int]:
         stk, res = [], []
-        node = root
 
-        while stk or node:
-            if node:
-                stk.append(node)
-                node = node.left
+        while stk or root:
+            if root:
+                stk.append(root)
+                root = root.left
             else:
-                node = stk.pop()
-                res.append(node.val)
-                node = node.right
+                root = stk.pop()
+                res.append(root.val)
+                root = root.right
 
         return res
 
