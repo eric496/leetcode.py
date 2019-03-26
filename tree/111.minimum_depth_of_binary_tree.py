@@ -22,23 +22,27 @@ return its minimum depth = 2.
 #         self.left = None
 #         self.right = None
 
-# iterative solution
+# Iterative
 class Solution:
     def minDepth(self, root: TreeNode) -> int:
-        depth = 0
-        level = [root] if root else []
-        while level:
-            depth += 1
-            cur_level = []
-            for node in level:
+        if not root:
+            return 0
+
+        q, res = [root], 0
+        
+        while q:
+            res += 1
+            size = len(q)
+            for i in range(size):
+                node = q.pop(0)
                 if not node.left and not node.right:
-                    return depth
+                    return res
                 elif not node.left:
-                    cur_level.append(node.right)
+                    q.append(node.right)
                 elif not node.right:
-                    cur_level.append(node.left)
+                    q.append(node.left)
                 else:
-                    cur_level.append(node.left)
-                    cur_level.append(node.right)
-            level = cur_level
-        return depth
+                    q.append(node.left)
+                    q.append(node.right)
+        return res
+        
