@@ -39,6 +39,7 @@ class Solution:
     def validate(self, root: TreeNode, lower: float, upper: float) -> bool:
         if not root:
             return True
+            
         if root.val >= upper or root.val <= lower:
             return False
 
