@@ -25,6 +25,24 @@ Thought:
 
 '''
 
+# Recursive solution with memoization
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        memo = {}
+        return self.helper(n, memo)
+    
+    def helper(self, n: int, memo: dict) -> int:
+        if n < 3:
+            return n
+        
+        if n in memo:
+            return memo[n]
+        else:
+            memo[n] = self.helper(n-1, memo) + self.helper(n-2, memo)
+            
+        return self.helper(n-1, memo) + self.helper(n-2, memo) 
+
+# DP
 class Solution:
     def climbStairs(self, n: int) -> int:
         if n <= 1:
@@ -36,7 +54,7 @@ class Solution:
             dp.append(dp[i-1] + dp[i-2])
         return dp[n-1]
 
-# Simplified solution
+# Simplified solution with O(1) space
 class Solution:
     def climbStairs(self, n: int) -> int:
         a = b = 1
@@ -52,7 +70,7 @@ class Solution:
         
         prevPrev, prev, cur = 1, 2, 3
         
-        for i in range(3, n+1):
+        for _ in range(3, n+1):
             cur = prevPrev + prev
             prevPrev = prev
             prev = cur
