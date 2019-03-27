@@ -4,14 +4,13 @@ Each time you can either climb 1 or 2 steps. In how many distinct ways can you c
 Note: Given n will be a positive integer.
 
 Example 1:
-
 Input: 2
 Output: 2
 Explanation: There are two ways to climb to the top.
 1. 1 step + 1 step
 2. 2 steps
-Example 2:
 
+Example 2:
 Input: 3
 Output: 3
 Explanation: There are three ways to climb to the top.
@@ -54,14 +53,6 @@ class Solution:
             dp.append(dp[i-1] + dp[i-2])
         return dp[n-1]
 
-# Simplified solution with O(1) space
-class Solution:
-    def climbStairs(self, n: int) -> int:
-        a = b = 1
-        for _ in range(n):
-            a, b = b, a+b
-        return a
-
 # Iterative solution
 class Solution:
     def climbStairs(self, n: int) -> int:
@@ -76,3 +67,11 @@ class Solution:
             prev = cur
         
         return cur
+
+# Simplified solution with O(1) space
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        a = b = 1
+        for _ in range(n):
+            a, b = b, a+b
+        return a
