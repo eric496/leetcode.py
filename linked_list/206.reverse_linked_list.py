@@ -16,6 +16,19 @@ A linked list can be reversed either iteratively or recursively. Could you imple
 #         self.val = x
 #         self.next = None
 
+# Recursive 
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+        
+        ptr = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
+        
+        return ptr
+
+# Iterative 1
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
         cur = prev = None
@@ -26,7 +39,7 @@ class Solution:
             prev = cur
         return cur
 
-# Solution 2: https://www.geeksforgeeks.org/reverse-a-linked-list/
+# Iterative 2: https://www.geeksforgeeks.org/reverse-a-linked-list/
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
         prev, cur = None, head

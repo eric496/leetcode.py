@@ -27,12 +27,29 @@ Note:
 # Solution 1: Recursion
 class Solution:
     def fib(self, N: int) -> int:
-        if N <= 1:
+        if N < 2:
             return N
         
         return self.fib(N-1) + self.fib(N-2)
 
-# Solution 2: Iteration
+# Solution 2: Recursion with memoization
+class Solution:
+    def fib(self, N: int) -> int:
+        memo = {}
+        return self.helper(N, memo)
+        
+    def helper(self, N: int, memo: dict) -> int:
+        if N < 2:
+            return N
+        
+        if N in memo:
+            return memo[N]
+        else:
+            memo[N] = self.helper(N-1, memo) + self.helper(N-2, memo)
+        
+        return self.helper(N-1, memo) + self.helper(N-2, memo)
+
+# Solution 3: Iteration
 class Solution:
     def fib(self, N: int) -> int:
         if N <= 1:
