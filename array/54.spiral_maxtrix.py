@@ -25,8 +25,7 @@ class Solution:
         res = []
 
         while matrix:
-            res.extend(list(matrix.pop(0)))
+            res.extend(matrix.pop(0))
             matrix = list(zip(*matrix))[::-1]
 
         return res
-
