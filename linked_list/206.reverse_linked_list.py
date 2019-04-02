@@ -49,5 +49,4 @@ class Solution:
             prev = cur 
             cur = nxt
         return prev
-
-
+        
