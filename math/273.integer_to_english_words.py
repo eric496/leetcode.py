@@ -61,16 +61,20 @@ class Solution:
         
         while num:
             cur_num = num % 1000
-            cur_res = []
+            # Get the hundredth place
             hs = cur_num // 100
-            ts = int(str(cur_num//10)[-1]) * 10
+            # Get the tenth place
+            ts = cur_num // 10 % 10 * 10
+            # Get the oneth place
             os = cur_num % 10
             
             # Tenth place less than twenty
             if ts == 10:
                 ts = ts + os
                 os = 0
-                    
+
+            cur_res = []        
+            
             if hs:
                 cur_res.append(d[hs])
                 cur_res.append(d[100])
