@@ -32,4 +32,3 @@ class Solution:
         res = sorted(freq, key=lambda w: (-freq[w], w))
         
         return res[:k]
-    
