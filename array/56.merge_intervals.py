@@ -18,23 +18,39 @@ Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 #         self.start = s
 #         self.end = e
 
+# Solution 1: two pointers
 class Solution:
     def merge(self, intervals: List[Interval]) -> List[Interval]:
         if not intervals:
             return []
+        
         intervals.sort(key=lambda x: x.start)
-        prev_start = intervals[0].start
-        prev_end = intervals[0].end
+        start, end = intervals[0].start, intervals[0].end
         res = []
         
         for i in intervals[1:]:
-            if prev_end >= i.start:
-                prev_end = max(i.end, prev_end)
+            if end >= i.start:
+                end = max(i.end, end)
             else:
-                res.append(Interval(prev_start, prev_end))
-                prev_start = i.start
-                prev_end = i.end
+                res.append(Interval(start, end))
+                start, end = i.start, i.end
         
-        res.append(Interval(prev_start, prev_end))
+        res.append(Interval(start, end))
         
+        return res
+
+# Solution 2: more concise
+class Solution:
+    def merge(self, intervals: List[Interval]) -> List[Interval]:
+        intervals.sort(key=lambda x: x.start)
+        res = []
+        prev = None
+
+        for cur in intervals:
+            if prev is None or prev.end < cur.start:
+                res.append(cur)
+                prev = cur
+            else:
+                prev.end = max(prev.end, cur.end)
+
         return res
