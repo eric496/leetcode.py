@@ -25,17 +25,17 @@ class Solution:
             return []
         
         intervals.sort(key=lambda x: x.start)
-        start, end = intervals[0].start, intervals[0].end
+        prev_start, prev_end = intervals[0].start, intervals[0].end
         res = []
         
-        for i in intervals[1:]:
-            if end >= i.start:
-                end = max(i.end, end)
+        for cur in intervals[1:]:
+            if prev_end >= cur.start:
+                prev_end = max(cur.end, prev_end)
             else:
-                res.append(Interval(start, end))
-                start, end = i.start, i.end
+                res.append(Interval(prev_start, prev_end))
+                prev_start, prev_end = cur.start, cur.end
         
-        res.append(Interval(start, end))
+        res.append(Interval(prev_start, prev_end))
         
         return res
 
