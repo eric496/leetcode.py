@@ -24,4 +24,47 @@ The number of operations will be in the range of [1, 1000].
 Please do not use the built-in LinkedList library.
 '''
 
+# Implement with deque
+class MyLinkedList:    
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.q = collections.deque([])    
+        
 
+    def get(self, index: int) -> int:
+        """
+        Get the value of the index-th node in the linked list. If the index is invalid, return -1.
+        """
+        if 0 <= index < len(self.q):
+            return self.q[index]
+        else:
+            return -1
+
+    def addAtHead(self, val: int) -> None:
+        """
+        Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list.
+        """
+        self.q.appendleft(val)
+
+    def addAtTail(self, val: int) -> None:
+        """
+        Append a node of value val to the last element of the linked list.
+        """
+        self.q.append(val)
+
+    def addAtIndex(self, index: int, val: int) -> None:
+        """
+        Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted.
+        """
+        if 0 <= index <= len(self.q):
+            self.q.insert(index, val)
+            
+            
+    def deleteAtIndex(self, index: int) -> None:
+        """
+        Delete the index-th node in the linked list, if the index is valid.
+        """
+        if 0 <= index < len(self.q):
+            del self.q[index]
