@@ -20,3 +20,18 @@ Output: 1
 Explanation: The two heater was placed in the position 1 and 4. We need to use radius 1 standard, then all the houses can be warmed.
 '''
 
+class Solution:
+    def findRadius(self, houses: List[int], heaters: List[int]) -> int:
+        houses.sort()
+        heaters.sort()
+        heaters = [float('-inf')] + heaters + [float('inf')]
+        max_r = ix = 0
+        
+        for house in houses:
+            while heaters[ix] < house:
+                ix += 1
+            
+            min_r = min(house-heaters[ix-1], heaters[ix]-house)
+            max_r = max(max_r, min_r)
+            
+        return max_r
