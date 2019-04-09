@@ -19,22 +19,21 @@ class Solution:
         nums.sort()
         
         for ix, n in enumerate(nums):
-            # Sum will be greater than 0
             if n > 0:
                 break
             
-            # Skip duplicated elements
-            if ix != 0 and nums[ix] == nums[ix-1]:
+            # Skip duplicates
+            if ix and nums[ix] == nums[ix-1]:
                 continue
             
-            start, end = ix + 1, len(nums) - 1
+            start, end = ix+1, len(nums)-1
             
             while start < end:
                 if nums[start] + nums[end] + n == 0:
                     res.append([n, nums[start], nums[end]])
                     start += 1
                     end -= 1
-                    # Skip duplicated elements
+                    # Skip duplicates
                     while start < end and nums[start] == nums[start-1]:
                         start += 1
                     while start < end and nums[end] == nums[end+1]:
