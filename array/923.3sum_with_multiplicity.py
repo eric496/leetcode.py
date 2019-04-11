@@ -26,3 +26,16 @@ Note:
 0 <= target <= 300
 """
 
+from collections import defaultdict
+
+class Solution:
+    def threeSumMulti(self, A: List[int], target: int) -> int:
+        d1, d2 = defaultdict(int), defaultdict(int)
+        res = 0
+        
+        for n in A:
+            res += d2[target-n]
+            for k, v in d1.items():
+                d2[k+n] += v
+            d1[n] += 1
+        return res % (10**9+7)
