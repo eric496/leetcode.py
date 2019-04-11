@@ -15,12 +15,16 @@ You can assume that you can always reach the last index.
 
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        res = end = max_jumps = 0
+        res = cur_end = max_jumps = 0
         
         for ix, n in enumerate(nums[:-1]):
             max_jumps = max(max_jumps, ix+n)
-            if ix == end:
+            
+            if ix == cur_end:
                 res += 1
-                end = max_jumps
+                cur_end = max_jumps
+            
+            if cur_end >= len(nums)-1:
+                break
         
         return res
