@@ -18,4 +18,3 @@ class Solution:
         ls.append(ls[0]+24*60)
         
         return min(b-a for a,b in zip(ls, ls[1:]))
-    
