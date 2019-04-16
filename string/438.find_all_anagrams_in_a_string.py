@@ -30,4 +30,32 @@ The substring with start index = 1 is "ba", which is an anagram of "ab".
 The substring with start index = 2 is "ab", which is an anagram of "ab".
 '''
 
+# TLE: O(m*n) TC, O(1) SC
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        res = []
+        
+        if not s or not p or len(p) > len(s):
+            return res
+    
+        d = [0] * 26
+        for ch in p:
+            d[ord(ch)-ord('a')] += 1
+    
+        for i in range(len(s)-len(p)+1):
+            if self.isAnagram(s[i:i+len(p)], list(d)):
+                res.append(i)
+        
+        return res
+    
+        
+    def isAnagram(self, s: str, d: dict) -> bool:
+        for ch in s:
+            d[ord(ch)-ord('a')] -= 1
+        
+        return not any(d)
+
+
+# Sliding window: O(n) TC, O(1) SC
+
 
