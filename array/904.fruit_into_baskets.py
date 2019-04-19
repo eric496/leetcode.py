@@ -34,3 +34,27 @@ Note:
 1 <= tree.length <= 40000
 0 <= tree[i] < tree.length
 """
+
+class Solution:
+    def totalFruit(self, tree: List[int]) -> int:
+        if not tree:
+            return 0
+
+        res = 1
+        start = end = 0
+        d = {}
+
+        while end < len(tree):
+            if len(d) <= 2:
+                d[tree[end]] = end
+                end += 1
+
+            if len(d) > 2:
+                min_ = min(d.values())
+                start = min_ + 1
+                d.pop(tree[min_])
+
+            res = max(res, end-start)
+
+        return res
+
