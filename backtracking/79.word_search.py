@@ -15,36 +15,38 @@ Given word = "ABCB", return false.
 """
 
 class Solution:
-    def exist(self, board: List[List[str]], word: str) -> bool:
-        seen = {}
-        
+    def exist(self, board: list, word: str) -> bool:
+        seen = set()
+
         for row in range(len(board)):
             for col in range(len(board[0])):
-                if self.dfs(board, row, col, word, 0, seen):
+                if self.backtrack(board, row, col, word, 0, seen):
                     return True
-                
+
         return False
-    
-    def dfs(self, board: List[List[str]], row: int, col: int, word: str, wix: int, seen: dict) -> bool:
+
+
+    def backtrack(self, board: list, row: int, col: int, word: str, wix: int, seen: set) -> bool:
         if wix == len(word):
             return True
-        
-        if seen.get((row, col)):
+
+        if row<0 or col<0 or row>=len(board) or col>=len(board[0]):
             return False
-        
-        if row<0 or col<0 or row==len(board) or col==len(board[0]):
+
+        if board[row][col] != word[wix]:
             return False
-        
-        if word[wix] != board[row][col]:
+
+        if (row, col) in seen:
             return False
-        
-        seen[(row, col)] = 1
-        
-        found = self.dfs(board, row+1, col, word, wix+1, seen) \
-            or self.dfs(board, row-1, col, word, wix+1, seen) \
-            or self.dfs(board, row, col+1, word, wix+1, seen) \
-            or self.dfs(board, row, col-1, word, wix+1, seen)
-        
-        seen[(row, col)] = 0
-        
+
+        seen.add((row, col))
+
+        found = self.backtrack(board, row+1, col, word, wix+1, seen) \
+            or self.backtrack(board, row-1, col, word, wix+1, seen) \
+            or self.backtrack(board, row, col+1, word, wix+1, seen) \
+            or self.backtrack(board, row, col-1, word, wix+1, seen)
+
+        seen.remove((row, col))
+
         return found
+
