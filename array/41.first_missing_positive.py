@@ -23,7 +23,6 @@ class Solution:
         
         while i <= len(nums):
             x = nums[i-1]
-            print(x)
             if 1 <= x <= len(nums) and nums[x-1] != x:
                 nums[i-1], nums[x-1] = nums[x-1], x
             else:
@@ -34,4 +33,3 @@ class Solution:
                 return i
             
         return len(nums) + 1
-        
