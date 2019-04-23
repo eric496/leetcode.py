@@ -49,8 +49,7 @@ class Solution:
 class Solution:
     def prisonAfterNDays(self, cells: List[int], N: int) -> List[int]:
         seen = set()
-        cycle = 0
-        has_cycle = 0
+        cycle = has_cycle = 0
         
         for _ in range(N):
             new_state = self.next_state(cells)
@@ -80,4 +79,4 @@ class Solution:
             new_state[i] = 1 if cells[i-1]==cells[i+1] else 0
         
         return new_state
-        
+
