@@ -26,12 +26,14 @@ rotate 4 steps to the right: 2->0->1->NULL
 
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
-        if not head or not k:
+        # If the length of linked list is 0 or 1 or k == 0, directly return head
+        if not head or not head.next or not k:
             return head
-        
+            
         sentinel = ListNode(0)
         sentinel.next = head
         walk = sentinel
+        # Length of the linked list
         n = 0
         
         while walk and walk.next:
@@ -40,6 +42,7 @@ class Solution:
                     
         offset = n - k%n
         
+        # The old head is the new head, no need to rotate
         if offset == n:
             return head
         
@@ -51,15 +54,20 @@ class Solution:
         
         tail = walk 
 
+        # New tail's next node is the new head
         if walk and walk.next:
             walk = walk.next
         
-        tail.next = None
         new_head = walk
+
+        # Set tail node's next to null
+        tail.next = None
         
+        # Keep going until reaching the last node
         while walk and walk.next:
             walk = walk.next
         
+        # The last node's next is the old head 
         walk.next = sentinel.next
         
         return new_head
