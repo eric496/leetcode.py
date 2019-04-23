@@ -26,6 +26,7 @@ for (int i = 0; i < len; i++) {
 """
 
 # Two pointers
+# This solution can be generalized to any k, here k = 2
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
         if len(nums) <= 2:
