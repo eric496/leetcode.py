@@ -57,5 +57,39 @@ class Solution:
 
 
 # Sliding window: O(n) TC, O(1) SC
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        if len(p) > len(s) or not s:
+            return []
+        
+        res = []
+        pmap = {}
+        
+        for ch in p:
+            pmap[ch] = pmap.get(ch, 0) + 1
+        
+        cnt = len(pmap)
+        start = end = 0
+        
+        while end < len(s):
+            if s[end] in pmap:
+                pmap[s[end]] -= 1
+                if pmap[s[end]] == 0:
+                    cnt -= 1
+            end += 1
+            
+            while cnt == 0:
+                if s[start] in pmap:
+                    pmap[s[start]] += 1
+                    if pmap[s[start]] > 0:
+                        cnt += 1
+                
+                if end-start == len(p):
+                    res.append(start)
+                    
+                start += 1
+            
+        return res
+        
 
 
