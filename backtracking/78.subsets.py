@@ -28,6 +28,7 @@ class Solution:
     
     def backtrack(self, cur: List[int], res: List[List[int]], nums: List[int], start: int) -> None:
         res.append(list(cur))
+
         for i in range(start, len(nums)):
             cur.append(nums[i])
             self.backtrack(cur, res, nums, i+1)
