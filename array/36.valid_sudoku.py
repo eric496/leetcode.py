@@ -82,3 +82,27 @@ class Solution:
                     return False
                 
         return True   
+
+# More concise one-pass solution
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        row_d = [{} for _ in range(9)] 
+        col_d = [{} for _ in range(9)]
+        square_d = [{} for _ in range(9)]
+        
+        for i in range(9):
+            for j in range(9):
+                digit = board[i][j]
+                
+                if digit != '.':
+                    square_idx = (i//3)*3 + j//3
+                    
+                    if digit in row_d[i] or digit in col_d[j] or digit in square_d[square_idx]:
+                        return False
+                    else:
+                        row_d[i][digit] = 1
+                        col_d[j][digit] = 1
+                        square_d[square_idx][digit] = 1
+                    
+        return True
+        
