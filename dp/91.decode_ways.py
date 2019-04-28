@@ -20,9 +20,6 @@ Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
 
 class Solution:
     def numDecodings(self, s: str) -> int:
-        if not s:
-            return 0
-        
         dp = [0] * (len(s)+1)
         dp[0] = 1
         dp[1] = 0 if s[0] == '0' else 1
