@@ -31,3 +31,29 @@ class Solution:
                 dp[i] += dp[i-2]
                 
         return dp[len(s)]
+
+# Backtrack - TLE
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        res = []
+        self.backtrack(s, 0, [], res)
+
+        return len(res)
+
+
+    def backtrack(self, s: str, start: int, cur_res: List[str], res: List[List[str]]) -> None:
+        if start == len(''.join(cur_res)) == len(s):
+            res.append(list(cur_res))
+
+        for i in range(start, len(s)):
+            if s[i] == '0':
+                continue
+            else:
+                cur_res.append(s[i])
+                self.backtrack(s, i+1, cur_res, res)
+                cur_res.pop()
+
+                if start < len(s)-1 and 1 <= int(s[i:i+2]) <= 26:
+                    cur_res.append(s[i:i+2])
+                    self.backtrack(s, i+2, cur_res, res)
+                    cur_res.pop()
