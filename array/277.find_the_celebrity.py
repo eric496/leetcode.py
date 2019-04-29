@@ -26,3 +26,39 @@ The directed graph is represented as an adjacency matrix, which is an n x n matr
 Remember that you won't have direct access to the adjacency matrix.
 """
 
+# The knows API is already defined for you.
+# @param a, person a
+# @param b, person b
+# @return a boolean, whether a knows b
+# def knows(a, b):
+
+class Solution(object):
+    def findCelebrity(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n <= 0:
+            return -1
+        
+        if n == 1:
+            return 0
+        
+        stk = [i for i in range(n)]
+            
+        while len(stk) > 1:
+            a, b = stk.pop(), stk.pop()
+            
+            if knows(a, b):
+                stk.append(b)
+            else:
+                stk.append(a)
+                
+        finalist = stk.pop()
+        
+        for i in range(n):
+            if i != finalist and (not knows(i, finalist) or knows(finalist, i)):
+                return -1
+        
+        return finalist
+        
