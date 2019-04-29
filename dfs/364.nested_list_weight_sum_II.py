@@ -80,3 +80,21 @@ class Solution:
         else:
             for n in nestedElement.getList():
                 self.dfs(n, cur_depth+1)
+
+# Solution 2: BFS
+class Solution:
+    def depthSumInverse(self, nestedList: List[NestedInteger]) -> int:        
+        res = level_sum = 0
+        
+        while nestedList:
+            next_level = []
+            for nint in nestedList:
+                if nint.isInteger():
+                    level_sum += nint.getInteger()
+                else:
+                    for nint_nxt in nint.getList():
+                        next_level.append(nint_nxt)
+            res += level_sum
+            nestedList = next_level
+        
+        return res
