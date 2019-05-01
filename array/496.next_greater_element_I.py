@@ -22,9 +22,11 @@ All elements in nums1 and nums2 are unique.
 The length of both nums1 and nums2 would not exceed 1000.
 '''
 
+# Solution 1
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         res = []
+
         for n1 in nums1:
             start = nums2.index(n1)
             found = 0
@@ -37,3 +39,5 @@ class Solution:
                 res.append(-1)
         
         return res
+
+# Solution 2: O(n) TC
