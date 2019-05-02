@@ -28,7 +28,7 @@ class Solution:
             
             walk = walk.next
         
-            if walk == head:
+            if walk is head:
                 break
         
         nxt = walk.next
@@ -36,4 +36,3 @@ class Solution:
         node.next = nxt
         
         return head
-        
