@@ -34,4 +34,34 @@ class Solution:
             walk = walk.next
         
         return head
+
+# Solution 2: Stack
+class Solution:
+    def flatten(self, head: 'Node') -> 'Node':
+        if not head:
+            return head
+        
+        sentinel = Node(0, None, head, None)
+        stk = []
+        stk.append(head)
+        prev = sentinel
+        
+        while stk:
+            node = stk.pop()
+            node.prev = prev
+            prev.next = node
+            
+            if node.next:
+                stk.append(node.next)
+                node.next = None
+            
+            if node.child:
+                stk.append(node.child)
+                node.child = None
+            
+            prev = node
+        
+        sentinel.next.prev = None
+        
+        return sentinel.next
         
