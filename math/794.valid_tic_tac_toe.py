@@ -34,6 +34,8 @@ Each board[i][j] is a character in the set {" ", "X", "O"}.
 
 class Solution:
     def validTicTacToe(self, board: List[str]) -> bool:
+        
+        # Count the number of 'X's and 'O's on the board
         x_cnt = o_cnt = 0
         
         for row in board:
@@ -41,21 +43,26 @@ class Solution:
                 x_cnt += 1 if col == 'X' else 0
                 o_cnt += 1 if col == 'O' else 0
         
-        # Second player cannot move more steps than the first
-        # First player cannot move more than one step than the second
+        # Second player cannot move ahead of the first
+        # First player cannot move more than one step ahead of the second
         if o_cnt > x_cnt or x_cnt - o_cnt > 1:
             return False
         
         if self.check_win(board, 'X'):
-            # First player must lead by one move when winning the game
+            # First player must lead by one move when it wins the game
             if x_cnt - o_cnt != 1:
+                return False
+            # Check if second player has already won
+            # Add this only for symmetry purpose - this if statement can be omitted 
+            # because it is included in the previous "if x_cnt - o_cnt != 1" condition 
+            if self.check_win(board, 'O'):
                 return False
         
         if self.check_win(board, 'O'):
-            # Second player must have equal moves to the first player when winning the game
+            # Second player must have equal moves to the first player when it wins the game
             if x_cnt != o_cnt:
                 return False
-            # Check if first player already won
+            # Check if first player has already won
             # See Example 3
             if self.check_win(board, 'X'):
                 return False
