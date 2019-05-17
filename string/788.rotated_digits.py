@@ -46,3 +46,16 @@ class Solution:
 
         return int(res) != n
 
+# O(n) TC
+class Solution:
+    def rotatedDigits(self, N: int) -> int:
+        valid = set('0182569')
+        invalid = set('018')
+
+        return sum(self.is_valid(n, invalid, valid) for n in range(1, N+1))
+
+
+    def is_valid(self, n: int, invalid: set, valid: set) -> bool:
+        digits = {ch for ch in str(n)}
+        return digits.issubset(valid) and not digits.issubset(invalid)
+
