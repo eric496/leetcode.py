@@ -16,7 +16,7 @@ Your runtime complexity should be less than O(n2).
 There is only one duplicate number in the array, but it could be repeated more than once.
 """
 
-# Pigeonhole Principle
+# Pigeonhole Principle: O(nlgn) TC; O(1) SC
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
         if not nums:
@@ -39,7 +39,7 @@ class Solution:
                 
         return low
 
-# Floyd's Cycle Finding Algorithm (Floyd's Tortoise and Hare Algorithm)
+# Floyd's Cycle Finding Algorithm (Floyd's Tortoise and Hare Algorithm): O(n) TC; O(1) SC
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
         if not nums:
