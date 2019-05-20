@@ -14,7 +14,7 @@ Note:
 Bonus point if you are able to do this using only O(n) extra space, where n is the total number of rows in the triangle.
 """
 
-# O(mn) TC
+# Top-down approach: O(mn) TC and O(mn) SC
 # Use an augmented list of each row
 class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
@@ -30,3 +30,6 @@ class Solution:
                 triangle[i+1][j] += min(aug_row[j], aug_row[j+1])
                 
         return min(triangle[-1])
+
+
+# Bottom-up approach: O(mn) TC and O(n) SC
