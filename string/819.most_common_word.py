@@ -29,25 +29,24 @@ Words only consist of letters, never apostrophes or other punctuation symbols.
 
 class Solution:
     def mostCommonWord(self, paragraph: str, banned: list) -> str:
-        for ch in "!?',;.":
+        ignore_ch = set("!?',;.")
+
+        # Replace ignored characters with space instead of "", because there is such case "a, b,b,b,b, c"
+        # You don't want to convert it to "a bbbb c", but "a b b b b c" instead
+        for ch in ignore_ch:
             paragraph = paragraph.replace(ch, ' ')
         
         words = paragraph.lower().split()
-        d = {}
-        max_key = None
-        max_cnt = 0
+        freq = {}
+        most_common = None
+        max_freq = 0
         
         for w in words:
-            if w in banned:
-                continue
-            
-            if w in d:
-                d[w] += 1
-            else:
-                d[w] = 1
+            if w not in banned:
+                freq[w] = freq.get(w, 0) + 1
                 
-            if d[w] > max_cnt:
-                max_cnt = d[w]
-                max_key = w
+                if freq[w] > max_freq:
+                    max_freq = freq[w]
+                    most_common = w
             
-        return max_key
+        return most_common
