@@ -5,34 +5,29 @@ Follow up:
 Can you solve it without using extra space?
 '''
 
+'''
+Thought process:
+    Classic tortoise and hare problem: use two pointers slow and fast. 
+    Slow pointer moves one step at each iteration, while fast moves two.
+    If there is a cycle, the fast pointer will inevitably surpass the slow when they've both entered the cycle.
+    Otherwise the fast will reach the end of the linked list and we should return False.
+'''
+
 # Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
-# two pointers
-# tortoise and hare
-class Solution(object):
-    def hasCycle(self, head):
-        if not head or not head.next:
-            return False
-        slow, fast = head, head.next
-        while fast.next and fast.next.next:
-            if slow is fast:
-                return True
-            slow = slow.next
-            fast = fast.next.next
-        return False
 
-# more concise
 class Solution(object):
     def hasCycle(self, head):
         slow = fast = head
+
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
             if slow is fast:
                 return True
+        
         return False
-
