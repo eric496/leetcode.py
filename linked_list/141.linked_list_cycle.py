@@ -15,13 +15,13 @@ Thought process:
 
 # Definition for singly-linked list.
 class ListNode(object):
-    def __init__(self, x):
-        self.val = x
+    def __init__(self, val):
+        self.val = val
         self.next = None
 
 
 class Solution(object):
-    def hasCycle(self, head):
+    def hasCycle(self, head: ListNode) -> bool:
         slow = fast = head
 
         while fast and fast.next:
