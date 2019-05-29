@@ -12,10 +12,11 @@ Output: 1->1->2->3->4->4->5->6
 """
 
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
 
 # Solution 1: Merge sort
 class Solution:
@@ -32,11 +33,12 @@ class Solution:
         
         return self.mergeSort(left, right)
         
+
     def mergeSort(self, ls1: List[ListNode], ls2: List[ListNode]) -> ListNode:
         if None in (ls1, ls2):
             return ls1 or ls2
         
-        sentinel = walk = ListNode(-1)
+        sentinel = walk = ListNode(None)
 
         while ls1 and ls2:
             if ls1.val < ls2.val:
@@ -47,9 +49,10 @@ class Solution:
                 ls2 = ls2.next
             walk = walk.next
         
-        walk.next = ls1 if ls1 else ls2
+        walk.next = ls1 or ls2
         
         return sentinel.next
+
 
 # Solution 2: Heap
 import heapq
