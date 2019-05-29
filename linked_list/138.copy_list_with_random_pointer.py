@@ -14,25 +14,34 @@ You must return the copy of the given head as a reference to the cloned list.
 """
 
 """
+Thought process:
+    Use a hash map: 
+        1. Loop through the list, use nodes as keys, and only copy its node value with null next and random pointers as values
+        2. A second iteration, copy next and random pointers
+"""
+
 # Definition for a Node.
 class Node:
     def __init__(self, val, next, random):
         self.val = val
         self.next = next
         self.random = random
-"""
+
+ 
 class Solution:
-    def copyRandomList(self, head: 'Node') -> 'Node':
+    def copyRandomList(self, head: Node) -> Node:
         if not head:
-            return None
+            return head
         
         cp = {}
         walk = head
+        
         while walk:
             cp[walk] = Node(walk.val, None, None)
             walk = walk.next
         
         walk = head
+        
         while walk:
             cp[walk].next = cp.get(walk.next)
             cp[walk].random = cp.get(walk.random)
