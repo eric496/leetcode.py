@@ -15,11 +15,19 @@ The relative order inside both the even and odd groups should remain as it was i
 The first node is considered odd, the second node even and so on ...
 """
 
+"""
+Thought process:
+    1. Create two pointers, pointing to the first odd and even nodes.
+    2. Leapfrog every other node and build the odd and even linked lists.
+    3. Connect the head of the even list to the tail of the odd list.
+    4. Return the head of the odd list.
+"""
+
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 class Solution:
     def oddEvenList(self, head: ListNode) -> ListNode:
