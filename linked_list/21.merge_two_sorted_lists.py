@@ -9,25 +9,25 @@ Output: 1->1->2->3->4->4
 
 '''
 Thought:
-    Use a sentinel node to track the head of the new linked list. Use a runner to append new nodes to the linked list.
-    Loop through two linked lists and append the smaller value of the current two nodes. 
-    Append what is left in the longer linked list (suppose two linked list have different length) to the new linked list after the loop.
+    1. Use a sentinel node to track the head of the result list;
+       Use a walking pointer to build the result linked list by appending new list node.
+    2. Traverse l1 and l2, comparing node values from the two list nodes. Append the smaller one to the result list. 
+    3. l1 and l2 are possible of different length. 
+       In this case, append what is left in the longer linked list to the result list.
 '''
 
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
 
-# Recursive
+
+# Solution 1: Recursive
 class Solution:
     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
-        if not l1:
-            return l2
-        
-        if not l2:
-            return l1
+        if None in (l1, l2):
+            return l1 or l2
         
         if l1.val < l2.val:
             l1.next = self.mergeTwoLists(l1.next, l2)
@@ -36,25 +36,33 @@ class Solution:
             l2.next = self.mergeTwoLists(l1, l2.next)
             return l2
 
-# Iterative
+
+# Solution 2: Iterative
 class Solution:
     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
         # Pythonic way to check the empty linked lists
         if None in (l1, l2):
             return l1 or l2
 
-        cur = sentinel = ListNode(-1)
+        sentinel = walk = ListNode(-1)
 
         while l1 and l2:
             if l1.val < l2.val:
-                cur.next = l1
+                walk.next = l1
                 l1 = l1.next
             else:
-                cur.next = l2
+                walk.next = l2
                 l2 = l2.next
-            cur = cur.next
 
-        # This is pythonic! 
-        cur.next = l1 or l2
+            # Remember to move walking pointer forward 
+            walk = walk.next
+
+        # This is Pythonic! 
+        walk.next = l1 or l2
+        # Compare to the following
+        # if l1:
+        #     walk.next = l1
+        # if l2:
+        #     walk.next = l2
 
         return sentinel.next
