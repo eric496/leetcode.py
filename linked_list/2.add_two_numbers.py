@@ -40,27 +40,21 @@ class Solution:
         carry = 0
         
         while l1 or l2:
-            while l1 and l2:
+            if l1 and l2:
                 sum_ = l1.val + l2.val + carry
                 walk.next = ListNode(sum_%10)
                 carry = sum_ // 10
-                walk = walk.next
-                l1 = l1.next
-                l2 = l2.next
-            
-            while l1:
+                walk, l1, l2 = walk.next, l1.next, l2.next
+            elif l1:
                 sum_ = l1.val + carry
                 walk.next = ListNode(sum_%10)
                 carry = sum_ // 10
-                walk = walk.next
-                l1 = l1.next
-                
-            while l2:
+                walk, l1 = walk.next, l1.next
+            elif l2:
                 sum_ = l2.val + carry
                 walk.next = ListNode(sum_%10)
                 carry = sum_ // 10
-                walk = walk.next
-                l2 = l2.next
+                walk, l2 = walk.next, l2.next
                 
         if carry:
             walk.next = ListNode(carry)
@@ -80,9 +74,11 @@ class Solution:
             if l1:
                 sum_ += l1.val
                 l1 = l1.next
+            
             if l2:
                 sum_ += l2.val
                 l2 = l2.next
+            
             walk.next = ListNode(sum_%10)
             sum_ //= 10
             walk = walk.next

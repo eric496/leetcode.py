@@ -10,20 +10,25 @@ Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
 Output: 7 -> 8 -> 0 -> 7
 """
 
+class ListNode:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
+
 # Solution 1
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        if None in (l1, l2):
-            return l1 or l2
-
+        # Reverse two linked lists
         rev1, rev2 = self.reverseList(l1), self.reverseList(l2)
-        carry = 0
         sentinel = walk = ListNode(None)
+        carry = 0
 
         while rev1 or rev2:
             if rev1 and rev2:
-                walk.next = ListNode((rev1.val+rev2.val+carry)%10)
-                carry = (rev1.val+rev2.val+carry) // 10
+                sum_ = rev1.val+rev2.val+carry
+                walk.next = ListNode(sum_%10)
+                carry = sum_ // 10
                 walk, rev1, rev2 = walk.next, rev1.next, rev2.next
             elif rev1:
                 walk.next = ListNode((rev1.val+carry)%10)
@@ -51,4 +56,95 @@ class Solution:
 
         return prev
 
-# Follow up
+
+# Solution 2: More concise
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        rev1, rev2 = self.reverse(l1), self.reverse(l2)
+        sentinel = walk = ListNode(None)
+        sum_ = 0
+        
+        while rev1 or rev2 or sum_:
+            if rev1:
+                sum_ += rev1.val
+                rev1 = rev1.next
+            
+            if rev2:
+                sum_ += rev2.val
+                rev2 = rev2.next
+                
+            walk.next = ListNode(sum_%10)
+            sum_ //= 10
+            walk = walk.next
+        
+        return self.reverse(sentinel.next)
+        
+        
+    def reverse(self, head: ListNode) -> ListNode:
+        prev, cur = None, head
+        
+        while cur:
+            nxt = cur.next
+            cur.next = prev
+            prev = cur
+            cur = nxt
+        
+        return prev
+
+
+# Follow up: Use stack
+# Solution 1: Use 3 stacks
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        stk1, stk2, stk3 = [], [], []
+        
+        while l1:
+            stk1.append(l1)
+            l1 = l1.next
+        
+        while l2:
+            stk2.append(l2)
+            l2 = l2.next
+        
+        sum_ = 0
+        
+        while stk1 or stk2 or sum_:
+            sum_ += stk1.pop().val if stk1 else 0
+            sum_ += stk2.pop().val if stk2 else 0
+            stk3.append(sum_%10)
+            sum_ //= 10
+            
+        sentinel = walk = ListNode(None)
+        
+        while stk3:
+            walk.next = ListNode(stk3.pop())
+            walk = walk.next
+        
+        return sentinel.next
+
+
+# Solution 2: Use 2 stacks, swap nodes on the fly
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        stk1, stk2 = [], []
+        
+        while l1:
+            stk1.append(l1)
+            l1 = l1.next
+        
+        while l2:
+            stk2.append(l2)
+            l2 = l2.next
+        
+        sum_ = 0
+        walk = None
+        
+        while stk1 or stk2 or sum_:
+            sum_ += stk1.pop().val if stk1 else 0
+            sum_ += stk2.pop().val if stk2 else 0
+            head = ListNode(sum_%10)
+            head.next = walk
+            walk = head
+            sum_ //= 10
+            
+        return head
