@@ -59,7 +59,7 @@ class Solution(object):
 # Solution 2: Floyd's algorithm for cycle detection
 # O(n) TC; O(1) SC
 class Solution(object):
-    def detectCycle(self, head):
+    def detectCycle(self, head: ListNode) -> ListNode:
         slow = fast = head
         
         while fast and fast.next:
