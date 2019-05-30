@@ -10,6 +10,12 @@ Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
 Output: 7 -> 8 -> 0 -> 7
 """
 
+"""
+Thought process:
+    Reverse the input lists, add up each place, and reverse the result list.
+    Follow up: use 2 stacks to store input list nodes, pop the stacks and add up node values.
+"""
+
 class ListNode:
     def __init__(self, val):
         self.val = val
