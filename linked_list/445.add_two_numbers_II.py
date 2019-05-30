@@ -16,6 +16,7 @@ Thought process:
     Follow up: use 2 stacks to store input list nodes, pop the stacks and add up node values.
 """
 
+# Definition for singly-linked list.
 class ListNode:
     def __init__(self, val):
         self.val = val

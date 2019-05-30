@@ -12,27 +12,31 @@ Follow up:
 Could you do this in one pass?
 """
 
+"""
+Thought process:
+    One-pass approach: use two pointers, let the first move forward by n+1 nodes, then let both move simultaneouly. 
+                       When the first pointer reach the tail, the second is at the node right before the n-th from the end. 
+"""
+
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
 
 class Solution:
     def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
         sentinel = walk1 = walk2 = ListNode(-1)
         sentinel.next = head
-        walk1.next = head
-        walk2.next = head
+        walk1.next = walk2.next = sentinel
 
         for _ in range(n+1):
             walk1 = walk1.next
 
         while walk1:
-            walk1 = walk1.next
-            walk2 = walk2.next
+            walk1, walk2 = walk1.next, walk2.next
 
         walk2.next = walk2.next.next
 
         return sentinel.next
-
