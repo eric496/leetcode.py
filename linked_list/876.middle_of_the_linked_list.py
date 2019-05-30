@@ -19,11 +19,34 @@ The number of nodes in the given list will be between 1 and 100.
 '''
 
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
+
+# Solution 1
+class Solution:
+    def middleNode(self, head: ListNode) -> ListNode:
+        if not head:
+            return head
+        
+        sentinel = slow = fast = ListNode(None)
+        sentinel.next = head
+        
+        while fast and fast.next:
+            slow, fast = slow.next, fast.next.next
+        
+        # If there is even number of nodes, the fast pointer will point to the last node.
+        # Since we need to return the second middle node, the slow pointer needs to move one node forward.
+        # On the other hand, if there is odd number of nodes, the fast pointer will point to the tail (None).
+        if fast:
+            slow = slow.next
+        
+        return slow
+
+
+# Solution 2
 class Solution:
     def middleNode(self, head: ListNode) -> ListNode:
         slow = fast = ListNode(-1)
@@ -35,3 +58,4 @@ class Solution:
             fast = fast.next.next
         
         return slow.next
+        
