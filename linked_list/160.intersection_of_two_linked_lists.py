@@ -33,7 +33,7 @@ class ListNode(object):
 
 
 class Solution(object):
-    def getIntersectionNode(self, h1, h2):
+    def getIntersectionNode(self, h1: ListNode, h2: ListNode) -> ListNode:
         walk1, walk2 = h1, h2
         len1 = len2 = 0
         
@@ -65,3 +65,4 @@ class Solution(object):
                 walk1, walk2 = walk1.next, walk2.next
         
         return None
+        
