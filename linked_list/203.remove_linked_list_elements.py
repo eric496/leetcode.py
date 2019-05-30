@@ -19,6 +19,7 @@ class ListNode:
         self.next = None
 
 
+# Solution 1
 class Solution:
     def removeElements(self, head: ListNode, val: int) -> ListNode:        
         sentinel = walk = ListNode(None)
@@ -31,3 +32,19 @@ class Solution:
                 walk = walk.next
         
         return sentinel.next
+
+
+# Solution 2
+class Solution:
+    def removeElements(self, head: ListNode, val: int) -> ListNode:
+        sentinel = walk = ListNode(None)
+        sentinel.next = head
+        
+        while walk:
+            while walk.next and walk.next.val == val:
+                walk.next = walk.next.next
+            
+            walk = walk.next
+        
+        return sentinel.next
+        

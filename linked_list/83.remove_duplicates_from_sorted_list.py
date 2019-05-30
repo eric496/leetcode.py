@@ -13,7 +13,7 @@ Output: 1->2->3
 '''
 Thought process:
     1. Compare the current node value with the next node value, skip the next node if their values are equal.
-    2. No need to use sentinel, because they head node will never be changed.
+    2. No need to use sentinel, because the head node will never be changed.
 '''
 
 # Definition for singly-linked list.
@@ -49,4 +49,3 @@ class Solution:
                 walk = walk.next
         
         return head
-        
