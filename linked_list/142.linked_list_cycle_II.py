@@ -22,22 +22,26 @@ Follow up:
 Can you solve it without using extra space?
 """
 
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+"""
+Thought process:
+    Solution 1: Use a set to track all visited nodes, once we find an already visited node, it is the entry node of the cycle.
+                Since `in` operation for set in constant time, time complexity is O(n).
 
-# O(n^2) TC, O(n) SC
+    Solution 2: Floyd's algorithm for cycle detection.
+                Find graph explanations here: https://stackoverflow.com/questions/2936213/explain-how-finding-cycle-start-node-in-cycle-linked-list-work
+"""
+
+# Definition for singly-linked list.
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+
+# Solution 1: Use a set
+# O(n) TC; O(n) SC
 class Solution(object):
-    def detectCycle(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
-        if not head or not head.next:
-            return None
-        
+    def detectCycle(self, head: ListNode) -> ListNode:
         seen = set()
         walk = head
         
@@ -46,8 +50,29 @@ class Solution(object):
                 return walk
             else:
                 seen.add(walk)
+
             walk = walk.next
             
         return None
 
-# O(n) TC, O(1) SC
+
+# Solution 2: Floyd's algorithm for cycle detection
+# O(n) TC; O(1) SC
+class Solution(object):
+    def detectCycle(self, head):
+        slow = fast = head
+        
+        while fast and fast.next:
+            slow, fast = slow.next, fast.next.next
+            if slow is fast:
+                break
+        
+        # If there is cycle, fast and fast.next should not be null
+        if fast and fast.next:
+            slow = head
+            while slow is not fast:
+                slow, fast = slow.next, fast.next
+            return slow
+        # There is no cycle
+        else:
+            return None
