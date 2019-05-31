@@ -7,32 +7,37 @@ Input: head = 1->4->3->2->5->2, x = 3
 Output: 1->2->2->4->3->5
 """
 
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+"""
+Thought process:
+    1. Create two linked lists. Traverse the input linked list, append smaller values to the first linked list, greater or equal values to the second.
+    2. Stitch the two linked lists. 
+    3. VERY IMPORTANT: terminate the second linked list with a null pointer to avoid loitering. 
+"""
 
-# O(n) TC and O(n) SC
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
+
+# Solution 1: O(n) TC; O(n) SC
 class Solution:
     def partition(self, head: ListNode, x: int) -> ListNode:
-        before, after = ListNode(0), ListNode(0)
-        walk_before, walk_after = before, after
-        walk = head
+        first_half_sentinel, second_half_sentinel = ListNode(0), ListNode(0)
+        first_walk, second_walk = first_half_sentinel, second_half_sentinel
         
-        while walk:
-            if walk.val < x:
-                walk_before.next = walk
-                walk_before = walk_before.next
+        while head:
+            if head.val < x:
+                first_walk.next = head
+                first_walk = first_walk.next
             else:
-                walk_after.next = walk
-                walk_after = walk_after.next
-            walk = walk.next
+                second_walk.next = head
+                second_walk = second_walk.next
+            head = head.next
         
-        walk_before.next = after.next
-        walk_after.next = None
+        first_walk.next = second_half_sentinel.next
+        # End the linked list with a null pointer
+        second_walk.next = None
         
-        return before.next
-
-# In-place solution
-
+        return first_half_sentinel.next
