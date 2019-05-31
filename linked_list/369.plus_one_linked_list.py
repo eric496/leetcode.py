@@ -9,12 +9,14 @@ Output: [1,2,4]
 """
 
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
 
-# Solution 1: O(n) TC and O(n) SC
+
+# Solution 1: Use stack
+# O(n) TC; O(n) SC
 class Solution:
     def plusOne(self, head: ListNode) -> ListNode:
         stk1 = []
@@ -43,10 +45,45 @@ class Solution:
         
         return sentinel.next
 
-# Solution 2: O(n) TC and O(1) SC
+
+# Solution 2: Linked list reversal
+# O(n) TC; O(1) SC
 class Solution:
     def plusOne(self, head: ListNode) -> ListNode:
-        sentinel = ListNode(0)
+        rev = self.reverse(head)
+        sentinel = walk = ListNode(None)
+        sentinel.next = head 
+        carry = 1
+        
+        while rev:
+            sum_ = carry + rev.val
+            walk.next = ListNode(sum_%10)
+            carry = sum_ // 10
+            walk, rev = walk.next, rev.next
+            
+        if carry:
+            walk.next = ListNode(carry)
+            
+        return self.reverse(sentinel.next)
+            
+        
+    def reverse(self, head: ListNode) -> ListNode:
+        prev, cur = None, head
+        
+        while cur:
+            nxt = cur.next
+            cur.next = prev
+            prev = cur
+            cur = nxt
+            
+        return prev
+
+
+# Solution 3: Check if the last digit is 9
+# O(n) TC; O(1) SC
+class Solution:
+    def plusOne(self, head: ListNode) -> ListNode:
+        sentinel = ListNode(None)
         sentinel.next = head
         last_not_nine = sentinel
         walk = head
