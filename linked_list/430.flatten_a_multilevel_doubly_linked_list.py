@@ -4,7 +4,7 @@ Flatten the list so that all the nodes appear in a single-level, doubly linked l
 """
 
 # Definition for a Node.
-class Node:
+class ListNode:
     def __init__(self, val, prev, next, child):
         self.val = val
         self.prev = prev
@@ -14,7 +14,7 @@ class Node:
 
 # Solution 1: DFS
 class Solution:
-    def flatten(self, head: 'Node') -> 'Node':
+    def flatten(self, head: ListNode) -> ListNode:
         walk = head
         
         while walk:
@@ -35,15 +35,15 @@ class Solution:
         
         return head
 
+
 # Solution 2: Stack
 class Solution:
-    def flatten(self, head: 'Node') -> 'Node':
+    def flatten(self, head: ListNode) -> ListNode:
         if not head:
             return head
         
-        sentinel = Node(0, None, head, None)
-        stk = []
-        stk.append(head)
+        sentinel = ListNode(0, None, head, None)
+        stk = [head]
         prev = sentinel
         
         while stk:
