@@ -28,11 +28,8 @@ class ListNode:
 # Solution 1
 class Solution:
     def middleNode(self, head: ListNode) -> ListNode:
-        if not head:
-            return head
-        
-        sentinel = slow = fast = ListNode(None)
-        sentinel.next = head
+        slow = fast = ListNode(None)
+        slow.next = fast.next = head
         
         while fast and fast.next:
             slow, fast = slow.next, fast.next.next
@@ -49,9 +46,8 @@ class Solution:
 # Solution 2
 class Solution:
     def middleNode(self, head: ListNode) -> ListNode:
-        slow = fast = ListNode(-1)
-        slow.next = head
-        fast.next = head
+        slow = fast = ListNode(None)
+        slow.next = fast.next = head
         
         while fast and fast.next and fast.next.next:
             slow = slow.next
