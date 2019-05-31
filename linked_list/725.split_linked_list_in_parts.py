@@ -29,12 +29,50 @@ Each value of a node in the input will be an integer in the range [0, 999].
 k will be an integer in the range [1, 50].
 """
 
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+"""
+Thought process:
+    Hint: If there are N nodes in the list, and k parts, then every part has N/k elements, except the first N%k parts have an extra one.
+"""
 
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
+
+# Solution 1
+class Solution:
+    def splitListToParts(self, root: ListNode, k: int) -> List[ListNode]:
+        sentinel = walk = ListNode(None)
+        sentinel.next = root
+        n = 0
+        
+        while walk:
+            walk = walk.next
+            n += 1
+        
+        partitions = [n//k] * k
+        
+        for i in range(n%k-1):
+            partitions[i] += 1
+        
+        walk = sentinel
+        res = []
+        
+        for p in partitions:
+            cur = []
+            while p and walk.next:
+                walk = walk.next
+                cur.append(walk.val)
+                p -= 1
+            
+            res.append(cur)
+            
+        return res
+
+
+# Solution 2
 class Solution:
     def splitListToParts(self, root: ListNode, k: int) -> List[ListNode]:        
         walk = root
