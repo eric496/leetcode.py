@@ -26,20 +26,24 @@ The value of each node in the linked list will be in the range [0, N - 1].
 G is a subset of all values in the linked list.
 """
 
+"""
+Thought process:
+    Traverse the linked list, check if the current node value is in the set. If so, start a counter and keep counting till the end of the component.
+    Increment result by 1 when component ends, and clear up the counter.
+    IMPORTANT: If the counter has non-zero value after the loop, result should be incremented by 1, because the last component in the list is not counted in the loop.
+"""
+
 class Solution:
     def numComponents(self, head: ListNode, G: List[int]) -> int:
-        res = cur = 0
-        walk = head
         set_G = set(G)
+        res = cnt = 0
         
-        while walk:
-            if walk.val in set_G:
-                cur += 1
-            elif cur:
-                res += 1
-                cur = 0
-            walk = walk.next
+        while head:
+            if head.val in set_G:
+                cnt += 1
+            else:
+                res += 1 if cnt else 0
+                cnt = 0
+            head = head.next
             
-        res += 1 if cur else 0
-            
-        return res
+        return res+1 if cnt else res
