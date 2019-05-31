@@ -19,27 +19,71 @@ rotate 4 steps to the right: 2->0->1->NULL
 """
 
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
 
+
+# Solution 1: three-step reversal
+class Solution:
+    def rotateRight(self, head: ListNode, k: int) -> ListNode:
+        if not head or not head.next or not k:
+            return head
+        
+        sentinel = walk = ListNode(None)
+        sentinel.next = head
+        len_ = 0
+        
+        while walk and walk.next:
+            walk = walk.next
+            len_ += 1
+        
+        offset = len_ - k%len_
+        walk = sentinel
+        
+        for _ in range(offset):
+            walk = walk.next
+            
+        second_half_head = walk.next
+        walk.next = None
+        first_half_rev = self.reverse(sentinel.next)
+        second_half_rev = self.reverse(second_half_head)
+        sentinel.next.next = second_half_rev
+        
+        return self.reverse(first_half_rev)
+    
+    
+    def reverse(self, head: ListNode) -> ListNode:
+        prev, cur = None, head
+        
+        while cur:
+            nxt = cur.next
+            cur.next = prev
+            prev = cur
+            cur = nxt
+        
+        return prev
+
+
+# Solution 2
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
         # If the length of linked list is 0 or 1 or k == 0, directly return head
         if not head or not head.next or not k:
             return head
             
-        sentinel = ListNode(0)
+        sentinel = walk = ListNode(0)
         sentinel.next = head
-        walk = sentinel
         # Length of the linked list
         n = 0
         
+        # Don't miss walk.next, or it will overcount by 1
         while walk and walk.next:
             walk = walk.next
             n += 1
-                    
+        
+        # The length of the first half
         offset = n - k%n
         
         # The old head is the new head, no need to rotate
@@ -48,10 +92,9 @@ class Solution:
         
         walk = sentinel
         
-        while offset:
+        for _ in range(offset):
             walk = walk.next
-            offset -= 1
-        
+
         tail = walk 
 
         # New tail's next node is the new head
