@@ -22,7 +22,12 @@ All elements in nums1 and nums2 are unique.
 The length of both nums1 and nums2 would not exceed 1000.
 '''
 
-# Solution 1
+"""
+Thought process:
+    Use hashmap and stack
+"""
+
+# Solution 1: Brute force
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         res = []
@@ -40,4 +45,18 @@ class Solution:
         
         return res
 
-# Solution 2: O(n) TC
+
+# Solution 2: use stack
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        nxt = {n:-1 for n in nums1}
+        stk = []
+        
+        for n in nums2:
+            while stk and stk[-1] < n:
+                nxt[stk.pop()] = n
+            
+            if n in nxt:
+                stk.append(n)
+                
+        return [nxt[n] for n in nums1]
