@@ -35,7 +35,6 @@ class Solution:
     def findErrorNums(self, nums: List[int]) -> List[int]:
         freq = [0] * (len(nums)+1)
         dup = missing = -1
-        res = []
 
         for n in nums:
             freq[n] += 1
@@ -48,4 +47,3 @@ class Solution:
                 missing = n
                 
         return [dup, missing]
-        
