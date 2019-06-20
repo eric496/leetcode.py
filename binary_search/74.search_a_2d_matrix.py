@@ -25,6 +25,7 @@ target = 13
 Output: false
 """
 
+
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         if not matrix or not matrix[0]:
@@ -67,6 +68,7 @@ class Solution:
         # Need to compare with the high positioned element
         return True if search_row[high] == target else False
 
+
 # A more concise solution
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
@@ -77,7 +79,7 @@ class Solution:
         low, high = 0, m*n-1
         
         while low <= high:
-            mid = low + (high-low)//2
+            mid = low + ((high-low)>>2)
             num = matrix[mid//n][mid%n]
             
             if num == target:
