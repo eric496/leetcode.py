@@ -12,6 +12,7 @@ Input: [2,2,1,1,1,2,2]
 Output: 2
 '''
 
+
 # Solution 1: O(n) time and O(n) space by using a map
 class Solution:
     def majorityElement(self, nums: list) -> int:
@@ -26,6 +27,7 @@ class Solution:
         for k,v in count.items():
             if v > len(nums) // 2:
                 return k
+
 
 # Solution 2: Boyer-Moore majority vote algorithm
 class Solution:
@@ -42,7 +44,9 @@ class Solution:
         
         return maj
 
+
 # One liner
 class Solution:
     def majorityElement(self, nums: list) -> int:
         return sorted(nums)[len(nums)//2]
+        
