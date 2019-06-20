@@ -23,30 +23,20 @@ Do not use the eval built-in library function.
 class Solution:
     def calculate(self, s: str) -> int:
         stk, cur, op = [], 0, '+'
-        s += '+'
         
-        for ch in s:
-            if ch.isdigit():
-                cur = cur*10 + int(ch)
-                continue
+        for i in range(len(s)):
+            if s[i].isdigit():
+                cur = cur*10 + int(s[i])
             
-            if ch == ' ':
-                continue
+            if s[i] in '+-*/' or i == len(s)-1:
+                if op == '+':
+                    stk.append(cur)
+                elif op == '-':
+                    stk.append(-cur)
+                elif op == '*':
+                    stk.append(stk.pop()*cur)
+                elif op == '/':
+                    stk.append(int(stk.pop()/cur))
+                cur, op = 0, s[i]
                 
-            if op == '+':
-                stk.append(cur)
-            elif op == '-':
-                stk.append(-cur)
-            elif op == '*':
-                stk.append(stk.pop()*cur)
-            elif op == '/':
-                top = stk.pop()
-                if top > 0:
-                    stk.append(top//cur)
-                else:
-                    stk.append(-(-top//cur))
-            
-            op, cur = ch, 0
-            
         return sum(stk)
-        
