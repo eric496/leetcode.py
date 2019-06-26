@@ -35,3 +35,4 @@ class Solution:
                     
     def calc_area(self, p1: List[List[int]], p2: List[List[int]], p3: List[List[int]]) -> float:
         return 0.5*abs(p1[0]*(p2[1]-p3[1]) + p2[0]*(p3[1]-p1[1]) + p3[0]*(p1[1]-p2[1]))
+        
