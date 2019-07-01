@@ -5,13 +5,11 @@ The maze is represented by a binary 2D array. 1 means the wall and 0 means the e
 
 Example 1:
 Input 1: a maze represented by a 2D array
-
 0 0 1 0 0
 0 0 0 0 0
 0 0 0 1 0
 1 1 0 1 1
 0 0 0 0 0
-
 Input 2: start coordinate (rowStart, colStart) = (0, 4)
 Input 3: destination coordinate (rowDest, colDest) = (4, 4)
 Output: true
@@ -19,13 +17,11 @@ Explanation: One possible way is : left -> down -> left -> down -> right -> down
 
 Example 2:
 Input 1: a maze represented by a 2D array
-
 0 0 1 0 0
 0 0 0 0 0
 0 0 0 1 0
 1 1 0 1 1
 0 0 0 0 0
-
 Input 2: start coordinate (rowStart, colStart) = (0, 4)
 Input 3: destination coordinate (rowDest, colDest) = (3, 2)
 Output: false
@@ -38,3 +34,33 @@ The given maze does not contain border (like the red rectangle in the example pi
 The maze contains at least 2 empty spaces, and both the width and height of the maze won't exceed 100.
 """
 
+
+class Solution:
+    def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
+        q = [start]
+        m, n = len(maze), len(maze[0])
+        dirs = [(0,1), (0,-1), (1,0), (-1,0)]
+        
+        while q:
+            x, y = q.pop()
+            maze[x][y] = 2
+            
+            if x == destination[0] and y == destination[1]:
+                return True
+            
+            for dx, dy in dirs:
+                row = x + dx
+                col = y + dy
+                
+                while 0 <= row < m and 0 <= col < n and maze[row][col] != 1:
+                    row += dx
+                    col += dy
+                
+                row -= dx
+                col -= dy
+                
+                if maze[row][col] == 0:
+                    q.append([row, col])
+                    
+        return False
+        
