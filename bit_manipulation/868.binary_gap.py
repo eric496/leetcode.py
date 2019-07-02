@@ -39,19 +39,18 @@ Note:
 class Solution:
     def binaryGap(self, N: int) -> int:
         res = gap = 0
-        prev_one = False
+        seen_one = False
         
         while N:
             if N & 2 >> 1:
-                if prev_one:
+                if seen_one:
                     res = max(res, gap+1)
                     gap = 0
                 else:
-                    prev_one = True
-            elif prev_one:
+                    seen_one = True
+            elif seen_one:
                 gap += 1
             
             N >>= 1
         
         return res
-        
