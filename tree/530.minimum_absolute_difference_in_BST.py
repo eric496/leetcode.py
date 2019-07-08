@@ -24,6 +24,7 @@ class TreeNode:
         self.right = None
 
 
+# Solution 1: DFS
 class Solution:
 
     prev = float('-inf')
@@ -39,4 +40,25 @@ class Solution:
         self.getMinimumDifference(root.right)
         
         return self.res
+
+
+# Solution 2: Iterative
+class Solution:
+    def getMinimumDifference(self, root: TreeNode) -> int:
+        diff, stk, prev = float('inf'), [], None
+        
+        while stk or root:
+            while root:
+                stk.append(root)
+                root = root.left
+            
+            node = stk.pop()
+            
+            if prev:
+                diff = min(diff, abs(node.val-prev.val))
+                
+            prev = node
+            root = node.right
+            
+        return diff
         
