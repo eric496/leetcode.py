@@ -24,6 +24,11 @@ The given node will not be the tail and it will always be a valid node of the li
 Do not return anything from your function.
 '''
 
+"""
+Thought process:
+    Copy the data from the next node to the current node and remove the next node.
+"""
+
 # Definition for singly-linked list.
 class ListNode:
     def __init__(self, val):
@@ -33,5 +38,8 @@ class ListNode:
 
 class Solution:
     def deleteNode(self, node:ListNode) -> None:
-        node.val = node.next.val
-        node.next = node.next.next
+        if node.next:
+            node.val = node.next.val
+            node.next = node.next.next
+        else:
+            node = None
