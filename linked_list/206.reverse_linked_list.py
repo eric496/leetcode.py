@@ -13,7 +13,7 @@ A linked list can be reversed either iteratively or recursively. Could you imple
 Thought process:
     Use three pointers prev, cur, and nxt.
     Explanations: https://www.geeksforgeeks.org/reverse-a-linked-list/
-    Draw a graph will help a lot.
+    Draw a graph helps to understand the process.
 '''
 
 # Definition for singly-linked list.
@@ -60,5 +60,5 @@ class Solution:
             head = head.next
             cur.next = prev
             prev = cur
-            
+
         return cur
