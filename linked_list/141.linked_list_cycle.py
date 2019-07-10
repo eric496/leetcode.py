@@ -27,6 +27,8 @@ class Solution(object):
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
+            # This condition cannot be before the above two statements
+            # because we need to move before we compare, or they will always equal.
             if slow is fast:
                 return True
         
