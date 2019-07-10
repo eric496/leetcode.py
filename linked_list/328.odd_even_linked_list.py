@@ -29,21 +29,22 @@ class ListNode:
         self.val = x
         self.next = None
 
+
 class Solution:
     def oddEvenList(self, head: ListNode) -> ListNode:
         if not head or not head.next:
             return head
         
-        odd, even = head, head.next
-        even_head = even
+        odd_walk, even_walk = head, head.next
+        even_head = head.next
         
-        while even and even.next:
-            odd.next = odd.next.next
-            even.next = even.next.next
-            odd = odd.next
-            even = even.next
+        while even_walk and even_walk.next:
+            odd_walk.next = odd_walk.next.next
+            even_walk.next = even_walk.next.next
+            odd_walk = odd_walk.next
+            even_walk = even_walk.next
         
-        odd.next = even_head
+        odd_walk.next = even_head
     
         return head
     
