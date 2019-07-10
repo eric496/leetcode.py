@@ -54,8 +54,8 @@ class Codec:
             if val == 'X':
                 return None
             else:
-                node = TreeNode(val)
-                node.left = self.deserialize_dfs(q)
-                node.right = self.deserialize_dfs(q)
-                return node
+                root = TreeNode(int(val))
+                root.left = self.deserialize_dfs(q)
+                root.right = self.deserialize_dfs(q)
+                return root
                 
