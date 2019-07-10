@@ -29,6 +29,7 @@ class ListNode:
         self.val = x
         self.next = None
 
+
 # Solution 1
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
@@ -43,13 +44,13 @@ class Solution:
         if fast:
             slow = slow.next
         
-        second_half = self.reverse(slow)
+        second_head = self.reverse(slow)
         
-        while head and second_half:
-            if head.val != second_half.val:
+        while head and second_head:
+            if head.val != second_head.val:
                 return False
             head = head.next
-            second_half = second_half.next
+            second_head = second_head.next
         
         return True
         
