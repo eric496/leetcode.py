@@ -49,7 +49,7 @@ class Solution:
         if carry:
             walk.next = ListNode(carry)
 
-        return self.reverseList(sentinel.next)
+        return self.reverseList(sentinel.next)``
 
 
     def reverseList(self, head: ListNode) -> ListNode:
