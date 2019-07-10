@@ -35,7 +35,10 @@ class Codec:
     
 
     def deserialize(self, data: str) -> TreeNode:
-        q = deque(data.split('#'))
+        if not data:
+            return None
+            
+        q = deque([x for x in data.split('#') if x])
         return self.deserialize_dfs(q)
     
         
