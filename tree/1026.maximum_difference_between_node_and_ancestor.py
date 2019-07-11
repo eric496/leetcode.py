@@ -27,6 +27,7 @@ class TreeNode:
         self.right = None
 
 
+# Solution 1: DFS
 class Solution:
     def maxAncestorDiff(self, root: TreeNode) -> int:
         return self.dfs(root, root.val, root.val)
