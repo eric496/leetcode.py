@@ -25,7 +25,7 @@ Can you solve it without using extra space?
 """
 Thought process:
     Solution 1: Use a set to track all visited nodes, once we find an already visited node, it is the entry node of the cycle.
-                Since `in` operation for set in constant time, time complexity is O(n).
+                Since looking up values in set takes constant time, the time complexity is thus O(n).
 
     Solution 2: Floyd's algorithm for cycle detection.
                 Find graph explanations here: https://stackoverflow.com/questions/2936213/explain-how-finding-cycle-start-node-in-cycle-linked-list-work
