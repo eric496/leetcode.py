@@ -12,7 +12,7 @@ Output: 2
 Explanation: 13 = 4 + 9.
 """
 
-# TLE
+# DP: TLE
 class Solution:
     def numSquares(self, n: int) -> int:
         dp = [0] + [float('inf')] * n
@@ -26,5 +26,30 @@ class Solution:
 
         return dp[n]
 
-# BFS
 
+# BFS
+class Solution:
+    def numSquares(self, n: int) -> int:
+        q1, q2 = [0], []
+        level = 0
+        visited = [False] * (n+1)
+        
+        while 1:
+            level += 1
+            for val in q1:
+                i = 0
+                while 1:
+                    i += 1
+                    total = val + i**2
+                    if total == n:
+                        return level
+                    if total > n:
+                        break
+                    if visited[total]:
+                        continue
+                    q2.append(total)
+                    visited[total] = True
+            q1 = q2
+            q2 = []
+        
+        return 0
