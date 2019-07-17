@@ -35,4 +35,44 @@ A solution using O(n) space is pretty straight forward.
 Could you devise a constant space solution?
 """
 
+"""
+Thought process:
+   In-order traversal
+"""
 
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+class Solution:
+    first = second = None
+    prev = TreeNode(float('-inf'))
+    
+    def recoverTree(self, root: TreeNode) -> None:
+        self.dfs(root)
+        self.first.val, self.second.val = self.second.val, self.first.val
+        
+        
+    def dfs(self, root: TreeNode) -> None:
+        if not root:
+            return
+        
+        self.dfs(root.left)
+        
+        if not self.first and self.prev.val >= root.val:
+            self.first = self.prev
+            
+        if self.first and self.prev.val >= root.val:
+            self.second = root
+            
+        self.prev = root
+        
+        self.dfs(root.right)
+
+
+# Follow up: Morris traversal
