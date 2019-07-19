@@ -35,4 +35,9 @@ class Solution:
             
         return res
 
-# Solution 2: O(n) TC and O(n) SC using Queue
+
+# Solution 2: Heap
+
+
+
+# Solution 3: O(n) TC and O(n) SC using Queue
