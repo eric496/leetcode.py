@@ -22,6 +22,7 @@ Follow up:
 Could you solve it in linear time?
 """
 
+
 # Brute force solution: O(n^2) TC and O(1) SC
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
@@ -40,4 +41,4 @@ class Solution:
 
 
 
-# Solution 3: O(n) TC and O(n) SC using Queue
+# Solution 3: O(n) TC and O(n) SC using double-ended queue
