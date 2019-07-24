@@ -30,7 +30,7 @@ class Solution:
     def str2tree(self, s: str) -> TreeNode:
         stk, cur = [], ''
         
-        for i, ch in enumerate(s):
+        for ch in s:
             if ch.isdigit() or ch == '-':
                 cur += ch
             elif not cur:
@@ -48,4 +48,3 @@ class Solution:
                     stk.append(node)
                     
         return stk and stk[0] or (cur and TreeNode(int(cur))) or None
-        
