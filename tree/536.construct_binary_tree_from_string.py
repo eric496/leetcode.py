@@ -18,3 +18,34 @@ An empty tree is represented by "" instead of "()".
 """
 
 
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+class Solution:
+    def str2tree(self, s: str) -> TreeNode:
+        stk, cur = [], ''
+        
+        for i, ch in enumerate(s):
+            if ch.isdigit() or ch == '-':
+                cur += ch
+            elif not cur:
+                if ch == ')':
+                    stk.pop()
+            else:
+                node = TreeNode(int(cur))
+                if stk:
+                    if not stk[-1].left:
+                        stk[-1].left = node
+                    else:
+                        stk[-1].right = node
+                cur = ''
+                if ch == '(':
+                    stk.append(node)
+                    
+        return stk and stk[0] or (cur and TreeNode(int(cur))) or None
+        
