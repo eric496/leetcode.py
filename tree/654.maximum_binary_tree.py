@@ -21,12 +21,14 @@ Note:
 The size of the given array will be in the range [1,1000].
 """
 
+
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
 
 class Solution:
     def constructMaximumBinaryTree(self, nums: List[int]) -> TreeNode:
