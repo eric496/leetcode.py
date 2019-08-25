@@ -109,3 +109,22 @@ V will be in range [0, 2000].
 K will be in range [0, heights.length - 1].
 """
 
+
+class Solution:
+    def pourWater(self, heights: List[int], V: int, K: int) -> List[int]:
+        for i in range(V):
+            cur = K
+
+            while cur > 0 and heights[cur] >= heights[cur-1]:
+                cur -= 1
+
+            while cur < len(heights)-1 and heights[cur] >= heights[cur+1]:
+                cur += 1
+
+            while cur > K and heights[cur] >= heights[cur-1]:
+                cur -= 1
+
+            heights[cur] += 1
+
+        return heights
+
