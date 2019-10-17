@@ -79,7 +79,7 @@ class Solution:
         low, high = 0, m*n-1
         
         while low <= high:
-            mid = low + ((high-low)>>2)
+            mid = low + ((high-low)>>1)
             num = matrix[mid//n][mid%n]
             
             if num == target:

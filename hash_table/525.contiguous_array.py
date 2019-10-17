@@ -21,7 +21,7 @@ class Solution:
         
         for i,n in enumerate(nums, 1):
             cur = cur + 1 if n == 1 else cur - 1
-                
+            
             if cur in cnt:
                 res = max(res, i-cnt[cur])
             else:

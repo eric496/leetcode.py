@@ -10,9 +10,10 @@ Input: 21
 Output: -1
 """
 
+# Reference: 
 class Solution:
     def nextGreaterElement(self, n: int) -> int:
-        s = list(map(int, list(str(n))))
+        s = list(map(int, str(n)))
         
         for i in range(len(s)-1, 0, -1):
             if s[i-1] < s[i]:
@@ -29,4 +30,3 @@ class Solution:
         res = ''.join(str(ch) for ch in s)
         
         return int(res) if int(res) != n and int(res) < 2**31 else -1
-        

@@ -15,6 +15,13 @@ A, B have equal lengths in range [1, 100].
 A[i], B[i] are integers in range [0, 10^5].
 """
 
+"""
+Thought process:
+    Use a hashmap to store indices of elements in B. 
+    Since there are duplicates, so values of the hashmap should be lists. 
+    Loop through A and pop elements from the lists.
+"""
+
 class Solution:
     def anagramMappings(self, A: List[int], B: List[int]) -> List[int]:
         b_idx = {}

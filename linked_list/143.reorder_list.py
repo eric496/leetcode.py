@@ -52,4 +52,3 @@ class Solution:
             cur = nxt
         
         return prev
-        
