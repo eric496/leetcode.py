@@ -27,16 +27,16 @@ class ListNode:
 
 class Solution:
     def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
-        sentinel = walk1 = walk2 = ListNode(-1)
+        fast = slow = sentinel = ListNode(None)
         sentinel.next = head
-        walk1.next = walk2.next = sentinel
-
+        
         for _ in range(n+1):
-            walk1 = walk1.next
-
-        while walk1:
-            walk1, walk2 = walk1.next, walk2.next
-
-        walk2.next = walk2.next.next
-
+            fast = fast.next
+            
+        while fast:
+            slow = slow.next
+            fast = fast.next
+            
+        slow.next = slow.next.next
+        
         return sentinel.next
