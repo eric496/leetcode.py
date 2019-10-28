@@ -11,6 +11,12 @@ Input:
 Output: 1->1->2->3->4->4->5->6
 """
 
+"""
+Thought process:
+
+"""
+
+
 # Definition for singly-linked list.
 class ListNode:
     def __init__(self, x):
@@ -47,6 +53,7 @@ class Solution:
             else:
                 walk.next = ls2
                 ls2 = ls2.next
+                
             walk = walk.next
         
         walk.next = ls1 or ls2

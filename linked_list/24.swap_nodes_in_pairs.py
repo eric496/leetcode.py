@@ -20,9 +20,8 @@ class ListNode:
 
 class Solution:
     def swapPairs(self, head: ListNode) -> ListNode:
-        sentinel = ListNode(None)
+        sentinel = walk = ListNode(None)
         sentinel.next = head
-        walk = sentinel
         
         while walk.next and walk.next.next:
             first = walk.next

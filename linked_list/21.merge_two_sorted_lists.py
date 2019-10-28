@@ -10,10 +10,9 @@ Output: 1->1->2->3->4->4
 '''
 Thought:
     1. Use a sentinel node to track the head of the result list;
-       Use a walking pointer to build the result linked list by appending new list node.
-    2. Traverse l1 and l2, comparing node values from the two list nodes. Append the smaller one to the result list. 
+    2. Traverse l1 and l2, comparing node values from the two list nodes. Append the smaller one to the walking pointer. 
     3. l1 and l2 are possible of different length. 
-       In this case, append what is left in the longer linked list to the result list.
+       In this case, append what is left in the longer linked list to the walking pointer.
 '''
 
 # Definition for singly-linked list.
@@ -38,6 +37,32 @@ class Solution:
 
 
 # Solution 2: Iterative
+# First version
+class Solution:
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        sentinel = walk = ListNode(None)
+        
+        while l1 or l2:
+            if l1 and l2:
+                if l1.val < l2.val:
+                    walk.next = l1
+                    l1 = l1.next
+                else:
+                    walk.next = l2
+                    l2 = l2.next
+            elif l1:
+                walk.next = l1
+                break
+            elif l2:
+                walk.next = l2
+                break
+                
+            walk = walk.next
+            
+        return sentinel.next
+
+
+# Second version
 class Solution:
     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
         # Pythonic way to check the empty linked lists
