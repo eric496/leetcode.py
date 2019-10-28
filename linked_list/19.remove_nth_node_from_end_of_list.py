@@ -14,8 +14,12 @@ Could you do this in one pass?
 
 """
 Thought process:
-    One-pass approach: use two pointers, let the first move forward by n+1 nodes, then let both move simultaneouly. 
-                       When the first pointer reach the tail, the second is at the node right before the n-th from the end. 
+    One-pass approach: 
+        use two pointers, let the fast pointer move forward by n+1 nodes, then let both pointers move at the same pace. 
+        When the fast pointer reaches the tail, the slow pointer is pointing to the predecessor of the n-th node from the end.
+        Why the fast pointer moves by n+1 steps instead of n?
+        - In order to remove the n-th node from the end, we need to let the slow pointer stops and points to the predecessor of the n-th node, 
+          which is the (n-1)th node. 
 """
 
 # Definition for singly-linked list.
