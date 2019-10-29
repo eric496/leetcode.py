@@ -25,6 +25,9 @@ class ListNode:
 
 class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+
         walk = head
 
         while walk:
@@ -40,6 +43,9 @@ class Solution:
 # Solution 2
 class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+            
         walk = head
         
         while walk and walk.next:
