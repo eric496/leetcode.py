@@ -10,10 +10,9 @@ Output: 1->4->3->2->5->NULL
 
 """
 Thought process:
-    1. Move the prev pointer to the node right before the m-th node.
-    2. Reverse the list of length (n-m+1): walk over an example it should be more clear.
-    3. Keep track of the prev node before reversion and the tail node after the reversion.
-    4. Stitch the forehead + reversed list + tail of the linked list to get the result.
+    1. Traverse the linked list to find the node before the m-th node.
+    2. Reverse the linked list from the m-th to the n-th node (total of n-m+1 nodes).
+    4. Stitch the forehead + reversed part + tail of the linked list to get outcome.
 """
 
 # Definition for singly-linked list.
@@ -26,24 +25,30 @@ class ListNode:
 # Solution 1
 class Solution:
     def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
-        sentinel = ListNode(None)
+        sentinel = prev = ListNode(None)
         sentinel.next = head
-        prev = sentinel
         
         for _ in range(m-1):
             prev = prev.next
         
+        # cur will be the tail node after reversal
         cur = prev.next
-        before, after = prev, cur
+        # The linked list is divided into three parts: before m, m to n, and after n.
+        # prev_tail is the tail node of the first part, rev_tail is the tail of the second part.
+        # We keep track of these two tails to stitch the linked list after reversal.
+        prev_tail, rev_tail = prev, cur
         
+        # Reverse from m-th to n-th nodes (a total of n-m+1 nodes)
         for _ in range(n-m+1):
             nxt = cur.next
             cur.next = prev
             prev = cur
             cur = nxt
-            
-        before.next = prev
-        after.next = cur
+        
+        # After the reversal, prev is pointing at the head of second part, and cur is pointing at the head of the third part
+        # Stitch the linked list in the correct order: sentinel.next -> prev_tail -> prev -> rev_tail -> cur -> the original tail
+        prev_tail.next = prev
+        rev_tail.next = cur
         
         return sentinel.next
 
