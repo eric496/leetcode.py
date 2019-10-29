@@ -26,13 +26,13 @@ class ListNode:
 # Solution 1: Iterative (Explanations: https://www.geeksforgeeks.org/reverse-a-linked-list/)
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
-        prev, cur = None, head
+        prev = None
 
-        while cur:
-            nxt = cur.next
-            cur.next = prev
-            prev = cur 
-            cur = nxt
+        while head:
+            nxt = head.next
+            head.next = prev
+            prev = head 
+            head = nxt
         
         return prev
 
@@ -40,25 +40,14 @@ class Solution:
 # Solution 2: Recursive 
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
-        if not head or not head.next:
-            return head
+        return self.reverse(head, None)
         
-        ptr = self.reverseList(head.next)
-        head.next.next = head
-        head.next = None
         
-        return ptr
-
-
-# Solution 3: Another iterative approach
-class Solution:
-    def reverseList(self, head: ListNode) -> ListNode:
-        cur = prev = None
-
-        while head:
-            cur = head
-            head = head.next
-            cur.next = prev
-            prev = cur
-
-        return cur
+    def reverse(self, cur: ListNode, prev: ListNode) -> ListNode:
+        if not cur:
+            return prev
+        
+        nxt = cur.next
+        cur.next = prev
+        
+        return self.reverse(nxt, cur)

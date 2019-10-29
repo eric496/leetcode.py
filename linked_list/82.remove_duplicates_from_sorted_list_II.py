@@ -12,11 +12,11 @@ Output: 2->3
 
 """
 Thought process:
-    1. Use a pointer to track the previous node of the current node.
-    2. Traverse the linked list, there are 2 possible conditions:
-            1) The node value is unique, then the inner walking pointer does not move. We just move prev and walk pointers one step forward.
-            2) There are duplicate values, and the inner walking pointer will skip all the duplicate values and only keep the first node with duplicate value. 
-               In thi case, we need to prev pointer's next to point to walking pointer's next so that the first node with duplicate value will be skpped as well.
+    1. Use a pointer to track the predecessor of the current node.
+    2. Traverse the linked list, there are 2 possible conditions for each node:
+            1) The node value is unique, then the inner while loop does not execute. We just move prev and walk pointers one step forward.
+            2) There are duplicate values, and the inner while loop will skip all the duplicate values and only keep the first node with duplicate value. 
+               In this case, we need to prev pointer's next to point to walking pointer's next so that the first node with duplicate value will be skpped as well.
 """
 
 # Definition for singly-linked list.
@@ -25,8 +25,12 @@ class ListNode:
         self.val = val
         self.next = None
 
+
 class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+        
         sentinel = walk = ListNode(None)
         sentinel.next = head
         prev = sentinel
@@ -36,8 +40,12 @@ class Solution:
             while walk.next and walk.val == walk.next.val:
                 walk = walk.next
             
+            # Walking pointer didn't move which means it is a unique node
+            # So just move prev pointer to point to this unique node
             if prev.next is walk:
                 prev = prev.next
+            # Walking pointer actually moved which means there are duplicate nodes
+            # Let the prev pointer's next pointer point to walking pointer's next node (skip all duplicates)
             else:
                 prev.next = walk.next
                 

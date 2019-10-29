@@ -24,20 +24,21 @@ class ListNode:
 # Solution 1: O(n) TC; O(n) SC
 class Solution:
     def partition(self, head: ListNode, x: int) -> ListNode:
-        first_half_sentinel, second_half_sentinel = ListNode(0), ListNode(0)
-        first_walk, second_walk = first_half_sentinel, second_half_sentinel
+        small_sentinel = small_walk = ListNode(None)
+        large_sentinel = large_walk = ListNode(None)
         
         while head:
             if head.val < x:
-                first_walk.next = head
-                first_walk = first_walk.next
+                small_walk.next = head
+                small_walk = small_walk.next
             else:
-                second_walk.next = head
-                second_walk = second_walk.next
+                large_walk.next = head
+                large_walk = large_walk.next
+            
             head = head.next
         
-        first_walk.next = second_half_sentinel.next
-        # End the linked list with a null pointer
-        second_walk.next = None
+        small_walk.next = large_sentinel.next
+        # End the linked list with null to avoid loitering
+        large_walk.next = None
         
-        return first_half_sentinel.next
+        return small_sentinel.next

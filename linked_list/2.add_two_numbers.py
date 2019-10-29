@@ -35,8 +35,7 @@ class ListNode:
 # Solution 1
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        sentinel = ListNode(None)
-        walk = sentinel
+        sentinel = walk = ListNode(None)
         carry = 0
         
         while l1 or l2:
