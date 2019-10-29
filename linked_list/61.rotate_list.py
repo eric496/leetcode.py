@@ -28,30 +28,33 @@ class ListNode:
 # Solution 1: three-step reversal
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
-        if not head or not head.next or not k:
+        if not head or not head.next:
             return head
         
         sentinel = walk = ListNode(None)
         sentinel.next = head
-        len_ = 0
+        length = 0
         
         while walk and walk.next:
             walk = walk.next
-            len_ += 1
+            length += 1
         
-        offset = len_ - k%len_
+        if k % length == 0:
+            return head
+
         walk = sentinel
-        
+        offset = length - k%length
+
         for _ in range(offset):
             walk = walk.next
             
-        second_half_head = walk.next
+        new_head = walk.next
         walk.next = None
-        first_half_rev = self.reverse(sentinel.next)
-        second_half_rev = self.reverse(second_half_head)
-        sentinel.next.next = second_half_rev
-        
-        return self.reverse(first_half_rev)
+        first_partition_rev = self.reverse(sentinel.next)
+        second_partition_rev = self.reverse(new_head)
+        sentinel.next.next = second_partition_rev
+
+        return self.reverse(first_partition_rev)
     
     
     def reverse(self, head: ListNode) -> ListNode:
@@ -84,7 +87,7 @@ class Solution:
             walk = walk.next
         
         # No rotation occurs if k is multiples of the length of the linked list
-        if k%length == 0:
+        if k % length == 0:
             return head
 
         # Reset the walking pointer to dummyhead for another round of traversal to find the new tail
