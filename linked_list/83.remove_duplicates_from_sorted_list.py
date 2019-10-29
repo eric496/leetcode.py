@@ -45,11 +45,11 @@ class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
         if not head or not head.next:
             return head
-            
+
         walk = head
         
-        while walk and walk.next:
-            if walk.val == walk.next.val:
+        while walk:
+            if walk.next and walk.val == walk.next.val:
                 walk.next = walk.next.next
             else:
                 walk = walk.next
