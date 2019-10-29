@@ -69,48 +69,44 @@ class Solution:
 # Solution 2
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
-        # If the length of linked list is 0 or 1 or k == 0, directly return head
-        if not head or not head.next or not k:
+        # Directly return head node if head is null or head is the only node
+        if not head or not head.next:
             return head
             
-        sentinel = walk = ListNode(0)
+        sentinel = walk = ListNode(None)
         sentinel.next = head
-        # Length of the linked list
-        n = 0
+        length = 0
         
-        # Don't miss walk.next, or it will overcount by 1
-        while walk and walk.next:
+        # Count the length of the linked list
+        # Start from the dummy head, so count stops at the node previous to the last node
+        while walk.next:
+            length += 1
             walk = walk.next
-            n += 1
         
-        # The length of the first half
-        offset = n - k%n
-        
-        # The old head is the new head, no need to rotate
-        if offset == n:
+        # No rotation occurs if k is multiples of the length of the linked list
+        if k%length == 0:
             return head
-        
+
+        # Reset the walking pointer to dummyhead for another round of traversal to find the new tail
         walk = sentinel
+        # Offset is the steps that needs to traverse to find the new tail
+        offset = length - k%length
         
+        # Walking pointer is now the new tail
         for _ in range(offset):
             walk = walk.next
-
-        tail = walk 
-
+    
         # New tail's next node is the new head
-        if walk and walk.next:
-            walk = walk.next
+        # Initialize a new walking pointer to traverse the remaining nodes
+        new_head = new_walk = walk.next
+        # Set new tail's next to be null
+        walk.next = None
         
-        new_head = walk
-
-        # Set tail node's next to null
-        tail.next = None
-        
-        # Keep going until reaching the last node
-        while walk and walk.next:
-            walk = walk.next
-        
-        # The last node's next is the old head 
-        walk.next = sentinel.next
+        # Traverse the remaining nodes 
+        while new_walk.next:
+            new_walk = new_walk.next
+            
+        # Connect the old tail to the old head
+        new_walk.next = sentinel.next
         
         return new_head
