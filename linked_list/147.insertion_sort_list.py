@@ -22,7 +22,7 @@ class ListNode:
         self.next = None
 
 
-# Solution 1        
+# Solution 1: TLE        
 class Solution:
     def insertionSortList(self, head: ListNode) -> ListNode:
         sentinel = ListNode(None)
