@@ -25,9 +25,9 @@ Can you solve it without using extra space?
 """
 Thought process:
     Solution 1: Use a set to track all visited nodes, once we find an already visited node, it is the entry node of the cycle.
-                Since looking up values in set takes constant time, the time complexity is thus O(n).
+                Since looking up values in set takes constant time, the time complexity is thus O(n), the space time complexity is O(n).
 
-    Solution 2: Floyd's algorithm for cycle detection.
+    Follow up : Floyd's algorithm for cycle detection.
                 Find graph explanations here: https://stackoverflow.com/questions/2936213/explain-how-finding-cycle-start-node-in-cycle-linked-list-work
 """
 
@@ -39,7 +39,8 @@ class ListNode(object):
 
 
 # Solution 1: Use a set
-# O(n) TC; O(n) SC
+# Time complexity: O(n)
+# Space complexity: O(n)
 class Solution(object):
     def detectCycle(self, head: ListNode) -> ListNode:
         seen = set()
@@ -56,8 +57,9 @@ class Solution(object):
         return None
 
 
-# Solution 2: Floyd's algorithm for cycle detection
-# O(n) TC; O(1) SC
+# Follow up: Floyd's algorithm for cycle detection
+# Time complexity: O(n)
+# Space complexity: O(1)
 class Solution(object):
     def detectCycle(self, head: ListNode) -> ListNode:
         slow = fast = head
