@@ -8,6 +8,14 @@ Given 1->2->3->4, reorder it to 1->4->2->3.
 
 Example 2:
 Given 1->2->3->4->5, reorder it to 1->5->2->4->3.
+
+Note: Do not use extra space, modify linked list in place.
+"""
+
+"""
+Thought process:
+    1. Partition the linked list by middle node, reverse the second partition
+    2. Swap the nodes iteratively (draw a graph to understand this, walk through an example helps)
 """
 
 # Definition for singly-linked list.
@@ -24,7 +32,6 @@ class Solution:
 
         slow = fast = ListNode(None)
         slow.next = head
-        fast.next = head
         
         while fast and fast.next:
             slow = slow.next
@@ -43,12 +50,12 @@ class Solution:
 
 
     def reverse(self, head: ListNode) -> ListNode:
-        prev, cur = None, head
+        prev = None
         
-        while cur:
-            nxt = cur.next
-            cur.next= prev
-            prev = cur
-            cur = nxt
+        while head:
+            nxt = head.next
+            head.next= prev
+            prev = head
+            head = nxt
         
         return prev
