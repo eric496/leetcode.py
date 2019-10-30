@@ -13,18 +13,28 @@ One possible answer is: [0,-3,9,-10,null,5], which represents the following heig
  -10  5
 """
 
+"""
+Thought process:
+    Use two pointers to find the middle node:
+    a slow pointer which travels one step forward each time, and a fast pointer which travels two steps.
+    Recursively build the tree using the middle node as the root node, 
+    Build the left sub tree using the nodes before the middle node, and the right sub tree using the nodes following the middle node.
+"""
+
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
 
 class Solution:
     def sortedListToBST(self, head: ListNode) -> TreeNode:
@@ -34,8 +44,7 @@ class Solution:
         if not head.next:
             return TreeNode(head.val)
         
-        slow = head
-        fast = head
+        slow = fast = head
         prev = None
         
         while fast and fast.next:
@@ -43,6 +52,7 @@ class Solution:
             slow = slow.next
             fast = fast.next.next
         
+        # IMPORTANT: Cut and terminate the linked list to avoid loitering
         prev.next = None
         root = TreeNode(slow.val)
         root.left = self.sortedListToBST(head)
