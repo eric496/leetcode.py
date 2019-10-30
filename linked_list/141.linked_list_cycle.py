@@ -7,10 +7,11 @@ Can you solve it without using extra space?
 
 '''
 Thought process:
-    Classic tortoise and hare problem: use two pointers slow and fast. 
-    Slow pointer moves one step at each iteration, while fast moves two.
-    If there is a cycle, the fast pointer will inevitably surpass the slow when they've both entered the cycle.
-    Otherwise the fast will reach the end of the linked list and we should return False.
+    Classic tortoise and hare problem: use two pointers a slow and a fast. 
+        The slow pointer moves one step at each iteration, while the fast moves two.
+        There are two conditions: 
+            1) The fast pointer meets the slow pointer -> there is a cycle
+            2) The fast pointer reaches the end of the linked list before meeting the slow pointer -> there is no cycle
 '''
 
 # Definition for singly-linked list.
@@ -27,8 +28,7 @@ class Solution(object):
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-            # This condition cannot be before the above two statements
-            # because we need to move before we compare, or they will always equal.
+            # slow and fast both point at the head node, so compare equality after they move.
             if slow is fast:
                 return True
         
