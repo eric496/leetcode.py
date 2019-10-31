@@ -16,11 +16,11 @@ Could you do it in O(n) time and O(1) space?
 
 '''
 Thought process:
-    1. Use a slow and fast pointers to find the mid node of the linked list
+    1. Use a slow and fast pointers to find the middle node of the linked list
     2. Reverse the second half of the linked list 
     3. Compare the node values one by one
-    Note: the mid node should be skipped (neither include in the first nor second half of the linked list)
-          if there is an odd number of nodes.
+    Note: the middle node should be skipped (neither include in the first nor second half of the linked list)
+          if the number of nodes is odd.
 '''
 
 # Definition for singly-linked list.
@@ -33,36 +33,38 @@ class ListNode:
 # Solution 1
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
-        slow = fast = head
+        if not head or not head.next:
+            return True
+        
+        slow = fast = head 
         
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        
-        # If there is an odd number of nodes, 
-        # then the second half needs to skip the mid node of the list 
+            
         if fast:
             slow = slow.next
+            
+        new_head = self.reverse(slow)
         
-        second_head = self.reverse(slow)
-        
-        while head and second_head:
-            if head.val != second_head.val:
+        while head and new_head:
+            if head.val != new_head.val:
                 return False
-            head = head.next
-            second_head = second_head.next
-        
+            else:
+                head = head.next
+                new_head = new_head.next
+            
         return True
         
-            
-    def reverse(self, head: ListNode) -> ListNode:
-        prev, cur = None, head
         
-        while cur:
-            nxt = cur.next
-            cur.next = prev
-            prev = cur
-            cur = nxt
+    def reverse(self, head: ListNode) -> ListNode:
+        prev = None
+        
+        while head:
+            nxt = head.next
+            head.next = prev
+            prev = head
+            head = nxt
         
         return prev
         

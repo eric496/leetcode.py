@@ -48,3 +48,21 @@ class Solution:
         
         return sentinel.next
         
+
+# Solution 3
+class Solution:
+    def removeElements(self, head: ListNode, val: int) -> ListNode:
+        sentinel = walk = ListNode(None)
+        sentinel.next = head
+        
+        while walk:
+            prev = walk
+            
+            while walk.next and walk.next.val == val:
+                walk = walk.next
+            
+            prev.next = walk.next
+            walk = walk.next
+        
+        return sentinel.next
+        
