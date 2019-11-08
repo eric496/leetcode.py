@@ -10,13 +10,18 @@ return [0, 1].
 
 '''
 Thought:
-    Use a map with (target - each number in nums) as keys, and their indices as values. In a for loop, check if the current element exists in keys. If it does, then return its value and the current index. If not, add the new key-value to the map.
+    Use a map with (target - each number in nums) as keys, and their indices as values. 
+    In a for loop, check if the current element exists in keys. 
+    If it does, then return its value and the current index. 
+    If not, add the new key-value to the map.
 '''
 
 class Solution:
     def twoSum(self, nums: list, target: int) -> list:
         count = {}
+        
         for i, n in enumerate(nums):
             if n in count:
                 return [count[n], i]
+
             count[target-n] = i
