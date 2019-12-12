@@ -35,16 +35,16 @@ class Solution:
         if not head or not head.next:
             return head
         
-        odd_walk, even_walk = head, head.next
-        even_head = head.next
+        odd = head
+        even = even_head = head.next
         
-        while even_walk and even_walk.next:
-            odd_walk.next = odd_walk.next.next
-            even_walk.next = even_walk.next.next
-            odd_walk = odd_walk.next
-            even_walk = even_walk.next
+        while even and even.next:
+            odd.next = odd.next.next
+            even.next = even.next.next
+            odd = odd.next
+            even = even.next
         
-        odd_walk.next = even_head
-    
+        odd.next = even_head
+        
         return head
-    
+        
