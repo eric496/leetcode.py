@@ -27,7 +27,8 @@ class Solution:
         if not head or not head.next:
             return head
         
-        prev, slow, fast = None, head, head
+        slow = fast = head
+        prev = None
         
         while fast and fast.next:
             prev = slow
@@ -35,23 +36,23 @@ class Solution:
             fast = fast.next.next
         
         prev.next = None
-        l1 = self.sortList(head)
-        l2 = self.sortList(slow)
+        left = self.sortList(head)
+        right = self.sortList(slow)
         
-        return self.merge(l1, l2)
+        return self.merge(left, right)
     
-    
-    def merge(self, l1: ListNode, l2: ListNode) -> ListNode:        
-        sentinel = walk = ListNode(None)
+    def merge(self, left: ListNode, right: ListNode) -> None:
+        sentinel = walk = ListNode(-1)
         
-        while l1 and l2:
-            if l1.val < l2.val:
-                walk.next = l1
-                l1 = l1.next
+        while left and right:
+            if left.val < right.val:
+                walk.next = left
+                left = left.next
             else:
-                walk.next = l2
-                l2 = l2.next
-                  
-        walk.next = l1 or l2
+                walk.next = right
+                right = right.next
+            walk = walk.next
+            
+        walk.next = left or right
         
         return sentinel.next
