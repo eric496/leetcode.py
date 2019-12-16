@@ -37,6 +37,7 @@ class ListNode:
         self.next = None
 
 
+# Solution 1: reverse the linked list and add up bit by bit
 class Solution:
     def getDecimalValue(self, head: ListNode) -> int:
         head = self.reverse(head)
@@ -60,4 +61,16 @@ class Solution:
             head = nxt
         
         return prev
+    
+
+# Solution 2: no need to reverse the linked list, add up bit by bit
+class Solution:
+    def getDecimalValue(self, head: ListNode) -> int:
+        res = 0
+        
+        while head:
+            res = res*2 + head.val
+            head = head.next
+        
+        return res
     
