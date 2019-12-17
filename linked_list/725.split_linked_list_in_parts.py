@@ -41,63 +41,29 @@ class ListNode:
         self.next = None
 
 
-# Solution 1
 class Solution:
     def splitListToParts(self, root: ListNode, k: int) -> List[ListNode]:
-        sentinel = walk = ListNode(None)
-        sentinel.next = root
+        walk = root
         n = 0
         
         while walk:
             walk = walk.next
             n += 1
         
-        partitions = [n//k] * k
+        div, mod = divmod(n, k)
+        partitions = [div+1]*mod + [div]*(k-mod) 
         
-        for i in range(n%k-1):
-            partitions[i] += 1
-        
-        walk = sentinel
+        prev, cur = None, root
         res = []
         
         for p in partitions:
-            cur = []
-            while p and walk.next:
-                walk = walk.next
-                cur.append(walk.val)
-                p -= 1
+            if prev:
+                prev.next = None
             
             res.append(cur)
             
-        return res
-
-
-# Solution 2
-class Solution:
-    def splitListToParts(self, root: ListNode, k: int) -> List[ListNode]:        
-        walk = root
-        cnt = 0
-        
-        while walk:
-            cnt += 1
-            walk = walk.next
-        
-        chunk_size, num_longer_chunks = divmod(cnt, k)
-        partitions = [chunk_size+1] * num_longer_chunks + [chunk_size] * (k-num_longer_chunks)
-        res = [None] * k
-        walk = root
-        part_h = walk
-        
-        for i, part in enumerate(partitions):
-            for j in range(part):
-                if j == part-1:
-                    res[i] = part_h
-                    nxt = walk.next
-                    walk.next = None
-                    walk = nxt
-                    part_h = nxt
-                else:
-                    walk = walk.next
-        
+            for _ in range(p):
+                prev, cur = cur, cur.next
+            
         return res
         
