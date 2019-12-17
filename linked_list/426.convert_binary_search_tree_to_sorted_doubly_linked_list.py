@@ -4,35 +4,64 @@ We want to transform this BST into a circular doubly linked list. Each node in a
 Specifically, we want to do the transformation in place. After the transformation, the left pointer of the tree node should point to its predecessor, and the right pointer should point to its successor. We should return the pointer to the first element of the linked list.
 """
 
-"""
+
 # Definition for a Node.
 class Node:
     def __init__(self, val, left, right):
         self.val = val
         self.left = left
         self.right = right
-"""
+
 
 class Solution:
     def treeToDoublyList(self, root: 'Node') -> 'Node':
         if not root:
             return root
         
-        dummy = Node(0, None, None)
-        stk, node, prev = [], root, dummy
+        head = Node(0, None, None)
+        stk, walk, prev = [], root, head
         
-        while stk or node:
-            while node:
-                stk.append(node)
-                node = node.left
+        while stk or walk:
+            while walk:
+                stk.append(walk)
+                walk = walk.left
             
-            node = stk.pop()
-            node.left = prev
-            prev.right = node
-            prev = node
-            node = node.right
+            walk = stk.pop()
+            walk.left = prev
+            prev.right = walk
+            prev = walk
+            walk = walk.right
         
-        dummy.right.left = prev
-        prev.right = dummy.right
+        head.right.left = prev
+        prev.right = head.right
         
-        return dummy.right
+        return head.right
+
+
+# Solution 2: divide and conquer
+class Solution:
+    def treeToDoublyList(self, root: 'Node') -> 'Node':
+        if not root:
+            return root
+        
+        left = self.treeToDoublyList(root.left)
+        right = self.treeToDoublyList(root.right)
+        root.left = root
+        root.right = root
+        
+        return self.buildLink(self.buildLink(left, root), right)
+    
+    
+    def buildLink(self, n1: 'Node', n2: 'Node') -> 'Node':
+        if None in (n1, n2):
+            return n1 or n2
+        
+        t1 = n1.left
+        t2 = n2.left
+        t1.right = n2
+        n2.left = t1
+        t2.right = n1
+        n1.left = t2
+        
+        return n1
+        
