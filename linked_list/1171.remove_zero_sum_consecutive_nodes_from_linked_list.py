@@ -31,23 +31,23 @@ class ListNode:
 
 class Solution:
     def removeZeroSumSublists(self, head: ListNode) -> ListNode:
-        dummy = walk = ListNode(0)
-        dummy.next = head
-        accsum = 0
-        order = [accsum]
+        sentinel = walk = ListNode(None)
+        sentinel.next = head
+        cumsum = 0
+        order = [cumsum]
         seen = {}
         
         while walk:
-            accsum += walk.val
-            order.append(accsum)
-            if accsum not in seen:
-                seen[accsum] = walk
+            cumsum += walk.val
+            order.append(cumsum)
+            if cumsum not in seen:
+                seen[cumsum] = walk
             else:
-                seen[accsum].next = walk.next
+                seen[cumsum].next = walk.next
                 order.pop()
-                while order[-1] != accsum:
+                while order[-1] != cumsum:
                     seen.pop(order.pop())
             walk = walk.next
         
-        return dummy.next
+        return sentinel.next
         

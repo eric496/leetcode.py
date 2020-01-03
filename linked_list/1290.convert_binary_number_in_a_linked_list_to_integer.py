@@ -73,4 +73,16 @@ class Solution:
             head = head.next
         
         return res
-    
+
+
+# Solution 3: bit manipulation
+class Solution:
+    def getDecimalValue(self, head: ListNode) -> int:
+        res = 0
+        
+        while head:
+            res <<= 1
+            res |= head.val
+            head = head.next
+            
+        return res
