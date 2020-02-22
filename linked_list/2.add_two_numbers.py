@@ -35,29 +35,30 @@ class ListNode:
 # Solution 1
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        sentinel = walk = ListNode(None)
+        sentinel = walk = ListNode(-1)
         carry = 0
         
         while l1 or l2:
             if l1 and l2:
                 sum_ = l1.val + l2.val + carry
                 walk.next = ListNode(sum_%10)
-                carry = sum_ // 10
-                walk, l1, l2 = walk.next, l1.next, l2.next
+                l1 = l1.next
+                l2 = l2.next
             elif l1:
                 sum_ = l1.val + carry
                 walk.next = ListNode(sum_%10)
-                carry = sum_ // 10
-                walk, l1 = walk.next, l1.next
+                l1 = l1.next
             elif l2:
                 sum_ = l2.val + carry
                 walk.next = ListNode(sum_%10)
-                carry = sum_ // 10
-                walk, l2 = walk.next, l2.next
+                l2 = l2.next
                 
+            carry = sum_ // 10
+            walk = walk.next
+            
         if carry:
             walk.next = ListNode(carry)
-            
+        
         return sentinel.next
                 
 
