@@ -31,9 +31,8 @@ class Solution:
         if not head or not head.next:
             return head
         
-        sentinel = walk = ListNode(None)
-        sentinel.next = head
-        prev = sentinel
+        sentinel = prev = ListNode(None)
+        sentinel.next = walk = head
         
         while walk:
             # Don't forget to check walk.next
