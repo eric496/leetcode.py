@@ -11,7 +11,7 @@ Output: 1->2->2->4->3->5
 Thought process:
     1. Create two linked lists. Traverse the input linked list, append smaller values to the first linked list, greater or equal values to the second.
     2. Stitch the two linked lists. 
-    3. VERY IMPORTANT: terminate the second linked list with a null pointer to avoid loitering. 
+    3. VERY IMPORTANT: terminate the second linked list with a null pointer to avoid loitering (because the new tail node might not be the original tail node.)
 """
 
 # Definition for singly-linked list.
@@ -24,21 +24,20 @@ class ListNode:
 # Solution 1: O(n) TC; O(n) SC
 class Solution:
     def partition(self, head: ListNode, x: int) -> ListNode:
-        small_sentinel = small_walk = ListNode(None)
-        large_sentinel = large_walk = ListNode(None)
+        sentinel1 = walk1 = ListNode(None)
+        sentinel2 = walk2 = ListNode(None)
         
         while head:
             if head.val < x:
-                small_walk.next = head
-                small_walk = small_walk.next
+                walk1.next = head
+                walk1 = walk1.next
             else:
-                large_walk.next = head
-                large_walk = large_walk.next
+                walk2.next = head
+                walk2 = walk2.next
             
             head = head.next
         
-        small_walk.next = large_sentinel.next
-        # End the linked list with null to avoid loitering
-        large_walk.next = None
+        walk1.next = sentinel2.next
+        walk2.next = None
         
-        return small_sentinel.next
+        return sentinel1.next
