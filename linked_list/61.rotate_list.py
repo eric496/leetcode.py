@@ -72,44 +72,31 @@ class Solution:
 # Solution 2
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
-        # Directly return head node if head is null or head is the only node
         if not head or not head.next:
             return head
-            
-        sentinel = walk = ListNode(None)
-        sentinel.next = head
-        length = 0
         
-        # Count the length of the linked list
-        # Start from the dummy head, so count stops at the node previous to the last node
-        while walk.next:
-            length += 1
-            walk = walk.next
+        walk, n = head, 0
         
-        # No rotation occurs if k is multiples of the length of the linked list
-        if k % length == 0:
+        while walk:
+            walk = walk.next 
+            n += 1
+                        
+        k %= n
+        
+        if not k:
             return head
-
-        # Reset the walking pointer to dummyhead for another round of traversal to find the new tail
-        walk = sentinel
-        # Offset is the steps that needs to traverse to find the new tail
-        offset = length - k%length
         
-        # Walking pointer is now the new tail
-        for _ in range(offset):
+        walk = head
+        
+        for _ in range(n-k-1):
             walk = walk.next
-    
-        # New tail's next node is the new head
-        # Initialize a new walking pointer to traverse the remaining nodes
+        
         new_head = new_walk = walk.next
-        # Set new tail's next to be null
         walk.next = None
         
-        # Traverse the remaining nodes 
-        while new_walk.next:
+        while new_walk and new_walk.next:
             new_walk = new_walk.next
             
-        # Connect the old tail to the old head
-        new_walk.next = sentinel.next
+        new_walk.next = head
         
         return new_head
