@@ -32,11 +32,10 @@ class Solution:
             prev = prev.next
         
         # cur will be the tail node after reversal
-        cur = prev.next
         # The linked list is divided into three parts: before m, m to n, and after n.
         # prev_tail is the tail node of the first part, rev_tail is the tail of the second part.
         # We keep track of these two tails to stitch the linked list after reversal.
-        prev_tail, rev_tail = prev, cur
+        prev_tail, rev_tail, cur = prev, prev.next, prev.next
         
         # Reverse from m-th to n-th nodes (a total of n-m+1 nodes)
         for _ in range(n-m+1):
@@ -56,23 +55,22 @@ class Solution:
 # Solution 2
 class Solution:
     def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
-        sentinel = ListNode(-1)
+        sentinel = prev = ListNode(None)
         sentinel.next = head
-        prev = sentinel
         
         for _ in range(m-1):
             prev = prev.next
         
-        first, cur = None, prev.next
+        new_head, cur = None, prev.next
         
         for _ in range(n-m+1):
             nxt = cur.next
-            cur.next = first
-            first = cur
+            cur.next = new_head
+            new_head = cur
             cur = nxt
-        
+            
         prev.next.next = cur
-        prev.next = first
+        prev.next = new_head
         
         return sentinel.next
         
