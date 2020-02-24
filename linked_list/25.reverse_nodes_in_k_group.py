@@ -24,27 +24,25 @@ class Solution:
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
         walk, cnt = head, 0
         
-        while walk and cnt < k:
+        for _ in range(k):
+            if not walk:
+                return head
             walk = walk.next
-            cnt += 1
         
-        if cnt < k: 
-            return head
+        new_head = self.reverse(head, walk)
+        head.next = self.reverseKGroup(walk, k)
         
-        new_head, prev_tail = self.reverse(head, cnt)
-        head.next = self.reverseKGroup(new_head, k)
-        return prev_tail
-        
+        return new_head
     
-    def reverse(self, head: ListNode, cnt: int) -> tuple:
-        prev, cur = None, head
-
-        while cnt:
-            nxt = cur.next
-            cur.next = prev
-            prev = cur
-            cur = nxt
-            cnt -= 1
+    
+    def reverse(self, head: ListNode, tail: ListNode) -> ListNode:
+        prev = None
         
-        return cur, prev
+        while head is not tail:
+            nxt = head.next
+            head.next = prev
+            prev = head
+            head = nxt
+        
+        return prev
             

@@ -66,14 +66,15 @@ import heapq
 
 class Solution(object):
     def mergeKLists(self, lists):
-        pq = [(n.val, n) for n in lists if n]
+        pq = [(n.val, i, n) for i, n in enumerate(lists) if n]
         heapq.heapify(pq)
         sentinel = walk = ListNode(-1)
         
         while pq:
-            walk.next = heapq.heappop(pq)[1]
+            _, i, node = heapq.heappop(pq)
+            walk.next = node
             walk = walk.next
-            if walk.next:
-                heapq.heappush(pq, (walk.next.val, walk.next))
+            if node.next:
+                heapq.heappush(pq, (node.next.val, i, node.next))
         
         return sentinel.next
