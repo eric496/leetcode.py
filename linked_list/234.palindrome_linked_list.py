@@ -41,18 +41,19 @@ class Solution:
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-            
+
+        # If there is odd number of list nodes, they fast is not null
+        # And slow should move forward one node to point at the start of the mirror part    
         if fast:
             slow = slow.next
             
-        new_head = self.reverse(slow)
+        rev = self.reverse(slow)
         
-        while head and new_head:
-            if head.val != new_head.val:
+        while rev:
+            if head.val != rev.val:
                 return False
-            else:
-                head = head.next
-                new_head = new_head.next
+            head = head.next
+            rev = rev.next
             
         return True
         
