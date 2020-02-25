@@ -41,8 +41,9 @@ class Solution:
         
         return self.merge(left, right)
     
+
     def merge(self, left: ListNode, right: ListNode) -> None:
-        sentinel = walk = ListNode(-1)
+        sentinel = walk = ListNode(None)
         
         while left and right:
             if left.val < right.val:
