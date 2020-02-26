@@ -133,6 +133,45 @@ class Solution:
 # Solution 2: Use 2 stacks, swap nodes on the fly
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        stk1 = []
+        stk2 = []
+        
+        while l1:
+            stk1.append(l1.val)
+            l1 = l1.next
+        
+        while l2:
+            stk2.append(l2.val)
+            l2 = l2.next
+        
+        carry = 0
+        cur = nxt = None
+        
+        while stk1 or stk2:
+            sum_ = 0
+            
+            if stk1:
+                sum_ += stk1.pop()
+            
+            if stk2:
+                sum_ += stk2.pop()
+                
+            sum_ += carry
+            carry = sum_ // 10
+            cur = ListNode(sum_%10)
+            cur.next = nxt 
+            nxt = cur
+            
+        if carry:
+            cur = ListNode(carry)
+            cur.next = nxt
+            
+        return cur
+
+
+# Solution 2: More concise
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         stk1, stk2 = [], []
         
         while l1:
@@ -144,14 +183,14 @@ class Solution:
             l2 = l2.next
         
         sum_ = 0
-        walk = None
+        cur = nxt = None
         
         while stk1 or stk2 or sum_:
             sum_ += stk1.pop().val if stk1 else 0
             sum_ += stk2.pop().val if stk2 else 0
-            head = ListNode(sum_%10)
-            head.next = walk
-            walk = head
+            cur = ListNode(sum_%10)
+            cur.next = nxt
+            nxt = cur
             sum_ //= 10
             
-        return head
+        return cur
