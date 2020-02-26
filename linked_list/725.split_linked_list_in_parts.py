@@ -57,6 +57,7 @@ class Solution:
         res = []
         
         for p in partitions:
+            # Let the tail of the previous partition point to NULL
             if prev:
                 prev.next = None
             
