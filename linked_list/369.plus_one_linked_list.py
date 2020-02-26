@@ -52,7 +52,6 @@ class Solution:
     def plusOne(self, head: ListNode) -> ListNode:
         rev = self.reverse(head)
         sentinel = walk = ListNode(None)
-        sentinel.next = head 
         carry = 1
         
         while rev:
