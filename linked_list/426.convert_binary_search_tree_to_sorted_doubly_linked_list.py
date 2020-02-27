@@ -19,18 +19,17 @@ class Solution:
             return root
         
         head = Node(0, None, None)
-        stk, walk, prev = [], root, head
+        stk, cur, prev = [], root, head
         
-        while stk or walk:
-            while walk:
-                stk.append(walk)
-                walk = walk.left
-            
-            walk = stk.pop()
-            walk.left = prev
-            prev.right = walk
-            prev = walk
-            walk = walk.right
+        while stk or cur:
+            while cur:
+                stk.append(cur)
+                cur = cur.left
+            cur = stk.pop()
+            cur.left = prev
+            prev.right = cur
+            prev = cur
+            cur = cur.right
         
         head.right.left = prev
         prev.right = head.right
