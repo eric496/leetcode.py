@@ -4,35 +4,35 @@ If there are multiple suitable places for insertion, you may choose any place to
 If the list is empty (i.e., given node is null), you should create a new single cyclic list and return the reference to that single node. Otherwise, you should return the original given node.
 """
 
-"""
+
 # Definition for a Node.
 class Node:
     def __init__(self, val, next):
         self.val = val
         self.next = next
-"""
+
+
 class Solution:
-    def insert(self, head: 'Node', insertVal: int) -> 'Node':
-        node = Node(insertVal, head)
+    def insert(self, head: 'Node', val: int) -> 'Node':
+        insert_node = Node(val, head)
         
         if not head:
-            return node
+            # Given an empty list, the inserted node's next pointer should point to itself
+            insert_node.next = insert_node
+            return insert_node
         
-        walk = head
+        cur = head
         
         while 1:
-            if walk.val <= insertVal <= walk.next.val:
+            if cur.val <= val <= cur.next.val:
                 break
-            elif walk.val > walk.next.val and (insertVal > walk.val or insertVal < walk.next.val):
+            elif cur.val>cur.next.val and (val>=cur.val or val<=cur.next.val):
                 break
+            elif cur.next is head:
+                break        
+            cur = cur.next
             
-            walk = walk.next
-        
-            if walk is head:
-                break
-        
-        nxt = walk.next
-        walk.next = node
-        node.next = nxt
+        insert_node.next = cur.next
+        cur.next = insert_node
         
         return head
