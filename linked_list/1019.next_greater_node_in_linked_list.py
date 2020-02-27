@@ -21,11 +21,13 @@ Note:
 The given list has length in the range [0, 10000].
 """
 
+
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
 
 class Solution:
     def nextLargerNodes(self, head: ListNode) -> List[int]:

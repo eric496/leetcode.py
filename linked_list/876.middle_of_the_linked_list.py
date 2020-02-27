@@ -29,10 +29,11 @@ class ListNode:
 class Solution:
     def middleNode(self, head: ListNode) -> ListNode:
         slow = fast = ListNode(None)
-        slow.next = fast.next = head
+        slow.next = head
         
         while fast and fast.next:
-            slow, fast = slow.next, fast.next.next
+            slow = slow.next
+            fast = fast.next.next
         
         # If there is even number of nodes, the fast pointer will point to the last node.
         # Since we need to return the second middle node, the slow pointer needs to move one node forward.
@@ -40,6 +41,26 @@ class Solution:
         if fast:
             slow = slow.next
         
+        return slow
+
+
+# Solution 1: a variation
+class Solution:
+    def middleNode(self, head: ListNode) -> ListNode:
+        # # Since it is an non-empty list, we can remove the following code
+        # if not head or not head.next:
+        #     return head
+        
+        slow = head
+        fast = head.next
+        
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            
+        if fast:
+            slow = slow.next
+            
         return slow
 
 
