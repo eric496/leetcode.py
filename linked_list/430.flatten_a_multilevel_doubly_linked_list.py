@@ -42,25 +42,23 @@ class Solution:
         if not head:
             return head
         
-        sentinel = ListNode(0, None, head, None)
+        sentinel = prev = ListNode(None, None, head, None)
         stk = [head]
-        prev = sentinel
         
         while stk:
-            node = stk.pop()
-            node.prev = prev
-            prev.next = node
+            cur = stk.pop()
+            cur.prev = prev
+            prev.next = cur
+            prev = cur
             
-            if node.next:
-                stk.append(node.next)
-                node.next = None
-            
-            if node.child:
-                stk.append(node.child)
-                node.child = None
-            
-            prev = node
-        
+            if cur.next:
+                stk.append(cur.next)
+                cur.next = None
+                
+            if cur.child:
+                stk.append(cur.child)
+                cur.child = None
+                
         sentinel.next.prev = None
         
         return sentinel.next
