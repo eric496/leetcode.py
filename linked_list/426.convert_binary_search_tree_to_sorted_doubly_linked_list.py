@@ -18,23 +18,25 @@ class Solution:
         if not root:
             return root
         
-        head = Node(0, None, None)
-        stk, cur, prev = [], root, head
+        stk = []
+        sentinel = prev = Node(None, None, None)
+        sentinel.next = cur = root
         
         while stk or cur:
             while cur:
                 stk.append(cur)
                 cur = cur.left
+                
             cur = stk.pop()
             cur.left = prev
             prev.right = cur
             prev = cur
             cur = cur.right
+            
+        sentinel.right.left = prev
+        prev.right = sentinel.right
         
-        head.right.left = prev
-        prev.right = head.right
-        
-        return head.right
+        return sentinel.right
 
 
 # Solution 2: divide and conquer
