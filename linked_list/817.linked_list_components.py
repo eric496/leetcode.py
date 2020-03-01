@@ -35,11 +35,11 @@ Thought process:
 
 class Solution:
     def numComponents(self, head: ListNode, G: List[int]) -> int:
-        set_G = set(G)
+        lookup = set(G)
         res = cnt = 0
         
         while head:
-            if head.val in set_G:
+            if head.val in lookup:
                 cnt += 1
             else:
                 res += 1 if cnt else 0
