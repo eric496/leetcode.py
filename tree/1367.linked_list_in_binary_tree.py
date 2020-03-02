@@ -47,7 +47,7 @@ class Solution:
             target.append(str(head.val))
             head = head.next
         
-        target = ''.join(target)
+        target = '|'.join(target)
         
         return self.dfs(root, "", target)
     
@@ -60,5 +60,5 @@ class Solution:
         if not cur:
             return False
         
-        return self.dfs(cur.left, cur_path+str(cur.val), target) or self.dfs(cur.right, cur_path+str(cur.val), target) 
+        return self.dfs(cur.left, cur_path+str(cur.val)+"|", target) or self.dfs(cur.right, cur_path+str(cur.val)+"|", target) 
            
