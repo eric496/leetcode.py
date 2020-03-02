@@ -29,24 +29,50 @@ class ListNode:
         self.next = None
 
 
+# Solution 1: two passes
 class Solution:
     def removeZeroSumSublists(self, head: ListNode) -> ListNode:
-        sentinel = walk = ListNode(None)
+        sentinel = ListNode(0)
+        sentinel.next = head
+        seen = {0: sentinel}
+        cumsum = 0
+        
+        while head:
+            cumsum += head.val
+            seen[cumsum] = head
+            head = head.next
+            
+        head = sentinel
+        cumsum = 0
+        
+        while head:
+            cumsum += head.val
+            if cumsum in seen:
+                head.next = seen[cumsum].next
+            head = head.next
+        
+        return sentinel.next
+
+
+# Solution 2: one pass
+class Solution:
+    def removeZeroSumSublists(self, head: ListNode) -> ListNode:
+        sentinel = walk = ListNode(0)
         sentinel.next = head
         cumsum = 0
-        order = [cumsum]
+        cumsums = [0]
         seen = {}
         
         while walk:
             cumsum += walk.val
-            order.append(cumsum)
+            cumsums.append(cumsum)
             if cumsum not in seen:
                 seen[cumsum] = walk
             else:
                 seen[cumsum].next = walk.next
-                order.pop()
-                while order[-1] != cumsum:
-                    seen.pop(order.pop())
+                cumsums.pop()
+                while cumsums[-1] != cumsum:
+                    seen.pop(cumsums.pop())
             walk = walk.next
         
         return sentinel.next
