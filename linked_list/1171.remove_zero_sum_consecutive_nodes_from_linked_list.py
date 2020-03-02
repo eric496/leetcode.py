@@ -57,23 +57,23 @@ class Solution:
 # Solution 2: one pass
 class Solution:
     def removeZeroSumSublists(self, head: ListNode) -> ListNode:
-        sentinel = walk = ListNode(0)
+        sentinel = cur = ListNode(0)
         sentinel.next = head
         cumsum = 0
         cumsums = [0]
         seen = {}
         
-        while walk:
-            cumsum += walk.val
+        while cur:
+            cumsum += cur.val
             cumsums.append(cumsum)
             if cumsum not in seen:
-                seen[cumsum] = walk
+                seen[cumsum] = cur
             else:
-                seen[cumsum].next = walk.next
+                seen[cumsum].next = cur.next
                 cumsums.pop()
                 while cumsums[-1] != cumsum:
                     seen.pop(cumsums.pop())
-            walk = walk.next
+            cur = cur.next
         
         return sentinel.next
         
