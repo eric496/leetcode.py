@@ -63,13 +63,15 @@ class Solution:
 
         while queue:
             n1, n2 = queue.popleft()
+            
             if not n1 and not n2:
                 continue
-            elif None in (n1, n2):
+            
+            if None in (n1, n2):
                 return False
-            else:
-                if n1.val != n2.val:
-                    return False
+            
+            if n1.val != n2.val:
+                return False
                     
             queue.append((n1.left, n2.left))
             queue.append((n1.right, n2.right))
