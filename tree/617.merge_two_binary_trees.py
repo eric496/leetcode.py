@@ -23,27 +23,38 @@ Note: The merging process must start from the root nodes of both trees.
 """
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+# Solution 1: recursion
+class Solution:
+    def mergeTrees(self, t1: TreeNode, t2: TreeNode) -> TreeNode:
+        if None in (t1, t2):
+            return t1 or t2
+        
+        root = TreeNode(t1.val+t2.val)
+        root.left = self.mergeTrees(t1.left, t2.left)
+        root.right = self.mergeTrees(t1.right, t2.right)
+        
+        return root
+
+
+# Solution 2: iteration
+from collections import deque
 
 class Solution:
     def mergeTrees(self, t1: TreeNode, t2: TreeNode) -> TreeNode:
-        if not t1:
-            return t2
-        if not t2:
-            return t1
+        if None in (t1, t2):
+            return t1 or t2
 
-        root = ListNode(t1.val+t2.val)
+        q1, q2 = deque([t1]), deque([t2])
 
-        stk1, stk2 = [], []
-        stk1.append(t1)
-        stk2.append(t2)
-
-        while stk1 and stk2:
-            n1, n2 = stk1.pop(0), stk2.pop(0)
+        while q1 and q2:
+            n1, n2 = q1.popleft(), q2.popleft()
             if n1 and n2:
                 n1.val += n2.val
                 if n2.left and not n1.left:
@@ -56,9 +67,10 @@ class Solution:
                 # if n1.right and not n2.right:
                 #     n2.right = TreeNode(0)
 
-                stk1.append(n1.left)
-                stk1.append(n1.right)
-                stk2.append(n2.left)
-                stk2.append(n2.right)
+                q1.append(n1.left)
+                q1.append(n1.right)
+                q2.append(n2.left)
+                q2.append(n2.right)
 
         return t1
+            
