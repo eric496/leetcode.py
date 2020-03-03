@@ -24,13 +24,14 @@ class TreeNode(object):
         self.right = None
 
 
+# Solution 1: recursive
 from collections import deque
 
 class Codec:
 
     def serialize(self, root: TreeNode) -> str:
         res = []
-        self.serialize_dfs(root, res)
+        self.build_string(root, res)
         return ''.join(res)
     
 
@@ -38,27 +39,31 @@ class Codec:
         if not data:
             return None
             
-        q = deque([x for x in data.split('#') if x])
-        return self.deserialize_dfs(q)
+        q = deque([x for x in data.split('#')])
+        return self.build_tree(q)
     
         
-    def serialize_dfs(self, root: TreeNode, res: List[str]) -> None:
+    def build_string(self, root: TreeNode, res: List[str]) -> None:
         if root:
-            res.append(str(root.val)+'#')
-            self.serialize_dfs(root.left, res)
-            self.serialize_dfs(root.right, res)
+            res.append(str(root.val))
+            res.append('#')
+            self.build_string(root.left, res)
+            self.build_string(root.right, res)
         else:
-            res.append('X#')
+            res.append('X')
+            res.append('#')
             
     
-    def deserialize_dfs(self, q) -> TreeNode:
+    def build_tree(self, q) -> TreeNode:
         if q:
             val = q.popleft()
             if val == 'X':
                 return None
             else:
                 root = TreeNode(int(val))
-                root.left = self.deserialize_dfs(q)
-                root.right = self.deserialize_dfs(q)
+                root.left = self.build_tree(q)
+                root.right = self.build_tree(q)
                 return root
                 
+
+# Solution 2: iterative
