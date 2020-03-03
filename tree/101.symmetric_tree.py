@@ -20,31 +20,53 @@ Bonus points if you could solve it both recursively and iteratively.
 '''
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
+
+# Solution 1: recursive
+class Solution:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+    
+        return self.dfs(root.left, root.right)
+    
+    
+    def dfs(self, left: TreeNode, right: TreeNode) -> bool:
+        if not left and not right:
+            return True
+        
+        if None in (left, right): 
+            return False
+        
+        if left.val != right.val:
+            return False
+        
+        return self.dfs(left.left, right.right) and self.dfs(left.right, right.left)
+
+
+# Solution 2: iterative
 class Solution:
     def isSymmetric(self, root: TreeNode) -> bool:
         if not root:
             return True
         
-        q = [root]
+        stk = [(root.left, root.right)]
         
-        while q:
-            res = [node.val if node else None for node in q]
-            if res != res[::-1]:
+        while stk:
+            n1, n2 = stk.pop()
+            if not n1 and not n2:
+                continue
+            if None in (n1, n2):
                 return False
-
-            level = []
+            if n1.val != n2.val:
+                return False
             
-            for node in q:
-                if node:
-                    level.append(node.left)
-                    level.append(node.right)
-            
-            q = level
+            stk.append((n1.left, n2.right))
+            stk.append((n1.right, n2.left))
         
         return True
