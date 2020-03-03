@@ -17,28 +17,14 @@ return its depth = 3.
 '''
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-# Recursive solution 1
-class Solution:
-    def maxDepth(self, root: TreeNode) -> int:
-        if not root:
-            return 0
-
-        return self.dfs(root)
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 
-    def dfs(self, node: TreeNode) -> int:
-        if not node:
-            return 0
-
-        return max(self.dfs(node.left), self.dfs(node.right)) + 1
-
-# Recursive solution 2
+# Solution 1: recursion
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:
         if not root:
@@ -46,11 +32,14 @@ class Solution:
 
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 
-# Iteratvie solution
+
+# Solution 2: iteration
+# Level order traversal
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:
         depth = 0
         level = [root] if root else []
+
         while level:
             depth += 1
             cur_level = []
@@ -60,4 +49,5 @@ class Solution:
                 if node.right:
                     cur_level.append(node.right)
             level = cur_level
+        
         return depth
