@@ -19,19 +19,25 @@ Output:
 9   6 3   1
 '''
 
+
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
 
 # Recursive solution
 class Solution:
     def invertTree(self, root:TreeNode) -> TreeNode:
-        if root:
-            root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
+        if not root:
             return root
+        
+        root.left, root.right = self.invertTree(root.right), self.invertTree(root.left) 
+
+        return root
+
 
 # Iterative solution
 class Solution:
@@ -39,8 +45,7 @@ class Solution:
         if not root:
             return root
 
-        stk = []
-        stk.append(root)
+        stk = [root]
 
         while stk:
             node = stk.pop()
@@ -50,6 +55,5 @@ class Solution:
                 stk.append(node.left)
             if node.right:
                 stk.append(node.right)
-
 
         return root
