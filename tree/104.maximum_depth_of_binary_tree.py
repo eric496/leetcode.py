@@ -24,7 +24,20 @@ class TreeNode:
         self.right = None
 
 
-# Solution 1: recursion
+# Solution 1: recursive
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        return self.dfs(root, 0)
+        
+        
+    def dfs(self, node: TreeNode, cur_h: int) -> int:
+        if not node:
+            return cur_h
+        
+        return max(self.dfs(node.left, cur_h+1), self.dfs(node.right, cur_h+1))
+
+
+# Solution 1: more concise
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:
         if not root:
@@ -33,21 +46,26 @@ class Solution:
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 
 
-# Solution 2: iteration
-# Level order traversal
+# Solution 2: iterative - level order traversal
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:
-        depth = 0
-        level = [root] if root else []
-
-        while level:
-            depth += 1
-            cur_level = []
-            for node in level:
-                if node.left:
-                    cur_level.append(node.left)
-                if node.right:
-                    cur_level.append(node.right)
-            level = cur_level
+        if not root:
+            return 0
         
+        depth, q = 0, [root]
+
+        while q:
+            depth += 1
+            level = []
+
+            for _ in range(len(q)):
+                node = q.pop()
+
+                if node.left:
+                    level.append(node.left)
+                if node.right:
+                    level.append(node.right)
+        
+            q = level
+            
         return depth
