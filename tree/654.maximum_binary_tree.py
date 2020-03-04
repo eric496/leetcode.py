@@ -66,4 +66,3 @@ class Solution:
         root.right = self.construct(nums, max_idx+1, end, lookup)
         
         return root
-        
