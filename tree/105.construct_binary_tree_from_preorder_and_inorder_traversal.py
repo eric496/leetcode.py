@@ -27,35 +27,37 @@ class TreeNode:
 # DFS 
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
-        if not inorder:
+        return self.build(0, 0, len(inorder)-1, preorder, inorder)
+        
+        
+    def build(self, prestart: int, instart: int, inend: int, preorder: List[int], inorder: List[int]) -> TreeNode:
+        if prestart > len(preorder)-1 or instart > inend:
             return None
         
-        root = TreeNode(preorder.pop(0))
-        idx = inorder.index(root.val)
-        root.left = self.buildTree(preorder, inorder[:idx])
-        root.right = self.buildTree(preorder, inorder[idx+1:])
+        idx = inorder.index(preorder[prestart])
+        root = TreeNode(preorder[prestart])
+        root.left = self.build(prestart+1, instart, idx-1, preorder, inorder)
+        root.right = self.build(prestart+idx-instart+1, idx+1, inend, preorder, inorder)
         
         return root
 
 
-# Improved
-from collections import deque
-
+# Improved 
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
-        preorder = deque(preorder)
+        lookup = {n:i for i,n in enumerate(inorder)}
         
-        return self.build(preorder, inorder)
-    
-    
-    def build(self, preorder: List[int], inorder: List[int]) -> TreeNode:
-        if not preorder or not inorder:
+        return self.build(0, 0, len(inorder)-1, preorder, inorder, lookup)
+        
+        
+    def build(self, prestart: int, instart: int, inend: int, preorder: List[int], inorder: List[int], lookup: dict) -> TreeNode:
+        if prestart > len(preorder)-1 or instart > inend:
             return None
         
-        idx = inorder.index(preorder.popleft())
-        root = TreeNode(inorder[idx])
-        root.left = self.build(preorder, inorder[:idx])
-        root.right = self.build(preorder, inorder[idx+1:])
+        idx = lookup[preorder[prestart]]
+        root = TreeNode(preorder[prestart])
+        root.left = self.build(prestart+1, instart, idx-1, preorder, inorder, lookup)
+        root.right = self.build(prestart+idx-instart+1, idx+1, inend, preorder, inorder, lookup)
         
         return root
         
