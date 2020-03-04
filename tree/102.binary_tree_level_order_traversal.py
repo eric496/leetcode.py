@@ -16,37 +16,16 @@ return its level order traversal as:
 ]
 """
 
+
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-# Solution 1
-class Solution:
-    def levelOrder(self, root: TreeNode) -> List[List[int]]:
-        if not root:
-            return []
 
-        q, res = [root], []
-
-        while q:
-            level_q, level_res = [], []
-            for node in q:
-                if node.left:
-                    level_q.append(node.left)
-                if node.right:
-                    level_q.append(node.right)
-                level_res.append(node.val)
-            res.append(level_res)
-            q = level_q
-
-        return res
-
-# Solution 2
-# Improvements: 1) Use deque because popleft is O(1) time
-#               2) Count the level size so do not need extra level array
+# Solution 1: iterative by using a queue
 from collections import deque
 
 class Solution:
@@ -57,15 +36,38 @@ class Solution:
         q, res = deque([root]), []
 
         while q:
-            level, size = [], len(q)
-            for i in range(size):
+            level = []
+            
+            for _ in range(len(q)):
                 node = q.popleft()
                 level.append(node.val)
                 if node.left:
                     q.append(node.left)
                 if node.right:
                     q.append(node.right)
+            
             res.append(level)
 
         return res
 
+
+# Solution 2: recursive
+class Solution:
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        res = []
+        self.dfs(root, 0, res)
+        
+        return res
+        
+        
+    def dfs(self, node: TreeNode, height: int, res: List[List[int]]) -> None:
+        if not node:
+            return 
+        
+        if height >= len(res):
+            res.append([])
+            
+        res[height].append(node.val)
+        self.dfs(node.left, height+1, res)
+        self.dfs(node.right, height+1, res)
+        
