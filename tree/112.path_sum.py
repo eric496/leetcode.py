@@ -46,7 +46,7 @@ class Solution:
         return self.dfs(node.left, cur, target) or self.dfs(node.right, cur, target)
 
 
-# Solution 1: recursive - by decrement target value
+# Solution 1: recursive - by decrementing the target value
 class Solution:
     def hasPathSum(self, root: TreeNode, target: int) -> bool:
         if not root:
@@ -80,7 +80,7 @@ class Solution:
         return False
 
 
-# Solution 2: iterative - by decrement target value
+# Solution 2: iterative - by decrementing the target value
 class Solution:
     def hasPathSum(self, root: TreeNode, target: int) -> bool:
         stk = [(root, target)]
