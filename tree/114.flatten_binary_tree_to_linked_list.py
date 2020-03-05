@@ -2,14 +2,12 @@
 Given a binary tree, flatten it to a linked list in-place.
 
 For example, given the following tree:
-
     1
    / \
   2   5
  / \   \
 3   4   6
 The flattened tree should look like:
-
 1
  \
   2
@@ -24,11 +22,12 @@ The flattened tree should look like:
 """
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
 
 # Solution 1: DFS
 class Solution:
@@ -51,6 +50,7 @@ class Solution:
                 root = root.right
 
             root.right = right
+
 
 # Solution 2: Iterative
 class Solution:
