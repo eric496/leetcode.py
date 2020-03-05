@@ -31,7 +31,7 @@ class Node:
         self.next = next
 
 
-# Recursive
+# Solution 1: recursive
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
         if not root:
@@ -52,7 +52,7 @@ class Solution:
         return root
 
 
-# Iterative: level order traversal
+# Solution 2: iterative - level order traversal with O(n) space
 from collections import deque
 
 class Solution:
@@ -81,3 +81,25 @@ class Solution:
                 
         return root
 
+
+# Solution 2: iterative - level order traversal with O(1) space
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':        
+        level_start = root
+    
+        while level_start:
+            level_walk = level_start
+            
+            while level_walk:
+                if level_walk.left:
+                    level_walk.left.next = level_walk.right
+                
+                if level_walk.right and level_walk.next:
+                    level_walk.right.next = level_walk.next.left
+                
+                level_walk = level_walk.next
+            
+            level_start = level_start.left
+            
+        return root
+        
