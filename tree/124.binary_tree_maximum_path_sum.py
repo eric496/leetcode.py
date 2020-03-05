@@ -4,22 +4,18 @@ For this problem, a path is defined as any sequence of nodes from some starting 
 
 Example 1:
 Input: [1,2,3]
-
        1
       / \
      2   3
-
 Output: 6
 
 Example 2:
 Input: [-10,9,20,null,null,15,7]
-
    -10
    / \
   9  20
     /  \
    15   7
-
 Output: 42
 """
 
@@ -41,7 +37,7 @@ class Solution:
         return res[0]
     
     
-    def dfs(self, node: TreeNode, res: list) -> int:
+    def dfs(self, node: TreeNode, res: List[int]) -> int:
         if not node:
             return 0
         
