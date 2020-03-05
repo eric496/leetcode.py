@@ -16,33 +16,52 @@ return its minimum depth = 2.
 '''
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-# Iterative
+
+# Solution 1: recursive
+class Solution:
+    def minDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        
+        if not root.left:
+            return self.minDepth(root.right) + 1
+            
+        if not root.right:
+            return self.minDepth(root.left) + 1
+            
+        return min(self.minDepth(root.left), self.minDepth(root.right)) + 1
+
+
+# Solution 2: iterative
+from collections import deque
+
 class Solution:
     def minDepth(self, root: TreeNode) -> int:
         if not root:
             return 0
 
-        q, res = [root], 0
+        q, res = deque([root]), 0
         
         while q:
             res += 1
-            size = len(q)
-            for i in range(size):
-                node = q.pop(0)
+
+            for _ in range(len(q)):
+                node = q.popleft()
+                # Found a leaf node, return the current depth
                 if not node.left and not node.right:
                     return res
-                elif not node.left:
-                    q.append(node.right)
-                elif not node.right:
+                
+                if node.left:
                     q.append(node.left)
-                else:
-                    q.append(node.left)
+
+                if node.right:
                     q.append(node.right)
+
         return res
         
