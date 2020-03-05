@@ -32,30 +32,37 @@ Therefore, sum = 495 + 491 + 40 = 1026.
 """
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-# Recursive
+
+# Solution 1: recursive
+from typing import List
+
 class Solution:
     def sumNumbers(self, root: TreeNode) -> int:
-        self.res = []
-        self.dfs(root, 0)
-        return sum(self.res)
-    
-    def dfs(self, root: TreeNode, val: int) -> None:
-        if not root:
+        res = []
+        self.dfs(root, 0, res)
+
+        return sum(res)
+        
+        
+    def dfs(self, node: TreeNode, cursum: int, res: List[int]) -> None:
+        if not node:
             return
         
-        self.dfs(root.left, val*10+root.val)
-        self.dfs(root.right, val*10+root.val)
-        
-        if not root.left and not root.right:
-            self.res.append(val*10+root.val)
+        # Reach at a leaf node
+        if not node.left and not node.right:
+            res.append(cursum*10+node.val)
+                
+        self.dfs(node.left, cursum*10+node.val, res)
+        self.dfs(node.right, cursum*10+node.val, res)
 
-# Iterative: Stack
+
+# Solution 2: iterative
 class Solution:
     def sumNumbers(self, root: TreeNode) -> int:
         if not root:
@@ -65,11 +72,14 @@ class Solution:
         
         while stk:
             node, val = stk.pop()
+
             if node:
                 if not node.left and not node.right:
                     res += val
+                
                 if node.left:
                     stk.append((node.left, val*10+node.left.val))
+                
                 if node.right:
                     stk.append((node.right, val*10+node.right.val))
                     
