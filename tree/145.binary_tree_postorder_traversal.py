@@ -15,17 +15,19 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 """
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-# Recursive
+
+# Solution 1: recursive
 class Solution:
     def postorderTraversal(self, root: TreeNode) -> List[int]:
         res = []
         self.dfs(root, res)
+
         return res
 
     def dfs(self, root: TreeNode, res) -> None:
@@ -34,10 +36,32 @@ class Solution:
 
         self.dfs(root.left, res)
         self.dfs(root.right, res)
-
         res.append(root.val)
 
-# Iterative
+
+# Solution 2: iterative
+class Solution:
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        
+        stk = [root]
+        res = []
+        
+        while stk:
+            node = stk.pop()
+            res.append(node.val)
+            
+            if node.left:
+                stk.append(node.left)
+                
+            if node.right:
+                stk.append(node.right)
+                
+        return res[::-1]
+
+
+# Solution 2: iterative
 class Solution:
     def postorderTraversal(self, root: TreeNode) -> List[int]:
         if not root:
@@ -55,4 +79,3 @@ class Solution:
                 root = node.left
 
         return res
-
