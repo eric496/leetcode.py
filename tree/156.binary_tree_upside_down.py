@@ -38,17 +38,34 @@ class TreeNode:
         self.right = None
 
 
+# Solution 1: recursive
 class Solution:
     def upsideDownBinaryTree(self, root: TreeNode) -> TreeNode:
-        
         if not root or not root.left:
             return root
         
-        left = self.upsideDownBinaryTree(root.left)
+        new_root = self.upsideDownBinaryTree(root.left)
         root.left.left = root.right
         root.left.right = root
         root.left = None
         root.right = None
         
-        return left
+        return new_root
+        
+
+# Solution 2: iterative
+class Solution:
+    def upsideDownBinaryTree(self, root: TreeNode) -> TreeNode:
+        cur = root
+        prev = nxt = right = None
+        
+        while cur:
+            nxt = cur.left
+            cur.left = right
+            right = cur.right
+            cur.right = prev
+            prev = cur
+            cur = nxt
+            
+        return prev
         
