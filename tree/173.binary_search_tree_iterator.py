@@ -41,6 +41,7 @@ class BSTIterator:
         """
         node = self.stk.pop()
         self.push(node.right)
+        
         return node.val
         
 
