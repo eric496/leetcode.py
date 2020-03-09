@@ -74,3 +74,4 @@ class Solution:
                 stk.append((node.right, path+'->'+str(node.right.val)))
         
         return res
+        
