@@ -58,7 +58,7 @@ class Solution:
         return self.countNodes(root.left) + self.countNodes(root.right) + 1
 
 
-# Solution 1: Optimized
+# Solution 1: improved - using a helper function
 class Solution:
     def countNodes(self, root: TreeNode) -> int:
         if not root:
@@ -93,7 +93,11 @@ class Solution:
         return depth
 
 
-# Solution 2: level order traversal - O(n) solution
+# Solution 2: biary search
+
+
+
+# Solution 3: level order traversal - O(n) solution
 from collections import deque
 
 class Solution:
@@ -117,6 +121,3 @@ class Solution:
                     q.append(node.right)
                     
         return res
-
-
-# Solution 2: 
