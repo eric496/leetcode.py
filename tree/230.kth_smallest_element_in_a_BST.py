@@ -29,13 +29,38 @@ What if the BST is modified (insert/delete operations) often and you need to fin
 """
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-# Solution 1: inorder traversal
+
+# Solution 1: recursive
+class Solution:
+    def kthSmallest(self, root: TreeNode, k: int) -> int:
+        self.cnt = 0
+        self.res = 0
+        self.dfs(root, k)
+        
+        return self.res
+        
+        
+    def dfs(self, node: TreeNode, k: int) -> None:
+        if not node:
+            return 
+            
+        self.dfs(node.left, k)     
+        self.cnt += 1
+        
+        if self.cnt == k:
+            self.res = node.val
+            return
+        
+        self.dfs(node.right, k)
+
+
+# Solution 2: iterative
 class Solution:
     def kthSmallest(self, root: TreeNode, k: int) -> int:
         stk, cnt = [], 0
