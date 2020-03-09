@@ -19,15 +19,16 @@ p and q are different and both values will exist in the binary tree.
 """
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-# Recursive
+
+# Solution 1: recursive
 class Solution:
-    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
         if not root:
             return root
         
@@ -43,3 +44,33 @@ class Solution:
             return right
         elif not right:
             return left
+
+
+# Solution 2: iterative
+class Solution:
+    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+        stk = [root]
+        parent = {root: None}
+        
+        while p not in parent or q not in parent:
+            node = stk.pop()
+            
+            if node.left:
+                stk.append(node.left)
+                parent[node.left] = node
+            
+            if node.right:
+                stk.append(node.right)
+                parent[node.right] = node
+                
+        ancestor = set()
+        
+        while p:
+            ancestor.add(p)
+            p = parent[p]
+            
+        while q not in ancestor:
+            q = parent[q]
+            
+        return q
+        
