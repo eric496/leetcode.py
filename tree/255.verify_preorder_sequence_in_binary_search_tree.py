@@ -21,22 +21,22 @@ Follow up:
 Could you do it using only constant space complexity?
 """
 
-# Solution 1: use Stack
+# Solution 1: O(n) TC and O(n) SC
 class Solution:
     def verifyPreorder(self, preorder: List[int]) -> bool:
         stk = []
-        min_ = float('-inf')
+        low = float('-inf')
         
         for p in preorder:
-            if p < min_:
+            if p < low:
                 return False
             
             while stk and p > stk[-1]:
-                min_ = stk.pop()
+                low = stk.pop()
             
             stk.append(p)
         
         return True
 
 
-# Follow up: O(1) SC
+# Follow up: O(n) TC and O(1) SC
