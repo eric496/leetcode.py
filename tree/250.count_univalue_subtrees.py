@@ -15,30 +15,37 @@ Output: 4
 """
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
 
 class Solution:
     def countUnivalSubtrees(self, root: TreeNode) -> int:
-        self.cnt = 0
+        res = [0]
+        self.dfs(root, res)
         
-        def dfs(root: TreeNode, parent_val: int) -> bool:
-            if not root:
-                return True
-
-            left = dfs(root.left, root.val)
-            right = dfs(root.right, root.val)
-            
-            if left and right:
-                self.cnt += 1
-                if root.val == parent_val:
-                    return True
-            return False
+        return res[0]
         
-        if root:
-            dfs(root, root.val)
+        
+    def dfs(self, node: TreeNode, res: List[int]) -> bool:
+        if not node:
+            return True
+        
+        left = self.dfs(node.left, res)
+        right = self.dfs(node.right, res)
+        
+        if left and right:
+            if node.left and node.val != node.left.val:
+                return False
             
-        return self.cnt
+            if node.right and node.val != node.right.val:
+                return False
+            
+            res[0] = res[0] + 1
+            
+            return True
+        
+        return False
