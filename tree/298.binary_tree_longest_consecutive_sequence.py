@@ -35,7 +35,27 @@ class TreeNode:
         self.right = None
 
 
-# Solution 1: BFS
+# Solution 1: recursive
+class Solution:
+    def longestConsecutive(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+            
+        return self.dfs(root, 1, root.val)
+        
+    
+    def dfs(self, node: TreeNode, cnt: int, parent_val: int) -> int:
+        if not node:
+            return cnt
+        
+        cnt = cnt+1 if node.val==parent_val+1 else 1
+        left = self.dfs(node.left, cnt, node.val)
+        right = self.dfs(node.right, cnt, node.val)
+        
+        return max(max(left, right), cnt)
+        
+
+# Solution 2: iterative
 from collections import deque
 
 class Solution:
@@ -55,6 +75,7 @@ class Solution:
                     q.append([node.left, cur+1])
                 else:
                     q.append([node.left, 1])
+
             if node.right:
                 if node.right.val == node.val + 1:
                     q.append([node.right, cur+1])
@@ -62,23 +83,3 @@ class Solution:
                     q.append([node.right, 1])
                 
         return res
-
-
-# Solution 2: DFS
-class Solution:
-    def longestConsecutive(self, root: TreeNode) -> int:
-        if not root:
-            return 0
-            
-         return self.dfs(root, 1, root.val)
-        
-    
-    def dfs(self, node: TreeNode, cnt: int, parent_val: int) -> int:
-        if not node:
-            return cnt
-        
-        cnt = cnt + 1 if node.val - parent_val == 1 else 1
-        left = self.dfs(node.left, cnt, node.val)
-        right = self.dfs(node.right, cnt, node.val)
-        
-        return max(max(left, right), cnt)
