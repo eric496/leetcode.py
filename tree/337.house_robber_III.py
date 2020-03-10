@@ -32,11 +32,29 @@ class TreeNode:
         self.right = None
 
 
-# DFS with memoization
+# Solution 1: brute force DFS
+class Solution:
+    def rob(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        
+        res = 0
+        
+        if root.left:
+            res += self.rob(root.left.left) + self.rob(root.left.right)
+            
+        if root.right:
+            res += self.rob(root.right.left) + self.rob(root.right.right)
+            
+        return max(res+root.val, self.rob(root.left)+self.rob(root.right))
+
+
+# Solution 2: DFS with memoization
 class Solution:
     def rob(self, root: TreeNode) -> int:
         return self.dfs(root, {})
         
+
     def dfs(self, node: TreeNode, memo: dict) -> int:
         if not node:
             return 0
@@ -44,18 +62,18 @@ class Solution:
         if node in memo:
             return memo[node]
         
-        val = 0
+        res = 0
         
         if node.left:
-            val += self.dfs(node.left.left, memo) + self.dfs(node.left.right, memo)
+            res += self.dfs(node.left.left, memo) + self.dfs(node.left.right, memo)
             
         if node.right:
-            val += self.dfs(node.right.left, memo) + self.dfs(node.right.right, memo)
+            res += self.dfs(node.right.left, memo) + self.dfs(node.right.right, memo)
             
-        val = max(val+node.val, self.dfs(node.left, memo)+self.dfs(node.right, memo))
-        memo[node] = val
+        res = max(res+node.val, self.dfs(node.left, memo)+self.dfs(node.right, memo))
+        memo[node] = res
         
-        return val
+        return res
 
 
 # DP solution: TODO
