@@ -41,19 +41,26 @@ class Solution:
         if not root:
             return 0
             
-        return self.dfs(root, 1, root.val)
+        res = [0]
+        self.dfs(root, 0, root.val, res)
+
+        return res[0]
         
     
-    def dfs(self, node: TreeNode, cnt: int, parent_val: int) -> int:
+    def dfs(self, node: TreeNode, cur: int, target: int, res: List[int]) -> None:
         if not node:
-            return cnt
+            return
         
-        cnt = cnt+1 if node.val==parent_val+1 else 1
-        left = self.dfs(node.left, cnt, node.val)
-        right = self.dfs(node.right, cnt, node.val)
-        
-        return max(max(left, right), cnt)
-        
+        if node.val == target:
+            cur += 1
+        else:
+            cur = 1
+
+        res[0] = max(res[0], cur)
+
+        self.dfs(node.left, cur, node.val+1, res)
+        self.dfs(node.right, cur, node.val+1, res)
+
 
 # Solution 2: iterative
 from collections import deque
