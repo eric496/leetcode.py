@@ -26,6 +26,7 @@ class TreeNode:
         self.right = None
 
 
+# Solution 1: recursive
 class Solution:
     def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
         if not root:
@@ -37,3 +38,18 @@ class Solution:
             left = self.inorderSuccessor(root.left, p)
             return left if left else root
             
+
+# Soluiton 2: iterative
+class Solution:
+    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
+        successor = None
+        
+        while root:
+            if p.val < root.val:
+                successor = root
+                root = root.left
+            else:
+                root = root.right
+                
+        return successor
+        
