@@ -19,19 +19,48 @@ Output: 4
 
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
+
+# Solution 1: recursive
 class Solution:
     def closestValue(self, root: TreeNode, target: float) -> int:
-        res = root.val
+        res = [float('inf')]
+        self.dfs(root, target, res)
+        
+        return res[0]
+    
+        
+    def dfs(self, node: TreeNode, target: float, res: List[int]) -> None:
+        if not node:
+            return
+        
+        if abs(node.val-target) < abs(res[0]-target):
+            res[0] = node.val
+            
+        if node.val > target:
+            self.dfs(node.left, target, res)
+            
+        if node.val < target:
+            self.dfs(node.right, target, res)
+
+
+# Solution 2: iterative
+class Solution:
+    def closestValue(self, root: TreeNode, target: float) -> int:
+        res = float('inf')
 
         while root:
-            res = root.val if abs(root.val-target) < abs(res-target) else res
-            root = root.left if root.val > target else root.right
+            if abs(root.val-target) < abs(res-target):
+                res = root.val
+            
+            if root.val > target:
+                root = root.left
+            else:
+                root = root.right
 
         return res
-
