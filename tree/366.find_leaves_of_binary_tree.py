@@ -41,12 +41,12 @@ class Solution:
         if not node:
             return -1
         
-        level = max(self.dfs(node.left, res), self.dfs(node.right, res)) + 1
+        height = max(self.dfs(node.left, res), self.dfs(node.right, res)) + 1
         
-        if level == len(res):
+        if height == len(res):
             res.append([])
             
-        res[level].append(node.val)
+        res[height].append(node.val)
         
-        return level
+        return height
         
