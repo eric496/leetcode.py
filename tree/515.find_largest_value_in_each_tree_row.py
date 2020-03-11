@@ -20,6 +20,32 @@ class TreeNode:
         self.right = None
 
 
+# Solution 1: recursive
+class Solution:
+    def largestValues(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        
+        res = []
+        self.dfs(root, 0, res)
+        
+        return res
+        
+    
+    def dfs(self, node: TreeNode, depth: int, res: List[int]) -> None:
+        if not node:
+            return 
+        
+        if depth == len(res):
+            res.append(node.val)
+        else:
+            res[depth] = max(res[depth], node.val)
+            
+        self.dfs(node.left, depth+1, res)
+        self.dfs(node.right, depth+1, res)
+
+
+# Solution 2: iterative 
 from collections import deque
 
 class Solution:
