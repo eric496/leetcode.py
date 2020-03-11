@@ -33,3 +33,40 @@ Another valid answer is [5,2,6,null,4,null,7].
     4   7
 """
 
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+# Solution 1: recursive
+class Solution:
+    def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
+        if not root:
+            return root
+        
+        if root.val < key:
+            root.right = self.deleteNode(root.right, key)
+        elif root.val > key:
+            root.left = self.deleteNode(root.left, key)
+        else:
+            if not root.left:
+                return root.right
+            
+            if not root.right:
+                return root.left
+            
+            right_min = root.right
+            
+            while right_min.left:
+                right_min = right_min.left
+                
+            right_min.left = root.left
+            
+            return root.right
+        
+        return root
+        

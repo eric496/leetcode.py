@@ -25,6 +25,7 @@ class Codec:
     def serialize(self, root):
         res = []
         self.serialize_dfs(root, res)
+        
         return ''.join(res)
     
 
@@ -33,6 +34,7 @@ class Codec:
             return None
         
         q = deque([x for x in data.split('#') if x])        
+        
         return self.deserialize_dfs(q)
 
     
@@ -40,6 +42,7 @@ class Codec:
         if root:
             res.append(str(root.val) + '#')
             res.append(str(len(root.children)) + '#')
+            
             for child in root.children:
                 self.serialize_dfs(child, res)
         
@@ -49,6 +52,8 @@ class Codec:
             val = int(q.popleft())
             num_children = int(q.popleft())
             root = Node(val, [])
+
             for _ in range(num_children):
                 root.children.append(self.deserialize_dfs(q))
+            
             return root
