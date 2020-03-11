@@ -32,11 +32,11 @@ class Solution:
         if not root:
             return None
         
-        if root.val <= p.val:
-            return self.inorderSuccessor(root.right, p)
+        if root.val >= p.val:
+            return self.inorderSuccessor(root.left, p)
         else:
-            left = self.inorderSuccessor(root.left, p)
-            return left if left else root
+            right = self.inorderSuccessor(root.right, p)
+            return right if right else root
             
 
 # Soluiton 2: iterative
