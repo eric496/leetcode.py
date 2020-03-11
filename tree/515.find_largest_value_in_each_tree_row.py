@@ -31,14 +31,15 @@ class Solution:
         res = []
         
         while q:
-            size = len(q)
             level_max = float('-inf')
             
-            for _ in range(size):
+            for _ in range(len(q)):
                 node = q.popleft()
                 level_max = max(level_max, node.val)
+                
                 if node.left:
                     q.append(node.left)
+                
                 if node.right:
                     q.append(node.right)
             
