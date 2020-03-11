@@ -20,6 +20,7 @@ Note: You may assume the sum of values in any subtree is in the range of 32-bit 
 """
 
 
+# Definition for a binary tree node.
 class TreeNode:
     def __init__(self, x):
         self.val = x
@@ -32,19 +33,21 @@ class Solution:
         if not root:
             return []
         
-        cnt = {}
-        self.dfs(root, cnt)
-        max_cnt = max(cnt.values())
+        subsum = {}
+        self.dfs(root, subsum)
+        max_freq = max(subsum.values())
         
-        return [sub for sub in cnt if cnt[sub] == max_cnt]
-    
+        return [k for k,v in subsum.items() if v==max_freq]
         
-    def dfs(self, node: TreeNode, cnt: dict) -> int:
+        
+    def dfs(self, node: TreeNode, subsum: dict) -> int:
         if not node:
             return 0
         
-        sub_sum = node.val + self.dfs(node.left, cnt) + self.dfs(node.right, cnt)
-        cnt[sub_sum] = cnt.get(sub_sum, 0) + 1
+        left = self.dfs(node.left, subsum)
+        right = self.dfs(node.right, subsum)
+        sub = node.val + left + right
+        subsum[sub] = subsum.get(sub, 0) + 1
         
-        return sub_sum
+        return sub
         
