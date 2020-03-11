@@ -27,25 +27,66 @@ class TreeNode:
         self.right = None
 
 
+# Solution 1: O(n) space
 class Solution:
     def findMode(self, root: TreeNode) -> List[int]:
-        if not root:
-            return []
+        freq = {}
+        self.dfs(root, freq)
+        res, max_freq = [], 0
         
-        cnt = {}
-        self.dfs(root, cnt)
-        mode = max(cnt.values())
-        res = []
-        
-        for k,v in cnt.items():
-            if v == mode:
+        for k,v in freq.items():
+            if v > max_freq:
+                max_freq = v
+                res = [k]
+            elif v == max_freq:
                 res.append(k)
-        
+                
         return res
         
         
-    def dfs(self, node: TreeNode, cnt: dict) -> None:
-        if node:
-            cnt[node.val] = cnt.get(node.val, 0) + 1
-            self.dfs(node.left, cnt)
-            self.dfs(node.right, cnt)
+    def dfs(self, node: TreeNode, freq: dict) -> None:
+        if not node:
+            return
+        
+        freq[node.val] = freq.get(node.val, 0) + 1
+        self.dfs(node.left, freq)
+        self.dfs(node.right, freq)
+
+
+# Solution 2: O(1) space
+class Solution:
+    def __init__(self):
+        self.prev = None
+        self.cur_freq = 0
+        self.max_freq = 0
+        self.res = []
+    
+    
+    def findMode(self, root: TreeNode) -> List[int]:
+        self.dfs(root)
+        
+        return self.res
+        
+
+    # inorder traversal    
+    def dfs(self, node: TreeNode) -> None:
+        if not node:
+            return
+        
+        self.dfs(node.left)
+        
+        if node.val != self.prev:
+            self.cur_freq = 1
+        else:
+            self.cur_freq += 1
+        
+        if self.cur_freq == self.max_freq:
+            self.res.append(node.val)
+        elif self.cur_freq > self.max_freq:
+            self.res = [node.val]
+            self.max_freq = self.cur_freq
+            
+        self.prev = node.val
+        
+        self.dfs(node.right)
+        
