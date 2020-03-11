@@ -24,28 +24,30 @@ class TreeNode:
         self.right = None
 
 
-# Solution 1: DFS
+# Solution 1: recursive - inorder traversal
 class Solution:
-
-    prev = float('-inf')
-    res = float('inf')
+    def __init__(self):
+        self.prev = float('-inf')
+        self.min_diff = float('inf')
     
     def getMinimumDifference(self, root: TreeNode) -> int:
         if not root:
             return
         
         self.getMinimumDifference(root.left)
-        self.res = min(self.res, abs(root.val-self.prev))
+        self.min_diff = min(self.min_diff, abs(root.val-self.prev))
         self.prev = root.val
         self.getMinimumDifference(root.right)
         
-        return self.res
+        return self.min_diff
 
 
-# Solution 2: Iterative
+# Solution 2: iterative - inorder traversal
 class Solution:
     def getMinimumDifference(self, root: TreeNode) -> int:
-        diff, stk, prev = float('inf'), [], None
+        min_diff = float('inf')
+        stk = []
+        prev = float('-inf')
         
         while stk or root:
             while root:
@@ -53,12 +55,10 @@ class Solution:
                 root = root.left
             
             node = stk.pop()
-            
-            if prev:
-                diff = min(diff, abs(node.val-prev.val))
-                
-            prev = node
+            # Actually no need to use abs() since it is already inorder traversal
+            min_diff = min(min_diff, abs(node.val-prev))
+            prev = node.val
             root = node.right
             
-        return diff
+        return min_diff
         
