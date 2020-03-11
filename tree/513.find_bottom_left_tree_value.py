@@ -24,12 +24,6 @@ Output:
 Note: You may assume the tree (i.e., the given root node) is not NULL.
 """
 
-"""
-Thought process:
-    Right-to-left level order traversal.
-    The last node is the bottom left node. 
-"""
-
 
 # Definition for a binary tree node.
 class TreeNode:
@@ -39,6 +33,7 @@ class TreeNode:
         self.right = None
 
 
+# Solution: BFS - a variation of level order traversal
 from collections import deque
 
 class Solution:
@@ -48,8 +43,10 @@ class Solution:
         
         while q:
             node = q.popleft()
+            
             if node.right:
                 q.append(node.right)
+            
             if node.left:
                 q.append(node.left)
         
