@@ -48,37 +48,36 @@ class Node:
         self.parent = parent
 
 
+# Solution: traverse right sub tree first, then parent
 class Solution:
     def inorderSuccessor(self, node: 'Node') -> 'Node':
         if node.right:
-            node = node.right
-            while node.left:
-                node = node.left
-            return node
-    
-        while node.parent and node.parent.val < node.val:
-            node = node.parent
-            
-        return node.parent
+            cur = node.right
+            while cur.left:
+                cur = cur.left
+            return cur
+        else:
+            p = node.parent
+            while p and p.val < node.val:
+                p = p.parent
+            return p
+        
+        return None
 
 
 # Follow up
 class Solution:
     def inorderSuccessor(self, node: 'Node') -> 'Node':
         if node.right:
-            node = node.right
-            while node and node.left:
-                node = node.left
-            return node
+            cur = node.right
+            while cur.left:
+                cur = cur.left
+            return cur
+        else:
+            cur = node
+            while cur.parent and cur.parent.right is cur:
+                cur = cur.parent
+            return cur.parent
         
-        while node:
-            if not node.parent:
-                return None
-            
-            if node.parent.left is node:
-                return node.parent
-            else:
-                node = node.parent
-                
-        return node
+        return None
         
