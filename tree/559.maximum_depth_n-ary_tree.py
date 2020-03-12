@@ -7,13 +7,13 @@ The depth of the tree is at most 1000.
 The total number of nodes is at most 5000.
 """
 
-"""
 class Node:
     def __init__(self, val, children):
         self.val = val
         self.children = children
-"""
 
+
+# Solution 1: iterative
 from collections import deque
 
 class Solution:
@@ -24,10 +24,9 @@ class Solution:
         q, depth = deque([root]), 0
         
         while q:
-            size = len(q)
-            
-            for _ in range(size):
+            for _ in range(len(q)):
                 node = q.popleft()
+                
                 for child in node.children:
                     q.append(child)
                 
