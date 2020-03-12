@@ -71,7 +71,9 @@ class Solution:
         else:
             self.left_bound(node.right, res)
         
-        
+    
+    # Right bound adds the node val after the recursive calls because 
+    # it is counter clockwise and we need to do it in a bottom-up fashion
     def right_bound(self, node: TreeNode, res: List[int]) -> None:
         if not node or (not node.left and not node.right):
             return
@@ -94,4 +96,3 @@ class Solution:
         
         self.leaves(node.left, res)
         self.leaves(node.right, res)
-        
