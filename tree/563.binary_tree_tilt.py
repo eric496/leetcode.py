@@ -21,12 +21,14 @@ All the tilt values won't exceed the range of 32-bit integer.
 """
 
 
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
+
+# Post order traversal
 class Solution:
     def findTilt(self, root: TreeNode) -> int:
         res = [0]
