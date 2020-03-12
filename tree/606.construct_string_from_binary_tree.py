@@ -39,19 +39,31 @@ class Solution:
         if not t:
             return ''
         
-        res = str(t.val) + ''
+        res = []
+        self.dfs(t, res)
         
-        left = self.tree2str(t.left)
-        right = self.tree2str(t.right)
+        return ''.join(res)
         
-        if not left and not right:
-            return res
         
-        if not left:
-            return res + '()' + '(' + right + ')'
+    def dfs(self, node: TreeNode, res: List[str]) -> None:
+        if not node:
+            return
+
+        # Found leaf node
+        if not node.left and not node.right:
+            res.append(str(node.val))
+            return 
         
-        if not right:
-            return res + '(' + left + ')' 
+        res.append(str(node.val))
         
-        return res + '(' + left + ')' + '(' + right + ')'
-        
+        if node.left:
+            res.append('(')
+            self.dfs(node.left, res)
+            res.append(')')
+        else:
+            res.append('()')
+            
+        if node.right:            
+            res.append('(')
+            self.dfs(node.right, res)
+            res.append(')')
