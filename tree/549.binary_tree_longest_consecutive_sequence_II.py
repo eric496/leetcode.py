@@ -27,27 +27,26 @@ class TreeNode:
         self.val = x
         self.left = None
         self.right = None
-
-
-class Solution:
-    res = 1
     
+        
+class Solution:    
     def longestConsecutive(self, root: TreeNode) -> int:
         if not root:
             return 0
         
-        self.dfs(root)
+        res = [0]
+        self.dfs(root, res)
         
-        return self.res
+        return res[0]
     
         
-    def dfs(self, node: TreeNode) -> List[int]:
+    def dfs(self, node: TreeNode, res: List[int]) -> List[int]:
         if not node:
             return [0, 0]
         
         inc = dec = 1
-        left = self.dfs(node.left)
-        right = self.dfs(node.right)
+        left = self.dfs(node.left, res)
+        right = self.dfs(node.right, res)
         
         if node.left:
             if node.left.val == node.val + 1:
@@ -61,7 +60,7 @@ class Solution:
             if node.right.val == node.val - 1:
                 dec = max(dec, right[1]+1)
         
-        self.res = max(self.res, inc+dec-1)
+        res[0] = max(res[0], inc+dec-1)
         
         return [inc, dec]
         
