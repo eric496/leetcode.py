@@ -28,23 +28,27 @@ class TreeNode:
 
 class Solution:
     def str2tree(self, s: str) -> TreeNode:
-        stk, cur = [], ''
+        stk = []
+        start = walker = 0
         
-        for ch in s:
-            if ch.isdigit() or ch == '-':
-                cur += ch
-            elif not cur:
-                if ch == ')':
-                    stk.pop()
-            else:
-                node = TreeNode(int(cur))
+        while walker < len(s):
+            if s[walker].isdigit() or s[walker] == '-':
+                while walker+1 < len(s) and s[walker+1].isdigit():
+                    walker += 1
+                
+                node = TreeNode(int(s[start:walker+1]))
+                
                 if stk:
-                    if not stk[-1].left:
-                        stk[-1].left = node
-                    else:
+                    if stk[-1].left:
                         stk[-1].right = node
-                cur = ''
-                if ch == '(':
-                    stk.append(node)
+                    else:
+                        stk[-1].left = node
+                        
+                stk.append(node)
+            elif s[walker] == ')':
+                stk.pop()
+                                
+            walker += 1
+            start = walker
                     
-        return stk and stk[0] or (cur and TreeNode(int(cur))) or None
+        return stk[-1] if stk else None
