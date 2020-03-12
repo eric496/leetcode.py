@@ -23,6 +23,7 @@ The given kill id is guaranteed to be one of the given PIDs.
 n >= 1.
 """
 
+
 # Solution 1: level order traversal
 from collections import deque
 
@@ -48,4 +49,3 @@ class Solution:
                     q.extend(parent[k])
                 
         return res
-        
