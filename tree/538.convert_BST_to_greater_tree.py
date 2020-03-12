@@ -14,23 +14,68 @@ Output: The root of a Greater Tree like this:
 """
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-# Recursive
+
+# Solution 1: recursive
 class Solution:
     def convertBST(self, root: TreeNode) -> TreeNode:
-        self.dfs(root, 0)
+        cumsum = [0]
+        self.dfs(root, cumsum)
+        
         return root
         
-    def dfs(self, root: TreeNode, val: int) -> int:
-        if not root:
-            return val
         
-        val = self.dfs(root.right, val)
-        root.val += val
+    def dfs(self, node: TreeNode, cumsum: List[int]) -> None:
+        if not node:
+            return
         
-        return self.dfs(root.left, root.val)
+        self.dfs(node.right, cumsum)
+        node.val += cumsum[0]
+        cumsum[0] = node.val
+        self.dfs(node.left, cumsum)
+
+
+# Solution 2: iterative
+class Solution:
+    def convertBST(self, root: TreeNode) -> TreeNode:
+        stk = []
+        cumsum = 0
+        cur = root
+        
+        while stk or cur:
+            while cur:
+                stk.append(cur)
+                cur = cur.right
+                
+            node = stk.pop()
+            node.val += cumsum
+            cumsum = node.val
+            cur = node.left
+                
+        return root
+
+
+# Solution 2: iterative - a variation
+class Solution:
+    def convertBST(self, root: TreeNode) -> TreeNode:
+        stk = []
+        cumsum = 0
+        cur = root
+        
+        while stk or cur:
+            if cur:
+                stk.append(cur)
+                cur = cur.right
+            else:
+                cur = stk.pop()
+                cur.val += cumsum
+                cumsum = cur.val
+                cur = cur.left
+        
+        return root
+        
