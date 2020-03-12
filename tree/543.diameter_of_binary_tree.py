@@ -14,31 +14,28 @@ Note: The length of path between two nodes is represented by the number of edges
 """
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-# Recursive
+
+# Solution 1: recursive
 class Solution:
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
-        self.res = 0
-        self.maxDepth(root)
+        res = [0]
+        self.dfs(root, res)
         
-        return self.res
+        return res[0]
+    
         
-    def maxDepth(self, root: TreeNode) -> int:
-        if not root:
+    def dfs(self, node: TreeNode, res: List[int]) -> int:
+        if not node:
             return 0
         
-        left = self.maxDepth(root.left)
-        right = self.maxDepth(root.right)
-        cur_max = left + right
-        self.res = max(self.res, cur_max)
+        left = self.dfs(node.left, res)
+        right = self.dfs(node.right, res)
+        res[0] = max(res[0], left+right)
         
         return max(left, right) + 1
