@@ -52,24 +52,46 @@ class Solution:
             return []
         
         res = [root.val]
-        self.get_boundary(root.left, res, True, False)
-        self.get_boundary(root.right, res, False, True)
+        self.left_bound(root.left, res)
+        self.leaves(root.left, res)
+        self.leaves(root.right, res)
+        self.right_bound(root.right, res)
         
         return res
         
+        
+    def left_bound(self, node: TreeNode, res: List[int]) -> None:
+        if not node or (not node.left and not node.right):
+            return
+        
+        res.append(node.val)
+        
+        if node.left:
+            self.left_bound(node.left, res)
+        else:
+            self.left_bound(node.right, res)
+        
+        
+    def right_bound(self, node: TreeNode, res: List[int]) -> None:
+        if not node or (not node.left and not node.right):
+            return
+        
+        if node.right:
+            self.right_bound(node.right, res)
+        else:
+            self.right_bound(node.left, res)
     
-    def get_boundary(self, node: TreeNode, res: List[int], left: bool, right: bool) -> None:
+        res.append(node.val)
+        
+        
+    def leaves(self, node: TreeNode, res: List[int]) -> None:
         if not node:
             return
         
-        if left:
+        if not node.left and not node.right:
             res.append(node.val)
-            
-        if not left and not right and not node.left and not node.right:
-            res.append(node.val)
-            
-        self.get_boundary(node.left, res, left, right and not node.right)
-        self.get_boundary(node.right, res, left and not node.left, right)
+            return
         
-        if right:
-            res.append(node.val)
+        self.leaves(node.left, res)
+        self.leaves(node.right, res)
+        
