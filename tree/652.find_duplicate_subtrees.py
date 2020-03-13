@@ -31,16 +31,16 @@ class TreeNode:
 class Solution:
     def findDuplicateSubtrees(self, root: TreeNode) -> List[TreeNode]:
         res = []
-        self.traverse(root, {}, res)
+        self.dfs(root, {}, res)
         
         return res
     
         
-    def traverse(self, node: TreeNode, dup: dict, res: List[TreeNode]) -> str:
+    def dfs(self, node: TreeNode, dup: dict, res: List[TreeNode]) -> str:
         if not node:
-            return '#'
+            return ''
         
-        s = str(node.val) + ',' + self.traverse(node.left, dup, res) + ',' + self.traverse(node.right, dup, res)
+        s =  '(' + self.dfs(node.left, dup, res) + str(node.val) + self.dfs(node.right, dup, res) + ')'
         
         if dup.get(s, 0) == 1:
             res.append(node)
