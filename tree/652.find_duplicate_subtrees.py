@@ -36,16 +36,16 @@ class Solution:
         return res
     
         
-    def dfs(self, node: TreeNode, dup: dict, res: List[TreeNode]) -> str:
+    def dfs(self, node: TreeNode, cnt: dict, res: List[TreeNode]) -> str:
         if not node:
             return ''
         
-        s =  '(' + self.dfs(node.left, dup, res) + str(node.val) + self.dfs(node.right, dup, res) + ')'
+        s =  '(' + self.dfs(node.left, cnt, res) + str(node.val) + self.dfs(node.right, cnt, res) + ')'
         
-        if dup.get(s, 0) == 1:
+        if cnt.get(s, 0) == 1:
             res.append(node)
         
-        dup[s] = dup.get(s, 0) + 1
+        cnt[s] = cnt.get(s, 0) + 1
             
         return s
         
