@@ -30,7 +30,7 @@ class TreeNode:
         self.right = None
 
 
-# Solution 1: recursion
+# Solution 1: recursive
 class Solution:
     def mergeTrees(self, t1: TreeNode, t2: TreeNode) -> TreeNode:
         if None in (t1, t2):
@@ -43,7 +43,7 @@ class Solution:
         return root
 
 
-# Solution 2: iteration
+# Solution 2: iterative
 from collections import deque
 
 class Solution:

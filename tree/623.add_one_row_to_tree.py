@@ -56,25 +56,76 @@ class TreeNode:
         self.right = None
 
 
+# Solution 1: recursive
 class Solution:
     def addOneRow(self, root: TreeNode, v: int, d: int) -> TreeNode:
         if d == 1:
             new_root = TreeNode(v)
             new_root.left = root
             return new_root
-        elif d == 0:
+            
+        self.dfs(root, v, d, 1)
+        
+        return root
+    
+    
+    def dfs(self, node: TreeNode, v: int, d: int, cur_d: int) -> None:
+        if not node:
+            return
+        
+        if cur_d == d-1:
+            left = node.left
+            node.left = TreeNode(v)
+            node.left.left = left
+            
+            right = node.right
+            node.right = TreeNode(v)
+            node.right.right = right
+            
+            return
+        
+        self.dfs(node.left, v, d, cur_d+1)
+        self.dfs(node.right, v, d, cur_d+1)
+        
+
+# Solution 2: iterative
+from collections import deque
+
+class Solution:
+    def addOneRow(self, root: TreeNode, v: int, d: int) -> TreeNode:
+        if d == 1:
             new_root = TreeNode(v)
-            new_root.right = root
+            new_root.left = root
             return new_root
         
-        if not root:
-            return root
-        elif d == 2:
-            root.left = self.addOneRow(root.left, v, 1)
-            root.right = self.addOneRow(root.right, v, 0)
-        elif d > 2:
-            root.left = self.addOneRow(root.left, v, d-1)
-            root.right = self.addOneRow(root.right, v, d-1)
-            
+        q = deque([root])
+        cur_d = 1
+        
+        while q:
+            if cur_d == d-1:
+                for _ in range(len(q)):
+                    node = q.popleft()
+                    
+                    left = node.left
+                    node.left = TreeNode(v)
+                    node.left.left = left
+                    
+                    right = node.right
+                    node.right = TreeNode(v)
+                    node.right.right = right
+                    
+                break
+            else:
+                cur_d += 1
+                
+                for _ in range(len(q)):
+                    node = q.popleft()
+                    
+                    if node.left:
+                        q.append(node.left)
+                        
+                    if node.right:
+                        q.append(node.right)
+        
         return root
         
