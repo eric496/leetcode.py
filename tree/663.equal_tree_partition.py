@@ -43,18 +43,22 @@ class TreeNode:
         self.right = None
 
 
-class Solution:    
-    
-    def checkEqualTree(self, root):
+class Solution:
+    def checkEqualTree(self, root: TreeNode) -> bool:
+        seen = set()
+        sum_ = root.val + self.dfs(root.left, seen) + self.dfs(root.right, seen)
         
-        def dfs(root):
-            if not root:
-                return 0
-            sums.append(root.val + dfs(root.left) + dfs(root.right))
-            return sums[-1]
+        if sum_ % 2:
+            return False
         
-        sums = []
-        dfs(root)
+        return (sum_//2) in seen
         
-        return sums.pop() / 2 in sums
         
+    def dfs(self, node: TreeNode, seen: set) -> int:
+        if not node:
+            return 0
+        
+        cur = node.val + self.dfs(node.left, seen) + self.dfs(node.right, seen)
+        seen.add(cur)
+        
+        return cur
