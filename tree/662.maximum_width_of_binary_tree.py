@@ -62,6 +62,34 @@ class TreeNode:
         self.right = None
 
 
+# Solution 1: recursive
+class Solution:
+    def widthOfBinaryTree(self, root: TreeNode) -> int:
+        start, end = [], []
+        self.dfs(root, 0, 1, start, end)
+        res = float('-inf')
+        
+        for s, e in zip(start, end):
+            res = max(res, e-s+1)
+        
+        return res
+        
+        
+    def dfs(self, node: TreeNode, depth: int, pos: int, start: List[List[int]], end: List[List[int]]) -> None:
+        if not node:
+            return 
+        
+        if depth == len(start):
+            start.append(pos)
+            end.append(pos)
+        else:
+            end[depth] = pos
+            
+        self.dfs(node.left, depth+1, 2*pos, start, end)
+        self.dfs(node.right, depth+1, 2*pos+1, start, end)
+
+
+# Solution 2: iterative
 from collections import deque
 
 class Solution:
@@ -70,18 +98,19 @@ class Solution:
             return 0
         
         q = deque([(root, 1)])
-        level_width = max_width = 0
+        width = res = 0
         
         while q:
-            size = len(q)
-            level_width = q[-1][1] - q[0][1] + 1
-            max_width = max(max_width, level_width)
+            width = q[-1][1] - q[0][1] + 1
+            res = max(res, width)
             
-            for _ in range(size):
+            for _ in range(len(q)):
                 node, pos = q.popleft()
+                
                 if node.left:
-                    q.append((node.left, 2*pos))
+                    q.append([node.left, 2*pos])
+                    
                 if node.right:
-                    q.append((node.right, 2*pos+1))
-            
-        return max_width
+                    q.append([node.right, 2*pos+1])
+                    
+        return res
