@@ -25,26 +25,30 @@ Target = 28
 Output: False
 """
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
 
-# Recursive
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+# Solution 1: 
 class Solution:
-    def findTarget(self, root: TreeNode, k: int) -> bool:
-        res = {}
-        return self.dfs(root, k, res)
+    def findTarget(self, root: TreeNode, target: int) -> bool:
+        seen = set()
         
-    def dfs(self, root: TreeNode, k: int, res: dict) -> bool:
-        if not root:
+        return self.dfs(root, target, seen)
+    
+        
+    def dfs(self, node: TreeNode, target: int, seen: set) -> bool:
+        if not node:
             return False
         
-        if root.val in res:
+        if node.val in seen:
             return True
         else:
-            res[k-root.val] = 1
-        
-        return self.dfs(root.left, k, res) or self.dfs(root.right, k, res)
+            seen.add(target-node.val)
+            
+        return self.dfs(node.left, target, seen) or self.dfs(node.right, target, seen)
