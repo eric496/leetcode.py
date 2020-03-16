@@ -13,6 +13,33 @@ class Node:
         self.right = right
 
 
+# Solution 1: recursive
+class Solution:
+    def treeToDoublyList(self, root: 'Node') -> 'Node':
+        if not root:
+            return root
+        
+        sentinel = prev = Node(None, None, None)
+        prev = self.dfs(root, prev)
+        prev.right = sentinel.right
+        sentinel.right.left = prev
+        
+        return sentinel.right
+        
+        
+    def dfs(self, node: 'Node', prev: 'Node') -> 'Node':
+        if not node:
+            return prev
+        
+        prev = self.dfs(node.left, prev)
+        prev.right = node
+        node.left = prev
+        prev = self.dfs(node.right, node)
+        
+        return prev
+
+
+# Solution 2: iterative
 class Solution:
     def treeToDoublyList(self, root: 'Node') -> 'Node':
         if not root:
@@ -37,32 +64,4 @@ class Solution:
         prev.right = sentinel.right
         
         return sentinel.right
-
-
-# Solution 2: divide and conquer
-class Solution:
-    def treeToDoublyList(self, root: 'Node') -> 'Node':
-        if not root:
-            return root
-        
-        left = self.treeToDoublyList(root.left)
-        right = self.treeToDoublyList(root.right)
-        root.left = root
-        root.right = root
-        
-        return self.buildLink(self.buildLink(left, root), right)
-    
-    
-    def buildLink(self, n1: 'Node', n2: 'Node') -> 'Node':
-        if None in (n1, n2):
-            return n1 or n2
-        
-        t1 = n1.left
-        t2 = n2.left
-        t1.right = n2
-        n2.left = t1
-        t2.right = n1
-        n1.left = t2
-        
-        return n1
         
