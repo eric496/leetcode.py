@@ -20,13 +20,30 @@ In the example above, if we want to search the value 5, since there is no node w
 Note that an empty tree is represented by NULL, therefore you would see the expected output (serialized tree format) as [], not null.
 """
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
 
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+# Solution 1: recursive
+class Solution:
+    def searchBST(self, root: TreeNode, val: int) -> TreeNode:
+        if not root:
+            return None
+        
+        if root.val == val:
+            return root
+        elif root.val < val:
+            return self.searchBST(root.right, val)
+        elif root.val > val:
+            return self.searchBST(root.left, val)
+
+
+# Solution 2: iterative
 class Solution:
     def searchBST(self, root: TreeNode, val: int) -> TreeNode:
         while root:
@@ -34,7 +51,7 @@ class Solution:
                 return root
             elif root.val > val:
                 root = root.left
-            else:
+            elif root.val < val:
                 root = root.right
                 
         return None
