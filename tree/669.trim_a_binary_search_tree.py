@@ -36,13 +36,16 @@ Output:
  1
 """
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
 
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+# Solution 1
 class Solution:
     def trimBST(self, root: TreeNode, L: int, R: int) -> TreeNode:
         if not root:
@@ -50,6 +53,7 @@ class Solution:
         
         if root.val < L:
             return self.trimBST(root.right, L, R)
+        
         if root.val > R:
             return self.trimBST(root.left, L, R)
             
@@ -57,3 +61,22 @@ class Solution:
         root.right = self.trimBST(root.right, L, R)
         
         return root
+
+
+# Solution 2
+class Solution:
+    def trimBST(self, root: TreeNode, L: int, R: int) -> TreeNode:
+        if not root:
+            return root
+        
+        root.left = self.trimBST(root.left, L, R)
+        root.right = self.trimBST(root.right, L, R)
+        
+        if root.val < L:
+            return root.right
+        
+        if root.val > R:
+            return root.left
+        
+        return root
+        
