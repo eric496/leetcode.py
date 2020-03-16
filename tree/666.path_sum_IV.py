@@ -29,28 +29,26 @@ The path sum is (3 + 1) = 4.
 
 
 class Solution:
-    
-    total = 0
-    
     def pathSum(self, nums: List[int]) -> int:
-        tree = {num//10: num%10 for num in nums}
-        self.dfs(nums[0]//10, 0, tree)
+        lookup = {n//10: n%10 for n in nums}
+        res = [0]
+        self.dfs(nums[0]//10, 0, lookup, res)
         
-        return self.total
+        return res[0]
         
         
-    def dfs(self, node: int, pre_sum: int, tree: dict) -> None:
-        level, pos = divmod(node, 10)
-        left = (level+1)*10 + (pos*2-1)
-        right = (level+1)*10 + (pos*2)
-        cur_sum = pre_sum + tree[node]
+    def dfs(self, val: int, presum: int, lookup: dict, res: List[int]) -> None:
+        depth, pos = divmod(val, 10)
+        cur = presum + lookup[val]
+        left = (depth+1) * 10 + (2*pos-1)
+        right = (depth+1) * 10 + 2*pos
         
-        if left not in tree and right not in tree:
-            self.total += cur_sum
+        if left not in lookup and right not in lookup:
+            res[0] += cur
             return
-        
-        if left in tree:
-            self.dfs(left, cur_sum, tree)
-        
-        if right in tree:
-            self.dfs(right, cur_sum, tree)
+            
+        if left in lookup:
+            self.dfs(left, cur, lookup, res)
+            
+        if right in lookup:
+            self.dfs(right, cur, lookup, res)
