@@ -6,16 +6,14 @@ Recursive solution is trivial, could you do it iteratively?
 """
 
 
-"""
 # Definition for a Node.
 class Node:
     def __init__(self, val, children):
         self.val = val
         self.children = children
-"""
 
 
-# Solution 1: Recursive
+# Solution 1: recursive
 class Solution:
     def preorder(self, root: 'Node') -> List[int]:
         res = []
@@ -34,7 +32,7 @@ class Solution:
             self.dfs(child, res)
 
 
-# Solution 2: Iterative
+# Solution 2: iterative
 class Solution:
     def preorder(self, root: 'Node') -> List[int]:
         if not root:
@@ -43,10 +41,10 @@ class Solution:
         stk, res = [root], []
             
         while stk:
-            top = stk.pop()
-            res.append(top.val)
+            node = stk.pop()
+            res.append(node.val)
             
-            for child in top.children[::-1]:
+            for child in node.children[::-1]:
                 stk.append(child)
         
         return res

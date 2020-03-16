@@ -15,7 +15,7 @@ class Node:
 """
 
 
-# Solution 1: Recursive
+# Solution 1: recursive
 class Solution:
     def postorder(self, root: 'Node') -> List[int]:
         res = []
@@ -34,7 +34,7 @@ class Solution:
         res.append(node.val)
 
 
-# Solution 2: Iterative
+# Solution 2: iterative
 class Solution:
     def postorder(self, root: 'Node') -> List[int]:
         if not root:
