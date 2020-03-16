@@ -51,7 +51,6 @@ class TreeNode:
 
 
 class Solution:
-    
     def __init__(self):
         self.graph = {}
         self.leaves = set()
