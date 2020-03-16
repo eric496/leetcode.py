@@ -47,4 +47,3 @@ class Solution:
             depth += 1
             
         return depth
-
