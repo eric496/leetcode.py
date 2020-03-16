@@ -30,49 +30,50 @@ class TreeNode:
         self.right = None
 
 
-# Solution 1: BFS
+# Solution 1: recursive
+class Solution:    
+    def findSecondMinimumValue(self, root: TreeNode) -> int:
+        res = [float('inf')]
+        self.dfs(root, float('inf'), res)
+        
+        return res[0] if res[0] != float('inf') else -1
+        
+    
+    def dfs(self, node: TreeNode, min_val: int, res: List[int]) -> None:
+        if not node:
+            return 
+        
+        min_val = min(min_val, node.val)
+        
+        if min_val < node.val < res[0]:
+            res[0] = node.val
+            # Early stopping
+            return 
+        else:
+            self.dfs(node.left, min_val, res)
+            self.dfs(node.right, min_val, res)
+
+
+# Solution 2: iterative
 from collections import deque
 
 class Solution:
     def findSecondMinimumValue(self, root: TreeNode) -> int:
-        vals = set()
+        min_val, second = root.val, float('inf')
         q = deque([root])
         
         while q:
-            size = len(q)
-            for _ in range(size):
+            for _ in range(len(q)):
                 node = q.popleft()
-                vals.add(node.val)
+                
+                if min_val < node.val < second:
+                    second = node.val
+                                          
                 if node.left:
                     q.append(node.left)
+                
                 if node.right:
                     q.append(node.right)
-                    
-        vals.remove(min(vals))
-        
-        return min(vals) if vals else -1
-
-
-# Solution 2: DFS
-class Solution:
-    res = float('inf')
-    
-    def findSecondMinimumValue(self, root: TreeNode) -> int:
-        if not root:
-            return -1
-        
-        self.dfs(root, root.val)
-        
-        return self.res if self.res != float('inf') else -1
-        
-    
-    def dfs(self, node: TreeNode, min_val: int) -> None:
-        if min_val < node.val < self.res:
-            self.res = node.val
-        
-        if node.left and node.left.val < self.res:
-            self.dfs(node.left, min_val)
-        
-        if node.right and node.right.val < self.res:
-            self.dfs(node.right, min_val)
             
+        return second if second != float('inf') else -1
+        
