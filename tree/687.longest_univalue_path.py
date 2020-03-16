@@ -28,27 +28,40 @@ Note: The given binary tree has not more than 10000 nodes. The height of the tre
 """
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-# Recursive
+
+# Solution: recursive
 class Solution:
     def longestUnivaluePath(self, root: TreeNode) -> int:
-        self.res = 0
-        self.dfs(root)
-        return self.res
+        res = [0]
+        self.dfs(root, res)
         
-    def dfs(self, root: TreeNode) -> int:
-        if not root:
+        return res[0]
+        
+        
+    def dfs(self, node: TreeNode, res: List[int]) -> int:
+        if not node:
             return 0
         
-        left = self.dfs(root.left)
-        right = self.dfs(root.right)
-        left = left + 1 if root.left and root.left.val == root.val else 0
-        right = right + 1 if root.right and root.right.val == root.val else 0
-        self.res = max(self.res, left+right)
+        left = self.dfs(node.left, res)
+        right = self.dfs(node.right, res)
+        
+        if node.left and node.left.val == node.val:
+            left += 1
+        else:
+            left = 0
+            
+        if node.right and node.right.val == node.val:
+            right += 1
+        else:
+            right = 0
+            
+        res[0] = max(res[0], left+right)
         
         return max(left, right)
+        
