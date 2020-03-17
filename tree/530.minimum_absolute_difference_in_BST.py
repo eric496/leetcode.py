@@ -30,6 +30,7 @@ class Solution:
         self.prev = float('-inf')
         self.min_diff = float('inf')
     
+    
     def getMinimumDifference(self, root: TreeNode) -> int:
         if not root:
             return

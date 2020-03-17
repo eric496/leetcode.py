@@ -22,7 +22,6 @@ The BST is always valid, each node's value is an integer, and each node's value 
 """
 
 
-
 class TreeNode:
     def __init__(self, x):
         self.val = x
@@ -30,11 +29,14 @@ class TreeNode:
         self.right = None
 
 
-# Solution 1: Recursion
+# Solutions are the same as 530
+# Solution 1: recursive
 class Solution:
-    prev = float('-inf')
-    res = float('inf')
-    
+    def __init__(self):
+        self.prev = float('-inf')
+        self.res = float('inf')
+
+
     def minDiffInBST(self, root: TreeNode) -> int:
         if not root:
             return
@@ -47,7 +49,7 @@ class Solution:
         return self.res
 
 
-# Solution 2: Iterative
+# Solution 2: iterative
 class Solution:
     def minDiffInBST(self, root: TreeNode) -> int:
         diff, stk, prev = float('inf'), [], None
@@ -56,9 +58,12 @@ class Solution:
             while root:
                 stk.append(root)
                 root = root.left
+
             node = stk.pop()
+            
             if prev:
                 diff = min(diff, node.val-prev.val)
+            
             prev = node
             root = node.right
         
