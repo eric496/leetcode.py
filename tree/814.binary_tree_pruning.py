@@ -7,14 +7,17 @@ Example 1:
 Input: [1,null,0,0,1]
 Output: [1,null,0,null,1]
 """
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
 
-# Recursion
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+# Solution: recursive
 class Solution:
     def pruneTree(self, root: TreeNode) -> TreeNode:
         if not root: 
@@ -23,7 +26,7 @@ class Solution:
         root.left = self.pruneTree(root.left)
         root.right = self.pruneTree(root.right)
         
-        if not root.left and not root.right and not root.val:
+        if not root.left and not root.right and root.val == 0:
             return None
         
         return root
