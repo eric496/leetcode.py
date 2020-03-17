@@ -35,6 +35,7 @@ class TreeNode:
         self.right = None
 
 
+# Solution 1: recursive
 class Solution:
     def splitBST(self, root: TreeNode, V: int) -> List[TreeNode]:
         if not root:
@@ -49,3 +50,33 @@ class Solution:
             root.right = left
             return [root, right]
             
+
+# Solution 2: iterative
+class Solution:
+    def splitBST(self, root: TreeNode, V: int) -> List[TreeNode]:
+        if not root:
+            return [None, None]
+        
+        res = [None, None]
+        stk = []
+        
+        while root:
+            stk.append(root)
+            
+            if root.val > V:
+                root = root.left
+            else:
+                root = root.right
+                
+        while stk:
+            cur = stk.pop()
+            
+            if cur.val > V:
+                cur.left = res[1]
+                res[1] = cur
+            else:
+                cur.right = res[0]
+                res[0] = cur
+                
+        return res
+        
