@@ -35,7 +35,7 @@ class TreeNode:
         self.right = None
 
 
-# Solution 1: DFS - always insert the node at the very bottom
+# Solution 1: recursive
 class Solution:
     def insertIntoBST(self, root: TreeNode, val: int) -> TreeNode:
         if not root:
@@ -49,27 +49,27 @@ class Solution:
         return root
 
 
-# Solution 2: Iterative
+# Solution 2: iterative
 class Solution:
     def insertIntoBST(self, root: TreeNode, val: int) -> TreeNode:
         if not root:
             return TreeNode(val)
         
-        walk = root
+        cur = root
         
-        while 1:
-            if val > walk.val:
-                if walk.right:
-                    walk = walk.right
+        while cur:
+            if cur.val < val:
+                if cur.right:
+                    cur = cur.right
                 else:
-                    walk.right = TreeNode(val)
+                    cur.right = TreeNode(val)
                     break
             else:
-                if walk.left:
-                    walk = walk.left
+                if cur.left:
+                    cur = cur.left
                 else:
-                    walk.left = TreeNode(val)
+                    cur.left = TreeNode(val)
                     break
-                    
+        
         return root
         
