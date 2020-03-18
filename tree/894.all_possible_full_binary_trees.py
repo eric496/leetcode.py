@@ -18,24 +18,31 @@ class TreeNode:
 
 
 class Solution:
+    def __init__(self):
+        self.lookup = {}
     
-    memo = {1: [TreeNode(0)]}
     
     def allPossibleFBT(self, N: int) -> List[TreeNode]:
-        if N in self.memo:
-            return self.memo[N]
+        if N % 2 == 0:
+            return []
+        
+        if N == 1:
+            return [TreeNode(0)]
+        
+        if N in self.lookup:
+            return self.lookup[N]
         
         res = []
         
-        for i in range(1, N-1, 2):
+        for i in range(1, N, 2):
             for left in self.allPossibleFBT(i):
                 for right in self.allPossibleFBT(N-i-1):
                     root = TreeNode(0)
                     root.left = left
                     root.right = right
-                    res += [root]
-        
-        self.memo[N] = res
+                    res.append(root)
+                    
+        self.lookup[N] = res
         
         return res
         
