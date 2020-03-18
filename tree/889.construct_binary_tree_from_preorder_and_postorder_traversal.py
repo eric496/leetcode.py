@@ -21,6 +21,51 @@ class TreeNode:
         self.right = None
 
 
+# Solution 1: recursive
+class Solution:
+    def __init__(self):
+        self.pre_idx = 0
+        self.pos_idx = 0
+        
+        
+    def constructFromPrePost(self, pre: List[int], post: List[int]) -> TreeNode:
+        root = TreeNode(pre[self.pre_idx])
+        self.pre_idx += 1
+        
+        if root.val != post[self.pos_idx]:
+            root.left = self.constructFromPrePost(pre, post)
+            
+        if root.val != post[self.pos_idx]:
+            root.right = self.constructFromPrePost(pre, post)
+            
+        self.pos_idx += 1    
+        
+        return root
+
+
+# Solution 1: another recursive
+class Solution:      
+    def constructFromPrePost(self, pre: List[int], post: List[int]) -> TreeNode:
+        lookup = {v: i for i,v in enumerate(post)}
+        
+        return self.dfs(pre, 0, len(pre)-1, post, 0, len(post)-1, lookup)
+        
+        
+    def dfs(self, pre: List[int], pre_start: int, pre_end: int, post: List[int], post_start: int, post_end: int, lookup: dict) -> TreeNode:
+        if pre_start > pre_end or post_start > post_end:
+            return None
+        
+        root = TreeNode(pre[pre_start])
+        
+        if pre_start < pre_end:
+            diff = lookup[pre[pre_start+1]] - post_start
+            root.left = self.dfs(pre, pre_start+1, pre_start+1+diff, post, post_start, post_start+diff, lookup)
+            root.right = self.dfs(pre, pre_start+1+diff+1, pre_end, post, post_start+diff+1, post_end-1, lookup)
+            
+        return root
+
+
+# Solution 2: iterative
 class Solution:
     def constructFromPrePost(self, pre: List[int], post: List[int]) -> TreeNode:
         stk = [TreeNode(pre[0])]
