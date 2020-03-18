@@ -27,43 +27,43 @@ class TreeNode:
         self.right = None
         
 
+# Solution: DFS to build undirected graph, BFS to traverse nodes
 from collections import defaultdict
 
 class Solution:
     
-    def __init__(self):
-        self.graph = defaultdict(set)
-        self.visited = set()
-        
-    
-    def distanceK(self, root, target, K):
-        self.dfs(root, target.val)
-        res = [target.val]
+    def distanceK(self, root: TreeNode, target: TreeNode, K: int) -> List[int]:
+        graph = defaultdict(set)
+        self.dfs(root, graph)
+        q = [target]
+        visited = set()
         
         for _ in range(K):
-            size, level = len(res), []
+            bfs = []
             
-            for _ in range(size):
-                cur = res.pop()
-                if cur not in self.visited:
-                    level += self.graph.get(cur, [])
-                    self.visited.add(cur)
+            for _ in range(len(q)):
+                cur = q.pop()
+                
+                if cur not in visited:
+                    bfs += graph.get(cur, [])
+                    visited.add(cur)
             
-            res = level
+            q = bfs
             
-        return [val for val in res if val not in self.visited]
+        return [node.val for node in q if node not in visited]
             
     
-    def dfs(self, root: TreeNode, target: int) -> None:
-        if not root:
+    def dfs(self, node: TreeNode, graph: dict) -> None:
+        if not node:
             return
         
-        if root.left:
-            self.graph[root.val].add(root.left.val)
-            self.graph[root.left.val].add(root.val)
-            self.dfs(root.left, target)
+        if node.left:
+            graph[node].add(node.left)
+            graph[node.left].add(node)
+            self.dfs(node.left, graph)
             
-        if root.right:
-            self.graph[root.val].add(root.right.val)
-            self.graph[root.right.val].add(root.val)
-            self.dfs(root.right, target)
+        if node.right:
+            graph[node].add(node.right)
+            graph[node.right].add(node)
+            self.dfs(node.right, graph)
+            
