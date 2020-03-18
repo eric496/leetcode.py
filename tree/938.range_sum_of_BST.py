@@ -17,40 +17,52 @@ The final answer is guaranteed to be less than 2^31.
 
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-# Solution 1: not efficient
+
+# Solution 1: recursive
 class Solution:
-    def __init__(self):
-        self.res = 0
-
     def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
-        if root:
-            self.res += root.val if L <= root.val <= R else 0
-            self.rangeSumBST(root.left, L, R)
-            self.rangeSumBST(root.right, L, R)
+        res = [0]
+        self.dfs(root, L, R, res)
+        
+        return res[0]
+        
+        
+    def dfs(self, root: TreeNode, L: int, R: int, res: List[int]) -> None:
+        if not root:
+            return
+        
+        if L <= root.val <= R:
+            res[0] += root.val
+        
+        self.dfs(root.left, L, R, res)
+        self.dfs(root.right, L, R, res)
 
-        return self.res
 
-
-# Solution 2
+# Solution 2: iterative
 class Solution:
     def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
         if not root:
             return 0
-
-        res = 0
-
-        if L <= root.val <= R:
-            res += root.val
-        if root.val > L:
-            res += self.rangeSumBST(root.left, L, R)
-        if root.val < R:
-            res += self.rangeSumBST(root.right, L, R)
-
+        
+        stk, res = [root], 0
+        
+        while stk:
+            node = stk.pop()
+            
+            if L <= node.val <= R:
+                res += node.val
+                
+            if node.val > L and node.left:
+                stk.append(node.left)
+                
+            if node.val < R and node.right:
+                stk.append(node.right)
+                
         return res
-
+        
