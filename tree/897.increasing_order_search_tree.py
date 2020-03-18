@@ -43,7 +43,7 @@ class TreeNode:
         self.right = None
 
 
-# Solution 1: Recursion
+# Solution 1: recursive
 class Solution:
     prev, head = None, None
     
@@ -66,10 +66,10 @@ class Solution:
         return self.head
 
 
-# Solution 2: Iterative
+# Solution 2: iterative
 class Solution:
     def increasingBST(self, root: TreeNode) -> TreeNode:
-        new = head = TreeNode(0)
+        sentinel = cur = TreeNode(0)
         stk = []
 
         while stk or root:
@@ -78,10 +78,10 @@ class Solution:
                 root = root.left
 
             root = stk.pop()
-            new.right = root
-            new = new.right
+            cur.right = root
+            cur.left = None
+            cur = cur.right
             root = root.right
-            new.left = None
 
-        return head.right
+        return sentinel.right
         
