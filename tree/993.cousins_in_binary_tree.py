@@ -23,11 +23,13 @@ Each node has a unique integer value from 1 to 100.
 
 
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
+
+# Solution: level order traversal
 from collections import deque
 
 class Solution:
@@ -38,27 +40,37 @@ class Solution:
         q = deque([root])
 
         while q:
-            size = len(q)
             found_x = found_y = False
 
-            for _ in range(size):
+            for _ in range(len(q)):
                 node = q.popleft()
+
                 if node.val == x:
                     found_x = True
                 elif node.val == y:
                     found_y = True
 
                 if node.left and node.right:
-                    if {node.left.val, node.right.val} == {x, y}:
+                    if node.left.val == x and node.right.val == y:
                         return False
+                    
+                    if node.left.val == y and node.right.val == x:
+                        return False
+                    
+                    # Can be more concise like the following
+                    # if {node.left.val, node.right.val} == {x, y}:
+                    #     return False
 
                 if node.left:
                     q.append(node.left)
+                
                 if node.right:
                     q.append(node.right)
 
             if found_x and found_y:
                 return True
+            elif found_x != found_y:
+                return False
 
         return False
-
+        
