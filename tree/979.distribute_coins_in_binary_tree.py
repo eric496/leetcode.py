@@ -35,20 +35,20 @@ class TreeNode:
 
 
 class Solution:
-    res = 0
-    
     def distributeCoins(self, root: TreeNode) -> int:
-        self.dfs(root)
-        return self.res
-    
+        res = [0]
+        self.traverse(root, res)
         
-    def dfs(self, root: TreeNode) -> int:  
+        return res[0]
+        
+        
+    def traverse(self, root: TreeNode, res: List[int]) -> None:
         if not root:
             return 0
         
-        left = self.dfs(root.left)
-        right = self.dfs(root.right)
-        self.res += abs(left) + abs(right)
+        left = self.traverse(root.left, res)
+        right = self.traverse(root.right, res)
+        res[0] += abs(left) + abs(right)
         
         return root.val + left + right - 1
         
