@@ -27,7 +27,30 @@ class TreeNode:
         self.right = None
 
 
-# Solution 1: DFS
+# Solution 1: recursive
+class Solution:
+    def maxAncestorDiff(self, root: TreeNode) -> int:
+        res = [float('-inf')]
+        self.traverse(root, float('inf'), float('-inf'), res)
+        
+        return res[0]
+        
+        
+    def traverse(self, root: TreeNode, path_min: int, path_max: int, res) -> None:
+        if not root:
+            return
+        
+        path_min = min(path_min, root.val)
+        path_max = max(path_max, root.val)
+        
+        if not root.left and not root.right:
+            res[0] = max(res[0], path_max-path_min)
+        
+        self.traverse(root.left, path_min, path_max, res)
+        self.traverse(root.right, path_min, path_max, res)
+
+
+# Solution 1: recursive - a variation
 class Solution:
     def maxAncestorDiff(self, root: TreeNode) -> int:
         return self.dfs(root, root.val, root.val)
@@ -41,3 +64,25 @@ class Solution:
         max_ = max(max_, root.val)
         
         return max(self.dfs(root.left, min_, max_), self.dfs(root.right, min_, max_))
+
+
+# Solution 2: iterative
+class Solution:
+    def maxAncestorDiff(self, root: TreeNode) -> int:
+        stk = [(root, float('inf'), float('-inf'))]
+        res = float('-inf')
+        
+        while stk:
+            node, cur_min, cur_max = stk.pop()
+            cur_min = min(cur_min, node.val)
+            cur_max = max(cur_max, node.val)
+            res = max(res, cur_max-cur_min)
+            
+            if node.left:
+                stk.append((node.left, cur_min, cur_max))
+                
+            if node.right:
+                stk.append((node.right, cur_min, cur_max))
+                
+        return res
+        
