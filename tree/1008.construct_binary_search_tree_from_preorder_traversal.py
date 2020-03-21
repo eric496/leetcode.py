@@ -20,21 +20,28 @@ class TreeNode:
         self.right = None
 
 
+# Solution 1: recursive
+
+
+
+# Solution 2: iterative
 class Solution:
     def bstFromPreorder(self, preorder: List[int]) -> TreeNode:
         root = TreeNode(preorder[0])
         stk = [root]
         
         for val in preorder[1:]:
+            node = TreeNode(val)
+            
             if val < stk[-1].val:
-                stk[-1].left = TreeNode(val)
-                stk.append(stk[-1].left)
+                stk[-1].left = node
             else:
                 while stk and stk[-1].val <= val:
                     prev = stk.pop()
-                
-                prev.right = TreeNode(val)
-                stk.append(prev.right)
+                    
+                prev.right = node
+
+            stk.append(node)
             
         return root
         
