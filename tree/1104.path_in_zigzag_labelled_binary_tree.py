@@ -20,10 +20,10 @@ Constraints:
 class Solution:
     def pathInZigZagTree(self, label: int) -> List[int]:
         res = []
-        cnt = level = 1
+        n = level = 1
         
-        while label >= cnt * 2:
-            cnt *= 2
+        while label >= n * 2:
+            n *= 2
             level += 1
         
         while label:
@@ -34,4 +34,3 @@ class Solution:
             level -= 1
         
         return res[::-1]
-
