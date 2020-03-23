@@ -38,13 +38,36 @@ Thought:
     because we cannot pop items from an empty stack and the current closing parenthesis has nothing to form a pair. It should directly return false.
 '''
 
+
+# Solution 1
 class Solution:
     def isValid(self, s: str) -> bool:
         stk = []
         pairs = {'(':')', '{':'}', '[':']'}
-        for ch in s:
-            if ch in pairs:
-                stk.append(pairs[ch])
-            elif not stk or stk.pop() != ch:
+
+        for c in s:
+            if c in pairs:
+                stk.append(pairs[c])
+            elif not stk or stk.pop() != c:
                 return False
+
         return stk == []
+
+
+# Solution 2: not need to use map since there are only 3 pairs of symbols
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stk = []
+        
+        for c in s:
+            if c == '(':
+                stk.append(')')
+            elif c == '{':
+                stk.append('}')
+            elif c == '[':
+                stk.append(']')
+            elif not stk or stk.pop() != c:
+                return False
+            
+        return True if not stk else False
+        
