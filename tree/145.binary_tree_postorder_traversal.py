@@ -40,6 +40,28 @@ class Solution:
 
 
 # Solution 2: iterative
+from collections import deque
+
+class Solution:
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        
+        stk, res = [], deque()
+        
+        while stk or root:
+            if root:
+                stk.append(root)
+                res.appendleft(root.val)
+                root = root.right
+            else:
+                root = stk.pop()
+                root = root.left
+                
+        return res
+        
+
+# Solution 2: iterative
 class Solution:
     def postorderTraversal(self, root: TreeNode) -> List[int]:
         if not root:
@@ -59,23 +81,3 @@ class Solution:
                 stk.append(node.right)
                 
         return res[::-1]
-
-
-# Solution 2: iterative
-class Solution:
-    def postorderTraversal(self, root: TreeNode) -> List[int]:
-        if not root:
-            return []
-
-        stk, res = [], []
-
-        while stk or root:
-            if root:
-                stk.append(root)
-                res.insert(0, root.val)
-                root = root.right
-            else:
-                node = stk.pop()
-                root = node.left
-
-        return res
