@@ -25,6 +25,34 @@ class TreeNode:
         self.right = None
 
 
+# Solution 1: recursive
+from collections import deque
+
+class Solution:
+    def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
+        res = []
+        self.dfs(root, 0, res)
+        
+        return res
+        
+    
+    def dfs(self, root: TreeNode, depth: int, res: List[deque]) -> None:
+        if not root:
+            return
+        
+        if len(res) == depth:
+            res.append(deque())
+            
+        if depth % 2 == 0:
+            res[depth].append(root.val)
+        else:
+            res[depth].appendleft(root.val)
+            
+        self.dfs(root.left, depth+1, res)
+        self.dfs(root.right, depth+1, res)
+
+
+# Solution 2: iterative using Queue
 from collections import deque
 
 class Solution:
@@ -41,8 +69,10 @@ class Solution:
             for _ in range(len(q)):
                 node = q.popleft()
                 level.append(node.val)
+
                 if node.left:
                     q.append(node.left)
+                
                 if node.right:
                     q.append(node.right)
             
