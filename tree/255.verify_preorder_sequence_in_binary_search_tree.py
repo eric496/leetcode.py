@@ -21,6 +21,7 @@ Follow up:
 Could you do it using only constant space complexity?
 """
 
+
 # Solution 1: O(n) TC and O(n) SC
 class Solution:
     def verifyPreorder(self, preorder: List[int]) -> bool:
@@ -40,3 +41,21 @@ class Solution:
 
 
 # Follow up: O(n) TC and O(1) SC
+class Solution:
+    def verifyPreorder(self, preorder: List[int]) -> bool:
+        low = float('-inf')
+        i = 0
+        
+        for p in preorder:
+            if p < low:
+                return False
+            
+            while i>0 and p > preorder[i-1]:
+                low = preorder[i-1]
+                i -= 1
+                
+            preorder[i] = p
+            i += 1
+            
+        return True
+        
