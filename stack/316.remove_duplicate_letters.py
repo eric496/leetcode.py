@@ -23,21 +23,24 @@ Thoguht process:
 
 class Solution:
     def removeDuplicateLetters(self, s: str) -> str:
-        stk, cnt, visited = [], [0]*26, [0]*26
+        cnt = [0] * 26
+        anchor = ord('a')
         
-        for ch in s:
-            cnt[ord(ch)-ord('a')] += 1
+        for c in s:
+            cnt[ord(c)-anchor] += 1
             
-        for ch in s:
-            ix = ord(ch) - ord('a')
-            cnt[ix] -= 1
+        stk = []
+        visited = [0] * 26
+        
+        for c in s:
+            cnt[ord(c)-anchor] -= 1
             
-            if not visited[ix]:
-                while stk and ord(stk[-1]) > ord(ch) and cnt[ord(stk[-1])-ord('a')]:
-                    visited[ord(stk[-1])-ord('a')] = 0
-                    stk.pop()
+            if not visited[ord(c)-anchor]:
+                while stk and ord(c) < ord(stk[-1]) and cnt[ord(stk[-1])-anchor]:
+                    prev_letter = stk.pop()
+                    visited[ord(prev_letter)-anchor] = 0
 
-                stk.append(ch)
-                visited[ord(ch)-ord('a')] = 1
+                stk.append(c)
+                visited[ord(c)-anchor] = 1
             
         return ''.join(stk)
