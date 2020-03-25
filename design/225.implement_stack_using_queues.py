@@ -22,24 +22,32 @@ Depending on your language, queue may not be supported natively. You may simulat
 You may assume that all operations are valid (for example, no pop or top operations will be called on an empty stack).
 '''
 
+
+from collections import deque
+
 class MyStack:
-    import collections
     def __init__(self):
-        self.queue = collections.deque()
+        self.queue = deque()
+
 
     def push(self, x:int) -> None:
         self.queue.append(x)
+
         for _ in range(len(self.queue)-1):
             self.queue.append(self.queue.popleft())
         
+
     def pop(self):
         return self.queue.popleft()
 
+
     def top(self):
         return self.queue[0]
-    
+
+
     def empty(self):
         return not len(self.queue)
+
 
 # Your MyStack object will be instantiated and called as such:
 # obj = MyStack()
