@@ -10,22 +10,25 @@ s = "3[a2[c]]", return "accaccacc".
 s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 """
 
+
 class Solution:
     def decodeString(self, s: str) -> str:
-        stk = [["", 1]]
-        cnt = ""
+        stk, rep, cur = [], 0, ''
         
-        for ch in s:
-            if ch.isdigit():
-                cnt += ch
-            elif ch == "[":
-                stk.append(["", int(cnt)])
-                cnt = ""
-            elif ch == "]":
-                sub, num = stk.pop()
-                stk[-1][0] += sub * num
-            else:
-                stk[-1][0] += ch
+        for c in s:
+            if c.isdigit():
+                rep = rep*10 + int(c)
+            elif c.isalpha():
+                cur += c
+            elif c == '[':
+                stk.append(cur)
+                stk.append(rep)
+                rep = 0
+                cur = ''
+            elif c == ']':
+                n = stk.pop()
+                prev = stk.pop()
+                cur = prev + n*cur
         
-        return stk[0][0]
-    
+        return cur
+                
