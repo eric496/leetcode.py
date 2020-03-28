@@ -21,18 +21,22 @@ Output: "0"
 Explanation: Remove all the digits from the number and it is left with nothing which is 0.
 """
 
+
 class Solution:
     def removeKdigits(self, num: str, k: int) -> str:
         stk = []
         
         for n in num:
-            while k and stk and stk[-1] > n:
+            while k and stk and n < stk[-1]:
                 stk.pop()
                 k -= 1
+            
             stk.append(n)
-            
+
+        # edge case like "1111" 
         if k:
-            return ''.join(stk[:-k]).lstrip('0') or '0'
-        else:
-            return ''.join(stk).lstrip('0') or '0'
-            
+            stk = stk[:-k]
+        
+        res = ''.join(stk)
+        
+        return str(int(res)) if res else '0'
