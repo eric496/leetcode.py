@@ -28,22 +28,23 @@ Thought process:
 
 """
 
+
 class Solution:
     def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
-        res = [0] * n
         stk = []
-        prev_t = 0
+        res = [0] * n
         
         for log in logs:
-            fn, when, t = log.split(':')
+            fn, tag, t = log.split(':')
             fn, t = int(fn), int(t)
             
-            if when == 'start':
+            if tag == 'start':
                 if stk:
                     res[stk[-1]] += t - prev_t
+                    
                 stk.append(fn)
                 prev_t = t
-            else:
+            elif tag == 'end':
                 res[stk.pop()] += t - prev_t + 1
                 prev_t = t + 1
             
