@@ -18,3 +18,20 @@ Output: True
 Explanation: There are three 132 patterns in the sequence: [-1, 3, 2], [-1, 3, 0] and [-1, 2, 0].
 """
 
+
+class Solution:
+    def find132pattern(self, nums: List[int]) -> bool:
+        s2 = float('-inf')
+        stk = []
+        
+        for n in nums[::-1]:
+            if n < s2:
+                return True
+            else:
+                while stk and n > stk[-1]:
+                    s2 = max(s2, stk.pop())
+                    
+            stk.append(n)
+            
+        return False
+        
