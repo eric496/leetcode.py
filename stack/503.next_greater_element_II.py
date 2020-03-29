@@ -11,6 +11,8 @@ The second 1's next greater number needs to search circularly, which is also 2.
 Note: The length of given array won't exceed 10000.
 """
 
+
+# Solution: forward traversal
 class Solution:
     def nextGreaterElements(self, nums: List[int]) -> List[int]:
         nxt = {i:-1 for i in range(len(nums))}
@@ -25,4 +27,23 @@ class Solution:
                 stk.append(i)
                 
         return [nxt[i] for i in range(len(nums))]
+
+
+# Solution: backward traversal
+class Solution:
+    def nextGreaterElements(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        stk = []
+        res = [-1] * n
+        
+        for i in range(2*n-1, -1, -1):
+            num = nums[i%n]
+            
+            while stk and stk[-1] <= num:
+                stk.pop()
+                
+            res[i%n] = stk[-1] if stk else -1
+            stk.append(num)
+            
+        return res
         

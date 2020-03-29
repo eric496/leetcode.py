@@ -35,18 +35,20 @@ class Solution:
         for n1 in nums1:
             start = nums2.index(n1)
             found = 0
+
             for n2 in nums2[start:]:
                 if n2 > n1:
                     res.append(n2)
                     found = 1
                     break
+            
             if not found:
                 res.append(-1)
         
         return res
 
 
-# Solution 2: use stack
+# Solution 2: forward traversal
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         nxt = {n:-1 for n in nums1}
@@ -56,7 +58,27 @@ class Solution:
             while stk and stk[-1] < n:
                 nxt[stk.pop()] = n
             
-            if n in nxt:
-                stk.append(n)
+            stk.append(n)
                 
         return [nxt[n] for n in nums1]
+
+
+# Solution 2: backward traversal
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        nxt = {}
+        stk = []
+        
+        for n in nums2[::-1]:
+            if not stk:
+                nxt[n] = -1
+            else:
+                while stk and stk[-1] <= n:
+                    stk.pop()
+                
+                nxt[n] = stk[-1] if stk else -1
+                
+            stk.append(n)
+            
+        return [nxt[n] for n in nums1]
+
