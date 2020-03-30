@@ -45,9 +45,9 @@ Thought process:
         Number: directly push it to the stack
 """
 
+
 class Solution:
     def calPoints(self, ops: List[str]) -> int:
-        
         stk = []
         
         for op in ops:
@@ -61,3 +61,26 @@ class Solution:
                 stk.append(int(op))
                 
         return sum(stk)
+
+
+# Another solution: calculate sum on the fly
+class Solution:
+    def calPoints(self, ops: List[str]) -> int:
+        stk = []
+        res = 0
+        
+        for op in ops:
+            if op == 'C':
+                res -= stk.pop()
+            elif op == 'D':
+                stk.append(stk[-1]*2)
+                res += stk[-1]
+            elif op == '+':
+                stk.append(stk[-1]+stk[-2])
+                res += stk[-1]
+            else:
+                stk.append(int(op))
+                res += stk[-1]
+                    
+        return res
+        
