@@ -30,15 +30,35 @@ Thought process:
 
 """
 
+
+# Solution 1: O(n) TC and O(n) SC
 class Solution:
     def scoreOfParentheses(self, S: str) -> int:
         stk, res = [], 0
         
-        for ch in S:
-            if ch == '(':
+        for c in S:
+            if c == '(':
                 stk.append(res)
                 res = 0
             else:
-                res = stk.pop() + max(res*2, 1)
+                res += stk.pop() + max(res, 1)
                 
         return res
+
+
+# Solution 2: O(n) TC and O(1) SC
+class Solution:
+    def scoreOfParentheses(self, S: str) -> int:
+        res = depth = 0
+        
+        for i, c in enumerate(S):
+            if c == '(':
+                depth += 1
+            elif c == ')':
+                if S[i-1] == '(':
+                    res += 2 ** (depth-1)
+                
+                depth -= 1
+        
+        return res
+                
