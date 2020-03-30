@@ -37,9 +37,10 @@ The length of asteroids will be at most 10000.
 Each asteroid will be a non-zero integer in the range [-1000, 1000]..
 """
 
+
 class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
-        if len(asteroids) <= 1:
+        if len(asteroids) < 2:
             return asteroids
         
         stk = []
@@ -48,13 +49,14 @@ class Solution:
             if ast > 0:
                 stk.append(ast)
             else:
-                # Postive on the left are smaller
+                # Postive on the left are smaller, it explodes
                 while stk and stk[-1]>0 and stk[-1]<abs(ast):
                     stk.pop()
-                # Clear all asteroids on the left or the previous one is moving left too
+                # Current asteroid is largest in size and all previous exploded
+                # Or the previous one is moving towards left too
                 if not stk or stk[-1]<0:
                     stk.append(ast)
-                # Two asteroids are opposites, e.g. [-8,8]
+                # Two asteroids are opposites, e.g. [-8,8] >>> []
                 elif stk[-1] == abs(ast):
                     stk.pop()
             
