@@ -24,6 +24,7 @@ class Solution:
                 top = stk.pop()
                 peek = stk[-1]
                 res += A[top] * (i-top) * (top-peek)
+                
             stk.append(i)
             
         return res % (10**9+7)
