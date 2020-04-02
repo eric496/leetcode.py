@@ -13,34 +13,42 @@ Explanation:
 12 + 02 + 02 = 1
 '''
 
+
 class Solution:
     def isHappy(self, n: int) -> bool:
         seen = set()
 
-        while 1:
-            cur_sum = 0
+        while True:
+            res = 0
+
             while n:
-                cur_sum += (n%10) ** 2
+                res += (n%10) ** 2
                 n //= 10
-            if cur_sum == 1:
+            
+            if res == 1:
                 return True
-            elif cur_sum in seen:
+            elif res in seen:
                 return False
             else:
-                seen.add(cur_sum)
+                seen.add(res)
             
-            n = cur_sum  
+            n = res
 
-        return True
+        return False
+
 
 # A more concise and smart pythonic solution
 class Solution:
     def isHappy(self, n: int) -> bool:
         seen = set()
+        
         while n != 1:
-            n = sum([int(ch) ** 2 for ch in str(n)])
+            n = sum(int(ch) ** 2 for ch in str(n))
+            
             if n in seen:
                 return False
             else:
                 seen.add(n)
+        
         return True
+        
