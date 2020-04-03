@@ -40,17 +40,17 @@ class Solution:
     def binaryGap(self, N: int) -> int:
         res = gap = 0
         seen_one = False
-        
+
         while N:
             if N & 2 >> 1:
                 if seen_one:
-                    res = max(res, gap+1)
+                    res = max(res, gap + 1)
                     gap = 0
                 else:
                     seen_one = True
             elif seen_one:
                 gap += 1
-            
+
             N >>= 1
-        
+
         return res

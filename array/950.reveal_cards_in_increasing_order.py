@@ -40,15 +40,15 @@ Thought process:
 
 from collections import deque
 
+
 class Solution:
     def deckRevealedIncreasing(self, deck: List[int]) -> List[int]:
         deck.sort(reverse=True)
-        q  = deque()
-        
+        q = deque()
+
         for d in deck:
             if q:
                 q.appendleft(q.pop())
             q.appendleft(d)
-            
+
         return list(q)
-            

@@ -30,15 +30,15 @@ class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
         if not head or not head.next:
             return head
-        
+
         sentinel = prev = ListNode(None)
         sentinel.next = walk = head
-        
+
         while walk:
             # Don't forget to check walk.next
             while walk.next and walk.val == walk.next.val:
                 walk = walk.next
-            
+
             # Walking pointer didn't move which means it is a unique node
             # So just move prev pointer to point to this unique node
             if prev.next is walk:
@@ -47,7 +47,7 @@ class Solution:
             # Let the prev pointer's next pointer point to walking pointer's next node (skip all duplicates)
             else:
                 prev.next = walk.next
-                
+
             walk = walk.next
-        
+
         return sentinel.next

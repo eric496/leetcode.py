@@ -17,19 +17,19 @@ Note:
 logs[i] is guaranteed to have an identifier, and a word after the identifier.
 """
 
+
 class Solution:
     def reorderLogFiles(self, logs: List[str]) -> List[str]:
         letter_logs, digit_logs = [], []
-        
+
         for log in logs:
             sp = log.split()
             if sp[1].isdigit():
                 digit_logs.append(log)
             else:
-                letter_logs.append([sp[0], ' '.join(sp[1:])])
-                
+                letter_logs.append([sp[0], " ".join(sp[1:])])
+
         letter_logs.sort(key=lambda x: (x[1], x[0]))
-        letter_logs = [' '.join(s) for s in letter_logs]
-        
+        letter_logs = [" ".join(s) for s in letter_logs]
+
         return letter_logs + digit_logs
-        

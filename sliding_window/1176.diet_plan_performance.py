@@ -36,18 +36,19 @@ Constraints:
 
 
 class Solution:
-    def dietPlanPerformance(self, calories: List[int], k: int, lower: int, upper: int) -> int:
+    def dietPlanPerformance(
+        self, calories: List[int], k: int, lower: int, upper: int
+    ) -> int:
         seq_sum = sum(calories[:k])
         res = 0
         res += self.calc(seq_sum, upper, lower)
-            
+
         for i in range(k, len(calories)):
-            seq_sum += calories[i] - calories[i-k]
+            seq_sum += calories[i] - calories[i - k]
             res += self.calc(seq_sum, upper, lower)
-        
+
         return res
-    
-    
+
     def calc(self, seq_sum: int, upper: int, lower: int) -> int:
         if seq_sum > upper:
             return 1
@@ -55,4 +56,3 @@ class Solution:
             return -1
         else:
             return 0
-            

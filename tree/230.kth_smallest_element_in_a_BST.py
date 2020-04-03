@@ -42,21 +42,20 @@ class Solution:
         self.cnt = 0
         self.res = 0
         self.dfs(root, k)
-        
+
         return self.res
-        
-        
+
     def dfs(self, node: TreeNode, k: int) -> None:
         if not node:
-            return 
-            
-        self.dfs(node.left, k)     
+            return
+
+        self.dfs(node.left, k)
         self.cnt += 1
-        
+
         if self.cnt == k:
             self.res = node.val
             return
-        
+
         self.dfs(node.right, k)
 
 

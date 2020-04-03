@@ -21,14 +21,15 @@ There are two ways to reach the bottom-right corner:
 2. Down -> Down -> Right -> Right
 """
 
+
 class Solution:
     def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
         if not obstacleGrid or not obstacleGrid[0] or obstacleGrid[0][0] == 1:
             return 0
-        
+
         m, n = len(obstacleGrid), len(obstacleGrid[0])
-        dp = [[0]*n for _ in range(m)]
-        
+        dp = [[0] * n for _ in range(m)]
+
         # Handle first column
         for i in range(m):
             if obstacleGrid[i][0] == 0:
@@ -42,13 +43,13 @@ class Solution:
                 dp[0][j] = 1
             elif obstacleGrid[0][j] == 1:
                 break
-        
+
         for i in range(1, m):
             for j in range(1, n):
                 if obstacleGrid[i][j] == 1:
                     dp[i][j] = 0
                 else:
-                    dp[i][j] += 0 if dp[i-1][j] == -1 else dp[i-1][j]
-                    dp[i][j] += 0 if dp[i][j-1] == -1 else dp[i][j-1]
-                
+                    dp[i][j] += 0 if dp[i - 1][j] == -1 else dp[i - 1][j]
+                    dp[i][j] += 0 if dp[i][j - 1] == -1 else dp[i][j - 1]
+
         return dp[-1][-1]

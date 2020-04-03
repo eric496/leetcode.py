@@ -28,14 +28,15 @@ class Solution:
         targets = set(to_delete)
         res = []
         self.dfs(root, False, targets, res)
-        
+
         return res
-        
-        
-    def dfs(self, root: TreeNode, parent_exists: bool, targets: set, res: List[TreeNode]) -> TreeNode:
+
+    def dfs(
+        self, root: TreeNode, parent_exists: bool, targets: set, res: List[TreeNode]
+    ) -> TreeNode:
         if not root:
             return None
-        
+
         if root.val in targets:
             root.left = self.dfs(root.left, False, targets, res)
             root.right = self.dfs(root.right, False, targets, res)
@@ -43,8 +44,7 @@ class Solution:
         else:
             if not parent_exists:
                 res.append(root)
-                
+
             root.left = self.dfs(root.left, True, targets, res)
             root.right = self.dfs(root.right, True, targets, res)
             return root
-            

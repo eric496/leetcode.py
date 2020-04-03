@@ -26,7 +26,7 @@ class Solution:
     def partition(self, head: ListNode, x: int) -> ListNode:
         sentinel1 = walk1 = ListNode(None)
         sentinel2 = walk2 = ListNode(None)
-        
+
         while head:
             if head.val < x:
                 walk1.next = head
@@ -34,10 +34,10 @@ class Solution:
             else:
                 walk2.next = head
                 walk2 = walk2.next
-            
+
             head = head.next
-        
+
         walk1.next = sentinel2.next
         walk2.next = None
-        
+
         return sentinel1.next

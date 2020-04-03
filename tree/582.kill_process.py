@@ -27,25 +27,26 @@ n >= 1.
 # Solution 1: level order traversal
 from collections import deque
 
+
 class Solution:
     def killProcess(self, pid: List[int], ppid: List[int], kill: int) -> List[int]:
         parent = {}
-        
+
         for c, p in zip(pid, ppid):
             if p in parent:
                 parent[p].append(c)
             else:
                 parent[p] = [c]
-        
+
         res = []
         q = deque([kill])
-        
+
         while q:
             for _ in range(len(q)):
                 k = q.popleft()
                 res.append(k)
-                
+
                 if k in parent:
                     q.extend(parent[k])
-                
+
         return res

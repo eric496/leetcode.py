@@ -54,18 +54,17 @@ You may assume the destination buffer array, buf, is guaranteed to have enough s
 class Solution:
     def read(self, buf: List[int], n: int) -> int:
         total = 0
-        temp = [''] * 4
-        
+        temp = [""] * 4
+
         while total < n:
             cnt = read4(temp)
-            cnt = min(cnt, n-total)
-            
+            cnt = min(cnt, n - total)
+
             for i in range(cnt):
                 buf[total] = temp[i]
                 total += 1
-                
+
             if cnt < 4:
                 break
-        
+
         return total
-        

@@ -19,21 +19,20 @@ tiles consists of uppercase English letters.
 class Solution:
     def numTilePossibilities(self, tiles: str) -> int:
         cnt = [0] * 26
-        
+
         for ch in tiles:
-            cnt[ord(ch)-ord('A')] += 1
-            
+            cnt[ord(ch) - ord("A")] += 1
+
         return self.backtrack(cnt)
-    
-        
+
     def backtrack(self, cnt: List[int]) -> int:
         sum_ = 0
-        
+
         for i in range(26):
             if cnt[i]:
                 sum_ += 1
                 cnt[i] -= 1
                 sum_ += self.backtrack(cnt)
                 cnt[i] += 1
-                
-        return sum_ 
+
+        return sum_

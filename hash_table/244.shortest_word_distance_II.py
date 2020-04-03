@@ -14,7 +14,6 @@ You may assume that word1 does not equal to word2, and word1 and word2 are both 
 
 
 class WordDistance:
-
     def __init__(self, words: List[str]):
         self.pos = {}
         for i, word in enumerate(words):
@@ -22,20 +21,19 @@ class WordDistance:
                 self.pos[word].append(i)
             else:
                 self.pos[word] = [i]
-        
 
     def shortest(self, word1: str, word2: str) -> int:
-        min_d = float('inf')
+        min_d = float("inf")
         ix1, ix2 = self.pos[word1], self.pos[word2]
         i = j = 0
-        
+
         # The list are already sorted so no need to use a nested loop to compare
         while i < len(ix1) and j < len(ix2):
             if ix1[i] < ix2[j]:
-                min_d = min(min_d, ix2[j]-ix1[i])
+                min_d = min(min_d, ix2[j] - ix1[i])
                 i += 1
             else:
-                min_d = min(min_d, ix1[i]-ix2[j])
+                min_d = min(min_d, ix1[i] - ix2[j])
                 j += 1
-                
+
         return min_d

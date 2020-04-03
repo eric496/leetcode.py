@@ -25,15 +25,23 @@ A solution set is:
 ]
 """
 
+
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
         candidates.sort()
         self.dfs(candidates, target, 0, [], res)
-        
+
         return res
-        
-    def dfs(self, candidates: List[int], remain: int, start: int, comb: List[int], res: List[List[int]]) -> None:
+
+    def dfs(
+        self,
+        candidates: List[int],
+        remain: int,
+        start: int,
+        comb: List[int],
+        res: List[List[int]],
+    ) -> None:
         if remain < 0:
             return
         elif remain == 0:
@@ -41,9 +49,8 @@ class Solution:
             return
         else:
             for i in range(start, len(candidates)):
-                if i>start and candidates[i]==candidates[i-1]:
+                if i > start and candidates[i] == candidates[i - 1]:
                     continue
                 comb.append(candidates[i])
-                self.dfs(candidates, remain-candidates[i], i+1, comb, res)
+                self.dfs(candidates, remain - candidates[i], i + 1, comb, res)
                 comb.pop()
-    

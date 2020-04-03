@@ -28,24 +28,24 @@ class Solution:
     def twoSumBSTs(self, root1: TreeNode, root2: TreeNode, target: int) -> bool:
         if not root1 or not root2:
             return False
-        
+
         stk1, stk2 = [], []
         node1, node2 = TreeNode(None), TreeNode(None)
-        
+
         while 1:
             while root1:
                 stk1.append(root1)
                 root1 = root1.left
-                
+
             while root2:
                 stk2.append(root2)
                 root2 = root2.right
-                
+
             if not stk1 or not stk2:
                 break
-                
-            node1, node2 = stk1[-1], stk2[-1] 
-            
+
+            node1, node2 = stk1[-1], stk2[-1]
+
             if node1.val + node2.val == target:
                 return True
             elif node1.val + node2.val < target:
@@ -54,6 +54,5 @@ class Solution:
             else:
                 stk2.pop()
                 root2 = node2.left
-                
+
         return False
-        

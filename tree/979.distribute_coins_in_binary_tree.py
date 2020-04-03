@@ -38,17 +38,15 @@ class Solution:
     def distributeCoins(self, root: TreeNode) -> int:
         res = [0]
         self.traverse(root, res)
-        
+
         return res[0]
-        
-        
+
     def traverse(self, root: TreeNode, res: List[int]) -> None:
         if not root:
             return 0
-        
+
         left = self.traverse(root.left, res)
         right = self.traverse(root.right, res)
         res[0] += abs(left) + abs(right)
-        
+
         return root.val + left + right - 1
-        

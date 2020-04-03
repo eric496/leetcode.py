@@ -28,23 +28,19 @@ isUnique("make") -> true
 
 
 class ValidWordAbbr:
-
     def __init__(self, dictionary: List[str]):
         self.d = {}
-        
+
         for word in dictionary:
             key = self.abbr(word)
             if key in self.d:
                 self.d[key].add(word)
             else:
                 self.d[key] = {word}
-        
-        
+
     def isUnique(self, word: str) -> bool:
         key = self.abbr(word)
         return True if key not in self.d or self.d[key] == {word} else False
-        
-        
+
     def abbr(self, word):
-        return word if len(word)<3 else word[0]+str(len(word)-2)+word[-1]
-        
+        return word if len(word) < 3 else word[0] + str(len(word) - 2) + word[-1]

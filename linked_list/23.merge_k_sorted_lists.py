@@ -29,21 +29,20 @@ class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
         if not lists:
             return None
-        
+
         if len(lists) == 1:
             return lists[0]
-            
+
         mid = len(lists) // 2
         left = self.mergeKLists(lists[:mid])
         right = self.mergeKLists(lists[mid:])
-        
+
         return self.mergeSort(left, right)
-        
 
     def mergeSort(self, ls1: List[ListNode], ls2: List[ListNode]) -> ListNode:
         if None in (ls1, ls2):
             return ls1 or ls2
-        
+
         sentinel = walk = ListNode(None)
 
         while ls1 and ls2:
@@ -53,28 +52,29 @@ class Solution:
             else:
                 walk.next = ls2
                 ls2 = ls2.next
-                
+
             walk = walk.next
-        
+
         walk.next = ls1 or ls2
-        
+
         return sentinel.next
 
 
 # Solution 2: Heap
 import heapq
 
+
 class Solution(object):
     def mergeKLists(self, lists):
         pq = [(n.val, i, n) for i, n in enumerate(lists) if n]
         heapq.heapify(pq)
         sentinel = walk = ListNode(-1)
-        
+
         while pq:
             _, i, node = heapq.heappop(pq)
             walk.next = node
             walk = walk.next
             if node.next:
                 heapq.heappush(pq, (node.next.val, i, node.next))
-        
+
         return sentinel.next

@@ -31,10 +31,10 @@ class Solution:
     def maxIncreaseKeepingSkyline(self, grid: List[List[int]]) -> int:
         h = [max(row) for row in grid]
         v = [max(row) for row in zip(*grid)]
-        res = 0 
-        
+        res = 0
+
         for r in range(len(grid)):
             for c in range(len(grid[0])):
                 res += min(h[r], v[c]) - grid[r][c]
-                
+
         return res

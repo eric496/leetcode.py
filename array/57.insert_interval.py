@@ -12,8 +12,11 @@ Output: [[1,2],[3,10],[12,16]]
 Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
 """
 
+
 class Solution:
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+    def insert(
+        self, intervals: List[List[int]], newInterval: List[int]
+    ) -> List[List[int]]:
         res, start, end, i = [], newInterval[0], newInterval[1], 0
 
         while i < len(intervals) and intervals[i][1] < start:
@@ -32,4 +35,3 @@ class Solution:
             i += 1
 
         return res
-

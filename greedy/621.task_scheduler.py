@@ -20,7 +20,7 @@ class Solution:
         freq = [0] * 26
 
         for task in tasks:
-            freq[ord(task)-ord('A')] += 1
+            freq[ord(task) - ord("A")] += 1
 
         max_freq = max(freq)
         cnt_max_freq = 0
@@ -29,7 +29,6 @@ class Solution:
             if f == max_freq:
                 cnt_max_freq += 1
 
-        res = (max_freq-1) * (n+1) + cnt_max_freq
+        res = (max_freq - 1) * (n + 1) + cnt_max_freq
 
         return res if res > len_tasks else len_tasks
-

@@ -23,12 +23,13 @@ The index is starting from 0 to the list length minus 1.
 No duplicates in both lists.
 """
 
+
 class Solution:
     def findRestaurant(self, list1: List[str], list2: List[str]) -> List[str]:
-        fav = {r:i for i,r in enumerate(list1)}
+        fav = {r: i for i, r in enumerate(list1)}
         res = []
-        min_ix = float('inf')
-        
+        min_ix = float("inf")
+
         for i, r in enumerate(list2):
             if r in fav:
                 if i + fav[r] == min_ix:
@@ -36,5 +37,5 @@ class Solution:
                 elif i + fav[r] < min_ix:
                     res = [r]
                     min_ix = i + fav[r]
-                    
+
         return res

@@ -37,29 +37,28 @@ class TreeNode:
 class Solution:
     def maxProduct(self, root: TreeNode) -> int:
         total = [0]
-        max_prod = [float('-inf')]
+        max_prod = [float("-inf")]
         self.getTotalSum(root, total)
         self.getMaxProduct(root, max_prod, total[0])
-        
-        return max_prod[0] % (10**9 + 7)
-        
-        
+
+        return max_prod[0] % (10 ** 9 + 7)
+
     def getTotalSum(self, root: TreeNode, total: List[int]) -> None:
         if not root:
             return
-        
+
         total[0] += root.val
         self.getTotalSum(root.left, total)
         self.getTotalSum(root.right, total)
-        
-        
+
     def getMaxProduct(self, root: TreeNode, max_prod: List[int], total: int) -> int:
         if not root:
             return 0
-        
+
         left = self.getMaxProduct(root.left, max_prod, total)
         right = self.getMaxProduct(root.right, max_prod, total)
-        max_prod[0] = max(max_prod[0], (left+right+root.val) * (total-left-right-root.val))
-        
+        max_prod[0] = max(
+            max_prod[0], (left + right + root.val) * (total - left - right - root.val)
+        )
+
         return left + right + root.val
-    

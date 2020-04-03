@@ -15,17 +15,17 @@ Note: The length of given array won't exceed 10000.
 # Solution: forward traversal
 class Solution:
     def nextGreaterElements(self, nums: List[int]) -> List[int]:
-        nxt = {i:-1 for i in range(len(nums))}
+        nxt = {i: -1 for i in range(len(nums))}
         stk = []
         nums2 = nums * 2
-        
+
         for i, n in enumerate(nums2):
             while stk and nums[stk[-1]] < n:
                 nxt[stk.pop()] = n
-            
+
             if i < len(nums):
                 stk.append(i)
-                
+
         return [nxt[i] for i in range(len(nums))]
 
 
@@ -35,15 +35,14 @@ class Solution:
         n = len(nums)
         stk = []
         res = [-1] * n
-        
-        for i in range(2*n-1, -1, -1):
-            num = nums[i%n]
-            
+
+        for i in range(2 * n - 1, -1, -1):
+            num = nums[i % n]
+
             while stk and stk[-1] <= num:
                 stk.pop()
-                
-            res[i%n] = stk[-1] if stk else -1
+
+            res[i % n] = stk[-1] if stk else -1
             stk.append(num)
-            
+
         return res
-        

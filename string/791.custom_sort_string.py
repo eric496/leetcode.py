@@ -30,18 +30,18 @@ class Solution:
     def customSortString(self, S: str, T: str) -> str:
         cnt = [0] * 26
         res = []
-        
+
         for ch in T:
-            cnt[ord(ch)-ord('a')] += 1
-            
+            cnt[ord(ch) - ord("a")] += 1
+
         for ch in S:
-            while cnt[ord(ch)-ord('a')]:
+            while cnt[ord(ch) - ord("a")]:
                 res.append(ch)
-                cnt[ord(ch)-ord('a')] -= 1
-        
+                cnt[ord(ch) - ord("a")] -= 1
+
         for ch in T:
-            while cnt[ord(ch)-ord('a')]:
+            while cnt[ord(ch) - ord("a")]:
                 res.append(ch)
-                cnt[ord(ch)-ord('a')] -= 1
-        
-        return ''.join(res)
+                cnt[ord(ch) - ord("a")] -= 1
+
+        return "".join(res)

@@ -26,25 +26,24 @@ class Solution:
     def sortList(self, head: ListNode) -> ListNode:
         if not head or not head.next:
             return head
-        
+
         slow = fast = head
         prev = None
-        
+
         while fast and fast.next:
             prev = slow
             slow = slow.next
             fast = fast.next.next
-        
+
         prev.next = None
         left = self.sortList(head)
         right = self.sortList(slow)
-        
+
         return self.merge(left, right)
-    
 
     def merge(self, left: ListNode, right: ListNode) -> None:
         sentinel = walk = ListNode(None)
-        
+
         while left and right:
             if left.val < right.val:
                 walk.next = left
@@ -53,7 +52,7 @@ class Solution:
                 walk.next = right
                 right = right.next
             walk = walk.next
-            
+
         walk.next = left or right
-        
+
         return sentinel.next

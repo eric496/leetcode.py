@@ -22,11 +22,12 @@ Thought process:
     So we search from the square root in an decreasing order, the first qualified width will produce the minimum diff between width and length.
 """
 
+
 class Solution:
     def constructRectangle(self, area: int) -> List[int]:
-        w = int(area**0.5)
+        w = int(area ** 0.5)
 
-        while area%w:
+        while area % w:
             w -= 1
-        
-        return [area//w, w]
+
+        return [area // w, w]

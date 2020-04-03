@@ -26,11 +26,12 @@ Every words[i] will consist of lowercase letters, and have length in range [1, 1
 
 from collections import Counter
 
+
 class Solution:
     def shortestCompletingWord(self, licensePlate: str, words: List[str]) -> str:
         cnt = Counter([ch.lower() for ch in licensePlate if ch.isalpha()])
-        res = ''
-        
+        res = ""
+
         for word in words:
             word_cnt = Counter(word)
             for ch in cnt.keys():
@@ -39,6 +40,5 @@ class Solution:
             else:
                 if not res or len(word) < len(res):
                     res = word
-                    
-        return res
 
+        return res

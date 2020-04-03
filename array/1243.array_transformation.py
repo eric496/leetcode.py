@@ -31,16 +31,16 @@ class Solution:
     def transformArray(self, arr: List[int]) -> List[int]:
         if len(arr) < 3:
             return arr
-        
+
         res = [0] * len(arr)
-        
+
         while res != arr:
             res = arr.copy()
-            
-            for i in range(1, len(res)-1):
-                if res[i-1] > res[i] < res[i+1]:
+
+            for i in range(1, len(res) - 1):
+                if res[i - 1] > res[i] < res[i + 1]:
                     arr[i] = res[i] + 1
-                elif res[i-1] < res[i] > res[i+1]:
+                elif res[i - 1] < res[i] > res[i + 1]:
                     arr[i] = res[i] - 1
-            
+
         return res

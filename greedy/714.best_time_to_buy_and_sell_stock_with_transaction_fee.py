@@ -24,15 +24,14 @@ class Solution:
     def maxProfit(self, prices: List[int], fee: int) -> int:
         if len(prices) < 2:
             return 0
-        
+
         res, base = 0, prices[0]
-        
+
         for price in prices[1:]:
             if price < base:
                 base = price
             elif price - base > fee:
                 res += price - base - fee
                 base = price - fee
-        
+
         return res
-            

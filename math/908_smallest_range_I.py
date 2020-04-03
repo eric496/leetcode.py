@@ -35,5 +35,5 @@ Thought process:
 class Solution:
     def smallestRangeI(self, A: List[int], K: int) -> int:
         min_, max_ = min(A), max(A)
-        
-        return 0 if max_-K <= min_+K else max_-K - (min_+K)
+
+        return 0 if max_ - K <= min_ + K else max_ - K - (min_ + K)

@@ -72,15 +72,14 @@ class Solution:
     def verticalOrder(self, root: TreeNode) -> List[List[int]]:
         if not root:
             return []
-        
+
         colmap = {}
         q = [(root, 0)]
-        
+
         for node, col in q:
             if node:
                 colmap[col] = colmap.get(col, []) + [node.val]
-                q.append((node.left, col-1)) 
-                q.append((node.right, col+1))
-        
+                q.append((node.left, col - 1))
+                q.append((node.right, col + 1))
+
         return [colmap[k] for k in sorted(colmap)]
-        

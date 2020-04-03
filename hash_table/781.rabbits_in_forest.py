@@ -28,14 +28,14 @@ class Solution:
     def numRabbits(self, answers: List[int]) -> int:
         if not answers:
             return 0
-        
+
         cnt, res = {}, 0
-        
+
         for answer in answers:
             if answer == 0:
                 res += 1
                 continue
-                
+
             if answer in cnt:
                 cnt[answer] += 1
                 if cnt[answer] == answer:
@@ -43,5 +43,5 @@ class Solution:
             else:
                 cnt[answer] = 0
                 res += answer + 1
-                
+
         return res

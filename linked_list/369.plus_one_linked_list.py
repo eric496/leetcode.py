@@ -20,29 +20,29 @@ class ListNode:
 class Solution:
     def plusOne(self, head: ListNode) -> ListNode:
         stk1 = []
-        
+
         while head:
             stk1.append(head.val)
             head = head.next
-            
+
         carry = 1
         stk2 = []
-        
+
         while stk1:
             cur_digit = stk1.pop()
-            stk2.append((cur_digit+carry)%10)
-            carry = (cur_digit+carry) // 10
-        
+            stk2.append((cur_digit + carry) % 10)
+            carry = (cur_digit + carry) // 10
+
         if carry:
             stk2.append(carry)
-            
+
         sentinel = ListNode(-1)
         walk = sentinel
-        
+
         while stk2:
             walk.next = ListNode(stk2.pop())
             walk = walk.next
-        
+
         return sentinel.next
 
 
@@ -53,28 +53,27 @@ class Solution:
         rev = self.reverse(head)
         sentinel = walk = ListNode(None)
         carry = 1
-        
+
         while rev:
             sum_ = carry + rev.val
-            walk.next = ListNode(sum_%10)
+            walk.next = ListNode(sum_ % 10)
             carry = sum_ // 10
             walk, rev = walk.next, rev.next
-            
+
         if carry:
             walk.next = ListNode(carry)
-            
+
         return self.reverse(sentinel.next)
-            
-        
+
     def reverse(self, head: ListNode) -> ListNode:
         prev, cur = None, head
-        
+
         while cur:
             nxt = cur.next
             cur.next = prev
             prev = cur
             cur = nxt
-            
+
         return prev
 
 
@@ -86,18 +85,17 @@ class Solution:
         sentinel.next = head
         last_not_nine = sentinel
         walk = head
-        
+
         while walk:
             if walk.val != 9:
                 last_not_nine = walk
             walk = walk.next
-        
+
         last_not_nine.val += 1
         walk = last_not_nine.next
-        
+
         while walk:
             walk.val = 0
             walk = walk.next
-        
+
         return sentinel if sentinel.val == 1 else sentinel.next
-    

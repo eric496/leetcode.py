@@ -34,7 +34,7 @@ It is guaranteed there exists an answer.
 class Solution:
     def fairCandySwap(self, A: List[int], B: List[int]) -> List[int]:
         sum_a, sum_b = sum(A), sum(B)
-        diff = abs(sum_a-sum_b) // 2
+        diff = abs(sum_a - sum_b) // 2
         switch = 0
 
         if sum_a < sum_b:
@@ -52,10 +52,9 @@ class Solution:
 # Solution 2: a concise version
 class Solution:
     def fairCandySwap(self, A: List[int], B: List[int]) -> List[int]:
-        diff = (sum(A)-sum(B)) // 2
+        diff = (sum(A) - sum(B)) // 2
         set_A = set(A)
 
         for b in set(B):
             if diff + b in set_A:
-                return [diff+b, b]
-
+                return [diff + b, b]

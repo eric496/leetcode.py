@@ -35,25 +35,25 @@ class Solution:
     def recoverFromPreorder(self, S: str) -> TreeNode:
         levels = {}
         i = 0
-        
+
         while i < len(S):
             cur_level = val = 0
-            
-            while i < len(S) and S[i] == '-':
+
+            while i < len(S) and S[i] == "-":
                 cur_level += 1
                 i += 1
-                
+
             while i < len(S) and S[i].isdigit():
-                val = val*10 + int(S[i])
+                val = val * 10 + int(S[i])
                 i += 1
-                
+
             node = TreeNode(val)
             levels[cur_level] = node
-            
+
             if cur_level > 0:
-                if  not levels[cur_level-1].left:
-                    levels[cur_level-1].left = node
+                if not levels[cur_level - 1].left:
+                    levels[cur_level - 1].left = node
                 else:
-                    levels[cur_level-1].right = node
-                    
+                    levels[cur_level - 1].right = node
+
         return levels[0]

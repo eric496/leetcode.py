@@ -31,17 +31,17 @@ class Node:
 
 # Recursive
 class Solution:
-    def connect(self, root: 'Node') -> 'Node':
+    def connect(self, root: "Node") -> "Node":
         self.dfs(root)
         return root
-    
-    def dfs(self, root: 'Node') -> None:
+
+    def dfs(self, root: "Node") -> None:
         if not root:
             return
-        
+
         if not root.left and not root.right:
             return
-        
+
         if root.left:
             if root.right:
                 root.left.next = root.right
@@ -56,7 +56,7 @@ class Solution:
                         break
                     else:
                         node = node.next
-                    
+
         if root.right:
             node = root.next
             while node:
@@ -68,6 +68,6 @@ class Solution:
                     break
                 else:
                     node = node.next
-        
+
         self.dfs(root.right)
         self.dfs(root.left)

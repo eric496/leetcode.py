@@ -19,30 +19,29 @@ Output: "0.(6)"
 class Solution:
     def fractionToDecimal(self, numerator: int, denominator: int) -> str:
         if numerator == 0:
-            return '0'
-        
-        sign = '-' if (numerator>0) ^ (denominator>0) else ''
+            return "0"
+
+        sign = "-" if (numerator > 0) ^ (denominator > 0) else ""
         n, d = abs(numerator), abs(denominator)
-        
+
         if n % d == 0:
-            return sign + str(n//d)
-        
-        res = [str(n//d), '.']
+            return sign + str(n // d)
+
+        res = [str(n // d), "."]
         n %= d
         recur = {n: len(res)}
-        
+
         while n:
             n *= 10
-            res.append(n//d)
+            res.append(n // d)
             n %= d
-            
+
             if n in recur:
                 ix = recur[n]
-                res.insert(ix, '(')
-                res.append(')')
+                res.insert(ix, "(")
+                res.append(")")
                 break
             else:
                 recur[n] = len(res)
 
-        return sign + ''.join(map(str, res))
-        
+        return sign + "".join(map(str, res))

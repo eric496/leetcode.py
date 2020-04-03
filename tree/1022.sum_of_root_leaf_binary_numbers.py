@@ -15,7 +15,7 @@ The answer will not exceed 2^31 - 1.
 """
 
 
-# class TreeNode:
+class TreeNode:
     def __init__(self, x):
         self.val = x
         self.left = None
@@ -26,44 +26,43 @@ The answer will not exceed 2^31 - 1.
 class Solution:
     def sumRootToLeaf(self, root: TreeNode) -> int:
         res = []
-        self.dfs(root, '', res)
+        self.dfs(root, "", res)
 
         return sum(int(n, 2) for n in res)
 
-
     def dfs(self, node: TreeNode, cur: str, res: List[str]) -> None:
         if not node.left and not node.right:
-            res.append(cur+str(node.val))
+            res.append(cur + str(node.val))
 
         if node.left:
-            self.dfs(node.left, cur+str(node.val), res)
+            self.dfs(node.left, cur + str(node.val), res)
 
         if node.right:
-            self.dfs(node.right, cur+str(node.val), res)
+            self.dfs(node.right, cur + str(node.val), res)
 
 
 # Solution 2: iterative
 from collections import deque
 
+
 class Solution:
     def sumRootToLeaf(self, root: TreeNode) -> int:
         res = []
         q = deque([(root, str(root.val))])
-        
+
         while q:
             for _ in range(len(q)):
                 node, val = q.popleft()
-                
+
                 if not node.left and not node.right:
                     res.append(val)
-                    
+
                 if node.left:
-                    q.append((node.left, val+str(node.left.val)))
-                    
+                    q.append((node.left, val + str(node.left.val)))
+
                 if node.right:
-                    q.append((node.right, val+str(node.right.val)))
-                    
+                    q.append((node.right, val + str(node.right.val)))
+
         res = [int(bstr, 2) for bstr in res]
-        
+
         return sum(res)
-        

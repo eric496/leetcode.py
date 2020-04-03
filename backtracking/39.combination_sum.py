@@ -24,20 +24,28 @@ A solution set is:
 ]
 """
 
+
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
         self.dfs(candidates, target, 0, [], res)
-        
+
         return res
-        
-    def dfs(self, candidates: List[int], remain: int, start: int, comb: List[int], res: List[List[int]]) -> None:
+
+    def dfs(
+        self,
+        candidates: List[int],
+        remain: int,
+        start: int,
+        comb: List[int],
+        res: List[List[int]],
+    ) -> None:
         if remain < 0:
             return
         elif remain == 0:
             res.append(list(comb))
-        else:   
+        else:
             for i in range(start, len(candidates)):
                 comb.append(candidates[i])
-                self.dfs(candidates, remain-candidates[i], i, comb, res)
+                self.dfs(candidates, remain - candidates[i], i, comb, res)
                 comb.pop()

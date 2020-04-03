@@ -23,21 +23,22 @@ class Solution:
     def merge(self, intervals: List[Interval]) -> List[Interval]:
         if not intervals:
             return []
-        
+
         intervals.sort(key=lambda x: x.start)
         prev_start, prev_end = intervals[0].start, intervals[0].end
         res = []
-        
+
         for cur in intervals[1:]:
             if prev_end >= cur.start:
                 prev_end = max(cur.end, prev_end)
             else:
                 res.append(Interval(prev_start, prev_end))
                 prev_start, prev_end = cur.start, cur.end
-        
+
         res.append(Interval(prev_start, prev_end))
-        
+
         return res
+
 
 # Solution 2: more concise
 class Solution:

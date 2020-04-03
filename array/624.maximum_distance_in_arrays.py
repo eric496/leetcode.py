@@ -19,12 +19,12 @@ The integers in the m arrays will be in the range of [-10000, 10000].
 # O(n) TC and O(1) SC
 class Solution:
     def maxDistance(self, arrays: List[List[int]]) -> int:
-        res = float('-inf')
+        res = float("-inf")
         min_, max_ = arrays[0][0], arrays[0][-1]
 
         for i in range(1, len(arrays)):
-            res = max(res, abs(arrays[i][-1]-min_))
-            res = max(res, abs(max_-arrays[i][0]))
+            res = max(res, abs(arrays[i][-1] - min_))
+            res = max(res, abs(max_ - arrays[i][0]))
             max_ = max(max_, arrays[i][-1])
             min_ = min(min_, arrays[i][0])
 

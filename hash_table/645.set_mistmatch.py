@@ -11,39 +11,39 @@ The given array size will in the range [2, 10000].
 The given array's numbers won't have any order.
 """
 
-# Solution 1: 
+# Solution 1:
 class Solution:
     def findErrorNums(self, nums: List[int]) -> List[int]:
-        freq, cnt, res = {}, {n:1 for n in range(1, len(nums)+1)}, []
-        
+        freq, cnt, res = {}, {n: 1 for n in range(1, len(nums) + 1)}, []
+
         for n in nums:
             freq[n] = freq.get(n, 0) + 1
             if freq[n] > 1:
                 res.append(n)
             cnt[n] -= 1
-        
+
         for k in cnt:
             if cnt[k] == 1:
                 res.append(k)
                 break
-                
+
         return res
 
 
 # Solution 2: more concise
 class Solution:
     def findErrorNums(self, nums: List[int]) -> List[int]:
-        freq = [0] * (len(nums)+1)
+        freq = [0] * (len(nums) + 1)
         dup = missing = -1
 
         for n in nums:
             freq[n] += 1
-        
-        for n in range(1, len(nums)+1):
+
+        for n in range(1, len(nums) + 1):
             if freq[n] == 2:
                 dup = n
-                
+
             if freq[n] == 0:
                 missing = n
-                
+
         return [dup, missing]

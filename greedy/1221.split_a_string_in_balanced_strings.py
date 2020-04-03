@@ -27,15 +27,15 @@ s[i] = 'L' or 'R'
 class Solution:
     def balancedStringSplit(self, s: str) -> int:
         cnt_L = cnt_R = res = 0
-        
+
         for c in s:
-            cnt_L = cnt_L + 1 if c == 'L' else cnt_L
-            cnt_R = cnt_R + 1 if c == 'R' else cnt_R
-            
+            cnt_L = cnt_L + 1 if c == "L" else cnt_L
+            cnt_R = cnt_R + 1 if c == "R" else cnt_R
+
             if cnt_L == cnt_R:
                 res += 1
                 cnt_L = cnt_R = 0
-            
+
         return res
 
 
@@ -43,10 +43,9 @@ class Solution:
 class Solution:
     def balancedStringSplit(self, s: str) -> int:
         cnt = res = 0
-        
+
         for c in s:
-            cnt += 1 if c == 'R' else -1
+            cnt += 1 if c == "R" else -1
             res = res + 1 if cnt == 0 else res
-            
+
         return res
-        

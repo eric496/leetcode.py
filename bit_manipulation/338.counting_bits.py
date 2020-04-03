@@ -15,16 +15,17 @@ Space complexity should be O(n).
 Can you do it like a boss? Do it without using any builtin function like __builtin_popcount in c++ or in any other language.
 """
 
+
 class Solution:
     def countBits(self, num: int) -> List[int]:
-        res = [0] * (num+1)
-        
-        for n in range(1, num+1):
+        res = [0] * (num + 1)
+
+        for n in range(1, num + 1):
             # n&1 is equivalent to n%2
-            if n&1 == 0:
+            if n & 1 == 0:
                 # n>>1 is equivalent to n//2
-                res[n] = res[n>>1]
+                res[n] = res[n >> 1]
             else:
-                res[n] = res[n-1] + 1
-        
+                res[n] = res[n - 1] + 1
+
         return res

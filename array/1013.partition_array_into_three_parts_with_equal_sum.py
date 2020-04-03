@@ -25,18 +25,18 @@ Note:
 class Solution:
     def canThreePartsEqualSum(self, A: List[int]) -> bool:
         total = sum(A)
-        
+
         if total % 3:
             return False
-        
+
         partial_sum = cnt = 0
-        
+
         for num in A:
             partial_sum += num
-            if partial_sum == total//3: 
+            if partial_sum == total // 3:
                 cnt += 1
                 if cnt == 3:
                     return True
                 partial_sum = 0
-            
+
         return False

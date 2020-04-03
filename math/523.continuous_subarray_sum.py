@@ -21,20 +21,19 @@ You may assume the sum of all the numbers is in the range of a signed 32-bit int
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
         ix, cumsum = {0: -1}, 0
-        
+
         for i, num in enumerate(nums):
             cumsum += num
-            
+
             if k:
                 cumsum %= k
-                
+
             prev = ix.get(cumsum)
-            
+
             if prev is not None:
-                if i-prev > 1:
+                if i - prev > 1:
                     return True
             else:
                 ix[cumsum] = i
-            
+
         return False
-        

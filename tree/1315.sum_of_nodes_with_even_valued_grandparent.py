@@ -26,23 +26,25 @@ class Solution:
     def sumEvenGrandparent(self, root: TreeNode) -> int:
         res = [0]
         self.dfs(root, None, None, res)
-        
+
         return res[0]
-        
-        
-    def dfs(self, node: TreeNode, parent: TreeNode, grandparent: TreeNode, res: List[int]) -> None:
+
+    def dfs(
+        self, node: TreeNode, parent: TreeNode, grandparent: TreeNode, res: List[int]
+    ) -> None:
         if not node:
             return
-        
-        if grandparent and grandparent.val%2 == 0:
+
+        if grandparent and grandparent.val % 2 == 0:
             res[0] += node.val
-            
+
         self.dfs(node.left, node, parent, res)
         self.dfs(node.right, node, parent, res)
-        
+
 
 # Solution 2: iterative - level order traversal
 from collections import deque
+
 
 class Solution:
     def sumEvenGrandparent(self, root: TreeNode) -> int:
@@ -52,16 +54,15 @@ class Solution:
         while q:
             for _ in range(len(q)):
                 node, parent_val = q.popleft()
-                
-                if parent_val%2 == 0:
+
+                if parent_val % 2 == 0:
                     res += node.left.val if node.left else 0
                     res += node.right.val if node.right else 0
-                    
+
                 if node.left:
                     q.append((node.left, node.val))
-                    
+
                 if node.right:
                     q.append((node.right, node.val))
-                    
+
         return res
-                

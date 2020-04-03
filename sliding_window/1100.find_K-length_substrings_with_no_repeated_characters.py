@@ -24,27 +24,26 @@ class Solution:
     def numKLenSubstrNoRepeats(self, S: str, K: int) -> int:
         if K >= len(S):
             return 0
-        
+
         cnt, res = {}, 0
-        
+
         for ch in S[:K]:
             cnt[ch] = cnt.get(ch, 0) + 1
-            
+
         if len(cnt) == K:
             res += 1
-            
+
         for i in range(K, len(S)):
-            pre, cur = S[i-K], S[i]
-            
+            pre, cur = S[i - K], S[i]
+
             if cnt[pre] == 1:
                 del cnt[pre]
             else:
                 cnt[pre] -= 1
-            
+
             cnt[cur] = cnt.get(cur, 0) + 1
-            
+
             if len(cnt) == K:
                 res += 1
-                
+
         return res
-            

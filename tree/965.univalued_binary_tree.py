@@ -16,7 +16,7 @@ Each node's value will be an integer in the range [0, 99].
 """
 
 
-# class TreeNode:
+class TreeNode:
     def __init__(self, x):
         self.val = x
         self.left = None
@@ -26,18 +26,22 @@ Each node's value will be an integer in the range [0, 99].
 # Solution 1: recursive
 class Solution:
     def isUnivalTree(self, root: TreeNode) -> bool:
-        return self.dfs(root, root.val) 
-        
-        
+        return self.dfs(root, root.val)
+
     def dfs(self, root: TreeNode, unival: int) -> bool:
         if not root:
             return True
-        
-        return root.val == unival and self.dfs(root.left, unival) and self.dfs(root.right, unival)
+
+        return (
+            root.val == unival
+            and self.dfs(root.left, unival)
+            and self.dfs(root.right, unival)
+        )
 
 
 # Solution 2: iterative
 from collections import deque
+
 
 class Solution:
     def isUnivalTree(self, root: TreeNode) -> bool:
@@ -49,13 +53,13 @@ class Solution:
         while q:
             for _ in range(len(q)):
                 node = q.popleft()
-                
+
                 if node.val != unival:
                     return False
-                
+
                 if node.left:
                     q.append(node.left)
-                
+
                 if node.right:
                     q.append(node.right)
 

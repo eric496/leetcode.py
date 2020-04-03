@@ -62,23 +62,19 @@ class TreeNode:
 
 
 class FindElements:
-
     def __init__(self, root: TreeNode):
         self.seen = set()
         self.recover(root, 0)
-        
 
     def find(self, target: int) -> bool:
         return target in self.seen
 
-    
     def recover(self, root: TreeNode, val: int) -> None:
         if not root:
             return
-        
+
         root.val = val
         self.seen.add(val)
-            
-        self.recover(root.left, 2*val+1)
-        self.recover(root.right, 2*val+2)
-        
+
+        self.recover(root.left, 2 * val + 1)
+        self.recover(root.right, 2 * val + 2)

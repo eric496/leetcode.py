@@ -36,7 +36,7 @@ class Solution:
         walk = carry = 0
 
         while K and walk < len(A):
-            cur = carry + A[walk] + K%10
+            cur = carry + A[walk] + K % 10
             A[walk] = cur % 10
             carry = cur // 10
             K //= 10
@@ -47,12 +47,11 @@ class Solution:
                 cur = carry + A[walk]
                 A[walk] = cur % 10
             else:
-                cur = carry + K%10
-                A.append(cur%10)
+                cur = carry + K % 10
+                A.append(cur % 10)
                 K //= 10
 
             carry = cur // 10
             walk += 1
 
         return A[::-1]
-

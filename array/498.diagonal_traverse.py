@@ -17,6 +17,7 @@ The total number of elements of the given matrix will not exceed 10,000.
 
 from collections import defaultdict
 
+
 class Solution(object):
     def findDiagonalOrder(self, matrix):
         """
@@ -24,20 +25,20 @@ class Solution(object):
         :rtype: List[int]
         """
         res = []
-        
+
         if not matrix or not matrix[0]:
             return res
-        
+
         diag = defaultdict(list)
-        
+
         for row in range(len(matrix)):
             for col in range(len(matrix[0])):
-                diag[row+col].append(matrix[row][col])
-        
+                diag[row + col].append(matrix[row][col])
+
         for idx, ls in diag.items():
-            if idx%2:
+            if idx % 2:
                 res.extend(ls)
             else:
                 res.extend(ls[::-1])
-                
+
         return res

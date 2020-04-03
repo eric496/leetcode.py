@@ -31,17 +31,19 @@ class Solution:
     def largestBSTSubtree(self, root: TreeNode) -> int:
         res = self.largestBST(root)
         return res[2]
-    
-        
+
     def largestBST(self, node: TreeNode) -> List[int]:
         if not node:
-            return [float('inf'), float('-inf'), 0]
-        
+            return [float("inf"), float("-inf"), 0]
+
         left = self.largestBST(node.left)
         right = self.largestBST(node.right)
-        
+
         if node.val > left[1] and node.val < right[0]:
-            return [min(node.val, left[0]), max(node.val, right[1]), left[2]+right[2]+1]
+            return [
+                min(node.val, left[0]),
+                max(node.val, right[1]),
+                left[2] + right[2] + 1,
+            ]
         else:
-            return [float('-inf'), float('inf'), max(left[2], right[2])]
-            
+            return [float("-inf"), float("inf"), max(left[2], right[2])]

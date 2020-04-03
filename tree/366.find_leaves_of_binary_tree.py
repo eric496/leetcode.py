@@ -33,20 +33,18 @@ class Solution:
     def findLeaves(self, root: TreeNode) -> List[List[int]]:
         res = []
         self.dfs(root, res)
-        
+
         return res
-    
-    
+
     def dfs(self, node: TreeNode, res: List[int]) -> int:
         if not node:
             return -1
-        
+
         height = max(self.dfs(node.left, res), self.dfs(node.right, res)) + 1
-        
+
         if height == len(res):
             res.append([])
-            
+
         res[height].append(node.val)
-        
+
         return height
-        

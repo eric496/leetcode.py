@@ -27,9 +27,8 @@ Constraints:
 class Solution:
     def findNumbers(self, nums: List[int]) -> int:
         res = 0
-        
+
         for num in nums:
-            res += 0 if len(str(num))%2 else 1
-            
+            res += 0 if len(str(num)) % 2 else 1
+
         return res
-        

@@ -11,12 +11,13 @@ The length of A and B will be between 1 and 10000.
 class Solution:
     def repeatedStringMatch(self, A: str, B: str) -> int:
         reps = -(-len(B) // len(A))
-        
+
         if B in A * reps:
             return reps
-        elif B in A * (reps+1):
+        elif B in A * (reps + 1):
             return reps + 1
         else:
             return -1
+
 
 # Solution 2: KMP

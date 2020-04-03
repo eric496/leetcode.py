@@ -23,34 +23,34 @@ class Node:
 
 # Solution 1: recursive
 class Solution:
-    def levelOrder(self, root: 'Node') -> List[List[int]]:
+    def levelOrder(self, root: "Node") -> List[List[int]]:
         if not root:
             return []
-        
+
         res = []
         self.dfs(root, 0, res)
-        
+
         return res
-    
-        
-    def dfs(self, node: 'Node', depth: int, res: List[List[int]]) -> None:
+
+    def dfs(self, node: "Node", depth: int, res: List[List[int]]) -> None:
         if not node:
             return
-        
+
         if depth == len(res):
             res.append([])
-            
+
         res[depth].append(node.val)
-        
+
         for child in node.children:
-            self.dfs(child, depth+1, res)
+            self.dfs(child, depth + 1, res)
 
 
 # Solution 2: iterative
 from collections import deque
 
+
 class Solution:
-    def levelOrder(self, root: 'Node') -> List[List[int]]:
+    def levelOrder(self, root: "Node") -> List[List[int]]:
         if not root:
             return []
 
@@ -62,7 +62,7 @@ class Solution:
             for _ in range(len(q)):
                 node = q.popleft()
                 level.append(node.val)
-                
+
                 if node.children:
                     for child in node.children:
                         q.append(child)

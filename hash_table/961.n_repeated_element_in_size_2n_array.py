@@ -20,6 +20,7 @@ Note:
 A.length is even
 """
 
+
 class Solution:
     def repeatedNTimes(self, A: List[int]) -> int:
         seen = set()
@@ -29,4 +30,3 @@ class Solution:
                 return a
             else:
                 seen.add(a)
-

@@ -31,7 +31,7 @@ class Solution:
                 if ch not in cur:
                     cur[ch] = {}
                 cur = cur[ch]
-            cur['#'] = True
+            cur["#"] = True
 
         res = []
 
@@ -41,7 +41,7 @@ class Solution:
             j = i
             while ch in cur:
                 cur = cur[ch]
-                if '#' in cur:
+                if "#" in cur:
                     res.append([i, j])
                 j += 1
                 if j == len(text):
@@ -50,4 +50,3 @@ class Solution:
                     ch = text[j]
 
         return res
-

@@ -20,6 +20,7 @@ You may assume that there are no duplicate edges in the input prerequisites.
 
 from collections import defaultdict, deque
 
+
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         indegree = [0] * numCourses
@@ -46,4 +47,3 @@ class Solution:
                 return False
 
         return True
-

@@ -20,29 +20,27 @@ class TreeNode:
 class Solution:
     def __init__(self):
         self.lookup = {}
-    
-    
+
     def allPossibleFBT(self, N: int) -> List[TreeNode]:
         if N % 2 == 0:
             return []
-        
+
         if N == 1:
             return [TreeNode(0)]
-        
+
         if N in self.lookup:
             return self.lookup[N]
-        
+
         res = []
-        
+
         for i in range(1, N, 2):
             for left in self.allPossibleFBT(i):
-                for right in self.allPossibleFBT(N-i-1):
+                for right in self.allPossibleFBT(N - i - 1):
                     root = TreeNode(0)
                     root.left = left
                     root.right = right
                     res.append(root)
-                    
+
         self.lookup[N] = res
-        
+
         return res
-        

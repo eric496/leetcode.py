@@ -23,7 +23,7 @@ The answer is guaranteed to fit within a 32-bit integer, ie. answer <= 2^31 - 1.
 class Solution:
     def tribonacci(self, n: int) -> int:
         first, second, third = 0, 1, 1
-        
+
         if n == 0:
             return first
         elif n == 1:
@@ -31,8 +31,7 @@ class Solution:
         elif n == 2:
             return third
         else:
-            for i in range(3, n+1):
+            for i in range(3, n + 1):
                 first, second, third = second, third, first + second + third
-        
+
         return third
-        

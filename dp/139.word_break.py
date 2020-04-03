@@ -21,16 +21,19 @@ Input: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
 Output: false
 """
 
+
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         slen = len(s)
         dp = [False] * slen
-        
+
         for i in range(slen):
             for w in wordDict:
-                # Current word is in the dictionary and previous word is in the dict too 
+                # Current word is in the dictionary and previous word is in the dict too
                 # or it is the first word in the string
-                if s[i-len(w)+1:i+1] == w and (i-len(w) == -1 or dp[i-len(w)]):
+                if s[i - len(w) + 1 : i + 1] == w and (
+                    i - len(w) == -1 or dp[i - len(w)]
+                ):
                     dp[i] = True
-                    
+
         return dp[-1]

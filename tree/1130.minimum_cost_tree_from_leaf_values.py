@@ -26,18 +26,17 @@ It is guaranteed that the answer fits into a 32-bit signed integer (ie. it is le
 
 class Solution:
     def mctFromLeafValues(self, arr: List[int]) -> int:
-        stk = [float('inf')]
+        stk = [float("inf")]
         res = 0
-        
+
         for n in arr:
             while stk[-1] <= n:
                 val = stk.pop()
                 res += val * min(stk[-1], n)
-                
+
             stk.append(n)
-            
+
         while len(stk) > 2:
             res += stk.pop() * stk[-1]
-            
+
         return res
-        

@@ -51,27 +51,26 @@ class TreeNode:
 
 class Solution:
     first = second = None
-    prev = TreeNode(float('-inf'))
-    
+    prev = TreeNode(float("-inf"))
+
     def recoverTree(self, root: TreeNode) -> None:
         self.dfs(root)
         self.first.val, self.second.val = self.second.val, self.first.val
-        
-        
+
     def dfs(self, root: TreeNode) -> None:
         if not root:
             return
-        
+
         self.dfs(root.left)
-        
+
         if not self.first and self.prev.val >= root.val:
             self.first = self.prev
-            
+
         if self.first and self.prev.val >= root.val:
             self.second = root
-            
+
         self.prev = root
-        
+
         self.dfs(root.right)
 
 

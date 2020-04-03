@@ -18,10 +18,9 @@ S consists of lowercase English letters only.
 class Solution:
     def removeVowels(self, S: str) -> str:
         res = []
-        
+
         for ch in S:
-            if ch not in 'aeiou':
+            if ch not in "aeiou":
                 res.append(ch)
-                
-        return ''.join(res)
-        
+
+        return "".join(res)

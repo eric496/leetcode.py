@@ -1,4 +1,4 @@
-'''
+"""
 A matrix is Toeplitz if every diagonal from top-left to bottom-right has the same element.
 Now given an M x N matrix, return True if and only if the matrix is Toeplitz.
  
@@ -33,16 +33,17 @@ matrix[i][j] will be integers in range [0, 99].
 Follow up:
 What if the matrix is stored on disk, and the memory is limited such that you can only load at most one row of the matrix into the memory at once?
 What if the matrix is so large that you can only load up a partial row into the memory at once?
-'''
+"""
+
 
 class Solution:
     def isToeplitzMatrix(self, matrix: List[List[int]]) -> bool:
         m, n = len(matrix), len(matrix[0])
-        
+
         for i in range(m):
             for j in range(n):
-                if i+1 < m and j+1 < n:
-                    if matrix[i][j] != matrix[i+1][j+1]:
+                if i + 1 < m and j + 1 < n:
+                    if matrix[i][j] != matrix[i + 1][j + 1]:
                         return False
-        
+
         return True

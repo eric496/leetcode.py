@@ -13,19 +13,19 @@ Note:
 1 <= A[i] <= 30000
 """
 
+
 class Solution:
     def sumSubarrayMins(self, A: List[int]) -> int:
         stk = []
         res = 0
         A = [0] + A + [0]
-        
+
         for i, n in enumerate(A):
             while stk and A[stk[-1]] > n:
                 top = stk.pop()
                 peek = stk[-1]
-                res += A[top] * (i-top) * (top-peek)
-                
+                res += A[top] * (i - top) * (top - peek)
+
             stk.append(i)
-            
-        return res % (10**9+7)
-        
+
+        return res % (10 ** 9 + 7)

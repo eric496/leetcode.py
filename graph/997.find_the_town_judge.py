@@ -42,32 +42,33 @@ class Solution:
             return 0
         elif N == 1:
             return N
-        
-        trust_d = {p: set([p]) for p in range(1, N+1)}
-        
+
+        trust_d = {p: set([p]) for p in range(1, N + 1)}
+
         for t in trust:
             trust_d[t[0]].add(t[1])
-            
+
         judge = None
-                
+
         for p in trust_d:
             if trust_d[p] == {p}:
                 judge = p
                 break
-        
+
         return judge if set([judge]) == set.intersection(*trust_d.values()) else -1
-        
+
+
 # Solution 2: Graph indgree - outdegree = N - 1
 class Solution:
     def findJudge(self, N: int, trust: List[List[int]]) -> int:
-        cnt = [0] * (N+1)
-        
+        cnt = [0] * (N + 1)
+
         for i, j in trust:
             cnt[i] -= 1
             cnt[j] += 1
-            
-        for i in range(1, N+1):
+
+        for i in range(1, N + 1):
             if cnt[i] == N - 1:
                 return i
-            
+
         return -1

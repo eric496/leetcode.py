@@ -30,16 +30,15 @@ class Solution:
         res = []
         done = 0
         A_sorted = sorted(A)
-        
+
         while A != A_sorted:
-            check = A[:len(A)-done]
+            check = A[: len(A) - done]
             max_ix = A.index(max(check))
             if max_ix:
-                res.append(max_ix+1)
-            res.append(len(A)-done)
-            A = A[:max_ix+1][::-1] + A[max_ix+1:]
-            A[:len(A)-done] = A[:len(A)-done][::-1]
+                res.append(max_ix + 1)
+            res.append(len(A) - done)
+            A = A[: max_ix + 1][::-1] + A[max_ix + 1 :]
+            A[: len(A) - done] = A[: len(A) - done][::-1]
             done += 1
-        
+
         return res
-        

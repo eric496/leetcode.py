@@ -26,28 +26,28 @@ class TreeNode:
 
 # Solution 1: recurisve
 class Solution:
-    def averageOfLevels(self, root: TreeNode) -> List[float]:       
+    def averageOfLevels(self, root: TreeNode) -> List[float]:
         cnt = []
         self.dfs(root, 0, cnt)
-        
-        return [level_sum/n for level_sum, n in cnt]
-        
-        
+
+        return [level_sum / n for level_sum, n in cnt]
+
     def dfs(self, node: TreeNode, depth: int, cnt: List[List[int]]) -> None:
         if not node:
             return
-        
+
         if depth == len(cnt):
             cnt.append([0, 0])
-        
+
         cnt[depth][0] += node.val
         cnt[depth][1] += 1
-        self.dfs(node.left, depth+1, cnt)
-        self.dfs(node.right, depth+1, cnt)
+        self.dfs(node.left, depth + 1, cnt)
+        self.dfs(node.right, depth + 1, cnt)
 
 
 # Solution 2: iterative - level order traversal
 from collections import deque
+
 
 class Solution:
     def averageOfLevels(self, root: TreeNode) -> List[float]:
@@ -58,18 +58,18 @@ class Solution:
 
         while q:
             size, level_sum = len(q), 0
-            
+
             for _ in range(size):
                 node = q.popleft()
                 level_sum += node.val
-                
+
                 if node.left:
                     q.append(node.left)
-                
+
                 if node.right:
                     q.append(node.right)
 
-            res.append(level_sum/size)
+            res.append(level_sum / size)
 
         return res
 
@@ -79,29 +79,28 @@ class Solution:
     def averageOfLevels(self, root: TreeNode) -> List[float]:
         if not root:
             return []
-        
+
         res, stk = [], [root]
-        
+
         while stk:
             size = len(stk)
             level = []
             level_sum = 0
-            
+
             for _ in range(size):
                 node = stk.pop()
                 level_sum += node.val
-                
+
                 if node.left:
                     level.append(node.left)
-                
+
                 if node.right:
                     level.append(node.right)
-                    
+
             stk = level
-            res.append(level_sum/size)
-            
+            res.append(level_sum / size)
+
         return res
 
 
 # Solution 2: recursive
- 

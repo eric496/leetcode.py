@@ -20,25 +20,25 @@ class Solution:
     def rearrangeBarcodes(self, barcodes: List[int]) -> List[int]:
         freq = {}
         max_b = max_cnt = 0
-        
+
         for b in barcodes:
             freq[b] = freq.get(b, 0) + 1
             if freq[b] > max_cnt:
                 max_b, max_cnt = b, freq[b]
-            
+
         pos = 0
         res = [0] * len(barcodes)
-        
+
         # Fill in the barcode with top frequency
         while freq[max_b]:
             res[pos] = max_b
             freq[max_b] -= 1
             pos += 2
-        
-        # Remove the barcode with top frequency 
+
+        # Remove the barcode with top frequency
         # Fill in other barcodes
         freq.pop(max_b)
-                
+
         for b in freq:
             while freq[b]:
                 # Even index positions are all filled
@@ -47,5 +47,5 @@ class Solution:
                 res[pos] = b
                 freq[b] -= 1
                 pos += 2
-        
+
         return res

@@ -33,17 +33,17 @@ class Solution:
         x = y = 0
         dx, dy = 0, 1
         res = 0
-        
+
         for c in commands:
             if c == -2:
                 dx, dy = -dy, dx
             elif c == -1:
                 dx, dy = dy, -dx
             else:
-                while c and (x+dx, y+dy) not in obs:
+                while c and (x + dx, y + dy) not in obs:
                     x += dx
                     y += dy
                     c -= 1
-            res = max(res, x**2 + y**2)
-            
+            res = max(res, x ** 2 + y ** 2)
+
         return res

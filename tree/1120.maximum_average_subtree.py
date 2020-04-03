@@ -26,24 +26,22 @@ class TreeNode:
         self.right = None
 
 
-# Solution: recursive bottom up 
+# Solution: recursive bottom up
 class Solution:
     def maximumAverageSubtree(self, root: TreeNode) -> float:
-        res = [float('-inf')]
+        res = [float("-inf")]
         self.dfs(root, res)
-        
+
         return res[0]
-        
-        
+
     def dfs(self, root: TreeNode, res: List[int]) -> List[int]:
         if not root:
             return [0, 0]
-        
+
         left_val, left_num = self.dfs(root.left, res)
         right_val, right_num = self.dfs(root.right, res)
         val = root.val + left_val + right_val
         num = left_num + right_num + 1
-        res[0] = max(res[0], val/num)
-        
+        res[0] = max(res[0], val / num)
+
         return [val, num]
-        

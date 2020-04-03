@@ -32,23 +32,21 @@ class TreeNode:
 # Solution: backtracking
 class Solution:
     def smallestFromLeaf(self, root):
-        res = [chr(ord('z')+1)]
+        res = [chr(ord("z") + 1)]
         self.backtrack(root, [], res)
-        
+
         return res[0]
-    
-    
+
     def backtrack(self, root: TreeNode, path: List[str], res: List[str]) -> None:
         if not root:
             return
-        
-        path.append(chr(root.val+ord('a')))
-        
+
+        path.append(chr(root.val + ord("a")))
+
         if not root.left and not root.right:
-            res[0] = min(res[0], ''.join(path)[::-1])
+            res[0] = min(res[0], "".join(path)[::-1])
         else:
             self.backtrack(root.left, path, res)
             self.backtrack(root.right, path, res)
-            
+
         path.pop()
-           

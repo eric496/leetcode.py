@@ -30,55 +30,56 @@ class TreeNode:
 # Solution: BFS
 from collections import deque
 
+
 class Solution:
     def isCompleteTree(self, root: TreeNode) -> bool:
         if not root.left and not root.right:
             return True
-        
+
         res = []
         q = deque([root])
-        
+
         while q:
             node = q.popleft()
             res.append(node)
-            
+
             if node:
                 q.append(node.left)
                 q.append(node.right)
-                
+
         while res[-1] is None:
             res.pop()
-            
+
         for node in res:
             if node is None:
                 return False
-            
+
         return True
 
 
 # Solution: improved
 from collections import deque
 
+
 class Solution:
     def isCompleteTree(self, root: TreeNode) -> bool:
         if not root.left and not root.right:
             return True
-        
+
         end = False
         q = deque([root])
-        
+
         while q:
             node = q.popleft()
-            
+
             if node is None:
                 end = True
             else:
-                if end: 
+                if end:
                     return False
-                
+
                 if node:
                     q.append(node.left)
                     q.append(node.right)
-                    
+
         return True
-        

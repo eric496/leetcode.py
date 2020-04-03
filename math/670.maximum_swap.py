@@ -21,14 +21,14 @@ class Solution:
         digits = [int(ch) for ch in str(num)]
         # index of the last apperance of each digit
         char_to_ix = [0] * 10
-        
+
         for i, d in enumerate(digits):
             char_to_ix[d] = i
-        
+
         for i in range(len(digits)):
             for j in range(9, digits[i], -1):
                 if char_to_ix[j] > i:
                     digits[i], digits[char_to_ix[j]] = digits[char_to_ix[j]], digits[i]
-                    return int(''.join(map(str, digits)))
-                
+                    return int("".join(map(str, digits)))
+
         return num

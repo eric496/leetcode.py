@@ -22,7 +22,7 @@ class Solution:
     def swapPairs(self, head: ListNode) -> ListNode:
         sentinel = prev = ListNode(-1)
         sentinel.next = head
-        
+
         while prev.next and prev.next.next:
             first = prev.next
             second = prev.next.next
@@ -30,5 +30,5 @@ class Solution:
             second.next = first
             prev.next = second
             prev = prev.next.next
-            
+
         return sentinel.next

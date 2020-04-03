@@ -11,10 +11,9 @@ Output: One possible answer is [3,5,1,6,2,4]
 class Solution:
     def wiggleSort(self, nums: List[int]) -> None:
         for i in range(len(nums)):
-            if i%2:
-                if nums[i] < nums[i-1]:
-                    nums[i-1], nums[i] = nums[i], nums[i-1]
+            if i % 2:
+                if nums[i] < nums[i - 1]:
+                    nums[i - 1], nums[i] = nums[i], nums[i - 1]
             else:
-                if i and nums[i] > nums[i-1]:
-                    nums[i-1], nums[i] = nums[i], nums[i-1]
-        
+                if i and nums[i] > nums[i - 1]:
+                    nums[i - 1], nums[i] = nums[i], nums[i - 1]

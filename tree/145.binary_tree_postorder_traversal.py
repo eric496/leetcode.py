@@ -42,13 +42,14 @@ class Solution:
 # Solution 2: iterative
 from collections import deque
 
+
 class Solution:
     def postorderTraversal(self, root: TreeNode) -> List[int]:
         if not root:
             return []
-        
+
         stk, res = [], deque()
-        
+
         while stk or root:
             if root:
                 stk.append(root)
@@ -57,27 +58,27 @@ class Solution:
             else:
                 root = stk.pop()
                 root = root.left
-                
+
         return res
-        
+
 
 # Solution 2: iterative
 class Solution:
     def postorderTraversal(self, root: TreeNode) -> List[int]:
         if not root:
             return []
-        
+
         stk = [root]
         res = []
-        
+
         while stk:
             node = stk.pop()
             res.append(node.val)
-            
+
             if node.left:
                 stk.append(node.left)
-                
+
             if node.right:
                 stk.append(node.right)
-                
+
         return res[::-1]

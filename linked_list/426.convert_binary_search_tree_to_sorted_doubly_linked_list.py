@@ -15,53 +15,51 @@ class Node:
 
 # Solution 1: recursive
 class Solution:
-    def treeToDoublyList(self, root: 'Node') -> 'Node':
+    def treeToDoublyList(self, root: "Node") -> "Node":
         if not root:
             return root
-        
+
         sentinel = prev = Node(None, None, None)
         prev = self.dfs(root, prev)
         prev.right = sentinel.right
         sentinel.right.left = prev
-        
+
         return sentinel.right
-        
-        
-    def dfs(self, node: 'Node', prev: 'Node') -> 'Node':
+
+    def dfs(self, node: "Node", prev: "Node") -> "Node":
         if not node:
             return prev
-        
+
         prev = self.dfs(node.left, prev)
         prev.right = node
         node.left = prev
         prev = self.dfs(node.right, node)
-        
+
         return prev
 
 
 # Solution 2: iterative
 class Solution:
-    def treeToDoublyList(self, root: 'Node') -> 'Node':
+    def treeToDoublyList(self, root: "Node") -> "Node":
         if not root:
             return root
-        
+
         stk = []
         sentinel = prev = Node(None, None, None)
         sentinel.next = cur = root
-        
+
         while stk or cur:
             while cur:
                 stk.append(cur)
                 cur = cur.left
-                
+
             cur = stk.pop()
             cur.left = prev
             prev.right = cur
             prev = cur
             cur = cur.right
-            
+
         sentinel.right.left = prev
         prev.right = sentinel.right
-        
+
         return sentinel.right
-        

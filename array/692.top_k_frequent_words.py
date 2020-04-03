@@ -22,13 +22,14 @@ Follow up:
 Try to solve it in O(n log k) time and O(n) extra space.
 """
 
+
 class Solution:
     def topKFrequent(self, words: List[str], k: int) -> List[str]:
         freq = {}
-        
+
         for w in words:
             freq[w] = freq.get(w, 0) + 1
-            
+
         res = sorted(freq, key=lambda w: (-freq[w], w))
-        
+
         return res[:k]

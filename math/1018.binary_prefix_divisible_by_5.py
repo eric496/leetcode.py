@@ -30,14 +30,13 @@ class Solution:
     def prefixesDivBy5(self, A: List[int]) -> List[bool]:
         res = []
         cur_sum = 0
-        
+
         for n in A:
-            cur_sum = (cur_sum*2 + n) % 5
-            
+            cur_sum = (cur_sum * 2 + n) % 5
+
             if cur_sum:
                 res.append(False)
             else:
                 res.append(True)
-                
+
         return res
-        

@@ -16,24 +16,24 @@ Note:
 A[i][j] is a lowercase letter
 """
 
+
 class Solution:
     def commonChars(self, A: List[str]) -> List[str]:
-        min_freq = [float('inf')] * 26
-        
+        min_freq = [float("inf")] * 26
+
         for word in A:
             freq = [0] * 26
-            
+
             for ch in word:
-                freq[ord(ch)-ord('a')] += 1
-            
+                freq[ord(ch) - ord("a")] += 1
+
             for i, f in enumerate(freq):
-                min_freq[i] = min(f, min_freq[i]) 
-            
+                min_freq[i] = min(f, min_freq[i])
+
         res = []
-        
+
         for i, freq in enumerate(min_freq):
             if freq:
-                res += [chr(i+ord('a'))] * freq
-        
+                res += [chr(i + ord("a"))] * freq
+
         return res
-        

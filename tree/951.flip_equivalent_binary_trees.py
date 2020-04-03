@@ -28,41 +28,51 @@ class Solution:
     def flipEquiv(self, root1: TreeNode, root2: TreeNode) -> bool:
         if not root1 and not root2:
             return True
-        
+
         if None in (root1, root2) or root1.val != root2.val:
             return False
-        
-        no_flip = self.flipEquiv(root1.left, root2.left) and self.flipEquiv(root1.right, root2.right) 
-        flip = self.flipEquiv(root1.left, root2.right) and self.flipEquiv(root1.right, root2.left)
-        
+
+        no_flip = self.flipEquiv(root1.left, root2.left) and self.flipEquiv(
+            root1.right, root2.right
+        )
+        flip = self.flipEquiv(root1.left, root2.right) and self.flipEquiv(
+            root1.right, root2.left
+        )
+
         return no_flip or flip
 
 
 # Solution 2: iterative
 from collections import deque
 
+
 class Solution:
     def flipEquiv(self, root1: TreeNode, root2: TreeNode) -> bool:
         q1, q2 = deque([root1]), deque([root2])
-        
+
         while q1 and q2:
             n1, n2 = q1.popleft(), q2.popleft()
-            
+
             if not n1 and not n2:
                 continue
-        
+
             if None in (n1, n2) or n1.val != n2.val:
                 return False
-            
-            if not n1.left and not n2.left or n1.left and n2.left and n1.left.val == n2.left.val:
+
+            if (
+                not n1.left
+                and not n2.left
+                or n1.left
+                and n2.left
+                and n1.left.val == n2.left.val
+            ):
                 q1.append(n1.left)
                 q1.append(n1.right)
             else:
                 q1.append(n1.right)
                 q1.append(n1.left)
-                
+
             q2.append(n2.left)
             q2.append(n2.right)
-        
+
         return not q1 and not q2
-        

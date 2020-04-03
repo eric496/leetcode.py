@@ -39,24 +39,23 @@ class TreeNode:
 class Solution:
     def sortedListToBST(self, head: ListNode) -> TreeNode:
         if not head:
-            return 
-        
+            return
+
         if not head.next:
             return TreeNode(head.val)
-        
+
         slow = fast = head
         prev = None
-        
+
         while fast and fast.next:
             prev = slow
             slow = slow.next
             fast = fast.next.next
-        
+
         # IMPORTANT: Cut and terminate the linked list to avoid loitering
         prev.next = None
         root = TreeNode(slow.val)
         root.left = self.sortedListToBST(head)
         root.right = self.sortedListToBST(slow.next)
-        
+
         return root
-        

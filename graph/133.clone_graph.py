@@ -29,7 +29,7 @@ class Node:
 
 
 class Solution:
-    def cloneGraph(self, node: 'Node') -> 'Node':
+    def cloneGraph(self, node: "Node") -> "Node":
         if not node:
             return node
 
@@ -49,4 +49,3 @@ class Solution:
                     d[node].neighbors.append(d[neighbor])
 
         return new_node
-

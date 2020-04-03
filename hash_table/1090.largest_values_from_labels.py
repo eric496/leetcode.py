@@ -33,23 +33,24 @@ Note:
 
 
 class Solution:
-    def largestValsFromLabels(self, values: List[int], labels: List[int], num_wanted: int, use_limit: int) -> int:
+    def largestValsFromLabels(
+        self, values: List[int], labels: List[int], num_wanted: int, use_limit: int
+    ) -> int:
         pairs = [(val, label) for val, label in zip(values, labels)]
         pairs.sort(key=lambda x: x[0], reverse=True)
         cnt = {}
         res = num = 0
-        
+
         for value, label in pairs:
             if cnt.get(label, -1) == use_limit:
                 continue
-            
+
             res += value
             num += 1
-            
+
             if num == num_wanted:
                 break
-            
+
             cnt[label] = cnt.get(label, 0) + 1
-        
+
         return res
-        

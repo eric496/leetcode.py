@@ -23,23 +23,22 @@ Do not use the eval built-in library function.
 class Solution:
     def calculate(self, s: str) -> int:
         res, cur, sign, stk = 0, 0, 1, []
-        
+
         for ch in s:
             if ch.isdigit():
-                cur = 10*cur + int(ch)
-            elif ch in ['+', '-']:
+                cur = 10 * cur + int(ch)
+            elif ch in ["+", "-"]:
                 res += sign * cur
                 cur = 0
-                sign = 1 if ch=='+' else -1
-            elif ch == '(':
+                sign = 1 if ch == "+" else -1
+            elif ch == "(":
                 stk.append(res)
                 stk.append(sign)
                 sign, res = 1, 0
-            elif ch == ')':
+            elif ch == ")":
                 res += sign * cur
                 res *= stk.pop()
                 res += stk.pop()
                 cur = 0
-            
-        return res + sign*cur
-        
+
+        return res + sign * cur

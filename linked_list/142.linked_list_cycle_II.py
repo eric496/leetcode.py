@@ -45,15 +45,15 @@ class Solution(object):
     def detectCycle(self, head: ListNode) -> ListNode:
         seen = set()
         walk = head
-        
+
         while walk:
-            if walk in seen: 
+            if walk in seen:
                 return walk
             else:
                 seen.add(walk)
 
             walk = walk.next
-            
+
         return None
 
 
@@ -63,12 +63,12 @@ class Solution(object):
 class Solution(object):
     def detectCycle(self, head: ListNode) -> ListNode:
         slow = fast = head
-        
+
         while fast and fast.next:
             slow, fast = slow.next, fast.next.next
             if slow is fast:
                 break
-        
+
         # If there is cycle, fast and fast.next should not be null
         if fast and fast.next:
             slow = head
@@ -84,7 +84,7 @@ class Solution(object):
 class Solution:
     def detectCycle(self, head: ListNode) -> ListNode:
         slow = fast = head
-        
+
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
@@ -92,12 +92,11 @@ class Solution:
                 break
         else:
             return None
-        
+
         slow = head
-        
+
         while slow is not fast:
             slow = slow.next
             fast = fast.next
-            
+
         return slow
-        

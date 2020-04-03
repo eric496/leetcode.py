@@ -27,15 +27,14 @@ Constraints:
 class Solution:
     def minimumAbsDifference(self, arr: List[int]) -> List[List[int]]:
         arr_sorted = sorted(arr)
-        min_diff = float('inf')
+        min_diff = float("inf")
         res = []
-        
-        for i in range(len(arr_sorted)-1):
-            if arr_sorted[i+1] - arr_sorted[i] < min_diff:
-                min_diff = arr_sorted[i+1] - arr_sorted[i]
-                res = [[arr_sorted[i], arr_sorted[i+1]]]
-            elif arr_sorted[i+1] - arr_sorted[i] == min_diff:
-                res.append([arr_sorted[i], arr_sorted[i+1]])
-                
+
+        for i in range(len(arr_sorted) - 1):
+            if arr_sorted[i + 1] - arr_sorted[i] < min_diff:
+                min_diff = arr_sorted[i + 1] - arr_sorted[i]
+                res = [[arr_sorted[i], arr_sorted[i + 1]]]
+            elif arr_sorted[i + 1] - arr_sorted[i] == min_diff:
+                res.append([arr_sorted[i], arr_sorted[i + 1]])
+
         return res
-        

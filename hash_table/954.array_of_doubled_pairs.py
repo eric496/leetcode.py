@@ -28,18 +28,17 @@ A.length is even
 class Solution:
     def canReorderDoubled(self, A: List[int]) -> bool:
         cnt = {}
-        
+
         for n in A:
             cnt[n] = cnt.get(n, 0) + 1
-        
+
         for key in sorted(cnt, key=abs):
             if cnt[key] == 0:
                 continue
-            
-            if key*2 in cnt and cnt[key] <= cnt[key*2]:
-                cnt[key*2] -= cnt[key]
+
+            if key * 2 in cnt and cnt[key] <= cnt[key * 2]:
+                cnt[key * 2] -= cnt[key]
             else:
                 return False
-        
+
         return True
-        

@@ -36,24 +36,23 @@ class Solution:
     def parseTernary(self, expression: str) -> str:
         stk = []
         i = len(expression) - 1
-        
+
         while i >= 0:
             c = expression[i]
 
-            if c == '?':
+            if c == "?":
                 true_exp = stk.pop()
                 false_exp = stk.pop()
                 i -= 1
-                
-                if expression[i] == 'T':
+
+                if expression[i] == "T":
                     stk.append(true_exp)
-                elif expression[i] == 'F':
+                elif expression[i] == "F":
                     stk.append(false_exp)
-            
-            elif c != ':':
+
+            elif c != ":":
                 stk.append(c)
-            
+
             i -= 1
-        
+
         return stk[-1]
-        

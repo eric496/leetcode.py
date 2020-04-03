@@ -32,16 +32,16 @@ Thought process:
 class Solution:
     def killProcess(self, pid: List[int], ppid: List[int], kill: int) -> List[int]:
         relations = {}
-        
+
         for parent, child in zip(ppid, pid):
             if parent in relations:
                 relations[parent].append(child)
             else:
                 relations[parent] = [child]
-        
+
         kill = [kill]
         res = []
-        
+
         while kill:
             child_kill = []
             for k in kill:
@@ -49,6 +49,5 @@ class Solution:
                 if k in relations:
                     child_kill.extend(relations[k])
             kill = child_kill
-            
+
         return res
-        

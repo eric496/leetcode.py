@@ -48,15 +48,14 @@ Follow up:
 Could you do better than O(n2) per move() operation?
 """
 
-class TicTacToe:
 
+class TicTacToe:
     def __init__(self, n: int):
         self.n = n
         self.row = [0] * n
         self.col = [0] * n
         self.diag = 0
         self.anti_diag = 0
-
 
     def move(self, row: int, col: int, player: int) -> int:
         mask = 1 if player == 1 else -1
@@ -65,12 +64,12 @@ class TicTacToe:
         self.diag += mask if row == col else 0
         self.anti_diag += mask if row + col == self.n - 1 else 0
 
-        if mask*self.n in (self.row[row], self.col[col], self.diag, self.anti_diag):
+        if mask * self.n in (self.row[row], self.col[col], self.diag, self.anti_diag):
             return player
 
         return 0
 
+
 # Your TicTacToe object will be instantiated and called as such:
 # obj = TicTacToe(n)
 # param_1 = obj.move(row,col,player)
-

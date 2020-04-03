@@ -26,14 +26,13 @@ class Solution:
     def convertBST(self, root: TreeNode) -> TreeNode:
         cumsum = [0]
         self.dfs(root, cumsum)
-        
+
         return root
-        
-        
+
     def dfs(self, node: TreeNode, cumsum: List[int]) -> None:
         if not node:
             return
-        
+
         self.dfs(node.right, cumsum)
         node.val += cumsum[0]
         cumsum[0] = node.val
@@ -46,17 +45,17 @@ class Solution:
         stk = []
         cumsum = 0
         cur = root
-        
+
         while stk or cur:
             while cur:
                 stk.append(cur)
                 cur = cur.right
-                
+
             node = stk.pop()
             node.val += cumsum
             cumsum = node.val
             cur = node.left
-                
+
         return root
 
 
@@ -66,7 +65,7 @@ class Solution:
         stk = []
         cumsum = 0
         cur = root
-        
+
         while stk or cur:
             if cur:
                 stk.append(cur)
@@ -76,6 +75,5 @@ class Solution:
                 cur.val += cumsum
                 cumsum = cur.val
                 cur = cur.left
-        
+
         return root
-        

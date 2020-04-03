@@ -26,8 +26,9 @@ class Solution:
             for row in range(len(A)):
                 level.append(A[row][col])
             res.append(level)
-            
+
         return res
+
 
 # Solution 2:
 class Solution:

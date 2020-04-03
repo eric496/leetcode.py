@@ -50,49 +50,46 @@ class Solution:
     def boundaryOfBinaryTree(self, root: TreeNode) -> List[int]:
         if not root:
             return []
-        
+
         res = [root.val]
         self.left_bound(root.left, res)
         self.leaves(root.left, res)
         self.leaves(root.right, res)
         self.right_bound(root.right, res)
-        
+
         return res
-        
-        
+
     def left_bound(self, node: TreeNode, res: List[int]) -> None:
         if not node or (not node.left and not node.right):
             return
-        
+
         res.append(node.val)
-        
+
         if node.left:
             self.left_bound(node.left, res)
         else:
             self.left_bound(node.right, res)
-        
-    
-    # Right bound adds the node val after the recursive calls because 
+
+    # Right bound adds the node val after the recursive calls because
     # it is counter clockwise and we need to do it in a bottom-up fashion
     def right_bound(self, node: TreeNode, res: List[int]) -> None:
         if not node or (not node.left and not node.right):
             return
-        
+
         if node.right:
             self.right_bound(node.right, res)
         else:
             self.right_bound(node.left, res)
-    
+
         res.append(node.val)
-        
-        
+
     def leaves(self, node: TreeNode, res: List[int]) -> None:
         if not node:
             return
-        
+
         if not node.left and not node.right:
             res.append(node.val)
             return
-        
+
         self.leaves(node.left, res)
         self.leaves(node.right, res)

@@ -22,9 +22,8 @@ Constraints:
 class Solution:
     def sumZero(self, n: int) -> List[int]:
         res = [0] * n
-        
+
         for i in range(n):
-            res[i] = 2*i - n + 1
-            
+            res[i] = 2 * i - n + 1
+
         return res
-        

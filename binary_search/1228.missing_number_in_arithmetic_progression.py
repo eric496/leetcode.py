@@ -23,28 +23,27 @@ Constraints:
 class Solution:
     def missingNumber(self, arr: List[int]) -> int:
         diff = 0
-        
-        for i in range(len(arr)-1):
-            d = arr[i+1] - arr[i]
+
+        for i in range(len(arr) - 1):
+            d = arr[i + 1] - arr[i]
             if diff * 2 == d:
                 return arr[i] + diff
             diff = d
-            
+
         return arr[0] + diff
 
 
 # Solution 2: Binary Search
 class Solution:
     def missingNumber(self, arr: List[int]) -> int:
-        diff = (arr[-1]-arr[0]) // len(arr)
+        diff = (arr[-1] - arr[0]) // len(arr)
         low, high = 0, len(arr)
-        
+
         while low < high:
-            mid = (low+high) >> 1
-            if arr[mid] == arr[0] + diff*mid:
+            mid = (low + high) >> 1
+            if arr[mid] == arr[0] + diff * mid:
                 low = mid + 1
             else:
                 high = mid
-            
-        return arr[0] + low*diff
-        
+
+        return arr[0] + low * diff

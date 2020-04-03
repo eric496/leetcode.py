@@ -28,16 +28,15 @@ class TreeNode:
 class Solution:
     def bstToGst(self, root: TreeNode) -> TreeNode:
         self.dfs(root, 0)
-        
+
         return root
-    
-        
+
     def dfs(self, node: TreeNode, val: int) -> None:
         if not node:
             return val
-        
+
         node.val += self.dfs(node.right, val)
-        
+
         return self.dfs(node.left, node.val)
 
 
@@ -45,16 +44,15 @@ class Solution:
 class Solution:
     def bstToGst(self, root: TreeNode) -> TreeNode:
         stk, cur, sum_ = [], root, 0
-        
+
         while cur or stk:
             while cur:
                 stk.append(cur)
                 cur = cur.right
-            
+
             cur = stk.pop()
             sum_ += cur.val
             cur.val = sum_
             cur = cur.left
-        
+
         return root
-    

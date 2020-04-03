@@ -17,19 +17,20 @@ Note:
 Your algorithm should run in O(n) time and uses constant extra space.
 """
 
+
 class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
         i = 1
-        
+
         while i <= len(nums):
-            x = nums[i-1]
-            if 1 <= x <= len(nums) and nums[x-1] != x:
-                nums[i-1], nums[x-1] = nums[x-1], x
+            x = nums[i - 1]
+            if 1 <= x <= len(nums) and nums[x - 1] != x:
+                nums[i - 1], nums[x - 1] = nums[x - 1], x
             else:
                 i += 1
-                
+
         for i, x in enumerate(nums, 1):
             if i != x:
                 return i
-            
+
         return len(nums) + 1

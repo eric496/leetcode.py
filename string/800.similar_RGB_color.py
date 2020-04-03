@@ -21,19 +21,18 @@ All inputs and outputs should use lowercase letters, and the output is 7 charact
 
 class Solution:
     def similarRGB(self, color: str) -> str:
-        res = [self.calc_closest(color[i:i+2]) for i in range(1, 7, 2)]
-        return '#' + ''.join(res)
-        
-        
+        res = [self.calc_closest(color[i : i + 2]) for i in range(1, 7, 2)]
+        return "#" + "".join(res)
+
     def calc_closest(self, s: str) -> str:
-        candidates = [str(i)*2 for i in range(10)] + [ch*2 for ch in 'abcdef']
-        min_dist = float('inf')
+        candidates = [str(i) * 2 for i in range(10)] + [ch * 2 for ch in "abcdef"]
+        min_dist = float("inf")
         min_candidate = None
         hex_s = int(s, 16)
-        
+
         for c in candidates:
             if abs(hex_s - int(c, 16)) < min_dist:
-                min_dist = abs(hex_s - int(c,16))
+                min_dist = abs(hex_s - int(c, 16))
                 min_candidate = c
-            
+
         return min_candidate

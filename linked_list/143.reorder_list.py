@@ -32,15 +32,15 @@ class Solution:
 
         slow = fast = ListNode(None)
         slow.next = head
-        
+
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        
+
         slow.next = self.reverse(slow.next)
         walk1 = head
         walk2 = slow.next
-        
+
         while walk1 != slow:
             slow.next = walk2.next
             walk2.next = walk1.next
@@ -48,14 +48,13 @@ class Solution:
             walk1 = walk2.next
             walk2 = slow.next
 
-
     def reverse(self, head: ListNode) -> ListNode:
         prev = None
-        
+
         while head:
             nxt = head.next
-            head.next= prev
+            head.next = prev
             prev = head
             head = nxt
-        
+
         return prev

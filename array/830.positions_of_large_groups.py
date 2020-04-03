@@ -32,21 +32,21 @@ class Solution:
         res = []
 
         while end < len(S):
-            if S[end] == S[end-1]:
+            if S[end] == S[end - 1]:
                 end += 1
             else:
-                if end-start >= 3:
-                    res.append([start, end-1])
+                if end - start >= 3:
+                    res.append([start, end - 1])
                 start = end
                 end += 1
 
-        if end-start >= 3:
-            res.append([start, end-1])
+        if end - start >= 3:
+            res.append([start, end - 1])
 
         return res
 
 
-# Solution 2: more concise 
+# Solution 2: more concise
 class Solution:
     def largeGroupPositions(self, S: str) -> List[List[int]]:
         start = end = 0
@@ -59,10 +59,9 @@ class Solution:
                 else:
                     break
 
-            if end-start >= 3:
-                res.append([start, end-1])
+            if end - start >= 3:
+                res.append([start, end - 1])
 
             start = end
 
         return res
-

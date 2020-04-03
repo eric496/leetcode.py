@@ -22,33 +22,41 @@ Note: 1 <= N <= 10000
 
 from collections import defaultdict
 
+
 class Solution:
     def sumOfDistancesInTree(self, N: int, edges: List[List[int]]) -> List[int]:
         sub = defaultdict(set)
         res = [0] * N
         cnt = [1] * N
-        
-        for u,v in edges:
+
+        for u, v in edges:
             sub[u].add(v)
             sub[v].add(u)
-            
+
         self.dfs1(0, -1, sub, res, cnt)
         self.dfs2(0, -1, N, sub, res, cnt)
-        
+
         return res
-    
-    
-    def dfs1(self, node: int, ancestor: int, sub: dict, res: List[int], cnt: List[int]) -> None:
+
+    def dfs1(
+        self, node: int, ancestor: int, sub: dict, res: List[int], cnt: List[int]
+    ) -> None:
         for child in sub[node]:
             if child != ancestor:
                 self.dfs1(child, node, sub, res, cnt)
                 cnt[node] += cnt[child]
                 res[node] += res[child] + cnt[child]
-                
-    
-    def dfs2(self, node: int, ancestor: int, N: int, sub: dict, res: List[int], cnt: List[int]) -> None:
+
+    def dfs2(
+        self,
+        node: int,
+        ancestor: int,
+        N: int,
+        sub: dict,
+        res: List[int],
+        cnt: List[int],
+    ) -> None:
         for child in sub[node]:
             if child != ancestor:
                 res[child] = res[node] - cnt[child] + N - cnt[child]
                 self.dfs2(child, node, N, sub, res, cnt)
-                

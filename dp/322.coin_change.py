@@ -14,19 +14,19 @@ Note:
 You may assume that you have an infinite number of each kind of coin.
 """
 
+
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        dp = [0] + [float('inf')] * amount
-        
-        for i in range(1, amount+1):
-            cur_min = float('inf')
+        dp = [0] + [float("inf")] * amount
+
+        for i in range(1, amount + 1):
+            cur_min = float("inf")
             for denomination in coins:
                 if i - denomination >= 0:
-                    cur_min = min(dp[i-denomination], cur_min)
+                    cur_min = min(dp[i - denomination], cur_min)
             dp[i] = cur_min + 1
-        
-        if dp[amount] == float('inf'):
+
+        if dp[amount] == float("inf"):
             return -1
         else:
             return dp[amount]
-        

@@ -16,42 +16,47 @@ A.length == 4
 0 <= A[i] <= 9
 """
 
+
 class Solution:
     def largestTimeFromDigits(self, A: List[int]) -> str:
         perm = []
         A.sort()
-        self.backtrack(A, [], [0]*len(A), perm)
+        self.backtrack(A, [], [0] * len(A), perm)
         candidates = []
-        
+
         for p in perm:
             hour = p[0] * 10 + p[1]
             minute = p[2] * 10 + p[3]
             if 0 <= hour < 24 and 0 <= minute < 60:
                 candidates.append(p)
-        
+
         if not candidates:
             return ""
-        
+
         candidates.sort()
         max_time = candidates[-1]
-        max_time.insert(2, ':')
-        
-        return ''.join(str(ch) for ch in max_time)
+        max_time.insert(2, ":")
 
-        
-    def backtrack(self, A: List[int], cur_perm: List[int], visited: List[bool], perm: List[List[int]]) -> None:
+        return "".join(str(ch) for ch in max_time)
+
+    def backtrack(
+        self,
+        A: List[int],
+        cur_perm: List[int],
+        visited: List[bool],
+        perm: List[List[int]],
+    ) -> None:
         if len(cur_perm) == len(A):
             perm.append(cur_perm[:])
         else:
             for ix, n in enumerate(A):
                 if visited[ix]:
                     continue
-                if ix>0 and n==A[ix-1] and not visited[ix-1]:
+                if ix > 0 and n == A[ix - 1] and not visited[ix - 1]:
                     continue
-                
+
                 visited[ix] = 1
                 cur_perm.append(n)
                 self.backtrack(A, cur_perm, visited, perm)
                 visited[ix] = 0
                 cur_perm.pop()
-                

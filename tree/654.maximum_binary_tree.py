@@ -33,36 +33,36 @@ class TreeNode:
 # DFS
 class Solution:
     def constructMaximumBinaryTree(self, nums: List[int]) -> TreeNode:
-        return self.construct(nums, 0, len(nums)-1)
-    
-        
+        return self.construct(nums, 0, len(nums) - 1)
+
     def construct(self, nums: List[int], start: int, end: int) -> TreeNode:
         if start > end:
             return None
-        
-        max_idx = nums.index(max(nums[start: end+1]))
+
+        max_idx = nums.index(max(nums[start : end + 1]))
         root = TreeNode(nums[max_idx])
-        root.left = self.construct(nums, start, max_idx-1)
-        root.right = self.construct(nums, max_idx+1, end)
-        
+        root.left = self.construct(nums, start, max_idx - 1)
+        root.right = self.construct(nums, max_idx + 1, end)
+
         return root
 
 
 # Improved
 class Solution:
     def constructMaximumBinaryTree(self, nums: List[int]) -> TreeNode:
-        lookup = {n:i for i,n in enumerate(nums)}
-        
-        return self.construct(nums, 0, len(nums)-1, lookup)
-    
-        
-    def construct(self, nums: List[int], start: int, end: int, lookup: dict) -> TreeNode:
+        lookup = {n: i for i, n in enumerate(nums)}
+
+        return self.construct(nums, 0, len(nums) - 1, lookup)
+
+    def construct(
+        self, nums: List[int], start: int, end: int, lookup: dict
+    ) -> TreeNode:
         if start > end:
             return None
-        
-        max_idx = lookup[max(nums[start: end+1])]
+
+        max_idx = lookup[max(nums[start : end + 1])]
         root = TreeNode(nums[max_idx])
-        root.left = self.construct(nums, start, max_idx-1, lookup)
-        root.right = self.construct(nums, max_idx+1, end, lookup)
-        
+        root.left = self.construct(nums, start, max_idx - 1, lookup)
+        root.right = self.construct(nums, max_idx + 1, end, lookup)
+
         return root

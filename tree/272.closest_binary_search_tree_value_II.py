@@ -31,25 +31,25 @@ class TreeNode:
 # Solution 1: O(n) time complexity - a variation of inorder traversal
 from collections import deque
 
+
 class Solution:
     def closestKValues(self, root: TreeNode, target: float, k: int) -> List[int]:
         res = deque([])
         self.dfs(root, target, k, res)
-        
+
         return res
-        
-        
+
     def dfs(self, node: TreeNode, target: float, k: int, res: deque) -> None:
         if not node:
             return
-        
+
         self.dfs(node.left, target, k, res)
-        
+
         if len(res) == k:
-            if abs(node.val-target) < abs(res[0]-target):
+            if abs(node.val - target) < abs(res[0] - target):
                 res.popleft()
             else:
                 return
-            
+
         res.append(node.val)
         self.dfs(node.right, target, k, res)

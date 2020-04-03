@@ -24,23 +24,25 @@ class Solution:
     def splitArray(self, nums: List[int]) -> bool:
         if len(nums) < 7:
             return False
-        
+
         n = len(nums)
-        cumsum = [nums[0]] + [0]*(n-1)
-        
-        for i,num in enumerate(nums[1:], 1):
-            cumsum[i] = cumsum[i-1] + num
-            
-        for j in range(3, n-3):
+        cumsum = [nums[0]] + [0] * (n - 1)
+
+        for i, num in enumerate(nums[1:], 1):
+            cumsum[i] = cumsum[i - 1] + num
+
+        for j in range(3, n - 3):
             seen = set()
-            
-            for i in range(1, j-1):
-                if cumsum[i-1] == cumsum[j-1]-cumsum[i]:
-                    seen.add(cumsum[i-1])
-            
-            for k in range(j+2, n-1):
-                if cumsum[k-1]-cumsum[j] == cumsum[n-1]-cumsum[k] and (cumsum[k-1]-cumsum[j]) in seen:
+
+            for i in range(1, j - 1):
+                if cumsum[i - 1] == cumsum[j - 1] - cumsum[i]:
+                    seen.add(cumsum[i - 1])
+
+            for k in range(j + 2, n - 1):
+                if (
+                    cumsum[k - 1] - cumsum[j] == cumsum[n - 1] - cumsum[k]
+                    and (cumsum[k - 1] - cumsum[j]) in seen
+                ):
                     return True
-        
+
         return False
-        

@@ -30,17 +30,17 @@ class Solution:
     def countBattleships(self, board: List[List[str]]) -> int:
         if not board or not board[0]:
             return 0
-        
+
         cnt = 0
-        
+
         for row in range(len(board)):
             for col in range(len(board[0])):
-                if board[row][col] == '.':
+                if board[row][col] == ".":
                     continue
-                if row > 0 and board[row-1][col] == 'X':
+                if row > 0 and board[row - 1][col] == "X":
                     continue
-                if col > 0 and board[row][col-1] == 'X':
+                if col > 0 and board[row][col - 1] == "X":
                     continue
                 cnt += 1
-        
+
         return cnt

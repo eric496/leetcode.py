@@ -18,16 +18,16 @@ Explanation: Because the path 1→3→1→1→1 minimizes the sum.
 class Solution:
     def minPathSum(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
-        dp = [[0]*n for _ in range(m)]
-        
+        dp = [[0] * n for _ in range(m)]
+
         for i in range(n):
-            dp[0][i] = sum(grid[0][:i+1])
-            
+            dp[0][i] = sum(grid[0][: i + 1])
+
         for j in range(m):
-            dp[j][0] = sum(grid[k][0] for k in range(j+1))
-            
+            dp[j][0] = sum(grid[k][0] for k in range(j + 1))
+
         for row in range(1, m):
             for col in range(1, n):
-                dp[row][col] = grid[row][col] + min(dp[row-1][col], dp[row][col-1])
-                
-        return dp[m-1][n-1]
+                dp[row][col] = grid[row][col] + min(dp[row - 1][col], dp[row][col - 1])
+
+        return dp[m - 1][n - 1]

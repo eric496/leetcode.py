@@ -36,21 +36,22 @@ class Solution:
     def prisonAfterNDays(self, cells: List[int], N: int) -> List[int]:
         for _ in range(N):
             new_state = [0] * len(cells)
-            for i in range(1, len(cells)-1):
-                if cells[i-1] == cells[i+1]:
+            for i in range(1, len(cells) - 1):
+                if cells[i - 1] == cells[i + 1]:
                     new_state[i] = 1
             cells = new_state
-    
+
         return cells
 
-# The first and last cells will inevitably become 0s. 
-# There are only 2^6 = 64 different states. Use hashmap to store all the states. 
-# Find the cycle and take mod 
+
+# The first and last cells will inevitably become 0s.
+# There are only 2^6 = 64 different states. Use hashmap to store all the states.
+# Find the cycle and take mod
 class Solution:
     def prisonAfterNDays(self, cells: List[int], N: int) -> List[int]:
         seen = set()
         cycle = has_cycle = 0
-        
+
         for _ in range(N):
             new_state = self.next_state(cells)
             if tuple(new_state) in seen:
@@ -59,24 +60,22 @@ class Solution:
             else:
                 seen.add(tuple(new_state))
                 cycle += 1
-            
+
             cells = new_state
-    
+
         if has_cycle:
             N %= cycle
-            
+
             for _ in range(N):
                 new_state = self.next_state(cells)
                 cells = new_state
-    
+
         return cells
-    
-    
+
     def next_state(self, cells: List[int]) -> List[int]:
         new_state = [0] * len(cells)
-        
-        for i in range(1, len(cells)-1):
-            new_state[i] = 1 if cells[i-1]==cells[i+1] else 0
-        
-        return new_state
 
+        for i in range(1, len(cells) - 1):
+            new_state[i] = 1 if cells[i - 1] == cells[i + 1] else 0
+
+        return new_state

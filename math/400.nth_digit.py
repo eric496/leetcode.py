@@ -1,4 +1,4 @@
-'''
+"""
 Find the nth digit of the infinite integer sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ...
 
 Note:
@@ -21,13 +21,14 @@ Output:
 
 Explanation:
 The 11th digit of the sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ... is a 0, which is part of the number 10.
-'''
+"""
+
 
 class Solution:
     def findNthDigit(self, n: int) -> int:
         n -= 1
         for digits in range(1, 11):
-            first = 10 ** (digits-1)
+            first = 10 ** (digits - 1)
             if n < 9 * first * digits:
-                return int(str(first + n/digits)[n%digits])
+                return int(str(first + n / digits)[n % digits])
             n -= 9 * first * digits

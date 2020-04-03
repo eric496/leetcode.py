@@ -17,23 +17,22 @@ class TreeNode:
         self.right = None
 
 
-# Solution 1: inorder traversal 
+# Solution 1: inorder traversal
 class Solution:
     def leafSimilar(self, root1: TreeNode, root2: TreeNode) -> bool:
         leaves1, leaves2 = [], []
         self.getLeaves(root1, leaves1)
         self.getLeaves(root2, leaves2)
-        
+
         return leaves1 == leaves2
-        
-        
+
     def getLeaves(self, root: TreeNode, leaves: List[int]) -> None:
         if not root:
-            return 
-        
+            return
+
         if not root.left and not root.right:
             leaves.append(root.val)
-            
+
         self.getLeaves(root.left, leaves)
         self.getLeaves(root.right, leaves)
 
@@ -42,7 +41,6 @@ class Solution:
 class Solution:
     def leafSimilar(self, root1: TreeNode, root2: TreeNode) -> bool:
         return self.dfs(root1) == self.dfs(root2)
-
 
     def dfs(self, node: TreeNode) -> List[int]:
         if not node:

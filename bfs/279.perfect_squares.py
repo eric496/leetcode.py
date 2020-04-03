@@ -15,12 +15,12 @@ Explanation: 13 = 4 + 9.
 # DP: TLE
 class Solution:
     def numSquares(self, n: int) -> int:
-        dp = [0] + [float('inf')] * n
+        dp = [0] + [float("inf")] * n
 
-        for i in range(1, n+1):
-            min_, j = float('inf'), 1
-            while j*j <= i:
-                min_ = min(min_, dp[i-j*j]+1)
+        for i in range(1, n + 1):
+            min_, j = float("inf"), 1
+            while j * j <= i:
+                min_ = min(min_, dp[i - j * j] + 1)
                 j += 1
             dp[i] = min_
 
@@ -32,15 +32,15 @@ class Solution:
     def numSquares(self, n: int) -> int:
         q1, q2 = [0], []
         level = 0
-        visited = [False] * (n+1)
-        
+        visited = [False] * (n + 1)
+
         while 1:
             level += 1
             for val in q1:
                 i = 0
                 while 1:
                     i += 1
-                    total = val + i**2
+                    total = val + i ** 2
                     if total == n:
                         return level
                     if total > n:
@@ -51,5 +51,5 @@ class Solution:
                     visited[total] = True
             q1 = q2
             q2 = []
-        
+
         return 0

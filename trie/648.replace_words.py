@@ -17,80 +17,77 @@ The input will only have lower-case letters.
 """
 
 
-# Brute force 
+# Brute force
 class Solution:
     def replaceWords(self, d: List[str], sentence: str) -> str:
-        words = sentence.strip().split(' ')
+        words = sentence.strip().split(" ")
         successors = {}
-        
+
         for word in words:
             for root in d:
                 if word.startswith(root):
                     successors[word] = root
                     break
-        
+
         res = []
-        
+
         for word in words:
             if word in successors:
                 res.append(successors[word])
             else:
                 res.append(word)
-                
-        return ' '.join(res)
-            
+
+        return " ".join(res)
+
 
 # Trie
 class TrieNode:
     def __init__(self):
         self.is_word = False
         self.children = {}
-        
+
 
 class Trie:
     def __init__(self):
         self.root = TrieNode()
-    
-    
+
     def insert(self, word):
         node = self.root
-        
+
         for c in word:
             if c not in node.children:
                 node.children[c] = TrieNode()
             node = node.children[c]
-        
+
         node.is_word = True
-    
-    
+
     def find_prefix(self, word):
         node = self.root
         prefix = []
-        
+
         for c in word:
             prefix.append(c)
             if c not in node.children:
                 return word
             else:
                 if node.children[c].is_word:
-                    return ''.join(prefix)
+                    return "".join(prefix)
                 else:
                     node = node.children[c]
-                    
+
         return word
-        
+
 
 class Solution:
     def replaceWords(self, d: List[str], sentence: str) -> str:
         trie = Trie()
-        
+
         for w in d:
             trie.insert(w)
-            
+
         words = []
-        
+
         for w in sentence.strip().split():
             words.append(trie.find_prefix(w))
-            
-        return ' '.join(words)
-        
+
+        return " ".join(words)

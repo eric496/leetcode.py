@@ -16,13 +16,14 @@ Output: 1
 #         self.start = s
 #         self.end = e
 
+
 class Solution:
     def minMeetingRooms(self, intervals: List[Interval]) -> int:
         starts = sorted(i.start for i in intervals)
         ends = sorted(i.end for i in intervals)
         s = e = 0
         num_rms = avail = 0
-        
+
         while s < len(starts):
             if starts[s] < ends[e]:
                 if not avail:
@@ -33,5 +34,5 @@ class Solution:
             else:
                 avail += 1
                 e += 1
-        
+
         return num_rms

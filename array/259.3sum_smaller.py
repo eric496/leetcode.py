@@ -16,15 +16,14 @@ class Solution:
     def threeSumSmaller(self, nums: List[int], target: int) -> int:
         res = 0
         nums.sort()
-        
-        for i in range(len(nums)-2):
-            low, high = i+1, len(nums)-1
+
+        for i in range(len(nums) - 2):
+            low, high = i + 1, len(nums) - 1
             while low < high:
                 if nums[i] + nums[low] + nums[high] < target:
                     res += high - low
                     low += 1
                 else:
                     high -= 1
-        
+
         return res
-        

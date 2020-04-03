@@ -32,17 +32,17 @@ class Solution:
     def minAddToMakeValid(self, S: str) -> int:
         stk = []
         res = 0
-        
+
         for ch in S:
-            if ch == '(':
+            if ch == "(":
                 stk.append(ch)
-            elif ch == ')':
+            elif ch == ")":
                 if stk:
-                    if stk[-1] == '(':
+                    if stk[-1] == "(":
                         stk.pop()
-                    elif stk[-1] == ')':
+                    elif stk[-1] == ")":
                         res += 1
                 else:
                     stk.append(ch)
-        
+
         return res + len(stk)

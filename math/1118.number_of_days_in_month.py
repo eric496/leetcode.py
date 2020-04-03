@@ -21,7 +21,7 @@ Note:
 
 class Solution:
     def numberOfDays(self, Y: int, M: int) -> int:
-        
+
         days_in_month = {
             1: 31,
             2: 28,
@@ -33,10 +33,12 @@ class Solution:
             8: 31,
             9: 30,
             10: 31,
-            11: 30, 
-            12: 31
+            11: 30,
+            12: 31,
         }
-        
-        leap_year = True if not Y%4 and Y%100 or not Y%100 and not Y%400 else False
-        
+
+        leap_year = (
+            True if not Y % 4 and Y % 100 or not Y % 100 and not Y % 400 else False
+        )
+
         return 29 if leap_year and M == 2 else days_in_month[M]

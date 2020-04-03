@@ -36,10 +36,11 @@ Note:
 bills[i] will be either 5, 10, or 20.
 """
 
+
 class Solution:
     def lemonadeChange(self, bills: List[int]) -> bool:
         fives = tens = 0
-        
+
         for b in bills:
             if b == 5:
                 fives += 1
@@ -57,6 +58,5 @@ class Solution:
                     fives -= 3
                 else:
                     return False
-        
+
         return True
-        

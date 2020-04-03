@@ -19,15 +19,14 @@ logger.shouldPrintMessage(10,"foo"); returns false;
 logger.shouldPrintMessage(11,"foo"); returns true;
 """
 
-class Logger:
 
+class Logger:
     def __init__(self):
         """
         Initialize your data structure here.
         """
         self.print_ts = {}
 
-        
     def shouldPrintMessage(self, timestamp: int, message: str) -> bool:
         """
         Returns true if the message should be printed in the given timestamp, otherwise returns false.

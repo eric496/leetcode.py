@@ -39,23 +39,22 @@ class Solution:
     def longestZigZag(self, root: TreeNode) -> int:
         if not root:
             return -1
-        
+
         res = [0]
-        self.dfs(root.left, 1, 'left', res)
-        self.dfs(root.right, 1, 'right', res)
-        
+        self.dfs(root.left, 1, "left", res)
+        self.dfs(root.right, 1, "right", res)
+
         return res[0]
-        
-    
+
     def dfs(self, root: TreeNode, path: int, direction: str, res: List[int]) -> None:
         if not root:
             return
-        
+
         res[0] = max(res[0], path)
-        
-        if direction == 'left':
-            self.dfs(root.right, path+1, 'right', res)
-            self.dfs(root.left, 1, 'left', res)
+
+        if direction == "left":
+            self.dfs(root.right, path + 1, "right", res)
+            self.dfs(root.left, 1, "left", res)
         else:
-            self.dfs(root.left, path+1, 'left', res)
-            self.dfs(root.right, 1, 'right', res)
+            self.dfs(root.left, path + 1, "left", res)
+            self.dfs(root.right, 1, "right", res)

@@ -31,18 +31,18 @@ s will be valid string such that mapping is always possible.
 
 import string
 
+
 class Solution:
     def freqAlphabets(self, s: str) -> str:
-        itoa = 'X' + string.ascii_lowercase
+        itoa = "X" + string.ascii_lowercase
         i, n, res = 0, len(s), []
-        
+
         while i < n:
-            if i+2 < n and s[i+2] == '#':
-                res.append(itoa[int(s[i:i+2])])
+            if i + 2 < n and s[i + 2] == "#":
+                res.append(itoa[int(s[i : i + 2])])
                 i += 3
             else:
                 res.append(itoa[int(s[i])])
                 i += 1
-        
-        return ''.join(res)
-            
+
+        return "".join(res)

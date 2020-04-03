@@ -37,35 +37,35 @@ Explanation: The number "-91283472332" is out of the range of a 32-bit signed in
              Thefore INT_MIN (−231) is returned.
 """
 
+
 class Solution:
     def myAtoi(self, str: str) -> int:
         if not str.strip():
             return 0
-        
+
         lstr = list(str.strip())
         sign = -1 if lstr[0] == "-" else 1
-        
+
         if lstr[0] in ("-", "+"):
             del lstr[0]
-            
+
         res = 0
-        
+
         for ix, ch in enumerate(lstr):
             if ix == 0 and not ch.isdigit():
                 return 0
-            
+
             if ch == ".":
                 break
-            
+
             if ch.isdigit():
-                res = res*10 + int(ch)
+                res = res * 10 + int(ch)
             else:
                 break
-            
-                
-        if sign*res >= 2**31-1:
-            return 2**31-1
-        elif sign*res <= -2**31:
-            return -2**31
+
+        if sign * res >= 2 ** 31 - 1:
+            return 2 ** 31 - 1
+        elif sign * res <= -(2 ** 31):
+            return -(2 ** 31)
         else:
-            return sign*res
+            return sign * res

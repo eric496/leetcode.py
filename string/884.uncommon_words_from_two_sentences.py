@@ -13,24 +13,25 @@ Input: A = "apple apple", B = "banana"
 Output: ["banana"]
 """
 
-# Solution 1: Hashmap 
+# Solution 1: Hashmap
 class Solution:
     def uncommonFromSentences(self, A: str, B: str) -> List[str]:
         A, B = A.split(), B.split()
         cnt = {}
         res = []
-        
+
         for a in A:
             cnt[a] = 0 if a in cnt else 1
-            
+
         for b in B:
             cnt[b] = 0 if b in cnt else 1
-            
+
         for c in cnt:
             if cnt[c]:
                 res.append(c)
-        
+
         return res
+
 
 # Solution 2: Concatenate two sentences
 class Solution:
@@ -39,13 +40,12 @@ class Solution:
         C = C.split()
         cnt = {}
         res = []
-        
+
         for c in C:
             cnt[c] = cnt.get(c, 0) + 1
-            
+
         for word in cnt:
             if cnt[word] == 1:
                 res.append(word)
-                
+
         return res
-        

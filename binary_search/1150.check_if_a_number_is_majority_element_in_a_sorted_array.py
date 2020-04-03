@@ -26,14 +26,15 @@ Note:
 class Solution:
     def isMajorityElement(self, nums: List[int], target: int) -> bool:
         n = len(nums)
-        low, high = 0, len(nums)-1
-        
+        low, high = 0, len(nums) - 1
+
         while low < high:
-            mid = low + ((high-low)>>2)
+            mid = low + ((high - low) >> 2)
             if nums[mid] < target:
                 low = mid + 1
             else:
                 high = mid
-        
-        return True if low+n//2 < n and nums[low+len(nums)//2] == target else False
-        
+
+        return (
+            True if low + n // 2 < n and nums[low + len(nums) // 2] == target else False
+        )

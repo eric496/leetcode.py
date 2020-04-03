@@ -21,26 +21,26 @@ Input: 4
 Output: "1211"
 """
 
+
 class Solution:
     def countAndSay(self, n: int) -> str:
         res = "1"
-        for _ in range(n-1):
+        for _ in range(n - 1):
             res = self.helper(res)
-        
+
         return res
-    
-    
+
     def helper(self, n: int) -> str:
         cnt, ix, res = 1, 0, ""
-        
+
         while ix < len(n) - 1:
-            if n[ix] == n[ix+1]:
+            if n[ix] == n[ix + 1]:
                 cnt += 1
             else:
                 res += str(cnt) + n[ix]
-                cnt = 1    
+                cnt = 1
             ix += 1
-            
+
         res += str(cnt) + n[ix]
-        
+
         return res

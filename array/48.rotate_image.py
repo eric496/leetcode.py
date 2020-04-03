@@ -38,7 +38,7 @@ rotate the input matrix in-place such that it becomes:
 ]
 """
 
-# Transpose and then reverse elements in each row 
+# Transpose and then reverse elements in each row
 class Solution:
     def rotate(self, matrix: List[List[int]]) -> None:
         """
@@ -49,8 +49,7 @@ class Solution:
         for i in range(size):
             for j in range(size):
                 if i < j:
-                    matrix[i][j], matrix[j][i] = matrix[j][i],  matrix[i][j]
+                    matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 
         for row in matrix:
             row.reverse()
-

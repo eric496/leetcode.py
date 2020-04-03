@@ -23,13 +23,13 @@ Note:
 class Solution:
     def largestUniqueNumber(self, A: List[int]) -> int:
         freq = {}
-        
+
         for num in A:
             freq[num] = freq.get(num, 0) + 1
-        
+
         res = -1
-        
-        for k,v in freq.items():
+
+        for k, v in freq.items():
             res = k if k > res and v == 1 else res
-        
+
         return res

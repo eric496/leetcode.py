@@ -1,4 +1,4 @@
-'''
+"""
 The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1. That is,
 
 F(0) = 0,   F(1) = 1
@@ -22,45 +22,46 @@ Explanation: F(4) = F(3) + F(2) = 2 + 1 = 3.
  
 Note:
 0 ≤ N ≤ 30.
-'''
+"""
 
 # Solution 1: Recursion
 class Solution:
     def fib(self, N: int) -> int:
         if N < 2:
             return N
-        
-        return self.fib(N-1) + self.fib(N-2)
+
+        return self.fib(N - 1) + self.fib(N - 2)
+
 
 # Solution 2: Recursion with memoization
 class Solution:
     def fib(self, N: int) -> int:
         memo = {}
         return self.helper(N, memo)
-        
+
     def helper(self, N: int, memo: dict) -> int:
         if N < 2:
             return N
-        
+
         if N in memo:
             return memo[N]
         else:
-            memo[N] = self.helper(N-1, memo) + self.helper(N-2, memo)
-        
-        return self.helper(N-1, memo) + self.helper(N-2, memo)
+            memo[N] = self.helper(N - 1, memo) + self.helper(N - 2, memo)
+
+        return self.helper(N - 1, memo) + self.helper(N - 2, memo)
+
 
 # Solution 3: Iteration
 class Solution:
     def fib(self, N: int) -> int:
         if N <= 1:
             return N
-        
+
         prevPrev, prev = 0, 1
-        
-        for i in range(2, N+1):
+
+        for i in range(2, N + 1):
             cur = prevPrev + prev
             prevPrev = prev
             prev = cur
-        
+
         return prev
-    

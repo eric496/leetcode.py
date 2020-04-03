@@ -18,16 +18,15 @@ Each call to ping will have 1 <= t <= 10^9.
 
 from collections import deque
 
-class RecentCounter:
 
+class RecentCounter:
     def __init__(self):
         self.q = deque()
-        
 
     def ping(self, t: int) -> int:
         self.q.append(t)
-        
-        while self.q[0] < t-3000:
+
+        while self.q[0] < t - 3000:
             self.q.popleft()
-        
+
         return len(self.q)

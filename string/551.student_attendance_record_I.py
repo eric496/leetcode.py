@@ -19,17 +19,16 @@ Output: False
 class Solution:
     def checkRecord(self, s: str) -> bool:
         cnt_A = cnt_L = 0
-        
-        for ch in s:
-            cnt_A += 1 if ch == 'A' else 0
 
-            if ch == 'L':
+        for ch in s:
+            cnt_A += 1 if ch == "A" else 0
+
+            if ch == "L":
                 cnt_L += 1
             else:
                 cnt_L = 0
-                
+
             if cnt_A > 1 or cnt_L > 2:
                 return False
-        
+
         return True
-        

@@ -33,22 +33,22 @@ class Solution:
     def pathSum(self, root: TreeNode, target: int) -> int:
         if not root:
             return 0
-        
-        presum = {0:1}
-        
+
+        presum = {0: 1}
+
         return self.backtrack(root, 0, target, presum)
-        
-        
+
     def backtrack(self, node: TreeNode, cursum: int, target: int, presum: dict) -> int:
         if not node:
             return 0
-        
+
         cursum += node.val
-        res = presum.get(cursum-target, 0)
+        res = presum.get(cursum - target, 0)
         presum[cursum] = presum.get(cursum, 0) + 1
-        res += self.backtrack(node.left, cursum, target, presum) + self.backtrack(node.right, cursum, target, presum)
+        res += self.backtrack(node.left, cursum, target, presum) + self.backtrack(
+            node.right, cursum, target, presum
+        )
         # backtrack
         presum[cursum] = presum[cursum] - 1
-        
+
         return res
-        

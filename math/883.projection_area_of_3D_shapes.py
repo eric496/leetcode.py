@@ -35,31 +35,31 @@ Note:
 
 # Solution 1
 class Solution:
-    def projectionArea(self, grid: List[List[int]]) -> int:        
+    def projectionArea(self, grid: List[List[int]]) -> int:
         x = y = 0
         z = [0] * len(grid[0])
-        
+
         for i in range(len(grid)):
             y += max(grid[i])
             for j in range(len(grid[0])):
                 x += 1 if grid[i][j] else 0
                 z[j] = max(z[j], grid[i][j])
-                
+
         return x + y + sum(z)
-        
+
 
 # Solution 2: without using extra space
 class Solution:
-    def projectionArea(self, grid: List[List[int]]) -> int:        
+    def projectionArea(self, grid: List[List[int]]) -> int:
         y = z = res = 0
-        
+
         for i in range(len(grid)):
             y = z = 0
             for j in range(len(grid[0])):
                 res += 1 if grid[i][j] else 0
                 y = max(y, grid[i][j])
                 z = max(z, grid[j][i])
-            
+
             res += y + z
-        
+
         return res

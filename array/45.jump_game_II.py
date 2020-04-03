@@ -13,18 +13,19 @@ Note:
 You can assume that you can always reach the last index.
 """
 
+
 class Solution:
     def jump(self, nums: List[int]) -> int:
         res = cur_end = max_jumps = 0
-        
+
         for ix, n in enumerate(nums[:-1]):
-            max_jumps = max(max_jumps, ix+n)
-            
+            max_jumps = max(max_jumps, ix + n)
+
             if ix == cur_end:
                 res += 1
                 cur_end = max_jumps
-            
-            if cur_end >= len(nums)-1:
+
+            if cur_end >= len(nums) - 1:
                 break
-        
+
         return res

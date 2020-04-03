@@ -36,22 +36,21 @@ class TreeNode:
 class Solution:
     def flipMatchVoyage(self, root: TreeNode, voyage: List[int]) -> List[int]:
         res = []
-        
+
         return res if self.dfs(root, voyage[::-1], res) else [-1]
-    
-    
+
     def dfs(self, node: TreeNode, voyage: List[int], res: List[int]) -> bool:
         if not node:
             return True
-        
+
         if node.val != voyage.pop():
             return False
-        
+
         if node.left and node.left.val != voyage[-1]:
             res.append(node.val)
             node.left, node.right = node.right, node.left
-        
-        return self.dfs(node.left, voyage, res) and self.dfs(node.right, voyage, res)      
+
+        return self.dfs(node.left, voyage, res) and self.dfs(node.right, voyage, res)
 
 
 # Solution 2: iterative
@@ -60,16 +59,16 @@ class Solution:
         res = []
         voyage = voyage[::-1]
         stk = [root]
-        
+
         while stk:
             node = stk.pop()
-            
+
             if not node:
                 continue
-                
+
             if node.val != voyage.pop():
                 return [-1]
-            
+
             if node.left and node.left.val != voyage[-1]:
                 res.append(node.val)
                 stk.append(node.left)
@@ -77,6 +76,5 @@ class Solution:
             else:
                 stk.append(node.right)
                 stk.append(node.left)
-                
+
         return res
-        

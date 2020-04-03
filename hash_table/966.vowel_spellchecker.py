@@ -52,19 +52,17 @@ class Solution:
             elif devow in vowel:
                 res.append(vowel[devow])
             else:
-                res.append('')
+                res.append("")
 
         return res
-
 
     def devowel(self, s: str) -> str:
         res = []
 
         for c in s:
-            if c in list('aeiou'):
-                res.append('#')
+            if c in list("aeiou"):
+                res.append("#")
             else:
                 res.append(c)
 
-        return ''.join(res)
-        
+        return "".join(res)

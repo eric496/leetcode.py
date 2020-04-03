@@ -19,25 +19,30 @@ Given the above grid, return 0.
 Note: The length of each dimension in the given grid does not exceed 50.
 """
 
+
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         if not grid:
             return 0
-        
+
         areas = []
-        
+
         for row in range(len(grid)):
             for col in range(len(grid[0])):
                 if grid[row][col]:
                     areas.append(self.dfs(grid, row, col))
-        
+
         return max(areas) if areas else 0
-            
-        
+
     def dfs(self, grid: List[List[int]], row, col) -> int:
-        if 0<=row<len(grid) and 0<=col<len(grid[0]) and grid[row][col]:
+        if 0 <= row < len(grid) and 0 <= col < len(grid[0]) and grid[row][col]:
             grid[row][col] = 0
-            return self.dfs(grid, row+1, col) + self.dfs(grid, row-1, col) + \
-                self.dfs(grid, row, col+1) + self.dfs(grid, row, col-1) + 1
-        
+            return (
+                self.dfs(grid, row + 1, col)
+                + self.dfs(grid, row - 1, col)
+                + self.dfs(grid, row, col + 1)
+                + self.dfs(grid, row, col - 1)
+                + 1
+            )
+
         return 0

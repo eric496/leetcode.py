@@ -29,30 +29,27 @@ Every integer represented in the 2D-array will be between 1 and N, where N is th
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
         parent = [0] * len(edges)
-        
+
         for x, y in edges:
-            if not self.union(x-1, y-1, parent):
+            if not self.union(x - 1, y - 1, parent):
                 return [x, y]
-            
+
         return []
-        
-        
-    def find(self, x:int, parent: List[int]) -> int:
+
+    def find(self, x: int, parent: List[int]) -> int:
         if not parent[x]:
             return x
-        
+
         parent[x] = self.find(parent[x], parent)
-        
+
         return parent[x]
-    
-    
+
     def union(self, x: int, y: int, parent: List[int]) -> bool:
         findx, findy = self.find(x, parent), self.find(y, parent)
-        
+
         if findx == findy:
             return False
-        
+
         parent[findx] = findy
-        
+
         return True
-        

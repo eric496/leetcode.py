@@ -19,14 +19,14 @@ Note:
 1 <= A[i].length <= 100
 """
 
+
 class Solution:
     def sumOfDigits(self, A: List[int]) -> int:
         target = min(A)
         res = 0
-        
+
         while target:
             res += target % 10
             target //= 10
-            
+
         return 0 if res % 2 else 1
-        

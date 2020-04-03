@@ -14,43 +14,46 @@ Constraints:
 
 # Hash table
 class Solution:
-    def arraysIntersection(self, arr1: List[int], arr2: List[int], arr3: List[int]) -> List[int]:
+    def arraysIntersection(
+        self, arr1: List[int], arr2: List[int], arr3: List[int]
+    ) -> List[int]:
         freq = {}
-        
+
         for n in arr1:
             freq[n] = freq.get(n, 0) + 1
-            
+
         for n in arr2:
             freq[n] = freq.get(n, 0) + 1
-            
+
         for n in arr3:
             freq[n] = freq.get(n, 0) + 1
-            
-        res = []        
-    
-        for k,v in freq.items():
+
+        res = []
+
+        for k, v in freq.items():
             if v == 3:
                 res.append(k)
-                
+
         return res
 
 
-# Three pointers 
+# Three pointers
 class Solution:
-    def arraysIntersection(self, arr1: List[int], arr2: List[int], arr3: List[int]) -> List[int]:
+    def arraysIntersection(
+        self, arr1: List[int], arr2: List[int], arr3: List[int]
+    ) -> List[int]:
         i = j = k = 0
         res = []
-        
-        while i<len(arr1) and j<len(arr2) and k<len(arr3):
+
+        while i < len(arr1) and j < len(arr2) and k < len(arr3):
             if arr1[i] == arr2[j] == arr3[k]:
                 res.append(arr1[i])
-                i, j, k = i+1, j+1, k+1
+                i, j, k = i + 1, j + 1, k + 1
                 continue
-            
+
             max_ = max(arr1[i], arr2[j], arr3[k])
-            i = i+1 if arr1[i]<max_ else i
-            j = j+1 if arr2[j]<max_ else j
-            k = k+1 if arr3[k]<max_ else k
-                
+            i = i + 1 if arr1[i] < max_ else i
+            j = j + 1 if arr2[j] < max_ else j
+            k = k + 1 if arr3[k] < max_ else k
+
         return res
-        

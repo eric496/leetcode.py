@@ -22,7 +22,7 @@ Each node has a unique integer value from 1 to 100.
 """
 
 
-# class TreeNode:
+class TreeNode:
     def __init__(self, x):
         self.val = x
         self.left = None
@@ -31,6 +31,7 @@ Each node has a unique integer value from 1 to 100.
 
 # Solution: level order traversal
 from collections import deque
+
 
 class Solution:
     def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
@@ -53,17 +54,17 @@ class Solution:
                 if node.left and node.right:
                     if node.left.val == x and node.right.val == y:
                         return False
-                    
+
                     if node.left.val == y and node.right.val == x:
                         return False
-                    
+
                     # Can be more concise like the following
                     # if {node.left.val, node.right.val} == {x, y}:
                     #     return False
 
                 if node.left:
                     q.append(node.left)
-                
+
                 if node.right:
                     q.append(node.right)
 
@@ -73,4 +74,3 @@ class Solution:
                 return False
 
         return False
-        

@@ -28,19 +28,19 @@ class Solution:
     def validMountainArray(self, A: List[int]) -> bool:
         if len(A) < 3:
             return False
-        
+
         cnt_peaks = 0
-        
+
         for i in range(len(A)):
             if i == 0:
                 if A[0] >= A[1]:
                     return False
-            elif i == len(A)-1: 
+            elif i == len(A) - 1:
                 if A[-1] >= A[-2]:
                     return False
-            elif A[i-1] <= A[i] and A[i] >= A[i+1]:
+            elif A[i - 1] <= A[i] and A[i] >= A[i + 1]:
                 cnt_peaks += 1
-        
+
         return True if cnt_peaks == 1 else False
 
 
@@ -49,14 +49,13 @@ class Solution:
     def validMountainArray(self, A: List[int]) -> bool:
         if len(A) < 3:
             return False
-        
-        i, j = 0, len(A)-1
-        
-        while i + 1 < len(A) and A[i] < A[i+1]:
+
+        i, j = 0, len(A) - 1
+
+        while i + 1 < len(A) and A[i] < A[i + 1]:
             i += 1
-        
-        while j - 1 >= 0 and A[j] < A[j-1]:
+
+        while j - 1 >= 0 and A[j] < A[j - 1]:
             j -= 1
-        
-        return i > 0 and j < len(A)-1 and i == j
-        
+
+        return i > 0 and j < len(A) - 1 and i == j

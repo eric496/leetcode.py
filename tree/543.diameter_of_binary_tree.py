@@ -26,16 +26,15 @@ class Solution:
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
         res = [0]
         self.dfs(root, res)
-        
+
         return res[0]
-    
-        
+
     def dfs(self, node: TreeNode, res: List[int]) -> int:
         if not node:
             return 0
-        
+
         left = self.dfs(node.left, res)
         right = self.dfs(node.right, res)
-        res[0] = max(res[0], left+right)
-        
+        res[0] = max(res[0], left + right)
+
         return max(left, right) + 1

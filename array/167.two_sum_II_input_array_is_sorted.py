@@ -1,4 +1,4 @@
-'''
+"""
 Given an array of integers that is already sorted in ascending order, find two numbers such that they add up to a specific target number.
 The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2.
 
@@ -11,20 +11,21 @@ Example:
 Input: numbers = [2,7,11,15], target = 9
 Output: [1,2]
 Explanation: The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.
-'''
+"""
 
 # Two pointers
 class Solution:
     def twoSum(self, numbers: list, target: int) -> list:
-        start, end = 0, len(numbers)-1
+        start, end = 0, len(numbers) - 1
         while start < end:
             if numbers[start] + numbers[end] == target:
-                return [start+1, end+1]
+                return [start + 1, end + 1]
             elif numbers[start] + numbers[end] > target:
                 end -= 1
             else:
                 start += 1
 
         return []
+
 
 # Binary search

@@ -21,24 +21,23 @@ class Solution:
     def letterCasePermutation(self, S: str) -> List[str]:
         if not S:
             return []
-        
+
         res = []
         self.backtrack(list(S), res, 0)
-        
+
         return res
-    
-        
+
     def backtrack(self, chars: str, res: List[str], pos: int) -> None:
         if pos == len(chars):
-            res.append(''.join(chars))
+            res.append("".join(chars))
             return
-        
+
         if chars[pos].isdigit():
-            self.backtrack(chars, res, pos+1)
-            return 
+            self.backtrack(chars, res, pos + 1)
+            return
         else:
             chars[pos] = chars[pos].lower()
-            self.backtrack(chars, res, pos+1)
-            
+            self.backtrack(chars, res, pos + 1)
+
             chars[pos] = chars[pos].upper()
-            self.backtrack(chars, res, pos+1)
+            self.backtrack(chars, res, pos + 1)

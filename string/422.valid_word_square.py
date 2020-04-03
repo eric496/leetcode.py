@@ -59,15 +59,15 @@ Therefore, it is NOT a valid word square.
 
 class Solution:
     def validWordSquare(self, words: List[str]) -> bool:
-        
+
         for i, word in enumerate(words):
             res = []
-            
+
             for w in words:
                 if len(w) > i:
                     res.append(w[i])
-            
-            if ''.join(res) != word:
+
+            if "".join(res) != word:
                 return False
-            
+
         return True

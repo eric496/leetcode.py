@@ -18,18 +18,20 @@ The two tuples are:
 2. (1, 1, 0, 0) -> A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 = 0
 """
 
+
 class Solution:
-    def fourSumCount(self, A: List[int], B: List[int], C: List[int], D: List[int]) -> int:
+    def fourSumCount(
+        self, A: List[int], B: List[int], C: List[int], D: List[int]
+    ) -> int:
         dic = {}
         res = 0
-        
+
         for a in A:
             for b in B:
-                dic[a+b] = dic.get(a+b, 0) + 1
-                
+                dic[a + b] = dic.get(a + b, 0) + 1
+
         for c in C:
             for d in D:
-                res += dic.get(-(c+d), 0)
-                
+                res += dic.get(-(c + d), 0)
+
         return res
-    

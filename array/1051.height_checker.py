@@ -18,9 +18,8 @@ class Solution:
     def heightChecker(self, heights: List[int]) -> int:
         sorted_h = sorted(heights)
         cnt = 0
-        
+
         for i, j in zip(heights, sorted_h):
             cnt += 1 if i != j else 0
-            
+
         return cnt
-        

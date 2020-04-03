@@ -42,7 +42,7 @@ class Solution:
     def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
         if not root:
             return root
-        
+
         if key < root.val:
             root.left = self.deleteNode(root.left, key)
         elif key > root.val:
@@ -52,17 +52,15 @@ class Solution:
                 return root.right
             elif not root.right:
                 return root.left
-            
+
             node = self.find_min(root.right)
             root.val = node.val
             root.right = self.deleteNode(root.right, root.val)
-        
+
         return root
-    
-    
+
     def find_min(self, node: TreeNode) -> TreeNode:
         while node.left:
             node = node.left
-        
+
         return node
-    

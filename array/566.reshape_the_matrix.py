@@ -36,21 +36,20 @@ The given r and c are all positive.
 class Solution:
     def matrixReshape(self, nums: List[List[int]], r: int, c: int) -> List[List[int]]:
         flat = []
-        
+
         for row in nums:
             flat.extend(row)
-                    
-        if len(flat) != r*c:
+
+        if len(flat) != r * c:
             return nums
-        
+
         res = []
-        
+
         for row in range(r):
             n = c
             aux = []
             for col in range(c):
-                aux.append(flat[row*c+col])
+                aux.append(flat[row * c + col])
             res.append(aux)
-            
+
         return res
-        

@@ -11,17 +11,18 @@ Follow up:
 Could you solve it with constant space complexity? (The output array does not count as extra space for the purpose of space complexity analysis.)
 """
 
+
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         res = []
         left = right = 1
-        
+
         for n in nums:
             res.append(left)
             left *= n
-        
-        for ix in range(len(nums)-1, -1, -1):
+
+        for ix in range(len(nums) - 1, -1, -1):
             res[ix] *= right
             right *= nums[ix]
-        
+
         return res

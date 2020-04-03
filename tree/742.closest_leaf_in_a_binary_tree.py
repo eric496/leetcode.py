@@ -54,12 +54,11 @@ class Solution:
     def __init__(self):
         self.graph = {}
         self.leaves = set()
-    
-    
+
     def findClosestLeaf(self, root: TreeNode, k: int) -> int:
         self.dfs(root)
         q = [k]
-        
+
         while q:
             one_step_away = []
             for val in q:
@@ -67,41 +66,39 @@ class Solution:
                     return val
                 one_step_away += self.graph.pop(val, [])
             q = one_step_away
-        
+
         return -1
-        
-        
+
     def dfs(self, node: TreeNode) -> None:
         if not node:
             return
-        
+
         if node.left is None and node.right is None:
             self.leaves.add(node.val)
             return
-        
+
         if node.left:
             if node.val in self.graph:
                 self.graph[node.val].append(node.left.val)
             else:
                 self.graph[node.val] = [node.left.val]
-                
+
             if node.left.val in self.graph:
                 self.graph[node.left.val].append(node.val)
             else:
                 self.graph[node.left.val] = [node.val]
 
             self.dfs(node.left)
-            
+
         if node.right:
             if node.val in self.graph:
                 self.graph[node.val].append(node.right.val)
             else:
                 self.graph[node.val] = [node.right.val]
-                
+
             if node.right.val in self.graph:
                 self.graph[node.right.val].append(node.val)
             else:
                 self.graph[node.right.val] = [node.val]
-                
+
             self.dfs(node.right)
-        

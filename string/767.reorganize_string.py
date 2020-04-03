@@ -14,20 +14,21 @@ Note:
 S will consist of lowercase letters and have length in range [1, 500].
 """
 
-# Solution 1: O(n^2) TC 
+# Solution 1: O(n^2) TC
 from collections import Counter
+
 
 class Solution:
     def reorganizeString(self, S: str) -> str:
         cnt = Counter(S)
-        
+
         if len(S) == 1:
             return S
         elif len(cnt) == 1:
             return ""
-            
+
         res = ""
-        
+
         while 1:
             # Reorg completes when it's all zeros in the frequency table
             if not sum(cnt.values()):
@@ -47,6 +48,5 @@ class Solution:
                 res += second[0]
                 cnt[top[0]] -= 1
                 cnt[second[0]] -= 1
-        
+
         return res
-        

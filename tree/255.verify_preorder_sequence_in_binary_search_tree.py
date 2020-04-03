@@ -26,36 +26,35 @@ Could you do it using only constant space complexity?
 class Solution:
     def verifyPreorder(self, preorder: List[int]) -> bool:
         stk = []
-        low = float('-inf')
-        
+        low = float("-inf")
+
         for p in preorder:
             if p < low:
                 return False
-            
+
             while stk and p > stk[-1]:
                 low = stk.pop()
-            
+
             stk.append(p)
-        
+
         return True
 
 
 # Follow up: O(n) TC and O(1) SC
 class Solution:
     def verifyPreorder(self, preorder: List[int]) -> bool:
-        low = float('-inf')
+        low = float("-inf")
         i = 0
-        
+
         for p in preorder:
             if p < low:
                 return False
-            
-            while i>0 and p > preorder[i-1]:
-                low = preorder[i-1]
+
+            while i > 0 and p > preorder[i - 1]:
+                low = preorder[i - 1]
                 i -= 1
-                
+
             preorder[i] = p
             i += 1
-            
+
         return True
-        

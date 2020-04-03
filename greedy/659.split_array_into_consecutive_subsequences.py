@@ -29,25 +29,24 @@ Constraints:
 class Solution:
     def isPossible(self, nums: List[int]) -> bool:
         cnt, end = {}, {}
-        
+
         for n in nums:
             cnt[n] = cnt.get(n, 0) + 1
-            
+
         for n in nums:
             if not cnt.get(n):
                 continue
-            
+
             cnt[n] -= 1
-            
-            if end.get(n-1):
-                end[n-1] -= 1
+
+            if end.get(n - 1):
+                end[n - 1] -= 1
                 end[n] = end.get(n, 0) + 1
-            elif cnt.get(n+1) and cnt.get(n+2):
-                cnt[n+1] -= 1
-                cnt[n+2] -= 1
-                end[n+2] = end.get(n+2, 0) + 1
+            elif cnt.get(n + 1) and cnt.get(n + 2):
+                cnt[n + 1] -= 1
+                cnt[n + 2] -= 1
+                end[n + 2] = end.get(n + 2, 0) + 1
             else:
                 return False
-            
+
         return True
-        

@@ -35,18 +35,18 @@ The decoded string is guaranteed to have less than 2^63 letters.
 class Solution:
     def decodeAtIndex(self, S: str, K: int) -> str:
         curlen = end = 0
-        
+
         for c in S:
             if c.isdigit():
                 curlen *= int(c)
             elif c.isalpha():
                 curlen += 1
-            
+
             if K <= curlen:
                 break
-            
+
             end += 1
-                
+
         for i in range(end, -1, -1):
             if S[i].isdigit():
                 curlen //= int(S[i])
@@ -54,8 +54,7 @@ class Solution:
             else:
                 if K == curlen or K == 0:
                     return S[i]
-                
+
                 curlen -= 1
-        
-        return ''
-        
+
+        return ""

@@ -24,12 +24,11 @@ S[i] consists of only lowercase English letters.
 class Solution:
     def countLetters(self, S: str) -> int:
         res, repeat = 0, 1
-        
+
         for i in range(1, len(S)):
-            if S[i] != S[i-1]:
-                res += repeat * (repeat+1) // 2
+            if S[i] != S[i - 1]:
+                res += repeat * (repeat + 1) // 2
                 repeat = 0
             repeat += 1
-        
-        return res + repeat * (repeat+1) // 2
-        
+
+        return res + repeat * (repeat + 1) // 2

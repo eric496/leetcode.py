@@ -24,20 +24,19 @@ class Solution:
     def numSmallerByFrequency(self, queries: List[str], words: List[str]) -> List[int]:
         q_cnt = [self.f(q) for q in queries]
         w_cnt = [self.f(w) for w in words]
-        
+
         return [sum(q < w for w in w_cnt) for q in q_cnt]
-        
-        
+
     def f(self, s: str) -> int:
-        min_c, cnt = chr(ord('z')+1), 1
-        
+        min_c, cnt = chr(ord("z") + 1), 1
+
         for c in s:
             if ord(c) < ord(min_c):
                 min_c = c
                 cnt = 1
             elif c == min_c:
                 cnt += 1
-        
+
         return cnt
 
 

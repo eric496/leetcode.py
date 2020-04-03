@@ -36,18 +36,16 @@ arr.length is even.
 class Solution:
     def minSetSize(self, arr: List[int]) -> int:
         freq = {}
-        
+
         for n in arr:
             freq[n] = freq.get(n, 0) + 1
-            
+
         cnt = sorted(freq.values())[::-1]
         half = len(arr) / 2
-        
-        
-        for i,n in enumerate(cnt, 1):
+
+        for i, n in enumerate(cnt, 1):
             half -= n
             if half <= 0:
                 return i
-        
+
         return -1
-        

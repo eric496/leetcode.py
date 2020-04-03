@@ -1,4 +1,4 @@
-'''
+"""
 Given a pattern and a string str, find if str follows the same pattern.
 Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in str.
 
@@ -21,7 +21,7 @@ Output: false
 
 Notes:
 You may assume pattern contains only lowercase letters, and str contains lowercase letters separated by a single space.
-'''
+"""
 
 # soution 1: two maps
 class Solution:
@@ -31,19 +31,20 @@ class Solution:
             return False
         pattern_map = {}
         str_map = {}
-        for p,s in zip(list(pattern), str.split()):
+        for p, s in zip(list(pattern), str.split()):
             if p in pattern_map:
                 if pattern_map[p] != s:
                     return False
             else:
                 pattern_map[p] = s
-            
+
             if s in str_map:
                 if str_map[s] != p:
                     return False
             else:
-                str_map[s] = p 
+                str_map[s] = p
         return len(pattern_map) == len(str_map)
+
 
 # solution 2: one map
 class Solution:
@@ -52,7 +53,7 @@ class Solution:
         if len(pattern) != len(words):
             return False
         pattern_map = {}
-        for p,s in zip(list(pattern), words):
+        for p, s in zip(list(pattern), words):
             if p in pattern_map:
                 if pattern_map[p] != s:
                     return False
@@ -62,5 +63,5 @@ class Solution:
                 pattern_map[p] = s
         return True
 
-# a concise and pythonic solution
 
+# a concise and pythonic solution

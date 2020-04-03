@@ -28,39 +28,39 @@ class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         if not nums:
             return []
-        
+
         res = []
-        
-        for i in range(len(nums)-k+1):
-            res.append(max(nums[i:i+k]))
-            
+
+        for i in range(len(nums) - k + 1):
+            res.append(max(nums[i : i + k]))
+
         return res
 
 
 # Solution 2: Heap: O(Nlogk) TC and O(n) SC
 import heapq
 
+
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         pq = []
         res = []
-        
-        for i,n in enumerate(nums):
-            if i+1 < k:
+
+        for i, n in enumerate(nums):
+            if i + 1 < k:
                 heapq.heappush(pq, (-n, i))
             else:
                 heapq.heappush(pq, (-n, i))
-                x, idx = self.find_max(pq, i-k+1)
+                x, idx = self.find_max(pq, i - k + 1)
                 res.append(-x)
                 heapq.heappush(pq, (x, idx))
-                
+
         return res
-                
-                
+
     def find_max(self, pq: List[int], start: int) -> tuple:
         while True:
             x, idx = heapq.heappop(pq)
-            
+
             if idx >= start:
                 return x, idx
 
@@ -68,25 +68,25 @@ class Solution:
 # Solution 3: O(n) TC and O(n) SC using deque
 from collections import deque
 
+
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         if not nums or k < 1:
             return []
-        
+
         window = deque()
         res = []
-        
+
         for i in range(len(nums)):
-            if i >= k and window[0] <= i-k:
+            if i >= k and window[0] <= i - k:
                 window.popleft()
-            
+
             while window and nums[window[-1]] <= nums[i]:
                 window.pop()
-                
+
             window.append(i)
-            
-            if i >= k-1:
+
+            if i >= k - 1:
                 res.append(nums[window[0]])
-            
+
         return res
-        

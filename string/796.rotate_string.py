@@ -14,6 +14,7 @@ Note:
 A and B will have length at most 100.
 """
 
+
 class Solution:
     def rotateString(self, A: str, B: str) -> bool:
         if len(A) != len(B):

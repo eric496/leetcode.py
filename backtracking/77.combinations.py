@@ -14,6 +14,7 @@ Output:
 ]
 """
 
+
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         res = []
@@ -21,13 +22,13 @@ class Solution:
 
         return res
 
-    def backtrack(self, n: int, start: int, k: int, cur_res: List[int], res: List[List[int]]) -> None:
+    def backtrack(
+        self, n: int, start: int, k: int, cur_res: List[int], res: List[List[int]]
+    ) -> None:
         if len(cur_res) == k:
             res.append(list(cur_res))
 
-        for i in range(start, n+1):
+        for i in range(start, n + 1):
             cur_res.append(i)
-            self.backtrack(n, i+1, k, cur_res, res)
+            self.backtrack(n, i + 1, k, cur_res, res)
             cur_res.pop()
-
-

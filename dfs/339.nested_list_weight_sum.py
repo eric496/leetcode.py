@@ -17,7 +17,7 @@ Explanation: One 1 at depth 1, one 4 at depth 2, and one 6 at depth 3; 1 + 4*2 +
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
 # """
-#class NestedInteger:
+# class NestedInteger:
 #    def __init__(self, value=None):
 #        """
 #        If value is not specified, initializes an empty list.
@@ -56,18 +56,19 @@ Explanation: One 1 at depth 1, one 4 at depth 2, and one 6 at depth 3; 1 + 4*2 +
 #        :rtype List[NestedInteger]
 #        """
 
+
 class Solution:
     def depthSum(self, nestedList: List[NestedInteger]) -> int:
         res = [0]
-        
+
         for n in nestedList:
             self.dfs(n, res, 1)
-        
+
         return res[0]
-        
+
     def dfs(self, nestedElement: NestedInteger, res: List[int], depth: int) -> None:
         if nestedElement.isInteger():
-            res[0] += nestedElement.getInteger()*depth
+            res[0] += nestedElement.getInteger() * depth
         else:
             for n in nestedElement.getList():
-                self.dfs(n, res, depth+1)
+                self.dfs(n, res, depth + 1)

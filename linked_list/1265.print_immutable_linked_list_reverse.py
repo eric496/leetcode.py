@@ -38,14 +38,14 @@ The value of each node in the linked list is between [-1000, 1000].
 
 # O(n) space
 class Solution:
-    def printLinkedListInReverse(self, head: 'ImmutableListNode') -> None:
+    def printLinkedListInReverse(self, head: "ImmutableListNode") -> None:
         stk = []
         walk = head
-        
+
         while walk:
             stk.append(walk)
             walk = walk.getNext()
-            
+
         while stk:
             stk.pop().printValue()
 

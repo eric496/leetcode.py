@@ -71,4 +71,3 @@ class Solution:
                 node.right = stk.pop()
 
             node = node.right
-

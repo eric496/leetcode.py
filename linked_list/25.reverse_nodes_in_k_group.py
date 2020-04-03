@@ -23,26 +23,24 @@ class ListNode:
 class Solution:
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
         walk, cnt = head, 0
-        
+
         for _ in range(k):
             if not walk:
                 return head
             walk = walk.next
-        
+
         new_head = self.reverse(head, walk)
         head.next = self.reverseKGroup(walk, k)
-        
+
         return new_head
-    
-    
+
     def reverse(self, head: ListNode, tail: ListNode) -> ListNode:
         prev = None
-        
+
         while head is not tail:
             nxt = head.next
             head.next = prev
             prev = head
             head = nxt
-        
+
         return prev
-            

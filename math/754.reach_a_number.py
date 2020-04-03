@@ -27,10 +27,9 @@ class Solution:
     def reachNumber(self, target: int) -> int:
         step = dist = 0
         target = abs(target)
-        
-        while dist < target or (dist-target) % 2:
+
+        while dist < target or (dist - target) % 2:
             step += 1
             dist += step
-        
+
         return step
-        

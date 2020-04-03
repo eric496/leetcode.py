@@ -1,4 +1,4 @@
-'''
+"""
 Given a column title as appear in an Excel sheet, return its corresponding column number.
 
 For example:
@@ -23,13 +23,14 @@ Output: 28
 Example 3:
 Input: "ZY"
 Output: 701
-'''
+"""
+
 
 class Solution:
     def titleToNumber(self, s: str) -> int:
         res = 0
-        
+
         for ix, ch in enumerate(s[::-1]):
-            res += (ord(ch)-ord('A')+1) * 26**ix
-        
-        return res 
+            res += (ord(ch) - ord("A") + 1) * 26 ** ix
+
+        return res

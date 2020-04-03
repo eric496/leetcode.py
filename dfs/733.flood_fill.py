@@ -21,30 +21,46 @@ The given starting pixel will satisfy 0 <= sr < image.length and 0 <= sc < image
 The value of each color in image[i][j] and newColor will be an integer in [0, 65535].
 """
 
+
 class Solution:
-    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+    def floodFill(
+        self, image: List[List[int]], sr: int, sc: int, newColor: int
+    ) -> List[List[int]]:
         if not image:
             return image
-                    
+
         old_color = image[sr][sc]
         seen = []
         self.dfs(image, sr, sc, old_color, newColor, seen)
-        
+
         return image
-        
-        
-    def dfs(self, image: List[List[int]], sr: int, sc: int, oldColor: int, newColor: int, seen: List[tuple]) -> None:
+
+    def dfs(
+        self,
+        image: List[List[int]],
+        sr: int,
+        sc: int,
+        oldColor: int,
+        newColor: int,
+        seen: List[tuple],
+    ) -> None:
         # Case 1: index out of range
         # Case 2: current pixel has different color from the starting pixel
         # Case 3: current pixel is already visited
-        if sr<0 or sc<0 or sr>=len(image) or sc>=len(image[0]) or image[sr][sc] != oldColor or (sr, sc) in seen:
+        if (
+            sr < 0
+            or sc < 0
+            or sr >= len(image)
+            or sc >= len(image[0])
+            or image[sr][sc] != oldColor
+            or (sr, sc) in seen
+        ):
             return
-        
+
         image[sr][sc] = newColor
         seen.append((sr, sc))
-            
-        self.dfs(image, sr+1, sc, oldColor, newColor, seen)
-        self.dfs(image, sr-1, sc, oldColor, newColor, seen)
-        self.dfs(image, sr, sc+1, oldColor, newColor, seen)
-        self.dfs(image, sr, sc-1, oldColor, newColor, seen)
-    
+
+        self.dfs(image, sr + 1, sc, oldColor, newColor, seen)
+        self.dfs(image, sr - 1, sc, oldColor, newColor, seen)
+        self.dfs(image, sr, sc + 1, oldColor, newColor, seen)
+        self.dfs(image, sr, sc - 1, oldColor, newColor, seen)

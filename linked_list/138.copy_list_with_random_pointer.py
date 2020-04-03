@@ -27,24 +27,24 @@ class Node:
         self.next = next
         self.random = random
 
- 
+
 class Solution:
     def copyRandomList(self, head: Node) -> Node:
         if not head:
             return head
-        
+
         cp = {}
         walk = head
-        
+
         while walk:
             cp[walk] = Node(walk.val, None, None)
             walk = walk.next
-        
+
         walk = head
-        
+
         while walk:
             cp[walk].next = cp.get(walk.next)
             cp[walk].random = cp.get(walk.random)
             walk = walk.next
-        
+
         return cp[head]

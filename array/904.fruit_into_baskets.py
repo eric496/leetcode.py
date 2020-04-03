@@ -35,6 +35,7 @@ Note:
 0 <= tree[i] < tree.length
 """
 
+
 class Solution:
     def totalFruit(self, tree: List[int]) -> int:
         if not tree:
@@ -54,7 +55,6 @@ class Solution:
                 start = min_ + 1
                 d.pop(tree[min_])
 
-            res = max(res, end-start)
+            res = max(res, end - start)
 
         return res
-

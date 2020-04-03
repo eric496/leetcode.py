@@ -27,15 +27,15 @@ the number of coins is less than 500
 the answer is guaranteed to fit into signed 32-bit integer
 """
 
+
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
-        dp = [0] * (amount+1)
+        dp = [0] * (amount + 1)
         dp[0] = 1
-        
+
         for j in range(len(coins)):
-            for i in range(1, amount+1):
+            for i in range(1, amount + 1):
                 if i - coins[j] >= 0:
-                    dp[i] += dp[i-coins[j]]
-        
+                    dp[i] += dp[i - coins[j]]
+
         return dp[amount]
-        

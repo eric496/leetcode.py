@@ -36,21 +36,21 @@ class Solution:
         sentinel.next = head
         seen = {0: sentinel}
         cumsum = 0
-        
+
         while head:
             cumsum += head.val
             seen[cumsum] = head
             head = head.next
-            
+
         head = sentinel
         cumsum = 0
-        
+
         while head:
             cumsum += head.val
             if cumsum in seen:
                 head.next = seen[cumsum].next
             head = head.next
-        
+
         return sentinel.next
 
 
@@ -62,7 +62,7 @@ class Solution:
         cumsum = 0
         cumsums = [0]
         seen = {}
-        
+
         while cur:
             cumsum += cur.val
             cumsums.append(cumsum)
@@ -74,6 +74,5 @@ class Solution:
                 while cumsums[-1] != cumsum:
                     seen.pop(cumsums.pop())
             cur = cur.next
-        
+
         return sentinel.next
-        

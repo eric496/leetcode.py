@@ -29,17 +29,16 @@ class Solution:
     def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
         res = [0]
         self.dfs(root, L, R, res)
-        
+
         return res[0]
-        
-        
+
     def dfs(self, root: TreeNode, L: int, R: int, res: List[int]) -> None:
         if not root:
             return
-        
+
         if L <= root.val <= R:
             res[0] += root.val
-        
+
         self.dfs(root.left, L, R, res)
         self.dfs(root.right, L, R, res)
 
@@ -49,20 +48,19 @@ class Solution:
     def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
         if not root:
             return 0
-        
+
         stk, res = [root], 0
-        
+
         while stk:
             node = stk.pop()
-            
+
             if L <= node.val <= R:
                 res += node.val
-                
+
             if node.val > L and node.left:
                 stk.append(node.left)
-                
+
             if node.val < R and node.right:
                 stk.append(node.right)
-                
+
         return res
-        

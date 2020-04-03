@@ -57,9 +57,8 @@ class Solution:
         i = 0
 
         while candies > 0:
-            res[i%num_people] += min(candies, i+1)
+            res[i % num_people] += min(candies, i + 1)
             candies -= i + 1
             i += 1
 
         return res
-

@@ -1,4 +1,4 @@
-'''
+"""
 A binary watch has 4 LEDs on the top which represent the hours (0-11), and the 6 LEDs on the bottom represent the minutes (0-59).
 Each LED represents a zero or one, with the least significant bit on the right.
 For example, the above binary watch reads "3:25".
@@ -13,8 +13,14 @@ Note:
 The order of output does not matter.
 The hour must not contain a leading zero, for example "01:00" is not valid, it should be "1:00".
 The minute must be consist of two digits and may contain a leading zero, for example "10:2" is not valid, it should be "10:02".
-'''
+"""
+
 
 class Solution:
     def readBinaryWatch(self, num: int) -> list:
-        return ['{}:{:02d}'.format(h, m) for h in range(12) for m in range(60) if (bin(h) + bin(m)).count('1') == num]
+        return [
+            "{}:{:02d}".format(h, m)
+            for h in range(12)
+            for m in range(60)
+            if (bin(h) + bin(m)).count("1") == num
+        ]

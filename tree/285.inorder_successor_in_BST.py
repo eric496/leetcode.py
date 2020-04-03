@@ -28,28 +28,27 @@ class TreeNode:
 
 # Solution 1: recursive
 class Solution:
-    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
+    def inorderSuccessor(self, root: "TreeNode", p: "TreeNode") -> "TreeNode":
         if not root:
             return None
-        
+
         if root.val >= p.val:
             return self.inorderSuccessor(root.left, p)
         else:
             right = self.inorderSuccessor(root.right, p)
             return right if right else root
-            
+
 
 # Soluiton 2: iterative
 class Solution:
-    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
+    def inorderSuccessor(self, root: "TreeNode", p: "TreeNode") -> "TreeNode":
         successor = None
-        
+
         while root:
             if p.val < root.val:
                 successor = root
                 root = root.left
             else:
                 root = root.right
-                
+
         return successor
-        

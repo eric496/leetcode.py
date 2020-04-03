@@ -19,14 +19,14 @@ Note:
 n is a 32-bit signed integer, within the range [−231, 231 − 1]
 """
 
+
 class Solution:
     def myPow(self, x: float, n: int) -> float:
         if n == 0:
             return 1
-        
+
         if n < 0:
             x = 1 / x
-            n = -n 
-        
-        return self.myPow(x*x, n//2) * x if n&1 else self.myPow(x*x, n//2) 
-    
+            n = -n
+
+        return self.myPow(x * x, n // 2) * x if n & 1 else self.myPow(x * x, n // 2)

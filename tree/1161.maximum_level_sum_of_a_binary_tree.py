@@ -48,12 +48,11 @@ class Solution:
 
             level_sums.append(sum(level))
 
-        max_level, max_sum = -1, float('-inf')
+        max_level, max_sum = -1, float("-inf")
 
-        for level,level_sum in enumerate(level_sums, 1):
+        for level, level_sum in enumerate(level_sums, 1):
             if level_sum > max_sum:
                 max_sum = level_sum
                 max_level = level
 
         return max_level
-

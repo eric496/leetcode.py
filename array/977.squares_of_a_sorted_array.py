@@ -15,12 +15,13 @@ Note:
 A is sorted in non-decreasing order.
 """
 
+
 class Solution:
     def sortedSquares(self, A: List[int]) -> List[int]:
         start, end = 0, len(A) - 1
         ptr = len(A) - 1
         res = [0] * len(A)
-        
+
         while start <= end:
             if abs(A[start]) > abs(A[end]):
                 res[ptr] = A[start] ** 2
@@ -29,5 +30,5 @@ class Solution:
                 res[ptr] = A[end] ** 2
                 end -= 1
             ptr -= 1
-        
+
         return res

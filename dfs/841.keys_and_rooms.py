@@ -33,7 +33,6 @@ class Solution:
 
         return len(visited) == len(rooms)
 
-
     def dfs(self, room_num: int, rooms: List[List[int]], visited: set) -> None:
         visited.add(room_num)
         keys = rooms[room_num]
@@ -41,4 +40,3 @@ class Solution:
         for key in keys:
             if key not in visited:
                 self.dfs(key, rooms, visited)
-

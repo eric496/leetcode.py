@@ -30,9 +30,10 @@ class Solution:
         i = 1
 
         while True:
-            if i * (i+1) / 2 <= n < (i+1) *(i+2) / 2:
+            if i * (i + 1) / 2 <= n < (i + 1) * (i + 2) / 2:
                 return i
             i += 1
+
 
 # Solution 2
 class Solution:
@@ -47,5 +48,3 @@ class Solution:
             row += 1
 
         return row - 1
-
-

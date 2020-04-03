@@ -1,4 +1,4 @@
-'''
+"""
 Given two strings S and T, return if they are equal when both are typed into empty text editors. # means a backspace character.
 
 Example 1:
@@ -28,28 +28,28 @@ S and T only contain lowercase letters and '#' characters.
 
 Follow up:
 Can you solve it in O(N) time and O(1) space?
-'''
+"""
 
 
 # Solution: two stacks - O(n) TC, O(n) SC
 class Solution:
     def backspaceCompare(self, S: str, T: str) -> bool:
         stk1, stk2 = [], []
-        
+
         for c in S:
             if c.isalpha():
                 stk1.append(c)
-            elif c == '#':
+            elif c == "#":
                 if stk1:
                     stk1.pop()
-        
+
         for c in T:
             if c.isalpha():
                 stk2.append(c)
-            elif c == '#':
+            elif c == "#":
                 if stk2:
                     stk2.pop()
-                    
+
         return stk1 == stk2
 
 
@@ -59,10 +59,10 @@ class Solution:
         s_ptr = len(S) - 1
         t_ptr = len(T) - 1
         s_skips = t_skips = 0
-        
-        while s_ptr >= 0 or t_ptr >= 0: 
+
+        while s_ptr >= 0 or t_ptr >= 0:
             while s_ptr >= 0:
-                if S[s_ptr] == '#':
+                if S[s_ptr] == "#":
                     s_skips += 1
                     s_ptr -= 1
                 elif s_skips > 0:
@@ -70,9 +70,9 @@ class Solution:
                     s_ptr -= 1
                 else:
                     break
-                    
+
             while t_ptr >= 0:
-                if T[t_ptr] == '#':
+                if T[t_ptr] == "#":
                     t_skips += 1
                     t_ptr -= 1
                 elif t_skips > 0:
@@ -80,16 +80,14 @@ class Solution:
                     t_ptr -= 1
                 else:
                     break
-                
-            
+
             if s_ptr >= 0 and t_ptr >= 0 and S[s_ptr] != T[t_ptr]:
                 return False
-            
+
             if s_ptr >= 0 and t_ptr < 0 or t_ptr >= 0 and s_ptr < 0:
                 return False
-            
+
             s_ptr -= 1
             t_ptr -= 1
-        
+
         return True
-        

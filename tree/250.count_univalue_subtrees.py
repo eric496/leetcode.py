@@ -26,26 +26,25 @@ class Solution:
     def countUnivalSubtrees(self, root: TreeNode) -> int:
         res = [0]
         self.dfs(root, res)
-        
+
         return res[0]
-        
-        
+
     def dfs(self, node: TreeNode, res: List[int]) -> bool:
         if not node:
             return True
-        
+
         left = self.dfs(node.left, res)
         right = self.dfs(node.right, res)
-        
+
         if left and right:
             if node.left and node.val != node.left.val:
                 return False
-            
+
             if node.right and node.val != node.right.val:
                 return False
-            
+
             res[0] = res[0] + 1
-            
+
             return True
-        
+
         return False

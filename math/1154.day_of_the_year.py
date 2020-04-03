@@ -27,30 +27,29 @@ date represents a calendar date between Jan 1st, 1900 and Dec 31, 2019.
 
 class Solution:
     def dayOfYear(self, date: str) -> int:
-        year, month, day = map(int, date.split('-'))
-        
+        year, month, day = map(int, date.split("-"))
+
         days_in_month = {
-            1: 31, 
-            2: 28, 
+            1: 31,
+            2: 28,
             3: 31,
             4: 30,
             5: 31,
             6: 30,
-            7: 31, 
+            7: 31,
             8: 31,
             9: 30,
             10: 31,
             11: 30,
-            12: 31
+            12: 31,
         }
-        
+
         res = day
-        
+
         for m in range(1, month):
             res += days_in_month[m]
-            
-        if not year%4 and year%100 or not year%100 and not year%400:
+
+        if not year % 4 and year % 100 or not year % 100 and not year % 400:
             res += 1 if month > 2 else 0
-            
+
         return res
-    

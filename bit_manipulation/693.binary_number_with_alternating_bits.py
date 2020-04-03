@@ -29,6 +29,5 @@ The binary representation of 10 is: 1010.
 
 class Solution:
     def hasAlternatingBits(self, n: int) -> bool:
-        n = n ^ (n>>1)
-        return (n & n+1) == 0
-        
+        n = n ^ (n >> 1)
+        return (n & n + 1) == 0

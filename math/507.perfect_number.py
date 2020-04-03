@@ -10,18 +10,18 @@ Explanation: 28 = 1 + 2 + 4 + 7 + 14
 Note: The input number n will not exceed 100,000,000. (1e8)
 """
 
+
 class Solution:
     def checkPerfectNumber(self, num: int) -> bool:
-        if num < 2: 
+        if num < 2:
             return False
-        
+
         sum_, x = 1, 2
-        
+
         while x ** 2 < num:
-            if num%x == 0:
+            if num % x == 0:
                 sum_ += x
                 sum_ += num // x
             x += 1
-                
+
         return sum_ == num
-        

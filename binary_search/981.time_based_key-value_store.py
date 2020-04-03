@@ -33,38 +33,35 @@ TimeMap.set and TimeMap.get functions will be called a total of 120000 times (co
 
 
 class TimeMap:
-
     def __init__(self):
         self.timemap = {}
-    
 
     def set(self, key: str, value: str, timestamp: int) -> None:
         if key in self.timemap:
             self.timemap[key].append((value, timestamp))
         else:
             self.timemap[key] = [(value, timestamp)]
-            
 
     def get(self, key: str, timestamp: int) -> str:
         if key in self.timemap:
             data = self.timemap[key]
-            start, end = 0, len(data)-1
+            start, end = 0, len(data) - 1
 
             if data[0][1] > timestamp:
-                return ''
+                return ""
             elif data[-1][1] <= timestamp:
                 return data[-1][0]
             else:
                 while start <= end:
-                    mid = start + ((end-start)>>1)
-                    
+                    mid = start + ((end - start) >> 1)
+
                     if data[mid][1] == timestamp:
                         return data[mid][0]
                     elif data[mid][1] < timestamp:
                         start = mid + 1
                     else:
                         end = mid - 1
-                
+
                 return data[end][0]
         else:
-            return ''
+            return ""

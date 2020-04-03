@@ -42,26 +42,24 @@ class Solution:
         arr1, arr2 = [], []
         self.dfs(root1, arr1)
         self.dfs(root2, arr2)
-        
+
         return self.merge(arr1, arr2)
-        
-        
+
     def dfs(self, root: TreeNode, res: List[int]) -> None:
         if not root:
             return
-        
+
         self.dfs(root.left, res)
         res.append(root.val)
         self.dfs(root.right, res)
-        
-    
+
     def merge(self, arr1: List[int], arr2: List[int]) -> List[int]:
         if None in (arr1, arr2):
             return arr1 or arr2
-        
-        res = [0] * (len(arr1)+len(arr2))
+
+        res = [0] * (len(arr1) + len(arr2))
         i = j = k = 0
-        
+
         while i < len(arr1) and j < len(arr2):
             if arr1[i] < arr2[j]:
                 res[k] = arr1[i]
@@ -69,18 +67,17 @@ class Solution:
             else:
                 res[k] = arr2[j]
                 j += 1
-            
+
             k += 1
-            
+
         while i < len(arr1):
             res[k] = arr1[i]
             i += 1
             k += 1
-            
+
         while j < len(arr2):
             res[k] = arr2[j]
             j += 1
             k += 1
-            
+
         return res
-        

@@ -23,15 +23,15 @@ class Solution:
     def convertToBase7(self, num: int) -> str:
         if not num:
             return str(num)
-        
+
         res = []
-        sign = [-1, 1][num>=0]
+        sign = [-1, 1][num >= 0]
         num = abs(num)
-        
+
         while num:
-            res.append(str(num%7))
+            res.append(str(num % 7))
             num //= 7
 
-        res = ''.join(res[::-1])
-            
-        return '-' + res if sign == -1 else res 
+        res = "".join(res[::-1])
+
+        return "-" + res if sign == -1 else res

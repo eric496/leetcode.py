@@ -17,18 +17,17 @@ Note: If there are several possible values for h, the maximum one is taken as th
 class Solution:
     def hIndex(self, citations: List[int]) -> int:
         total, n = 0, len(citations)
-        res = [0] * (n+1)
-        
+        res = [0] * (n + 1)
+
         for c in citations:
             if c >= n:
                 res[n] += 1
             else:
                 res[c] += 1
-                
+
         for i in range(n, -1, -1):
             total += res[i]
             if total >= i:
                 return i
 
         return 0
-        

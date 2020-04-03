@@ -21,9 +21,9 @@ class Solution:
     def searchMatrix(self, matrix, target):
         if not matrix or not matrix[0]:
             return False
-        
-        row, col = 0, len(matrix[0])-1
-        
+
+        row, col = 0, len(matrix[0]) - 1
+
         while row < len(matrix) and col >= 0:
             if matrix[row][col] == target:
                 return True
@@ -31,5 +31,5 @@ class Solution:
                 row += 1
             elif matrix[row][col] > target:
                 col -= 1
-            
+
         return False

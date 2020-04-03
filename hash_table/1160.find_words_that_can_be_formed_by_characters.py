@@ -24,6 +24,7 @@ All strings contain lowercase English letters only.
 
 from collections import Counter
 
+
 class Solution:
     def countCharacters(self, words: List[str], chars: str) -> int:
         res = 0
@@ -42,4 +43,3 @@ class Solution:
                 res += len(word)
 
         return res
-

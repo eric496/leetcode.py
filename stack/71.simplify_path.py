@@ -34,17 +34,16 @@ Output: "/a/b/c"
 
 class Solution:
     def simplifyPath(self, path: str) -> str:
-        split = path.split('/')
+        split = path.split("/")
         stk = []
-        
+
         for s in split:
-            if s in {'/', '.', ''}:
+            if s in {"/", ".", ""}:
                 continue
-            elif s == '..':
+            elif s == "..":
                 if stk:
                     stk.pop()
             else:
                 stk.append(s)
-                
-        return '/' + '/'.join(stk)
-        
+
+        return "/" + "/".join(stk)

@@ -1,4 +1,4 @@
-'''
+"""
 You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security system connected and it will automatically contact the police if two adjacent houses were broken into on the same night.
 Given a list of non-negative integers representing the amount of money of each house, determine the maximum amount of money you can rob tonight without alerting the police.
 
@@ -15,7 +15,7 @@ Input: [2,7,9,3,1]
 Output: 12
 Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1).
              Total amount you can rob = 2 + 9 + 1 = 12.
-'''
+"""
 
 # O(n) time and O(n) space
 class Solution:
@@ -26,18 +26,19 @@ class Solution:
             return max(nums)
         dp = []
         dp.append(nums[0])
-        dp.append(max(nums[0],nums[1]))
+        dp.append(max(nums[0], nums[1]))
         for i in range(2, len(nums)):
-            if  dp[i-2] + nums[i] > dp[i-1]:
-                dp.append(dp[i-2]+nums[i])
+            if dp[i - 2] + nums[i] > dp[i - 1]:
+                dp.append(dp[i - 2] + nums[i])
             else:
-                dp.append(dp[i-1])
+                dp.append(dp[i - 1])
         return dp[-1]
+
 
 # O(n) time and O(1) space
 class Solution:
     def rob(self, nums: list) -> int:
         first, second = 0, 0
         for num in nums:
-            second, first = num+first, max(first,second)
-        return max(first,second)
+            second, first = num + first, max(first, second)
+        return max(first, second)

@@ -15,22 +15,21 @@ Note: Your solution should run in O(log n) time and O(1) space.
 
 class Solution:
     def singleNonDuplicate(self, nums: List[int]) -> int:
-        low, high = 0, len(nums)-1
-        
+        low, high = 0, len(nums) - 1
+
         while low < high:
-            mid = low + ((high-low)>>2)
-            
-            if mid%2 == 0:
-                if nums[mid] == nums[mid+1]:
+            mid = low + ((high - low) >> 2)
+
+            if mid % 2 == 0:
+                if nums[mid] == nums[mid + 1]:
                     low = mid + 2
                 else:
                     high = mid
-            
+
             else:
-                if nums[mid] == nums[mid-1]:
+                if nums[mid] == nums[mid - 1]:
                     low = mid + 1
                 else:
                     high = mid
-            
+
         return nums[low]
-        

@@ -33,16 +33,15 @@ class Interval:
 
 
 class Solution:
-    def employeeFreeTime(self, schedule: 'list<list<Interval>>') -> 'list<Interval>':
+    def employeeFreeTime(self, schedule: "list<list<Interval>>") -> "list<Interval>":
         ints = sorted([i for s in schedule for i in s], key=lambda x: x.start)
         res, prev = [], ints[0]
-        
+
         for cur in ints[1:]:
             if cur.start > prev.end:
                 res.append(Interval(prev.end, cur.start))
                 prev = cur
             elif cur.start <= prev.end and prev.end <= cur.end:
                 prev.end = cur.end
-                
+
         return res
-        

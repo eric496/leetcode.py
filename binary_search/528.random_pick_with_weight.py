@@ -22,26 +22,24 @@ Explanation of Input Syntax:
 The input is two lists: the subroutines called and their arguments. Solution's constructor has one argument, the array w. pickIndex has no arguments. Arguments are always wrapped with a list, even if there aren't any.
 """
 
-class Solution:
 
+class Solution:
     def __init__(self, w: List[int]):
         self.w = w
         self.wsum = sum(w)
-        
+
         for i in range(1, len(w)):
-            w[i] += w[i-1]
-        
-        
+            w[i] += w[i - 1]
+
     def pickIndex(self) -> int:
         r = random.randint(1, self.wsum)
-        low, high = 0, len(self.w)-1
-        
+        low, high = 0, len(self.w) - 1
+
         while low < high:
-            mid = low + (high-low) // 2
+            mid = low + (high - low) // 2
             if r <= self.w[mid]:
                 high = mid
             else:
                 low = mid + 1
-        
+
         return low
-        

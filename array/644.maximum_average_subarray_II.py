@@ -14,4 +14,3 @@ Note:
 Elements of the given array will be in range [-10,000, 10,000].
 The answer with the calculation error less than 10-5 will be accepted.
 """
-

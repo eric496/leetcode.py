@@ -44,28 +44,27 @@ class Solution:
         if root and root.val > val:
             root.right = self.insertIntoMaxTree(root.right, val)
             return root
-        
+
         node = TreeNode(val)
         node.left = root
-        
+
         return node
-        
+
 
 # Solution 2: iterative
 class Solution:
     def insertIntoMaxTree(self, root: TreeNode, val: int) -> TreeNode:
         node = TreeNode(val)
         cur = root
-        
+
         if root.val < val:
             node.left = root
             return node
-        
+
         while cur.right and cur.right.val > val:
             cur = cur.right
-            
+
         node.left = cur.right
         cur.right = node
-        
+
         return root
-        

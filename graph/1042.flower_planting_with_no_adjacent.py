@@ -29,20 +29,19 @@ class Solution:
     def gardenNoAdj(self, N: int, paths: List[List[int]]) -> List[int]:
         res = [0] * N
         graph = [[] for _ in range(N)]
-        
+
         for x, y in paths:
-            graph[x-1].append(y-1)
-            graph[y-1].append(x-1)
-            
+            graph[x - 1].append(y - 1)
+            graph[y - 1].append(x - 1)
+
         for i in range(N):
             used = []
-            
+
             for neighbor in graph[i]:
                 used.append(res[neighbor])
-                
+
             for color in range(1, 5):
                 if color not in used:
                     res[i] = color
-        
+
         return res
-        

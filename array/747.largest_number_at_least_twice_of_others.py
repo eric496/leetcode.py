@@ -22,8 +22,8 @@ Every nums[i] will be an integer in the range [0, 99].
 
 class Solution:
     def dominantIndex(self, nums: List[int]) -> int:
-        exist, max_ix, max_num = True, -1, float('-inf')
-        
+        exist, max_ix, max_num = True, -1, float("-inf")
+
         for i, num in enumerate(nums):
             if num > max_num:
                 exist = True if num >= 2 * max_num else False
@@ -31,6 +31,5 @@ class Solution:
                 max_ix = i
             elif num * 2 > max_num:
                 exist = False
-        
+
         return max_ix if exist else -1
-        

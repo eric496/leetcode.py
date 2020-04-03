@@ -1,4 +1,4 @@
-'''
+"""
 Design a max stack that supports push, pop, top, peekMax and popMax.
 
 push(x) -- Push element x onto stack.
@@ -23,7 +23,7 @@ Note:
 -1e7 <= x <= 1e7
 Number of operations won't exceed 10000.
 The last four operations won't be called when stack is empty.
-'''
+"""
 
 """
 Thought process:
@@ -32,47 +32,40 @@ Thought process:
 
 # O(n) TC and O(n) SC
 class MaxStack:
-
     def __init__(self):
         self.stk = []
         self.max_stk = []
-        
 
     def push(self, x: int) -> None:
         self.stk.append(x)
-        
+
         if self.max_stk:
             self.max_stk.append(max(x, self.max_stk[-1]))
         else:
             self.max_stk.append(x)
-        
-        
+
     def pop(self) -> int:
         self.max_stk.pop()
         return self.stk.pop()
-        
-        
+
     def top(self) -> int:
         return self.stk[-1]
-        
 
     def peekMax(self) -> int:
         return self.max_stk[-1]
-        
 
     def popMax(self) -> int:
         cur_max = self.peekMax()
         temp = []
-        
+
         while self.stk[-1] != cur_max:
             temp.append(self.stk.pop())
             self.max_stk.pop()
-        
+
         self.stk.pop()
         self.max_stk.pop()
-        
+
         while temp:
             self.push(temp.pop())
-        
+
         return cur_max
-        

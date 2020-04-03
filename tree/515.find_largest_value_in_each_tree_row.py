@@ -25,50 +25,50 @@ class Solution:
     def largestValues(self, root: TreeNode) -> List[int]:
         if not root:
             return []
-        
+
         res = []
         self.dfs(root, 0, res)
-        
+
         return res
-        
-    
+
     def dfs(self, node: TreeNode, depth: int, res: List[int]) -> None:
         if not node:
-            return 
-        
+            return
+
         if depth == len(res):
             res.append(node.val)
         else:
             res[depth] = max(res[depth], node.val)
-            
-        self.dfs(node.left, depth+1, res)
-        self.dfs(node.right, depth+1, res)
+
+        self.dfs(node.left, depth + 1, res)
+        self.dfs(node.right, depth + 1, res)
 
 
-# Solution 2: iterative 
+# Solution 2: iterative
 from collections import deque
+
 
 class Solution:
     def largestValues(self, root: TreeNode) -> List[int]:
         if not root:
             return []
-        
+
         q = deque([root])
         res = []
-        
+
         while q:
-            level_max = float('-inf')
-            
+            level_max = float("-inf")
+
             for _ in range(len(q)):
                 node = q.popleft()
                 level_max = max(level_max, node.val)
-                
+
                 if node.left:
                     q.append(node.left)
-                
+
                 if node.right:
                     q.append(node.right)
-            
+
             res.append(level_max)
-            
+
         return res

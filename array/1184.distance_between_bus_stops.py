@@ -25,9 +25,14 @@ distance.length == n
 0 <= distance[i] <= 10^4
 """
 
+
 class Solution:
-    def distanceBetweenBusStops(self, distance: List[int], start: int, destination: int) -> int:
+    def distanceBetweenBusStops(
+        self, distance: List[int], start: int, destination: int
+    ) -> int:
         d = distance * 2
         start, destination = min(start, destination), max(start, destination)
-        
-        return min(sum(d[start:destination]), sum(d[destination:len(distance)+start]))
+
+        return min(
+            sum(d[start:destination]), sum(d[destination : len(distance) + start])
+        )

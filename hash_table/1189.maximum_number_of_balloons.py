@@ -23,18 +23,17 @@ text consists of lower case English letters only.
 class Solution:
     def maxNumberOfBalloons(self, text: str) -> int:
         freq = {}
-        
+
         for ch in text:
             freq[ch] = freq.get(ch, 0) + 1
-        
+
         res = 0
-        
+
         while 1:
-            for ch in 'balloon':
+            for ch in "balloon":
                 if ch in freq and freq[ch]:
                     freq[ch] -= 1
                 else:
                     return res
-                
+
             res += 1
-            

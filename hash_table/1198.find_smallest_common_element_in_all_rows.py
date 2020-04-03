@@ -17,17 +17,17 @@ class Solution:
     def smallestCommonElement(self, mat: List[List[int]]) -> int:
         cnt = {}
         m, n = len(mat), len(mat[0])
-        
+
         for i in range(m):
             for j in range(n):
                 cnt[mat[i][j]] = cnt.get(mat[i][j], 0) + 1
-        
-        min_common = float('inf')
-        
-        for k,v in cnt.items():
+
+        min_common = float("inf")
+
+        for k, v in cnt.items():
             min_common = min(min_common, k) if v == m else min_common
-        
-        return -1 if min_common == float('inf') else min_common
+
+        return -1 if min_common == float("inf") else min_common
 
 
 # Improved
@@ -35,13 +35,13 @@ class Solution:
     def smallestCommonElement(self, mat: List[List[int]]) -> int:
         cnt = {}
         m, n = len(mat), len(mat[0])
-        
+
         for i in range(m):
             for j in range(n):
                 cnt[mat[i][j]] = cnt.get(mat[i][j], 0) + 1
                 if cnt[mat[i][j]] == m:
                     return mat[i][j]
-                
+
         return -1
 
 
@@ -49,31 +49,29 @@ class Solution:
 class Solution:
     def smallestCommonElement(self, mat: List[List[int]]) -> int:
         m, n = len(mat), len(mat[0])
-        
+
         for num in mat[0]:
             cnt = 1
-            
+
             for row in mat[1:]:
-                if self.binary_search(row, 0, n-1, num):
+                if self.binary_search(row, 0, n - 1, num):
                     cnt += 1
                 else:
                     break
-            
+
             if cnt == m:
                 return num
-            
+
         return -1
-        
-        
+
     def binary_search(self, arr: List[int], low: int, high: int, target: int) -> True:
         while low <= high:
-            mid = low + ((high-low)>>2)
+            mid = low + ((high - low) >> 2)
             if arr[mid] == target:
                 return True
             elif arr[mid] < target:
                 low = mid + 1
             else:
                 high = mid - 1
-                
+
         return False
-        

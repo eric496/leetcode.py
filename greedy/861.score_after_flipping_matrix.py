@@ -29,28 +29,26 @@ Thought process:
 class Solution:
     def matrixScore(self, A: List[List[int]]) -> int:
         m, n = len(A), len(A[0])
-        
+
         for row in range(m):
             if A[row][0] == 0:
                 self.flip_row(A, row)
-                
+
         for col in range(1, n):
             cnt = 0
-            
+
             for row in range(m):
                 cnt += A[row][col]
-            
+
             if cnt < m - cnt:
                 self.flip_col(A, col)
-        
-        return sum(int(''.join(map(str, row)), 2) for row in A)
-        
-        
+
+        return sum(int("".join(map(str, row)), 2) for row in A)
+
     def flip_row(self, A: List[List[int]], row: int) -> None:
         for col in range(len(A[0])):
             A[row][col] = 0 if A[row][col] else 1
-            
-            
+
     def flip_col(self, A: List[List[int]], col: int) -> None:
         for row in range(len(A)):
             A[row][col] = 0 if A[row][col] else 1

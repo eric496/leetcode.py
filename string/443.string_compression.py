@@ -1,4 +1,4 @@
-'''
+"""
 Given an array of characters, compress it in-place.
 The length after compression must always be smaller than or equal to the original array.
 Every element of the array should be a character (not int) of length 1.
@@ -37,27 +37,27 @@ Notice each digit has it's own entry in the array.
 Note:
 All characters have an ASCII value in [35, 126].
 1 <= len(chars) <= 1000.
-'''
+"""
+
 
 class Solution:
-    def compress(self, chars: List[str]) -> int:        
+    def compress(self, chars: List[str]) -> int:
         read_idx = write_idx = 0
-        
+
         while read_idx < len(chars):
             cur_char = chars[read_idx]
             cnt = 0
-            
+
             while read_idx < len(chars) and chars[read_idx] == cur_char:
                 read_idx += 1
                 cnt += 1
-            
+
             chars[write_idx] = cur_char
             write_idx += 1
-            
+
             if cnt > 1:
                 for d in str(cnt):
                     chars[write_idx] = d
                     write_idx += 1
-        
+
         return write_idx
-        

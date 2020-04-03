@@ -1,4 +1,4 @@
-'''
+"""
 Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right, level by level from leaf to root).
 
 For example:
@@ -16,7 +16,7 @@ return its bottom-up level order traversal as:
   [9,20],
   [3]
 ]
-'''
+"""
 
 # Definition for a binary tree node.
 class TreeNode:
@@ -29,28 +29,29 @@ class TreeNode:
 # Solution 1
 from collections import deque
 
+
 class Solution:
     def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
         if not root:
             return []
-        
+
         q, res = deque([root]), []
-        
+
         while q:
             level = []
 
             for _ in range(len(q)):
                 node = q.popleft()
                 level.append(node.val)
-                
+
                 if node.left:
                     q.append(node.left)
-                
+
                 if node.right:
                     q.append(node.right)
-            
+
             res.append(level)
-        
+
         return res[::-1]
 
 
@@ -61,26 +62,26 @@ class Solution:
             return []
 
         level, result = [root], [[root.val]]
-        
+
         while level:
             cur_level = []
             is_there_item_in_next_level = 0
-            
+
             for item in level:
                 if (item.left or item.right) and not is_there_item_in_next_level:
                     result.append([])
                     is_there_item_in_next_level = 1
-                
+
                 if item.left:
                     cur_level.append(item.left)
                     result[-1].append(item.left.val)
-                
+
                 if item.right:
                     cur_level.append(item.right)
                     result[-1].append(item.right.val)
-            
+
             level = cur_level
-        
+
         return result[::-1]
 
 
@@ -91,7 +92,7 @@ class Solution:
             return []
 
         q, res = [root], []
-        
+
         while q:
             res.append([node.val for node in level])
             q = [node for el in q for node in (el.left, el.right) if node]

@@ -42,36 +42,35 @@ class Solution:
     def getDecimalValue(self, head: ListNode) -> int:
         head = self.reverse(head)
         res = power = 0
-        
+
         while head:
-            res += head.val * 2**power
+            res += head.val * 2 ** power
             head = head.next
             power += 1
-        
+
         return res
-        
-        
+
     def reverse(self, head: ListNode) -> ListNode:
         prev = None
-        
+
         while head:
             nxt = head.next
             head.next = prev
             prev = head
             head = nxt
-        
+
         return prev
-    
+
 
 # Solution 2: no need to reverse the linked list, add up bit by bit
 class Solution:
     def getDecimalValue(self, head: ListNode) -> int:
         res = 0
-        
+
         while head:
-            res = res*2 + head.val
+            res = res * 2 + head.val
             head = head.next
-        
+
         return res
 
 
@@ -79,10 +78,10 @@ class Solution:
 class Solution:
     def getDecimalValue(self, head: ListNode) -> int:
         res = 0
-        
+
         while head:
             res <<= 1
             res |= head.val
             head = head.next
-            
+
         return res

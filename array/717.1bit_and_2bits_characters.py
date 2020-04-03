@@ -1,4 +1,4 @@
-'''
+"""
 We have two special characters. The first character can be represented by one bit 0. The second character can be represented by two bits (10 or 11).
 Now given a string represented by several bits. Return whether the last character must be a one-bit character or not. The given string will always end with a zero.
 
@@ -19,19 +19,19 @@ The only way to decode it is two-bit character and two-bit character. So the las
 Note:
 1 <= len(bits) <= 1000.
 bits[i] is always 0 or 1.
-'''
+"""
 
 # Hint: Keep track of where the next character starts. At the end, you want to know if you started on the last bit.
 class Solution:
-    def isOneBitCharacter(self, bits: List[int]) -> bool:    
+    def isOneBitCharacter(self, bits: List[int]) -> bool:
         start = 0
-        
+
         while start < len(bits):
             if bits[start]:
                 start += 2
-            elif start == len(bits)-1:
+            elif start == len(bits) - 1:
                 return True
             else:
                 start += 1
-        
+
         return False

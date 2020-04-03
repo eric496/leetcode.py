@@ -30,25 +30,24 @@ The path sum is (3 + 1) = 4.
 
 class Solution:
     def pathSum(self, nums: List[int]) -> int:
-        lookup = {n//10: n%10 for n in nums}
+        lookup = {n // 10: n % 10 for n in nums}
         res = [0]
-        self.dfs(nums[0]//10, 0, lookup, res)
-        
+        self.dfs(nums[0] // 10, 0, lookup, res)
+
         return res[0]
-        
-        
+
     def dfs(self, val: int, presum: int, lookup: dict, res: List[int]) -> None:
         depth, pos = divmod(val, 10)
         cur = presum + lookup[val]
-        left = (depth+1) * 10 + (2*pos-1)
-        right = (depth+1) * 10 + 2*pos
-        
+        left = (depth + 1) * 10 + (2 * pos - 1)
+        right = (depth + 1) * 10 + 2 * pos
+
         if left not in lookup and right not in lookup:
             res[0] += cur
             return
-            
+
         if left in lookup:
             self.dfs(left, cur, lookup, res)
-            
+
         if right in lookup:
             self.dfs(right, cur, lookup, res)

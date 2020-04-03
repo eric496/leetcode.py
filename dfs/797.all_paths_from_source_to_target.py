@@ -22,16 +22,20 @@ class Solution:
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
         res = []
         self.dfs(graph, [0], 0, res)
-        
+
         return res
-        
-        
-    def dfs(self, graph: List[List[int]], cur_res: List[int], cur_node: int, res: List[List[int]]) -> None:
-        if cur_node == len(graph)-1:
+
+    def dfs(
+        self,
+        graph: List[List[int]],
+        cur_res: List[int],
+        cur_node: int,
+        res: List[List[int]],
+    ) -> None:
+        if cur_node == len(graph) - 1:
             res.append(list(cur_res))
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
         for node in graph[cur_node]:
             cur_res.append(node)
             self.dfs(graph, cur_res, node, res)
             cur_res.pop()
-            

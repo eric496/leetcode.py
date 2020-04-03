@@ -42,23 +42,22 @@ class TreeNode:
 class Solution:
     def isSubPath(self, head: ListNode, root: TreeNode) -> bool:
         target = []
-        
+
         while head:
             target.append(str(head.val))
             head = head.next
-        
-        target = '|'.join(target)
-        
+
+        target = "|".join(target)
+
         return self.dfs(root, "", target)
-    
-        
-        
+
     def dfs(self, cur: ListNode, cur_path: str, target: str) -> bool:
         if target in cur_path:
             return True
-        
+
         if not cur:
             return False
-        
-        return self.dfs(cur.left, cur_path+str(cur.val)+"|", target) or self.dfs(cur.right, cur_path+str(cur.val)+"|", target) 
-           
+
+        return self.dfs(cur.left, cur_path + str(cur.val) + "|", target) or self.dfs(
+            cur.right, cur_path + str(cur.val) + "|", target
+        )

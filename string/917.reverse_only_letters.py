@@ -1,4 +1,4 @@
-'''
+"""
 Given a string S, return the "reversed" string where all characters that are not a letter stay in the same place, and all letters reverse their positions.
 
 Example 1:
@@ -17,13 +17,14 @@ Note:
 S.length <= 100
 33 <= S[i].ASCIIcode <= 122 
 S doesn't contain \ or "
-'''
+"""
+
 
 class Solution:
     def reverseOnlyLetters(self, S: str) -> str:
-        start, end = 0, len(S)-1
+        start, end = 0, len(S) - 1
         sl = list(S)
-        
+
         while start < end:
             while start < end and not S[start].isalpha():
                 start += 1
@@ -32,5 +33,5 @@ class Solution:
             sl[start], sl[end] = sl[end], sl[start]
             start += 1
             end -= 1
-        
-        return ''.join(sl)
+
+        return "".join(sl)

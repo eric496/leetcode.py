@@ -1,4 +1,4 @@
-'''
+"""
 Reverse bits of a given 32 bits unsigned integer.
 
 Example:
@@ -10,7 +10,8 @@ Explanation: 43261596 represented in binary as 00000010100101000001111010011100,
 
 Follow up:
 If this function is called many times, how would you optimize it?
-'''
+"""
+
 
 class Solution:
     def reverseBits(self, n):

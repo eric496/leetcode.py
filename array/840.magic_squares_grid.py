@@ -29,56 +29,54 @@ class Solution:
     def numMagicSquaresInside(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
         res = 0
-        
-        for i in range(m-2):
-            for j in range(n-2):
+
+        for i in range(m - 2):
+            for j in range(n - 2):
                 if self.isMagic(i, j, grid):
                     res += 1
-        
+
         return res
-    
-        
+
     def isMagic(self, i: int, j: int, grid: List[List[int]]) -> bool:
         # Check center cell
-        if grid[i+1][j+1] != 5:
+        if grid[i + 1][j + 1] != 5:
             return False
-        
+
         # Check range [1,9]
-        nums = set(range(1,10))
-        
-        for x in range(i, i+3):
-            for y in range(j, j+3):
+        nums = set(range(1, 10))
+
+        for x in range(i, i + 3):
+            for y in range(j, j + 3):
                 nums.discard(grid[x][y])
-                
+
         if nums:
             return False
-        
+
         # Check all rows
-        if grid[i][j] + grid[i][j+1] + grid[i][j+2] != 15:
+        if grid[i][j] + grid[i][j + 1] + grid[i][j + 2] != 15:
             return False
-        
-        if grid[i+1][j] + grid[i+1][j+1] + grid[i+1][j+2] != 15:
+
+        if grid[i + 1][j] + grid[i + 1][j + 1] + grid[i + 1][j + 2] != 15:
             return False
-        
-        if grid[i+2][j] + grid[i+2][j+1] + grid[i+2][j+2] != 15:
+
+        if grid[i + 2][j] + grid[i + 2][j + 1] + grid[i + 2][j + 2] != 15:
             return False
-        
+
         # Check all columns
-        if grid[i][j] + grid[i+1][j] + grid[i+2][j] != 15:
+        if grid[i][j] + grid[i + 1][j] + grid[i + 2][j] != 15:
             return False
-        
-        if grid[i][j+1] + grid[i+1][j+1] + grid[i+2][j+1] != 15:
+
+        if grid[i][j + 1] + grid[i + 1][j + 1] + grid[i + 2][j + 1] != 15:
             return False
-        
-        if grid[i][j+2] + grid[i+1][j+2] + grid[i+2][j+2] != 15:
+
+        if grid[i][j + 2] + grid[i + 1][j + 2] + grid[i + 2][j + 2] != 15:
             return False
-            
+
         # Check diagonal and anti-diagonal
-        if grid[i][j] + grid[i+1][j+1] + grid[i+2][j+2] != 15:
+        if grid[i][j] + grid[i + 1][j + 1] + grid[i + 2][j + 2] != 15:
             return False
-        
-        if grid[i][j+2] + grid[i+1][j+1] + grid[i+2][j] != 15:
+
+        if grid[i][j + 2] + grid[i + 1][j + 1] + grid[i + 2][j] != 15:
             return False
-        
+
         return True
-        

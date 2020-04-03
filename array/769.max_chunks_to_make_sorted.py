@@ -26,31 +26,30 @@ arr[i] will be a permutation of [0, 1, ..., arr.length - 1].
 class Solution:
     def maxChunksToSorted(self, arr: List[int]) -> int:
         n = len(arr)
-        max_left, min_right = [arr[0]]+[0]*(n-1), [0]*(n-1)+[arr[n-1]]
+        max_left, min_right = [arr[0]] + [0] * (n - 1), [0] * (n - 1) + [arr[n - 1]]
 
         for i in range(1, n):
-            max_left[i] = max(max_left[i-1], arr[i])
-        
-        for i in range(n-2, -1, -1):
-            min_right[i] = min(min_right[i+1], arr[i])
-            
+            max_left[i] = max(max_left[i - 1], arr[i])
+
+        for i in range(n - 2, -1, -1):
+            min_right[i] = min(min_right[i + 1], arr[i])
+
         res = 0
-        
-        for i in range(n-1):
-            if max_left[i] <= min_right[i+1]:
+
+        for i in range(n - 1):
+            if max_left[i] <= min_right[i + 1]:
                 res += 1
-        
-        return res + 1 
-                
+
+        return res + 1
+
 
 # Method 2
 class Solution:
     def maxChunksToSorted(self, arr: List[int]) -> int:
         res = curmax = 0
-        
-        for i,n in enumerate(arr):
+
+        for i, n in enumerate(arr):
             curmax = max(curmax, n)
             res = res + 1 if curmax == i else res
-        
+
         return res
-        

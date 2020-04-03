@@ -11,9 +11,10 @@ Output:
 ]
 """
 
+
 class Solution:
     def generateMatrix(self, n: int) -> List[List[int]]:
-        matrix = [[0]*n for _ in range(n)]
+        matrix = [[0] * n for _ in range(n)]
         coord = [[(x, y) for y in range(n)] for x in range(n)]
         flat_coord = self.flatten(coord)
         cnt = 1
@@ -24,7 +25,6 @@ class Solution:
 
         return matrix
 
-
     def flatten(self, matrix: List[List[int]]) -> List[tuple]:
         res = []
 
@@ -33,4 +33,3 @@ class Solution:
             matrix = list(zip(*matrix))[::-1]
 
         return res
-

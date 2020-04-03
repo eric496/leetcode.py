@@ -30,24 +30,24 @@ class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
         if not head or not head.next:
             return head
-        
+
         sentinel = walk = ListNode(None)
         sentinel.next = head
         length = 0
-        
+
         while walk and walk.next:
             walk = walk.next
             length += 1
-        
+
         if k % length == 0:
             return head
 
         walk = sentinel
-        offset = length - k%length
+        offset = length - k % length
 
         for _ in range(offset):
             walk = walk.next
-            
+
         new_head = walk.next
         walk.next = None
         first_partition_rev = self.reverse(sentinel.next)
@@ -55,17 +55,16 @@ class Solution:
         sentinel.next.next = second_partition_rev
 
         return self.reverse(first_partition_rev)
-    
-    
+
     def reverse(self, head: ListNode) -> ListNode:
         prev, cur = None, head
-        
+
         while cur:
             nxt = cur.next
             cur.next = prev
             prev = cur
             cur = nxt
-        
+
         return prev
 
 
@@ -74,29 +73,29 @@ class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
         if not head or not head.next:
             return head
-        
+
         walk, n = head, 0
-        
+
         while walk:
-            walk = walk.next 
+            walk = walk.next
             n += 1
-                        
+
         k %= n
-        
+
         if not k:
             return head
-        
+
         walk = head
-        
-        for _ in range(n-k-1):
+
+        for _ in range(n - k - 1):
             walk = walk.next
-        
+
         new_head = new_walk = walk.next
         walk.next = None
-        
+
         while new_walk and new_walk.next:
             new_walk = new_walk.next
-            
+
         new_walk.next = head
-        
+
         return new_head

@@ -36,31 +36,32 @@ The maze contains at least 2 empty spaces, and both the width and height of the 
 
 
 class Solution:
-    def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
+    def hasPath(
+        self, maze: List[List[int]], start: List[int], destination: List[int]
+    ) -> bool:
         q = [start]
         m, n = len(maze), len(maze[0])
-        dirs = [(0,1), (0,-1), (1,0), (-1,0)]
-        
+        dirs = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
         while q:
             x, y = q.pop()
             maze[x][y] = 2
-            
+
             if x == destination[0] and y == destination[1]:
                 return True
-            
+
             for dx, dy in dirs:
                 row = x + dx
                 col = y + dy
-                
+
                 while 0 <= row < m and 0 <= col < n and maze[row][col] != 1:
                     row += dx
                     col += dy
-                
+
                 row -= dx
                 col -= dy
-                
+
                 if maze[row][col] == 0:
                     q.append([row, col])
-                    
+
         return False
-        

@@ -28,6 +28,7 @@ class TreeNode:
 # Solution 1: iterative by using a queue
 from collections import deque
 
+
 class Solution:
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
         if not root:
@@ -37,7 +38,7 @@ class Solution:
 
         while q:
             level = []
-            
+
             for _ in range(len(q)):
                 node = q.popleft()
                 level.append(node.val)
@@ -45,7 +46,7 @@ class Solution:
                     q.append(node.left)
                 if node.right:
                     q.append(node.right)
-            
+
             res.append(level)
 
         return res
@@ -56,18 +57,16 @@ class Solution:
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
         res = []
         self.dfs(root, 0, res)
-        
+
         return res
-        
-        
+
     def dfs(self, node: TreeNode, height: int, res: List[List[int]]) -> None:
         if not node:
-            return 
-        
+            return
+
         if height >= len(res):
             res.append([])
-            
+
         res[height].append(node.val)
-        self.dfs(node.left, height+1, res)
-        self.dfs(node.right, height+1, res)
-        
+        self.dfs(node.left, height + 1, res)
+        self.dfs(node.right, height + 1, res)

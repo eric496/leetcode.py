@@ -28,6 +28,7 @@ class Employee:
 """
 from collections import deque
 
+
 class Solution:
     def getImportance(self, employees, id):
         """
@@ -51,4 +52,3 @@ class Solution:
                     q.append(d[s][1])
 
         return res
-

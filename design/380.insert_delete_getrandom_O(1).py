@@ -32,15 +32,14 @@ randomSet.getRandom();
 
 import random
 
-class RandomizedSet:
 
+class RandomizedSet:
     def __init__(self):
         """
         Initialize your data structure here.
         """
         self.vals = []
         self.d = {}
-        
 
     def insert(self, val: int) -> bool:
         """
@@ -52,7 +51,6 @@ class RandomizedSet:
             self.d[val] = len(self.vals)
             self.vals.append(val)
             return True
-        
 
     def remove(self, val: int) -> bool:
         """
@@ -67,12 +65,11 @@ class RandomizedSet:
         else:
             return False
 
-        
     def getRandom(self) -> int:
         """
         Get a random element from the set.
         """
-        return self.vals[random.randint(0, len(self.vals)-1)]
+        return self.vals[random.randint(0, len(self.vals) - 1)]
 
 
 # Your RandomizedSet object will be instantiated and called as such:

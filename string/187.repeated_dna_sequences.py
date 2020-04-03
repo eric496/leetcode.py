@@ -7,38 +7,41 @@ Input: s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
 Output: ["AAAAACCCCC", "CCCCCAAAAA"]
 """
 
+
 class Solution:
     def findRepeatedDnaSequences(self, s: str) -> List[str]:
         d = {}
-        
-        for i in range(len(s)-9):
-            if s[i:i+10] in d:
-                d[s[i:i+10]] += 1
+
+        for i in range(len(s) - 9):
+            if s[i : i + 10] in d:
+                d[s[i : i + 10]] += 1
             else:
-                d[s[i:i+10]] = 1
-        
+                d[s[i : i + 10]] = 1
+
         res = []
-        
+
         for k, v in d.items():
             if v > 1:
                 res.append(k)
-                
+
         return res
+
 
 # More concise: one pass
 class Solution:
     def findRepeatedDnaSequences(self, s: str) -> List[str]:
         d = {}
         res = []
-        
-        for i in range(len(s)-9):
-            if s[i:i+10] in d:
-                if d[s[i:i+10]] == 1:
-                    res.append(s[i:i+10])
-                d[s[i:i+10]] += 1                    
+
+        for i in range(len(s) - 9):
+            if s[i : i + 10] in d:
+                if d[s[i : i + 10]] == 1:
+                    res.append(s[i : i + 10])
+                d[s[i : i + 10]] += 1
             else:
-                d[s[i:i+10]] = 1
-         
+                d[s[i : i + 10]] = 1
+
         return res
-    
+
+
 # Bit manipulation - TODO

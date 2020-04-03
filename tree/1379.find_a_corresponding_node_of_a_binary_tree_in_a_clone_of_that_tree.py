@@ -42,19 +42,20 @@ class TreeNode:
 
 
 class Solution:
-    def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+    def getTargetCopy(
+        self, original: TreeNode, cloned: TreeNode, target: TreeNode
+    ) -> TreeNode:
         if original is None:
             return None
-        
+
         if original is target:
             return cloned
-        
+
         left = self.getTargetCopy(original.left, cloned.left, target)
-        
+
         if left:
             return left
-        
+
         right = self.getTargetCopy(original.right, cloned.right, target)
-        
+
         return right
-        

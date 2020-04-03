@@ -35,22 +35,24 @@ class Solution:
     def pathSum(self, root: TreeNode, target: int) -> List[List[int]]:
         if not root:
             return []
-        
+
         res = []
         self.dfs(root, target, [], res)
-        
+
         return res
-    
-    def dfs(self, node: TreeNode, target: int, path: List[int], res: List[List[int]]) -> None:
+
+    def dfs(
+        self, node: TreeNode, target: int, path: List[int], res: List[List[int]]
+    ) -> None:
         if node.val == target and not node.left and not node.right:
             path.append(node.val)
             res.append(path)
-            
+
         if node.left:
-            self.dfs(node.left, target-node.val, path+[node.val], res)
-            
+            self.dfs(node.left, target - node.val, path + [node.val], res)
+
         if node.right:
-            self.dfs(node.right, target-node.val, path+[node.val], res)
+            self.dfs(node.right, target - node.val, path + [node.val], res)
 
 
 # Solution 2: iterative
@@ -58,19 +60,18 @@ class Solution:
     def pathSum(self, root: TreeNode, target: int) -> List[List[int]]:
         if not root:
             return []
-        
+
         stk = [(root, target, [])]
         res = []
-        
+
         while stk:
             node, val, path = stk.pop()
-            
+
             if node:
                 if val == node.val and not node.left and not node.right:
-                    res.append(path+[node.val])
+                    res.append(path + [node.val])
                 else:
-                    stk.append((node.left, val-node.val, path+[node.val]))
-                    stk.append((node.right, val-node.val, path+[node.val]))
-                
+                    stk.append((node.left, val - node.val, path + [node.val]))
+                    stk.append((node.right, val - node.val, path + [node.val]))
+
         return res
-        

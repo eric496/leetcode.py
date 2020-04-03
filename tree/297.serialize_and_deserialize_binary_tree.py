@@ -27,43 +27,40 @@ class TreeNode(object):
 # Solution 1: recursive
 from collections import deque
 
-class Codec:
 
+class Codec:
     def serialize(self, root: TreeNode) -> str:
         res = []
         self.build_string(root, res)
-        return ''.join(res)
-    
+        return "".join(res)
 
     def deserialize(self, data: str) -> TreeNode:
         if not data:
             return None
-            
-        q = deque([x for x in data.split('#')])
+
+        q = deque([x for x in data.split("#")])
         return self.build_tree(q)
-    
-        
+
     def build_string(self, root: TreeNode, res: List[str]) -> None:
         if root:
             res.append(str(root.val))
-            res.append('#')
+            res.append("#")
             self.build_string(root.left, res)
             self.build_string(root.right, res)
         else:
-            res.append('X')
-            res.append('#')
-            
-    
+            res.append("X")
+            res.append("#")
+
     def build_tree(self, q) -> TreeNode:
         if q:
             val = q.popleft()
-            if val == 'X':
+            if val == "X":
                 return None
             else:
                 root = TreeNode(int(val))
                 root.left = self.build_tree(q)
                 root.right = self.build_tree(q)
                 return root
-                
+
 
 # Solution 2: iterative

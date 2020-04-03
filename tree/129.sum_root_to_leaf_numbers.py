@@ -42,24 +42,24 @@ class TreeNode:
 # Solution 1: recursive
 from typing import List
 
+
 class Solution:
     def sumNumbers(self, root: TreeNode) -> int:
         res = []
         self.dfs(root, 0, res)
 
         return sum(res)
-        
-        
+
     def dfs(self, node: TreeNode, cursum: int, res: List[int]) -> None:
         if not node:
             return
-        
+
         # Reach at a leaf node
         if not node.left and not node.right:
-            res.append(cursum*10+node.val)
-                
-        self.dfs(node.left, cursum*10+node.val, res)
-        self.dfs(node.right, cursum*10+node.val, res)
+            res.append(cursum * 10 + node.val)
+
+        self.dfs(node.left, cursum * 10 + node.val, res)
+        self.dfs(node.right, cursum * 10 + node.val, res)
 
 
 # Solution 2: iterative
@@ -67,20 +67,20 @@ class Solution:
     def sumNumbers(self, root: TreeNode) -> int:
         if not root:
             return 0
-        
+
         stk, res = [(root, root.val)], 0
-        
+
         while stk:
             node, val = stk.pop()
 
             if node:
                 if not node.left and not node.right:
                     res += val
-                
+
                 if node.left:
-                    stk.append((node.left, val*10+node.left.val))
-                
+                    stk.append((node.left, val * 10 + node.left.val))
+
                 if node.right:
-                    stk.append((node.right, val*10+node.right.val))
-                    
+                    stk.append((node.right, val * 10 + node.right.val))
+
         return res

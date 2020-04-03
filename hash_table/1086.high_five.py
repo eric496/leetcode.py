@@ -17,20 +17,21 @@ The score of the students is between 1 to 100
 For each student, there are at least 5 scores
 """
 
+
 class Solution:
     def highFive(self, items: List[List[int]]) -> List[List[int]]:
         scores = {}
-        
+
         for item in items:
             if item[0] in scores:
                 scores[item[0]].append(item[1])
             else:
                 scores[item[0]] = [item[1]]
-                
+
         res = []
-        
+
         for i, score in scores.items():
             avg5 = sum(sorted(score, reverse=True)[:5]) // 5
             res.append([i, avg5])
-            
+
         return res

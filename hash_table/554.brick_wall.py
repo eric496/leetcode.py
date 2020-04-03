@@ -25,12 +25,12 @@ class Solution:
         width = sum(wall[0])
         thickness = len(wall)
         edges = {0: 0}
-        
+
         for layer in wall:
             cur_width = 0
             for brick in layer:
                 cur_width += brick
                 if cur_width != width:
                     edges[cur_width] = edges.get(cur_width, 0) + 1
-            
+
         return thickness - max(edges.values())

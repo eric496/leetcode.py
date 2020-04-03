@@ -9,7 +9,7 @@ Output: 6
 # Two pointers
 class Solution:
     def trap(self, height: List[int]) -> int:
-        start, end = 0, len(height)-1
+        start, end = 0, len(height) - 1
         left_max = right_max = 0
         res = 0
 
@@ -24,4 +24,3 @@ class Solution:
                 end -= 1
 
         return res
-

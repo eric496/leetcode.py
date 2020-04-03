@@ -1,4 +1,4 @@
-'''
+"""
 Given a non-empty, singly linked list with head node head, return a middle node of linked list.
 If there are two middle nodes, return the second middle node.
 
@@ -16,7 +16,7 @@ Since the list has two middle nodes with values 3 and 4, we return the second on
 
 Note:
 The number of nodes in the given list will be between 1 and 100.
-'''
+"""
 
 # Definition for singly-linked list.
 class ListNode:
@@ -30,17 +30,17 @@ class Solution:
     def middleNode(self, head: ListNode) -> ListNode:
         slow = fast = ListNode(None)
         slow.next = head
-        
+
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        
+
         # If there is even number of nodes, the fast pointer will point to the last node.
         # Since we need to return the second middle node, the slow pointer needs to move one node forward.
         # On the other hand, if there is odd number of nodes, the fast pointer will point to the tail (None).
         if fast:
             slow = slow.next
-        
+
         return slow
 
 
@@ -50,17 +50,17 @@ class Solution:
         # # Since it is an non-empty list, we can remove the following code
         # if not head or not head.next:
         #     return head
-        
+
         slow = head
         fast = head.next
-        
+
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-            
+
         if fast:
             slow = slow.next
-            
+
         return slow
 
 
@@ -69,10 +69,9 @@ class Solution:
     def middleNode(self, head: ListNode) -> ListNode:
         slow = fast = ListNode(None)
         slow.next = fast.next = head
-        
+
         while fast and fast.next and fast.next.next:
             slow = slow.next
             fast = fast.next.next
-        
+
         return slow.next
-        

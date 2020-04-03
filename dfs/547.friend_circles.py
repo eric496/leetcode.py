@@ -31,18 +31,16 @@ class Solution:
     def findCircleNum(self, M: List[List[int]]) -> int:
         visited = [0] * len(M)
         cnt = 0
-        
+
         for i in range(len(M)):
             if not visited[i]:
                 self.dfs(M, visited, i)
                 cnt += 1
-        
+
         return cnt
-        
-    
+
     def dfs(self, M: List[List[int]], visited: List[int], person: int) -> None:
         for friend in range(len(M)):
             if M[person][friend] == 1 and not visited[friend]:
                 visited[friend] = 1
                 self.dfs(M, visited, friend)
-                

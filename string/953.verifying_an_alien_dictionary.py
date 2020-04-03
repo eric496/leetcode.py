@@ -24,21 +24,22 @@ order.length == 26
 All characters in words[i] and order are english lowercase letters.
 """
 
+
 class Solution:
     def isAlienSorted(self, words: List[str], order: str) -> bool:
         d = {ch: ix for ix, ch in enumerate(order)}
-        
-        wl = [] 
-        
+
+        wl = []
+
         for word in words:
             w = []
             for ch in word:
                 w.append(d[ch])
             wl.append(w)
-        
+
         # List comparison
         for w1, w2 in zip(wl, wl[1:]):
             if w1 > w2:
                 return False
-        
+
         return True

@@ -9,13 +9,14 @@ Input: [1,8,6,2,5,4,8,3,7]
 Output: 49
 """
 
+
 class Solution:
     def maxArea(self, height: List[int]) -> int:
         left, right = 0, len(height) - 1
         max_area = 0
-        
+
         while left < right:
-            cur_area = (right-left) * min(height[left], height[right])
+            cur_area = (right - left) * min(height[left], height[right])
             max_area = max(max_area, cur_area)
             if height[left] < height[right]:
                 left += 1
@@ -24,5 +25,5 @@ class Solution:
             else:
                 left += 1
                 right -= 1
-        
+
         return max_area

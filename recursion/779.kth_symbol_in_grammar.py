@@ -26,9 +26,10 @@ N will be an integer in the range [1, 30].
 K will be an integer in the range [1, 2^(N-1)].
 """
 
+
 class Solution:
     def kthGrammar(self, N: int, K: int) -> int:
-        if N == 1: 
+        if N == 1:
             return 0
-        
-        return (1-K%2) ^ self.kthGrammar(N-1, (K+1)//2)
+
+        return (1 - K % 2) ^ self.kthGrammar(N - 1, (K + 1) // 2)

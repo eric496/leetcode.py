@@ -35,14 +35,13 @@ What if the number of hits per second could be very large? Does your design scal
 # Solution: use a queue
 from collections import deque
 
-class HitCounter:
 
+class HitCounter:
     def __init__(self):
         """
         Initialize your data structure here.
         """
         self.q = deque()
-        
 
     def hit(self, timestamp: int) -> None:
         """
@@ -50,38 +49,33 @@ class HitCounter:
         @param timestamp - The current timestamp (in seconds granularity).
         """
         self.q.append(timestamp)
-        
 
     def getHits(self, timestamp: int) -> int:
         """
         Return the number of hits in the past 5 minutes.
         @param timestamp - The current timestamp (in seconds granularity).
         """
-        while self.q and timestamp-self.q[0] >= 300:
+        while self.q and timestamp - self.q[0] >= 300:
             self.q.popleft()
-        
+
         return len(self.q)
 
 
 # Follow up: use a dictionary
 class HitCounter:
-
     def __init__(self):
         self.cnt = {}
-        
 
     def hit(self, timestamp: int) -> None:
         self.cnt[timestamp] = self.cnt.get(timestamp, 0) + 1
-        
 
     def getHits(self, timestamp: int) -> int:
         res = 0
-        
+
         for key in list(self.cnt.keys()):
             if timestamp - key >= 300:
                 del self.cnt[key]
             else:
                 res += self.cnt[key]
-        
+
         return res
-        

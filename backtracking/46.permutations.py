@@ -14,14 +14,17 @@ Output:
 ]
 """
 
+
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         res = []
         self.backtrack(nums, [], res)
-        
+
         return res
-        
-    def backtrack(self, nums: List[int], cur_perm: List[int], res: List[List[int]]) -> None:
+
+    def backtrack(
+        self, nums: List[int], cur_perm: List[int], res: List[List[int]]
+    ) -> None:
         if len(cur_perm) == len(nums):
             res.append(cur_perm[:])
         else:

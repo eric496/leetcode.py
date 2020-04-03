@@ -36,11 +36,10 @@ All A[i] consist of only lowercase letters.
 class Solution:
     def numSpecialEquivGroups(self, A: List[str]) -> int:
         encode = set()
-        
+
         for s in A:
-            even = ''.join(sorted(s[::2]))
-            odd = ''.join(sorted(s[1::2]))
+            even = "".join(sorted(s[::2]))
+            odd = "".join(sorted(s[1::2]))
             encode.add((even, odd))
-        
+
         return len(encode)
-        

@@ -19,7 +19,7 @@ Explanation: By calling next repeatedly until hasNext returns false,
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
 # """
-#class NestedInteger(object):
+# class NestedInteger(object):
 #    def isInteger(self):
 #        """
 #        @return True if this NestedInteger holds a single integer, rather than a nested list.
@@ -40,8 +40,8 @@ Explanation: By calling next repeatedly until hasNext returns false,
 #        :rtype List[NestedInteger]
 #        """
 
-class NestedIterator(object):
 
+class NestedIterator(object):
     def __init__(self, nestedList):
         """
         Initialize your data structure here.
@@ -49,13 +49,11 @@ class NestedIterator(object):
         """
         self.stk = nestedList[::-1]
 
-
     def next(self):
         """
         :rtype: int
         """
         return self.stk.pop().getInteger()
-
 
     def hasNext(self):
         """
@@ -74,4 +72,3 @@ class NestedIterator(object):
 # Your NestedIterator object will be instantiated and called as such:
 # i, v = NestedIterator(nestedList), []
 # while i.hasNext(): v.append(i.next())
-

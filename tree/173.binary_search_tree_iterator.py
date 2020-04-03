@@ -29,29 +29,25 @@ class TreeNode:
 
 
 class BSTIterator:
-
     def __init__(self, root: TreeNode):
         self.stk = []
         self.push(root)
 
-        
     def next(self) -> int:
         """
         @return the next smallest number
         """
         node = self.stk.pop()
         self.push(node.right)
-        
+
         return node.val
-        
 
     def hasNext(self) -> bool:
         """
         @return whether we have a next smallest number
         """
         return True if self.stk else False
-        
-    
+
     def push(self, node: TreeNode) -> None:
         while node:
             self.stk.append(node)

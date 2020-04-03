@@ -18,47 +18,48 @@ Input: 1234567891
 Output: "One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thousand Eight Hundred Ninety One"
 """
 
+
 class Solution:
     def numberToWords(self, num: int) -> str:
         if not num:
             return "Zero"
-        
-        places = ['', 'Thousand', 'Million', 'Billion', 'Trillion']
+
+        places = ["", "Thousand", "Million", "Billion", "Trillion"]
         d = {
-            0: '',
-            1: 'One', 
-            2: 'Two',
-            3: 'Three',
-            4: 'Four',
-            5: 'Five',
-            6: 'Six',
-            7: 'Seven',
-            8: 'Eight',
-            9: 'Nine',
-            10: 'Ten',
-            11: 'Eleven',
-            12: 'Twelve',
-            13: 'Thirteen',
-            14: 'Fourteen',
-            15: 'Fifteen',
-            16: 'Sixteen',
-            17: 'Seventeen',
-            18: 'Eighteen',
-            19: 'Nineteen',
-            20: 'Twenty',
-            30: 'Thirty',
-            40: 'Forty',
-            50: 'Fifty',
-            60: 'Sixty',
-            70: 'Seventy',
-            80: 'Eighty',
-            90: 'Ninety',
-            100: 'Hundred',
+            0: "",
+            1: "One",
+            2: "Two",
+            3: "Three",
+            4: "Four",
+            5: "Five",
+            6: "Six",
+            7: "Seven",
+            8: "Eight",
+            9: "Nine",
+            10: "Ten",
+            11: "Eleven",
+            12: "Twelve",
+            13: "Thirteen",
+            14: "Fourteen",
+            15: "Fifteen",
+            16: "Sixteen",
+            17: "Seventeen",
+            18: "Eighteen",
+            19: "Nineteen",
+            20: "Twenty",
+            30: "Thirty",
+            40: "Forty",
+            50: "Fifty",
+            60: "Sixty",
+            70: "Seventy",
+            80: "Eighty",
+            90: "Ninety",
+            100: "Hundred",
         }
-        
+
         ls_res = []
         place_cnt = 0
-        
+
         while num:
             cur_num = num % 1000
             # Get the hundredth place
@@ -67,14 +68,14 @@ class Solution:
             ts = cur_num // 10 % 10 * 10
             # Get the oneth place
             os = cur_num % 10
-            
+
             # Tenth place less than twenty
             if ts == 10:
                 ts = ts + os
                 os = 0
 
-            cur_res = []        
-            
+            cur_res = []
+
             if hs:
                 cur_res.append(d[hs])
                 cur_res.append(d[100])
@@ -82,19 +83,19 @@ class Solution:
                 cur_res.append(d[ts])
             if os:
                 cur_res.append(d[os])
-            
+
             ls_res.append(cur_res)
-            
+
             # Less than one thousand or all places are zeros
             if place_cnt and cur_res:
                 cur_res.append(places[place_cnt])
-            
+
             num //= 1000
             place_cnt += 1
-            
+
         res = []
-        
+
         for ls in ls_res[::-1]:
             res.extend(ls)
-            
-        return ' '.join(res)
+
+        return " ".join(res)

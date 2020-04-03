@@ -34,27 +34,26 @@ class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         if not tokens:
             return 0
-        
+
         stk = []
-        operations = {'+', '-', '*', '/'}
-        
+        operations = {"+", "-", "*", "/"}
+
         for token in tokens:
             if token in operations:
                 op2 = stk.pop()
                 op1 = stk.pop()
-                
-                if token == '+':
+
+                if token == "+":
                     stk.append(op1 + op2)
-                elif token == '-':
+                elif token == "-":
                     stk.append(op1 - op2)
-                elif token == '*':
+                elif token == "*":
                     stk.append(op1 * op2)
-                elif token == '/':
+                elif token == "/":
                     # This is a Python specific issue
                     # that negative integer division does not truncate.
-                    stk.append(int(float(op1)/op2))
+                    stk.append(int(float(op1) / op2))
             else:
                 stk.append(int(token))
-                
+
         return stk[0]
-      

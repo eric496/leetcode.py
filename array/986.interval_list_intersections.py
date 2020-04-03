@@ -16,10 +16,12 @@ Note:
 
 # Two pointers
 class Solution:
-    def intervalIntersection(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
+    def intervalIntersection(
+        self, A: List[List[int]], B: List[List[int]]
+    ) -> List[List[int]]:
         res = []
         ixa = ixb = 0
-        
+
         while ixa < len(A) and ixb < len(B):
             if A[ixa][1] < B[ixb][0]:
                 ixa += 1
@@ -31,6 +33,5 @@ class Solution:
                     ixb += 1
                 else:
                     ixa += 1
-        
-        return res
 
+        return res

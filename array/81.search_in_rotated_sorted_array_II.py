@@ -16,22 +16,23 @@ This is a follow up problem to Search in Rotated Sorted Array, where nums may co
 Would this affect the run-time complexity? How and why?
 """
 
+
 class Solution:
     def search(self, nums: List[int], target: int) -> bool:
         if not nums:
             return False
-    
+
         low, high = 0, len(nums) - 1
-        
+
         while low <= high:
-            mid = low + ((high-low)>>1)
+            mid = low + ((high - low) >> 1)
             if target == nums[mid]:
                 return True
-            
+
             # Skip the duplicates
             while low < mid and nums[low] == nums[mid]:
                 low += 1
-            
+
             if nums[low] <= nums[mid]:
                 if nums[low] <= target <= nums[mid]:
                     high = mid - 1
@@ -42,6 +43,5 @@ class Solution:
                     low = mid + 1
                 else:
                     high = mid - 1
-            
+
         return False
-        

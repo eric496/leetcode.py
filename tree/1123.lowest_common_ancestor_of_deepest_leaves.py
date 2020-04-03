@@ -39,19 +39,17 @@ class TreeNode:
 class Solution:
     def lcaDeepestLeaves(self, root: TreeNode) -> TreeNode:
         return self.dfs(root)[1]
-        
-        
+
     def dfs(self, node: TreeNode) -> tuple:
         if not node:
             return 0, None
-        
+
         left_h, left_lca = self.dfs(node.left)
         right_h, right_lca = self.dfs(node.right)
-        
+
         if left_h == right_h:
-            return left_h+1, node
+            return left_h + 1, node
         elif left_h > right_h:
-            return left_h+1, left_lca
+            return left_h + 1, left_lca
         elif left_h < right_h:
-            return right_h+1, right_lca
-            
+            return right_h + 1, right_lca

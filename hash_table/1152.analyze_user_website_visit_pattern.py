@@ -36,33 +36,37 @@ No user visits two websites at the same time.
 
 
 class Solution:
-    def mostVisitedPattern(self, username: List[str], timestamp: List[int], website: List[str]) -> List[str]:
+    def mostVisitedPattern(
+        self, username: List[str], timestamp: List[int], website: List[str]
+    ) -> List[str]:
         seq = sorted(list(zip(username, timestamp, website)))
         page_visit_by_user = {name: [] for name in set(username)}
-        
+
         for username, timestamp, website in seq:
             page_visit_by_user[username].append(website)
 
         page_visit_sequence_count = {}
-        
+
         for pages in page_visit_by_user.values():
             if len(pages) >= 3:
                 seen_seq = set()
-                for i in range(len(pages)-2):
-                    for j in range(i+1, len(pages)-1):
-                        for k in range(j+1, len(pages)):
+                for i in range(len(pages) - 2):
+                    for j in range(i + 1, len(pages) - 1):
+                        for k in range(j + 1, len(pages)):
                             seq3 = pages[i], pages[j], pages[k]
                             if seq3 not in seen_seq:
-                                page_visit_sequence_count[seq3] = page_visit_sequence_count.get(seq3, 0) + 1
+                                page_visit_sequence_count[seq3] = (
+                                    page_visit_sequence_count.get(seq3, 0) + 1
+                                )
                             seen_seq.add(seq3)
 
         res, max_ = [], 0
-        
-        for k,v in page_visit_sequence_count.items():
+
+        for k, v in page_visit_sequence_count.items():
             if v > max_:
                 res = [k]
                 max_ = v
             elif v == max_:
                 res.append(k)
-            
+
         return sorted(res)[0]

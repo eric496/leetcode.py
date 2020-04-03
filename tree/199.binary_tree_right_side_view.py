@@ -24,30 +24,31 @@ class TreeNode:
 # Solution 1: iterative - a variation of level order traversal
 from collections import deque
 
+
 class Solution:
     def rightSideView(self, root: TreeNode) -> List[int]:
         if not root:
             return []
-        
+
         res = []
         q = deque([root])
-        
+
         while q:
             size = len(q)
-            
+
             for i in range(size):
                 node = q.popleft()
-                
+
                 # Only need to store the last node val of each level
-                if i == size-1: 
-                    res.append(node.val)    
-                
+                if i == size - 1:
+                    res.append(node.val)
+
                 if node.left:
                     q.append(node.left)
-                
+
                 if node.right:
                     q.append(node.right)
-            
+
         return res
 
 
@@ -56,16 +57,15 @@ class Solution:
     def rightSideView(self, root: TreeNode) -> List[int]:
         res = []
         self.dfs(root, 0, res)
-        
+
         return res
-        
-        
+
     def dfs(self, node: TreeNode, depth: int, res: List[int]) -> None:
         if not node:
             return
-        
+
         if depth == len(res):
             res.append(node.val)
-            
-        self.dfs(node.right, depth+1, res)
-        self.dfs(node.left, depth+1, res)
+
+        self.dfs(node.right, depth + 1, res)
+        self.dfs(node.left, depth + 1, res)

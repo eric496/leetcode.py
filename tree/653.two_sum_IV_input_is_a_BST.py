@@ -34,21 +34,20 @@ class TreeNode:
         self.right = None
 
 
-# Solution 1: 
+# Solution 1:
 class Solution:
     def findTarget(self, root: TreeNode, target: int) -> bool:
         seen = set()
-        
+
         return self.dfs(root, target, seen)
-    
-        
+
     def dfs(self, node: TreeNode, target: int, seen: set) -> bool:
         if not node:
             return False
-        
+
         if node.val in seen:
             return True
         else:
-            seen.add(target-node.val)
-            
+            seen.add(target - node.val)
+
         return self.dfs(node.left, target, seen) or self.dfs(node.right, target, seen)

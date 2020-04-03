@@ -12,6 +12,7 @@ The input array will only contain 0 and 1.
 The length of input array is a positive integer and will not exceed 10,000
 """
 
+
 class Solution:
     def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
         cur = max_ = 0
@@ -25,4 +26,3 @@ class Solution:
 
         # Need to compare cur and max_ in case the last element of nums is 1
         return max_ if max_ > cur else cur
-

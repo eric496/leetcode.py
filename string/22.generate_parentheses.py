@@ -11,6 +11,7 @@ For example, given n = 3, a solution set is:
 ]
 """
 
+
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         if not n:
@@ -30,8 +31,7 @@ class Solution:
             return
 
         if left:
-            self.dfs(left-1, right, path+"(", res)
+            self.dfs(left - 1, right, path + "(", res)
 
         if right:
-            self.dfs(left, right-1, path+")", res)
-
+            self.dfs(left, right - 1, path + ")", res)

@@ -24,40 +24,58 @@ class TreeNode:
         self.right = None
 
 
-# DFS 
+# DFS
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
-        return self.build(0, 0, len(inorder)-1, preorder, inorder)
-        
-        
-    def build(self, prestart: int, instart: int, inend: int, preorder: List[int], inorder: List[int]) -> TreeNode:
-        if prestart > len(preorder)-1 or instart > inend:
+        return self.build(0, 0, len(inorder) - 1, preorder, inorder)
+
+    def build(
+        self,
+        prestart: int,
+        instart: int,
+        inend: int,
+        preorder: List[int],
+        inorder: List[int],
+    ) -> TreeNode:
+        if prestart > len(preorder) - 1 or instart > inend:
             return None
-        
+
         idx = inorder.index(preorder[prestart])
         root = TreeNode(preorder[prestart])
-        root.left = self.build(prestart+1, instart, idx-1, preorder, inorder)
-        root.right = self.build(prestart+idx-instart+1, idx+1, inend, preorder, inorder)
-        
+        root.left = self.build(prestart + 1, instart, idx - 1, preorder, inorder)
+        root.right = self.build(
+            prestart + idx - instart + 1, idx + 1, inend, preorder, inorder
+        )
+
         return root
 
 
-# Improved 
+# Improved
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
-        lookup = {n:i for i,n in enumerate(inorder)}
-        
-        return self.build(0, 0, len(inorder)-1, preorder, inorder, lookup)
-        
-        
-    def build(self, prestart: int, instart: int, inend: int, preorder: List[int], inorder: List[int], lookup: dict) -> TreeNode:
-        if prestart > len(preorder)-1 or instart > inend:
+        lookup = {n: i for i, n in enumerate(inorder)}
+
+        return self.build(0, 0, len(inorder) - 1, preorder, inorder, lookup)
+
+    def build(
+        self,
+        prestart: int,
+        instart: int,
+        inend: int,
+        preorder: List[int],
+        inorder: List[int],
+        lookup: dict,
+    ) -> TreeNode:
+        if prestart > len(preorder) - 1 or instart > inend:
             return None
-        
+
         idx = lookup[preorder[prestart]]
         root = TreeNode(preorder[prestart])
-        root.left = self.build(prestart+1, instart, idx-1, preorder, inorder, lookup)
-        root.right = self.build(prestart+idx-instart+1, idx+1, inend, preorder, inorder, lookup)
-        
+        root.left = self.build(
+            prestart + 1, instart, idx - 1, preorder, inorder, lookup
+        )
+        root.right = self.build(
+            prestart + idx - instart + 1, idx + 1, inend, preorder, inorder, lookup
+        )
+
         return root
-        

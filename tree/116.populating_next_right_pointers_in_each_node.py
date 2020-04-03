@@ -33,73 +33,73 @@ class Node:
 
 # Solution 1: recursive
 class Solution:
-    def connect(self, root: 'Node') -> 'Node':
+    def connect(self, root: "Node") -> "Node":
         if not root:
             return None
-        
+
         if not root.left and not root.right:
             return root
-        
+
         if root and root.left and root.right:
             root.left.next = root.right
-            
+
             if root.next:
                 root.right.next = root.next.left
-                
+
             self.connect(root.left)
             self.connect(root.right)
-            
+
         return root
 
 
 # Solution 2: iterative - level order traversal with O(n) space
 from collections import deque
 
+
 class Solution:
-    def connect(self, root: 'Node') -> 'Node':        
+    def connect(self, root: "Node") -> "Node":
         if not root:
             return root
-        
+
         q = deque([root])
-        
+
         while q:
             size = len(q)
-            
+
             for i in range(size):
                 node = q.popleft()
 
-                if i == size-1:
+                if i == size - 1:
                     node.next = None
                 else:
                     node.next = q[0]
-                
+
                 if node.left:
                     q.append(node.left)
 
                 if node.right:
-                    q.append(node.right)                    
-                
+                    q.append(node.right)
+
         return root
 
 
 # Solution 2: iterative - level order traversal with O(1) space
 class Solution:
-    def connect(self, root: 'Node') -> 'Node':        
+    def connect(self, root: "Node") -> "Node":
         level_start = root
-    
+
         while level_start:
             level_walk = level_start
-            
+
             while level_walk:
                 if level_walk.left:
                     level_walk.left.next = level_walk.right
-                
+
                 if level_walk.right and level_walk.next:
                     level_walk.right.next = level_walk.next.left
-                
+
                 level_walk = level_walk.next
-            
+
             level_start = level_start.left
-            
+
         return root
-        

@@ -62,7 +62,7 @@ class Solution:
 class Solution:
     def preorderTraversal(self, root: TreeNode) -> List[int]:
         stk, res = [], []
-        
+
         while stk or root:
             if root:
                 stk.append(root)
@@ -71,7 +71,5 @@ class Solution:
             else:
                 root = stk.pop()
                 root = root.right
-        
+
         return res
-
-

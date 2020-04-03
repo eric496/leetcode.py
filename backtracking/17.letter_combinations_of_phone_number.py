@@ -10,11 +10,12 @@ Note:
 Although the above answer is in lexicographical order, your answer could be in any order you want.
 """
 
+
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
         if not digits:
             return []
-        
+
         d = {
             "2": "abc",
             "3": "def",
@@ -27,11 +28,12 @@ class Solution:
         }
         res = []
         self.backtrack(digits, d, 0, "", res)
-        
+
         return res
-        
-        
-    def backtrack(self, digits: str, d: dict, dix: int, path: str, res: List[str]) -> None:
+
+    def backtrack(
+        self, digits: str, d: dict, dix: int, path: str, res: List[str]
+    ) -> None:
         if len(path) == len(digits):
             res.append(path)
             return
@@ -39,5 +41,5 @@ class Solution:
             for ch in d[digits[dix]]:
                 cur_path = path
                 path += ch
-                self.backtrack(digits, d, dix+1, path, res)
+                self.backtrack(digits, d, dix + 1, path, res)
                 path = cur_path

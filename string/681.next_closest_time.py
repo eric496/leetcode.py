@@ -16,21 +16,19 @@ Explanation: The next closest time choosing from digits 2, 3, 5, 9, is 22:22. It
 
 class Solution:
     def nextClosestTime(self, time: str) -> str:
-        hour, minute = time.split(':')
-        s = set(hour+minute)
-        pool = [a+b for a in s for b in s]
-        pool.sort()        
-        
-        im = pool.index(minute)
-        
-        if im + 1 < len(pool) and int(pool[im+1]) < 60:
-            return hour + ':' + pool[im+1]
-            
-        ih = pool.index(hour)
-        
-        if ih + 1 < len(pool) and int(pool[ih+1]) < 24:
-            return pool[ih+1] + ':' + pool[0]
+        hour, minute = time.split(":")
+        s = set(hour + minute)
+        pool = [a + b for a in s for b in s]
+        pool.sort()
 
-            
-        return pool[0] + ':' + pool[0]
-        
+        im = pool.index(minute)
+
+        if im + 1 < len(pool) and int(pool[im + 1]) < 60:
+            return hour + ":" + pool[im + 1]
+
+        ih = pool.index(hour)
+
+        if ih + 1 < len(pool) and int(pool[ih + 1]) < 24:
+            return pool[ih + 1] + ":" + pool[0]
+
+        return pool[0] + ":" + pool[0]

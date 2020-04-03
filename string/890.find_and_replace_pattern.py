@@ -21,20 +21,19 @@ Note:
 class Solution:
     def findAndReplacePattern(self, words: List[str], pattern: str) -> List[str]:
         res = []
-        
+
         for word in words:
             if self.match(word, pattern):
                 res.append(word)
-                
+
         return res
-        
-        
+
     def match(self, word: str, pattern: str) -> bool:
         if len(word) != len(pattern):
             return False
-        
+
         d = {}
-        
+
         for w, p in zip(word, pattern):
             if w not in d:
                 if p in d.values():
@@ -43,6 +42,5 @@ class Solution:
             else:
                 if d[w] != p:
                     return False
-            
+
         return True
-    

@@ -26,7 +26,7 @@ Thought process:
 class Solution:
     def arrayNesting(self, nums: List[int]) -> int:
         visited, res = set(), 0
-        
+
         for n in nums:
             cnt, walk = 0, n
             while walk not in visited:
@@ -34,6 +34,5 @@ class Solution:
                 visited.add(walk)
                 walk = nums[walk]
             res = max(res, cnt)
-    
+
         return res
-        

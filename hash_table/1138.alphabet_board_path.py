@@ -28,28 +28,27 @@ class Solution:
     def alphabetBoardPath(self, target: str) -> str:
         board = ["abcde", "fghij", "klmno", "pqrst", "uvwxy", "z"]
         pos = {}
-        
+
         for i, row in enumerate(board):
             for j, c in enumerate(row):
                 pos[c] = (j, i)
-                
+
         x0, y0 = 0, 0
-        res = ''
-        
+        res = ""
+
         for c in target:
             x, y = pos[c][0] - x0, pos[c][1] - y0
-            
+
             if x < 0:
-                res += abs(x) * 'L'
+                res += abs(x) * "L"
             if y > 0:
-                res += y * 'D'
+                res += y * "D"
             if y < 0:
-                res += abs(y) * 'U'
+                res += abs(y) * "U"
             if x > 0:
-                res += x * 'R'
-            
-            res += '!'
+                res += x * "R"
+
+            res += "!"
             x0, y0 = pos[c]
-            
+
         return res
-        

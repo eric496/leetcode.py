@@ -43,30 +43,38 @@ For simplicity, not mentioned rules should be ignored in this problem. For examp
 
 from collections import deque
 
+
 class Solution:
     def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
         m, n = len(board), len(board[0])
         q = deque()
         q.append(click)
-        dirs = (-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1)
+        dirs = (-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)
         visited = {tuple(click)}
-        
+
         while q:
             row, col = q.popleft()
-            
-            if board[row][col] == 'M':
-                board[row][col] = 'X'
-            elif board[row][col] == 'E':
+
+            if board[row][col] == "M":
+                board[row][col] = "X"
+            elif board[row][col] == "E":
                 cnt = 0
                 for x, y in dirs:
-                    if 0 <= x+row < m and 0 <= y+col < n and board[x+row][y+col] == 'M':
+                    if (
+                        0 <= x + row < m
+                        and 0 <= y + col < n
+                        and board[x + row][y + col] == "M"
+                    ):
                         cnt += 1
-                board[row][col] = str(cnt) if cnt else 'B'
+                board[row][col] = str(cnt) if cnt else "B"
                 if not cnt:
                     for x, y in dirs:
-                        if 0 <= x+row < m and 0 <= y+col < n and (x+row, y+col) not in visited:
-                            q.append([x+row, y+col])
-                            visited.add((x+row, y+col))
-                            
+                        if (
+                            0 <= x + row < m
+                            and 0 <= y + col < n
+                            and (x + row, y + col) not in visited
+                        ):
+                            q.append([x + row, y + col])
+                            visited.add((x + row, y + col))
+
         return board
-        

@@ -30,20 +30,19 @@ class Solution:
     def isValidSerialization(self, preorder: str) -> bool:
         if not preorder:
             return False
-        
-        pre = preorder.split(',')
+
+        pre = preorder.split(",")
         stk = []
-        
+
         for c in pre:
-            while c == '#' and stk and stk[-1] == '#':
+            while c == "#" and stk and stk[-1] == "#":
                 stk.pop()
-                
+
                 if not stk:
                     return False
-                
+
                 stk.pop()
-                
+
             stk.append(c)
-            
-        return len(stk) == 1 and stk.pop() == '#'
-        
+
+        return len(stk) == 1 and stk.pop() == "#"

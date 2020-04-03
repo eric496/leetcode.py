@@ -25,17 +25,16 @@ Constraints:
 
 class Solution:
     def oddCells(self, n: int, m: int, indices: List[List[int]]) -> int:
-        rows, cols = [0]*n, [0]*m
+        rows, cols = [0] * n, [0] * m
         res = 0
-        
-        for i,j in indices:
+
+        for i, j in indices:
             rows[i] ^= 1
             cols[j] ^= 1
-        
+
         for i in range(n):
             for j in range(m):
                 if rows[i] ^ cols[j]:
                     res += 1
-        
+
         return res
-    

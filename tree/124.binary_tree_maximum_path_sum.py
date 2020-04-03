@@ -30,19 +30,18 @@ class TreeNode:
 
 # DFS
 class Solution:
-    def maxPathSum(self, root: TreeNode) -> int:        
-        res = [float('-inf')]
+    def maxPathSum(self, root: TreeNode) -> int:
+        res = [float("-inf")]
         self.dfs(root, res)
-        
+
         return res[0]
-    
-    
+
     def dfs(self, node: TreeNode, res: List[int]) -> int:
         if not node:
             return 0
-        
+
         left = max(self.dfs(node.left, res), 0)
         right = max(self.dfs(node.right, res), 0)
-        res[0] = max(res[0], node.val+left+right)
-        
+        res[0] = max(res[0], node.val + left + right)
+
         return node.val + max(left, right)

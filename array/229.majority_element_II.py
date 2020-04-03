@@ -17,10 +17,10 @@ class Solution:
     def majorityElement(self, nums: List[int]) -> List[int]:
         if not nums:
             return []
-        
+
         cnt1 = cnt2 = 0
         can1 = can2 = None
-        
+
         for n in nums:
             if n == can1:
                 cnt1 += 1
@@ -31,12 +31,11 @@ class Solution:
             elif cnt2 == 0:
                 cnt2, can2 = 1, n
             else:
-                cnt1, cnt2 = cnt1-1, cnt2-1
-        
-        
+                cnt1, cnt2 = cnt1 - 1, cnt2 - 1
+
         freq1, freq2 = nums.count(can1), nums.count(can2)
-        
-        if freq1 > len(nums)/3 and freq2 > len(nums)/3:
+
+        if freq1 > len(nums) / 3 and freq2 > len(nums) / 3:
             return [can1, can2]
         elif freq1 > len(nums) / 3:
             return [can1]
@@ -44,4 +43,3 @@ class Solution:
             return [can2]
         else:
             return []
-            

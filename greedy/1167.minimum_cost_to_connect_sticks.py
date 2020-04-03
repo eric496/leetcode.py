@@ -19,15 +19,15 @@ Constraints:
 
 import heapq
 
+
 class Solution:
     def connectSticks(self, sticks: List[int]) -> int:
         heapq.heapify(sticks)
         res = 0
-        
+
         while len(sticks) > 1:
             short1, short2 = heapq.heappop(sticks), heapq.heappop(sticks)
             res += short1 + short2
-            heapq.heappush(sticks, short1+short2)
-        
+            heapq.heappush(sticks, short1 + short2)
+
         return res
-        

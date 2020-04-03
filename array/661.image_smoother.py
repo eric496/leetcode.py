@@ -25,41 +25,40 @@ class Solution:
     def imageSmoother(self, M: List[List[int]]) -> List[List[int]]:
         if not M or not M[0]:
             return None
-        
+
         m, n = len(M), len(M[0])
-        res = [[0]  * n for _ in range(m)]
-        
+        res = [[0] * n for _ in range(m)]
+
         for i in range(m):
             for j in range(n):
                 sum_ = M[i][j]
                 cnt = 1
-                
-                if i-1 >= 0:
-                    sum_ += M[i-1][j]
+
+                if i - 1 >= 0:
+                    sum_ += M[i - 1][j]
                     cnt += 1
-                if j-1 >= 0:
-                    sum_ += M[i][j-1]
+                if j - 1 >= 0:
+                    sum_ += M[i][j - 1]
                     cnt += 1
-                if i+1 < m:
-                    sum_ += M[i+1][j]
+                if i + 1 < m:
+                    sum_ += M[i + 1][j]
                     cnt += 1
-                if j+1 < n:
-                    sum_ += M[i][j+1]
+                if j + 1 < n:
+                    sum_ += M[i][j + 1]
                     cnt += 1
-                if i-1 >= 0 and j-1 >= 0:
-                    sum_ += M[i-1][j-1]
+                if i - 1 >= 0 and j - 1 >= 0:
+                    sum_ += M[i - 1][j - 1]
                     cnt += 1
-                if i-1 >= 0 and j+1 < n:
-                    sum_ += M[i-1][j+1]
+                if i - 1 >= 0 and j + 1 < n:
+                    sum_ += M[i - 1][j + 1]
                     cnt += 1
-                if i+1 < m and j-1 >= 0:
-                    sum_ += M[i+1][j-1]
+                if i + 1 < m and j - 1 >= 0:
+                    sum_ += M[i + 1][j - 1]
                     cnt += 1
-                if i+1 < m and j+1 < n:
-                    sum_ += M[i+1][j+1]
+                if i + 1 < m and j + 1 < n:
+                    sum_ += M[i + 1][j + 1]
                     cnt += 1
-                
+
                 res[i][j] = sum_ // cnt
-        
+
         return res
-                

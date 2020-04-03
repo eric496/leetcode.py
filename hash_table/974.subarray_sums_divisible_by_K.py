@@ -17,15 +17,14 @@ Note:
 class Solution:
     def subarraysDivByK(self, A: List[int], K: int) -> int:
         res = accsum = 0
-        mod_d = {0:1}
-        
+        mod_d = {0: 1}
+
         for n in A:
             accsum += n
-            if accsum%K in mod_d:
-                res += mod_d[accsum%K]
-                mod_d[accsum%K] += 1
+            if accsum % K in mod_d:
+                res += mod_d[accsum % K]
+                mod_d[accsum % K] += 1
             else:
-                mod_d[accsum%K] = 1
-        
+                mod_d[accsum % K] = 1
+
         return res
-        

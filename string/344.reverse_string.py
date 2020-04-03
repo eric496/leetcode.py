@@ -1,21 +1,23 @@
-'''
+"""
 Write a function that takes a string as input and returns the string reversed.
 
 Example:
 Given s = "hello", return "olleh".
-'''
+"""
+
 
 class Solution:
     def reverseString(self, s: str) -> str:
         chars = list(s)
-        start, end = 0, len(chars)-1
+        start, end = 0, len(chars) - 1
         while start < end:
             chars[start], chars[end] = chars[end], chars[start]
             start += 1
             end -= 1
-        return ''.join(chars)
+        return "".join(chars)
 
-# one-liner 
+
+# one-liner
 class Solution:
     def reverseString(self, s: str) -> str:
         return s[::-1]
@@ -42,15 +44,16 @@ class Solution:
         """
         Do not return anything, modify s in-place instead.
         """
-        self.helper(s, 0, len(s)-1)
-        
+        self.helper(s, 0, len(s) - 1)
+
     def helper(self, s: List[str], start: int, end: int) -> None:
         if start >= end:
             return
-        
+
         s[start], s[end] = s[end], s[start]
-        
-        self.helper(s, start+1, end-1)
+
+        self.helper(s, start + 1, end - 1)
+
 
 # Iterative
 class Solution:
@@ -58,7 +61,7 @@ class Solution:
         """
         Do not return anything, modify s in-place instead.
         """
-        start, end = 0, len(s)-1
+        start, end = 0, len(s) - 1
         while start < end:
             s[start], s[end] = s[end], s[start]
             start += 1

@@ -20,13 +20,14 @@ Thought process:
     Two pointers
 """
 
+
 class Solution:
     def validWordAbbreviation(self, word: str, abbr: str) -> bool:
         i = j = n = 0
-        
+
         while i < len(word) and j < len(abbr):
             if abbr[j].isdigit():
-                n = n*10 + int(abbr[j])
+                n = n * 10 + int(abbr[j])
                 # Handle cases like "01"
                 if n == 0:
                     return False
@@ -38,7 +39,7 @@ class Solution:
                 n = 0
                 i += 1
                 j += 1
-        
+
         i += n
-        
+
         return i == len(word) and j == len(abbr)

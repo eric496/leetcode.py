@@ -21,26 +21,27 @@ Thoguht process:
     Use an array to store all visited characters so to skip duplicates.
 """
 
+
 class Solution:
     def removeDuplicateLetters(self, s: str) -> str:
         cnt = [0] * 26
-        anchor = ord('a')
-        
+        anchor = ord("a")
+
         for c in s:
-            cnt[ord(c)-anchor] += 1
-            
+            cnt[ord(c) - anchor] += 1
+
         stk = []
         visited = [0] * 26
-        
+
         for c in s:
-            cnt[ord(c)-anchor] -= 1
-            
-            if not visited[ord(c)-anchor]:
-                while stk and ord(c) < ord(stk[-1]) and cnt[ord(stk[-1])-anchor]:
+            cnt[ord(c) - anchor] -= 1
+
+            if not visited[ord(c) - anchor]:
+                while stk and ord(c) < ord(stk[-1]) and cnt[ord(stk[-1]) - anchor]:
                     prev_letter = stk.pop()
-                    visited[ord(prev_letter)-anchor] = 0
+                    visited[ord(prev_letter) - anchor] = 0
 
                 stk.append(c)
-                visited[ord(c)-anchor] = 1
-            
-        return ''.join(stk)
+                visited[ord(c) - anchor] = 1
+
+        return "".join(stk)

@@ -1,4 +1,4 @@
-'''
+"""
 Given an array A of non-negative integers, return an array consisting of all the even elements of A, followed by all the odd elements of A.
 
 You may return any answer array that satisfies this condition.
@@ -14,11 +14,12 @@ Note:
 
 1 <= A.length <= 5000
 0 <= A[i] <= 5000
-'''
+"""
+
 
 class Solution:
     def sortArrayByParity(self, A: List[int]) -> List[int]:
-        start, end = 0, len(A)-1
+        start, end = 0, len(A) - 1
 
         while start < end:
             if A[start] % 2 != 0 and A[end] % 2 == 0:
@@ -29,4 +30,3 @@ class Solution:
                 end -= 1
 
         return A
-

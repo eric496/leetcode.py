@@ -49,13 +49,13 @@ class Solution:
     def isRobotBounded(self, instructions: str) -> bool:
         # Start point and direction
         x, y, dx, dy = 0, 0, 0, 1
-        
+
         for i in instructions:
-            if i == 'G':
+            if i == "G":
                 x, y = x + dx, y + dy
-            elif i == 'R':
+            elif i == "R":
                 dx, dy = dy, -dx
-            elif i == 'L':
+            elif i == "L":
                 dx, dy = -dy, dx
-                
+
         return (x, y) == (0, 0) or (dx, dy) != (0, 1)

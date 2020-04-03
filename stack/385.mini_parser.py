@@ -26,7 +26,7 @@ Return a NestedInteger object containing a nested list with 2 elements:
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
 # """
-#class NestedInteger:
+# class NestedInteger:
 #    def __init__(self, value=None):
 #        """
 #        If value is not specified, initializes an empty list.
@@ -70,24 +70,23 @@ class Solution:
     def deserialize(self, s: str) -> NestedInteger:
         stk = [NestedInteger()]
         i = 0
-        
+
         while i < len(s):
-            if s[i] == '-' or s[i].isdigit():
+            if s[i] == "-" or s[i].isdigit():
                 start = i
-                
-                while i+1 < len(s) and s[i+1].isdigit():
+
+                while i + 1 < len(s) and s[i + 1].isdigit():
                     i += 1
 
-                stk[-1].add(NestedInteger(int(s[start:i+1])))
-            
-            elif  s[i] == '[':
+                stk[-1].add(NestedInteger(int(s[start : i + 1])))
+
+            elif s[i] == "[":
                 stk.append(NestedInteger())
-            
-            elif s[i] == ']':
+
+            elif s[i] == "]":
                 ni = stk.pop()
                 stk[-1].add(ni)
-                
+
             i += 1
-                
+
         return stk[0].getList()[0]
-        

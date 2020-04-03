@@ -33,16 +33,15 @@ class Solution:
         cnt3 = self.min_swap(B, A, A[0])
         # Case 4: B is the equal row without swapping the first values
         cnt4 = self.min_swap(B, A, B[0])
-        
+
         res = min(cnt1, cnt2, cnt3, cnt4)
-        
+
         return res if res != 20001 else -1
-    
-    
+
     def min_swap(self, A: List[int], B: List[int], common: int) -> int:
         cnt = 0
-        
-        for a,b in zip(A, B):
+
+        for a, b in zip(A, B):
             # Do not forget a != common, if a == common, no need to swap
             if b == common and a != common:
                 cnt += 1
@@ -50,6 +49,5 @@ class Solution:
                 break
         else:
             return cnt
-        
+
         return 20001
-                

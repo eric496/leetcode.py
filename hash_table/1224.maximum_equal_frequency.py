@@ -23,5 +23,3 @@ Constraints:
 2 <= nums.length <= 10^5
 1 <= nums[i] <= 10^5
 """
-
-

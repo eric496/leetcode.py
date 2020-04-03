@@ -37,14 +37,13 @@ class TreeNode:
 class Solution:
     def tree2str(self, t: TreeNode) -> str:
         if not t:
-            return ''
-        
+            return ""
+
         res = []
         self.dfs(t, res)
-        
-        return ''.join(res)
-        
-        
+
+        return "".join(res)
+
     def dfs(self, node: TreeNode, res: List[str]) -> None:
         if not node:
             return
@@ -52,18 +51,18 @@ class Solution:
         # Found leaf node
         if not node.left and not node.right:
             res.append(str(node.val))
-            return 
-        
+            return
+
         res.append(str(node.val))
-        
+
         if node.left:
-            res.append('(')
+            res.append("(")
             self.dfs(node.left, res)
-            res.append(')')
+            res.append(")")
         else:
-            res.append('()')
-            
-        if node.right:            
-            res.append('(')
+            res.append("()")
+
+        if node.right:
+            res.append("(")
             self.dfs(node.right, res)
-            res.append(')')
+            res.append(")")

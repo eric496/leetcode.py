@@ -13,35 +13,42 @@ The length of each pairs[i] will be 2.
 The length of each words[i] and pairs[i][j] will be in the range [1, 20].
 """
 
+
 class Solution:
-    def areSentencesSimilar(self, words1: List[str], words2: List[str], pairs: List[List[str]]) -> bool:
+    def areSentencesSimilar(
+        self, words1: List[str], words2: List[str], pairs: List[List[str]]
+    ) -> bool:
         if len(words1) != len(words2):
             return False
-        
+
         p = [[w1, w2] for w1, w2 in zip(words1, words2)]
-        
+
         for w in p:
             if w[0] != w[1] and w not in pairs and w[::-1] not in pairs:
                 return False
-        
+
         return True
+
 
 # Hashmap
 from collections import defaultdict
 
+
 class Solution:
-    def areSentencesSimilar(self, words1: List[str], words2: List[str], pairs: List[List[str]]) -> bool:
+    def areSentencesSimilar(
+        self, words1: List[str], words2: List[str], pairs: List[List[str]]
+    ) -> bool:
         if len(words1) != len(words2):
             return False
-        
+
         similar = defaultdict(set)
-        
+
         for w1, w2 in pairs:
             similar[w1].add(w2)
             similar[w2].add(w1)
-            
+
         for w1, w2 in zip(words1, words2):
             if w1 != w2 and w1 not in similar[w2] and w2 not in similar[w1]:
                 return False
-        
+
         return True

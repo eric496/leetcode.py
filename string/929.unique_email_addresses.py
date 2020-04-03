@@ -1,4 +1,4 @@
-'''
+"""
 Every email consists of a local name and a domain name, separated by the @ sign.
 
 For example, in alice@leetcode.com, alice is the local name, and leetcode.com is the domain name.
@@ -27,12 +27,14 @@ Note:
 1 <= emails[i].length <= 100
 1 <= emails.length <= 100
 Each emails[i] contains exactly one '@' character.
-'''
+"""
+
+
 class Solution:
     def numUniqueEmails(self, emails: List[str]) -> int:
-        sp = [email.split('@') for email in emails]
+        sp = [email.split("@") for email in emails]
         local, domain = list(zip(*sp))
-        local = [name.split('+')[0] for name in local]
-        local = [''.join(name.split('.')) for name in local]
+        local = [name.split("+")[0] for name in local]
+        local = ["".join(name.split(".")) for name in local]
         res = set((local, domain) for local, domain in zip(local, domain))
         return len(res)

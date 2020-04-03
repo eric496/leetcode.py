@@ -20,6 +20,7 @@ Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","
 
 from collections import deque
 
+
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
         targets = {}
@@ -31,14 +32,12 @@ class Solution:
                 targets[depart] = deque([arrival])
 
         route = []
-        self.visit('JFK', targets, route)
+        self.visit("JFK", targets, route)
 
         return route[::-1]
-
 
     def visit(self, airport: str, targets: dict, route: List) -> None:
         while airport in targets and targets[airport]:
             self.visit(targets[airport].popleft(), targets, route)
 
         route.append(airport)
-

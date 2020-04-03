@@ -1,4 +1,4 @@
-'''
+"""
 Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
 Note: For the purpose of this problem, we define empty string as valid palindrome.
 
@@ -10,12 +10,12 @@ Example 2:
 
 Input: "race a car"
 Output: false
-'''
+"""
 
 # Two pointers
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        head, end = 0, len(s)-1
+        head, end = 0, len(s) - 1
 
         while head < end:
             while head < end and not s[head].isalnum():

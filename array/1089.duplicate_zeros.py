@@ -22,8 +22,8 @@ Note:
 class Solution:
     def duplicateZeros(self, arr: List[int]) -> None:
         n = len(arr) + arr.count(0)
-        i, j = len(arr)-1, n-1
-        
+        i, j = len(arr) - 1, n - 1
+
         while i >= 0 and j >= 0:
             if arr[i]:
                 if j < len(arr):
@@ -34,7 +34,6 @@ class Solution:
                 j -= 1
                 if j < len(arr):
                     arr[j] = arr[i]
-            
+
             i -= 1
             j -= 1
-            

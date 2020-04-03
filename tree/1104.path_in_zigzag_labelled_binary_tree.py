@@ -21,16 +21,16 @@ class Solution:
     def pathInZigZagTree(self, label: int) -> List[int]:
         res = []
         n = level = 1
-        
+
         while label >= n * 2:
             n *= 2
             level += 1
-        
+
         while label:
             res.append(label)
-            level_max = 2**level - 1
-            level_min = 2 ** (level-1)
-            label = (level_max+level_min-label) // 2
+            level_max = 2 ** level - 1
+            level_min = 2 ** (level - 1)
+            label = (level_max + level_min - label) // 2
             level -= 1
-        
+
         return res[::-1]

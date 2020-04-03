@@ -21,17 +21,18 @@ Note:
 S only contains characters "I" or "D".
 """
 
+
 class Solution:
     def diStringMatch(self, S: str) -> List[int]:
         low, high = 0, len(S)
         res = []
-        
+
         for ch in S:
-            if ch == 'I':
+            if ch == "I":
                 res.append(low)
                 low += 1
-            elif ch == 'D':
+            elif ch == "D":
                 res.append(high)
                 high -= 1
-                
+
         return res + [low]

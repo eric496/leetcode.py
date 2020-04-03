@@ -28,19 +28,18 @@ class ListNode:
         self.prev = None
         self.next = None
 
+
 class LRUCache:
-    
     def __init__(self, capacity):
         """
         :type capacity: int
         """
-        self.capacity = capacity 
+        self.capacity = capacity
         self.d = {}
         self.head = ListNode(0, 0)
         self.tail = ListNode(0, 0)
         self.head.next = self.tail
         self.tail.prev = self.head
-        
 
     def get(self, key):
         """
@@ -54,7 +53,6 @@ class LRUCache:
             return node.val
         else:
             return -1
-        
 
     def put(self, key, value):
         """
@@ -66,26 +64,26 @@ class LRUCache:
             node = ListNode(key, value)
             self.insert_to_front(node)
             self.d[key] = node
-        
+
         if len(self.d) > self.capacity:
             self.remove_from_list(self.tail.prev)
             del self.d[self.tail.prev.key]
-        
-    
+
     def remove_from_list(self, node):
         prev = node.prev
         nxt = node.next
         prev.next = nxt
         nxt.prev = prev
-        
-    
+
     def insert_to_front(self, node):
         node.next = self.head.next
         self.head.next = node
         node.prev = self.head
 
+
 # Solution 2: Ordered Dict
 from collections import OrderedDict
+
 
 class LRUCache:
     def __init__(self, capacity):
@@ -94,7 +92,6 @@ class LRUCache:
         """
         self.capacity = capacity
         self.d = OrderedDict()
-        
 
     def get(self, key):
         """
@@ -108,7 +105,6 @@ class LRUCache:
         else:
             return -1
 
-    
     def put(self, key, value):
         """
         :type key: int
@@ -122,4 +118,3 @@ class LRUCache:
             self.d[key] = value
             if len(self.d) > self.capacity:
                 self.d.popitem(last=False)
-    

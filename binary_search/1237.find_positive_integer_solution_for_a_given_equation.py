@@ -40,44 +40,43 @@ This is the custom function interface.
 
 # Solution 1: Brute force with pruning
 class Solution:
-    def findSolution(self, customfunction: 'CustomFunction', z: int) -> List[List[int]]:
+    def findSolution(self, customfunction: "CustomFunction", z: int) -> List[List[int]]:
         res = []
-        
+
         for x in range(1, 1001):
             if customfunction.f(x, 1) > z:
                 break
-                
+
             for y in range(1, 1001):
                 val = customfunction.f(x, y)
                 if val == z:
                     res.append([x, y])
                 if val > z:
                     break
-            
+
         return res
 
 
 # Solution 2: Binary search
 class Solution:
-    def findSolution(self, customfunction: 'CustomFunction', z: int) -> List[List[int]]:
+    def findSolution(self, customfunction: "CustomFunction", z: int) -> List[List[int]]:
         res = []
-        
+
         for x in range(1, 1001):
             if customfunction.f(x, 1) > z:
                 break
-                
+
             low, high = 1, 1000
-            
+
             while low < high:
-                y = (low+high) // 2
-                
+                y = (low + high) // 2
+
                 if customfunction.f(x, y) < z:
                     low = y + 1
                 else:
                     high = y
-                    
+
             if customfunction.f(x, low) == z:
                 res.append([x, low])
-                
+
         return res
-        

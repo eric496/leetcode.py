@@ -23,12 +23,12 @@ class Solution:
     def numSubarraysWithSum(self, A: List[int], S: int) -> int:
         presum = {0: 1}
         res = cumsum = 0
-        
+
         for n in A:
             cumsum += n
-            res += presum.get(cumsum-S, 0)
+            res += presum.get(cumsum - S, 0)
             presum[cumsum] = presum.get(cumsum, 0) + 1
-            
+
         return res
 
 

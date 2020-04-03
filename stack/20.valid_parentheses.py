@@ -1,4 +1,4 @@
-'''
+"""
 Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 An input string is valid if:
     Open brackets must be closed by the same type of brackets.
@@ -25,9 +25,9 @@ Example 5:
 
 Input: "{[]}"
 Output: true
-'''
+"""
 
-'''
+"""
 Thought:
     Use a map with closing/right parenthesis as keys and open/left parenthesis as values. Use a stack to store the characters in the input string. 
     Loop through the characters in the input string, each character is either a open or closing parenthsis only. 
@@ -36,14 +36,14 @@ Thought:
     
     If the current character is a closing parenthesis, always check if the stack is empty, 
     because we cannot pop items from an empty stack and the current closing parenthesis has nothing to form a pair. It should directly return false.
-'''
+"""
 
 
 # Solution 1
 class Solution:
     def isValid(self, s: str) -> bool:
         stk = []
-        pairs = {'(':')', '{':'}', '[':']'}
+        pairs = {"(": ")", "{": "}", "[": "]"}
 
         for c in s:
             if c in pairs:
@@ -58,16 +58,15 @@ class Solution:
 class Solution:
     def isValid(self, s: str) -> bool:
         stk = []
-        
+
         for c in s:
-            if c == '(':
-                stk.append(')')
-            elif c == '{':
-                stk.append('}')
-            elif c == '[':
-                stk.append(']')
+            if c == "(":
+                stk.append(")")
+            elif c == "{":
+                stk.append("}")
+            elif c == "[":
+                stk.append("]")
             elif not stk or stk.pop() != c:
                 return False
-            
+
         return True if not stk else False
-        

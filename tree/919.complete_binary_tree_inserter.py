@@ -31,44 +31,41 @@ class TreeNode:
 # Solution: use an array to represent complete binary tree (similar to heap data structure)
 from collections import deque
 
-class CBTInserter:
 
+class CBTInserter:
     def __init__(self, root: TreeNode):
         self.res = self.traverse(root, [None])
-        
 
     def insert(self, v: int) -> int:
         node = TreeNode(v)
         self.res.append(node)
         idx = len(self.res) - 1
-        
+
         if idx % 2 == 0:
-            self.res[idx//2].left = node
+            self.res[idx // 2].left = node
         else:
-            self.res[idx//2].right = node
-            
-        return self.res[idx//2].val
-    
+            self.res[idx // 2].right = node
+
+        return self.res[idx // 2].val
 
     def get_root(self) -> TreeNode:
         return self.res[1]
 
-    
     def traverse(self, root: TreeNode, res: List[int]) -> None:
         if not root:
             return res
-        
+
         q = deque([root])
-        
+
         while q:
             for _ in range(len(q)):
                 node = q.popleft()
                 res.append(node)
-                
+
                 if node.left:
                     q.append(node.left)
-                    
+
                 if node.right:
                     q.append(node.right)
-                    
+
         return res

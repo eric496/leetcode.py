@@ -23,13 +23,12 @@ Your output answer is guaranteed to be fitted in a 32-bit integer.
 class Solution:
     def findTargetSumWays(self, nums: List[int], S: int) -> int:
         memo = {0: 1}
-        
+
         for num in nums:
             m = {}
-            for k,v in memo.items():
-                m[k+num] = m.get(k+num, 0) + v
-                m[k-num] = m.get(k-num, 0) + v
+            for k, v in memo.items():
+                m[k + num] = m.get(k + num, 0) + v
+                m[k - num] = m.get(k - num, 0) + v
             memo = m
-        
+
         return memo.get(S, 0)
-        

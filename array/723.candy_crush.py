@@ -25,20 +25,28 @@ class Solution:
     def candyCrush(self, board: List[List[int]]) -> List[List[int]]:
         m, n = len(board), len(board[0])
         found = True
-        
+
         while found:
             found = False
             for i in range(m):
                 for j in range(n):
                     num = abs(board[i][j])
                     if num:
-                        if j < n-2 and abs(board[i][j+1]) == num and abs(board[i][j+2]) == num:
+                        if (
+                            j < n - 2
+                            and abs(board[i][j + 1]) == num
+                            and abs(board[i][j + 2]) == num
+                        ):
                             found = True
                             ix = j
                             while ix < n and abs(board[i][ix]) == num:
                                 board[i][ix] = -num
                                 ix += 1
-                        if i < m-2 and abs(board[i+1][j]) == num and abs(board[i+2][j]) == num:
+                        if (
+                            i < m - 2
+                            and abs(board[i + 1][j]) == num
+                            and abs(board[i + 2][j]) == num
+                        ):
                             found = True
                             ix = i
                             while ix < m and abs(board[ix][j]) == num:
@@ -47,12 +55,11 @@ class Solution:
             if found:
                 for j in range(n):
                     ix = m - 1
-                    for i in range(m-1, -1, -1):
+                    for i in range(m - 1, -1, -1):
                         if board[i][j] > 0:
                             board[ix][j] = board[i][j]
                             ix -= 1
                     for k in range(ix, -1, -1):
                         board[k][j] = 0
-                        
+
         return board
-        

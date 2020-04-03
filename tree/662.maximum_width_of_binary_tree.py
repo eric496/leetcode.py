@@ -67,50 +67,57 @@ class Solution:
     def widthOfBinaryTree(self, root: TreeNode) -> int:
         start, end = [], []
         self.dfs(root, 0, 1, start, end)
-        res = float('-inf')
-        
+        res = float("-inf")
+
         for s, e in zip(start, end):
-            res = max(res, e-s+1)
-        
+            res = max(res, e - s + 1)
+
         return res
-        
-        
-    def dfs(self, node: TreeNode, depth: int, pos: int, start: List[List[int]], end: List[List[int]]) -> None:
+
+    def dfs(
+        self,
+        node: TreeNode,
+        depth: int,
+        pos: int,
+        start: List[List[int]],
+        end: List[List[int]],
+    ) -> None:
         if not node:
-            return 
-        
+            return
+
         if depth == len(start):
             start.append(pos)
             end.append(pos)
         else:
             end[depth] = pos
-            
-        self.dfs(node.left, depth+1, 2*pos, start, end)
-        self.dfs(node.right, depth+1, 2*pos+1, start, end)
+
+        self.dfs(node.left, depth + 1, 2 * pos, start, end)
+        self.dfs(node.right, depth + 1, 2 * pos + 1, start, end)
 
 
 # Solution 2: iterative
 from collections import deque
 
+
 class Solution:
     def widthOfBinaryTree(self, root: TreeNode) -> int:
         if not root:
             return 0
-        
+
         q = deque([(root, 1)])
         width = res = 0
-        
+
         while q:
             width = q[-1][1] - q[0][1] + 1
             res = max(res, width)
-            
+
             for _ in range(len(q)):
                 node, pos = q.popleft()
-                
+
                 if node.left:
-                    q.append([node.left, 2*pos])
-                    
+                    q.append([node.left, 2 * pos])
+
                 if node.right:
-                    q.append([node.right, 2*pos+1])
-                    
+                    q.append([node.right, 2 * pos + 1])
+
         return res

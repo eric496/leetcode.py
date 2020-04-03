@@ -17,26 +17,23 @@ class TreeNode(object):
 
 from collections import deque
 
-class Codec:
 
+class Codec:
     def serialize(self, root):
         res = []
         self.serialize_dfs(root, res)
-        return ''.join(res)
-        
+        return "".join(res)
 
     def deserialize(self, data):
-        q = deque([x for x in data.split('#') if x])
-        return self.deserialize_dfs(q, float('-inf'), float('inf'))
-        
-        
+        q = deque([x for x in data.split("#") if x])
+        return self.deserialize_dfs(q, float("-inf"), float("inf"))
+
     def serialize_dfs(self, root, res):
         if root:
-            res.append(str(root.val) + '#')
+            res.append(str(root.val) + "#")
             self.serialize_dfs(root.left, res)
             self.serialize_dfs(root.right, res)
-            
-            
+
     def deserialize_dfs(self, q, low, high):
         if q and low <= int(q[0]) <= high:
             val = int(q.popleft())

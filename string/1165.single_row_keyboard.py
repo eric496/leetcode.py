@@ -24,9 +24,9 @@ word[i] is an English lowercase letter.
 class Solution:
     def calculateTime(self, keyboard: str, word: str) -> int:
         pos = {key: ix for ix, key in enumerate(keyboard)}
-        res = pos[word[0]] 
-        
+        res = pos[word[0]]
+
         for i in range(1, len(word)):
-            res += abs(pos[word[i]]-pos[word[i-1]])
-            
+            res += abs(pos[word[i]] - pos[word[i - 1]])
+
         return res

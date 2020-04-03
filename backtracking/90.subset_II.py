@@ -16,6 +16,7 @@ Output:
 ]
 """
 
+
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         res = []
@@ -24,14 +25,14 @@ class Solution:
 
         return res
 
-
-    def backtrack(self, nums: List[int], start: int, cur_res: List[int], res: List[List[int]]) -> None:
+    def backtrack(
+        self, nums: List[int], start: int, cur_res: List[int], res: List[List[int]]
+    ) -> None:
         res.append(list(cur_res))
 
         for i in range(start, len(nums)):
-            if i > start and nums[i] == nums[i-1]:
+            if i > start and nums[i] == nums[i - 1]:
                 continue
             cur_res.append(nums[i])
-            self.backtrack(nums, i+1, cur_res, res)
+            self.backtrack(nums, i + 1, cur_res, res)
             cur_res.pop()
-

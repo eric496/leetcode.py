@@ -19,11 +19,10 @@ After running your function, the 2D grid should be:
 """
 
 
-
 class Solution:
     def wallsAndGates(self, rooms: List[List[int]]) -> None:
         q = []
-        
+
         for row in range(len(rooms)):
             for col in range(len(rooms[0])):
                 if rooms[row][col] == 0:
@@ -31,19 +30,25 @@ class Solution:
                     while q:
                         i, j = q.pop()
                         self.calc_dist(i, j, q, rooms)
-                        
-                
+
     def calc_dist(self, i: int, j: int, q: deque, rooms: List[List[int]]) -> None:
-        if i-1 >= 0 and rooms[i-1][j] > 0 and rooms[i][j]+1 < rooms[i-1][j]:
-            rooms[i-1][j] = rooms[i][j] + 1
-            q.append((i-1, j))
-        if i+1 < len(rooms) and rooms[i+1][j] > 0 and rooms[i][j]+1 < rooms[i+1][j]:
-            rooms[i+1][j] = rooms[i][j] + 1
-            q.append((i+1, j))
-        if j-1 >= 0 and rooms[i][j-1] > 0 and rooms[i][j]+1 < rooms[i][j-1]:
-            rooms[i][j-1] = rooms[i][j] + 1
-            q.append((i, j-1))
-        if j+1 < len(rooms[0]) and rooms[i][j+1] > 0 and rooms[i][j]+1 < rooms[i][j+1]:
-            rooms[i][j+1] = rooms[i][j] + 1
-            q.append((i, j+1))
-            
+        if i - 1 >= 0 and rooms[i - 1][j] > 0 and rooms[i][j] + 1 < rooms[i - 1][j]:
+            rooms[i - 1][j] = rooms[i][j] + 1
+            q.append((i - 1, j))
+        if (
+            i + 1 < len(rooms)
+            and rooms[i + 1][j] > 0
+            and rooms[i][j] + 1 < rooms[i + 1][j]
+        ):
+            rooms[i + 1][j] = rooms[i][j] + 1
+            q.append((i + 1, j))
+        if j - 1 >= 0 and rooms[i][j - 1] > 0 and rooms[i][j] + 1 < rooms[i][j - 1]:
+            rooms[i][j - 1] = rooms[i][j] + 1
+            q.append((i, j - 1))
+        if (
+            j + 1 < len(rooms[0])
+            and rooms[i][j + 1] > 0
+            and rooms[i][j] + 1 < rooms[i][j + 1]
+        ):
+            rooms[i][j + 1] = rooms[i][j] + 1
+            q.append((i, j + 1))

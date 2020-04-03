@@ -22,16 +22,15 @@ Could you solve it in logarithmic time complexity?
 class Solution:
     def hIndex(self, citations: List[int]) -> int:
         n = len(citations)
-        low, high = 0, n-1
-        
+        low, high = 0, n - 1
+
         while low <= high:
-            mid = low + ((high-low)>>1)
+            mid = low + ((high - low) >> 1)
             if citations[mid] == n - mid:
                 return citations[mid]
             elif citations[mid] < n - mid:
                 low = mid + 1
             else:
                 high = mid - 1
-        
-        return n - (high+1)
-        
+
+        return n - (high + 1)

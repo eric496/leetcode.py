@@ -33,24 +33,24 @@ Version strings are composed of numeric strings separated by dots . and this num
 Version strings do not start or end with dots, and they will not be two consecutive dots.
 """
 
+
 class Solution:
     def compareVersion(self, version1: str, version2: str) -> int:
-        ls1 = [int(d) for d in version1.split('.')]
-        ls2 = [int(d) for d in version2.split('.')]
+        ls1 = [int(d) for d in version1.split(".")]
+        ls2 = [int(d) for d in version2.split(".")]
         len1, len2 = len(ls1), len(ls2)
-        
+
         if len1 > len2:
-            ls2 += ['0'] * (len1-len2)
-        
+            ls2 += ["0"] * (len1 - len2)
+
         if len2 > len1:
-            ls1 += ['0'] * (len2-len1)
-            
+            ls1 += ["0"] * (len2 - len1)
+
         for d1, d2 in zip(ls1, ls2):
             if int(d1) > int(d2):
                 return 1
-            
+
             if int(d2) > int(d1):
                 return -1
-            
+
         return 0
-        

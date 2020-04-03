@@ -38,16 +38,14 @@ Note:
 class Solution:
     def hasGroupsSizeX(self, deck: List[int]) -> bool:
         freq, res = {}, 0
-        
+
         for d in deck:
             freq[d] = freq.get(d, 0) + 1
-            
+
         for val in freq.values():
             res = self.gcd(val, res)
-            
+
         return res > 1
-        
-        
+
     def gcd(self, a: int, b: int) -> int:
-        return self.gcd(b, a%b) if b > 0 else a
-    
+        return self.gcd(b, a % b) if b > 0 else a

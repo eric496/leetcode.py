@@ -44,14 +44,14 @@ class Solution:
     def nextGreatestLetter(self, letters: List[str], target: str) -> str:
         if ord(target) >= ord(letters[-1]):
             return letters[0]
-        
-        low, high = 0, len(letters)-1
-        
+
+        low, high = 0, len(letters) - 1
+
         while low < high:
-            mid = low + ((high-low)>>2)
+            mid = low + ((high - low) >> 2)
             if ord(letters[mid]) <= ord(target):
                 low = mid + 1
             else:
                 high = mid
-        
+
         return letters[high]

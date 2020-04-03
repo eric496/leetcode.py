@@ -18,7 +18,7 @@ Explanation: One 1 at depth 3, one 4 at depth 2, and one 6 at depth 1; 1*3 + 4*2
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
 # """
-#class NestedInteger:
+# class NestedInteger:
 #    def __init__(self, value=None):
 #        """
 #        If value is not specified, initializes an empty list.
@@ -62,30 +62,33 @@ class Solution:
     def __init__(self):
         self.total_depth = 1
         self.res = ""
-        
-        
-    def depthSumInverse(self, nestedList: List[NestedInteger]) -> int:        
+
+    def depthSumInverse(self, nestedList: List[NestedInteger]) -> int:
         for nl in nestedList:
             self.dfs(nl, 1)
-        
+
         return eval(self.res) if self.res else 0
-        
-        
+
     def dfs(self, nestedElement: NestedInteger, cur_depth: int) -> None:
         if cur_depth > self.total_depth:
             self.total_depth = cur_depth
-        
+
         if nestedElement.isInteger():
-            self.res += "+" + str(nestedElement.getInteger()) + f"*(self.total_depth-{cur_depth}+1)"
+            self.res += (
+                "+"
+                + str(nestedElement.getInteger())
+                + f"*(self.total_depth-{cur_depth}+1)"
+            )
         else:
             for n in nestedElement.getList():
-                self.dfs(n, cur_depth+1)
+                self.dfs(n, cur_depth + 1)
+
 
 # Solution 2: BFS
 class Solution:
-    def depthSumInverse(self, nestedList: List[NestedInteger]) -> int:        
+    def depthSumInverse(self, nestedList: List[NestedInteger]) -> int:
         res = level_sum = 0
-        
+
         while nestedList:
             next_level = []
             for nint in nestedList:
@@ -96,5 +99,5 @@ class Solution:
                         next_level.append(nint_nxt)
             res += level_sum
             nestedList = next_level
-        
+
         return res

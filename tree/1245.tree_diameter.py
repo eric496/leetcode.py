@@ -33,49 +33,49 @@ Thought process:
 # Solution: two rounds of BFS
 from collections import deque
 
+
 class Solution:
     def treeDiameter(self, edges: List[List[int]]) -> int:
         if not edges:
             return 0
-        
+
         adjacent = {}
-        
-        for u,v in edges:
+
+        for u, v in edges:
             if u in adjacent:
                 adjacent[u].add(v)
             else:
                 adjacent[u] = {v}
-            
+
             if v in adjacent:
                 adjacent[v].add(u)
             else:
                 adjacent[v] = {u}
-                
+
         node1, _ = self.bfs(edges[0][0], adjacent)
         _, diameter = self.bfs(node1, adjacent)
-        
+
         return diameter
-        
-        
+
     def bfs(self, node: int, adjacent: dict) -> tuple:
         dist = 0
         last_node = node
         visited = set()
         q = deque([node])
-        
+
         while q:
             dist += 1
 
             for _ in range(len(q)):
                 node = q.popleft()
-            
-                if node in adjacent:                    
+
+                if node in adjacent:
                     for adj in adjacent[node]:
                         if adj not in visited:
                             visited.add(adj)
                             q.append(adj)
                             last_node = adj
-        
+
         # dist is the number of nodes along the longest path
         # dist-1 to get the number of edges
-        return last_node, dist-1
+        return last_node, dist - 1

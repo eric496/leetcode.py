@@ -32,19 +32,18 @@ class Solution:
     def circularArrayLoop(self, nums: List[int]) -> bool:
         if not nums or len(nums) == 1:
             return False
-  
+
         n = len(nums)
 
         for i, num in enumerate(nums):
             mark = str(i)
-            
-            while isinstance(nums[i], int) and num*nums[i] > 0 and nums[i]%n:
+
+            while isinstance(nums[i], int) and num * nums[i] > 0 and nums[i] % n:
                 jump = nums[i]
                 nums[i] = mark
-                i = (i+jump) % n
-                
+                i = (i + jump) % n
+
             if nums[i] == mark:
                 return True
-        
+
         return False
-        

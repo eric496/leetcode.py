@@ -40,17 +40,16 @@ class Solution:
     def longestConsecutive(self, root: TreeNode) -> int:
         if not root:
             return 0
-            
+
         res = [0]
         self.dfs(root, 0, root.val, res)
 
         return res[0]
-        
-    
+
     def dfs(self, node: TreeNode, cur: int, target: int, res: List[int]) -> None:
         if not node:
             return
-        
+
         if node.val == target:
             cur += 1
         else:
@@ -58,35 +57,36 @@ class Solution:
 
         res[0] = max(res[0], cur)
 
-        self.dfs(node.left, cur, node.val+1, res)
-        self.dfs(node.right, cur, node.val+1, res)
+        self.dfs(node.left, cur, node.val + 1, res)
+        self.dfs(node.right, cur, node.val + 1, res)
 
 
 # Solution 2: iterative
 from collections import deque
 
+
 class Solution:
     def longestConsecutive(self, root: TreeNode) -> int:
         if not root:
             return 0
-        
+
         q = deque([(root, 1)])
         res = 1
-        
+
         while q:
             node, cur = q.popleft()
             res = max(res, cur)
-            
+
             if node.left:
                 if node.left.val == node.val + 1:
-                    q.append([node.left, cur+1])
+                    q.append([node.left, cur + 1])
                 else:
                     q.append([node.left, 1])
 
             if node.right:
                 if node.right.val == node.val + 1:
-                    q.append([node.right, cur+1])
+                    q.append([node.right, cur + 1])
                 else:
                     q.append([node.right, 1])
-                
+
         return res

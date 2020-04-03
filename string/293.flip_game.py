@@ -13,17 +13,17 @@ Output:
 Note: If there is no valid move, return an empty list [].
 """
 
+
 class Solution:
     def generatePossibleNextMoves(self, s: str) -> List[str]:
         if not s:
             return []
-        
+
         res, i = [], 0
-        
-        while i < len(s)-1:
-            if s[i:i+2] == '++':
-                res.append(s[:i] + '--' + s[i+2:])
+
+        while i < len(s) - 1:
+            if s[i : i + 2] == "++":
+                res.append(s[:i] + "--" + s[i + 2 :])
             i += 1
-        
+
         return res
-        

@@ -1,4 +1,4 @@
-'''
+"""
 Given an integer, write an algorithm to convert it to hexadecimal. For negative integer, two’s complement method is used.
 
 Note:
@@ -22,17 +22,18 @@ Input:
 
 Output:
 "ffffffff"
-'''
+"""
+
 
 class Solution:
     def toHex(self, num: int) -> str:
-        if num == 0: 
-            return '0'
-        mp = '0123456789abcdef'      
-        result = ''
+        if num == 0:
+            return "0"
+        mp = "0123456789abcdef"
+        result = ""
         for _ in range(8):
-            n = num & 15            
-            hex_char = mp[n]          
+            n = num & 15
+            hex_char = mp[n]
             result = hex_char + result
             num >>= 4
-        return result.lstrip('0')
+        return result.lstrip("0")

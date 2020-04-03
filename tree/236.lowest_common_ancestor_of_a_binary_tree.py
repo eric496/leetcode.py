@@ -28,16 +28,18 @@ class TreeNode:
 
 # Solution 1: recursive
 class Solution:
-    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+    def lowestCommonAncestor(
+        self, root: TreeNode, p: TreeNode, q: TreeNode
+    ) -> TreeNode:
         if not root:
             return root
-        
+
         if root == p or root == q:
             return root
-        
+
         left = self.lowestCommonAncestor(root.left, p, q)
         right = self.lowestCommonAncestor(root.right, p, q)
-        
+
         if left and right:
             return root
         elif not left:
@@ -48,29 +50,30 @@ class Solution:
 
 # Solution 2: iterative
 class Solution:
-    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+    def lowestCommonAncestor(
+        self, root: TreeNode, p: TreeNode, q: TreeNode
+    ) -> TreeNode:
         stk = [root]
         parent = {root: None}
-        
+
         while p not in parent or q not in parent:
             node = stk.pop()
-            
+
             if node.left:
                 stk.append(node.left)
                 parent[node.left] = node
-            
+
             if node.right:
                 stk.append(node.right)
                 parent[node.right] = node
-                
+
         ancestor = set()
-        
+
         while p:
             ancestor.add(p)
             p = parent[p]
-            
+
         while q not in ancestor:
             q = parent[q]
-            
+
         return q
-        

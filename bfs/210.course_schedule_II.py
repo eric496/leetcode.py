@@ -21,21 +21,22 @@ You may assume that there are no duplicate edges in the input prerequisites.
 
 from collections import defaultdict, deque
 
+
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         indegree = [0] * numCourses
         pre = defaultdict(list)
         q = deque()
         res = []
-        
+
         for p in prerequisites:
             indegree[p[0]] += 1
             pre[p[1]].append(p[0])
-            
+
         for i, n in enumerate(indegree):
             if not n:
                 q.append(i)
-                
+
         while q:
             course = q.popleft()
             res.append(course)
@@ -43,9 +44,9 @@ class Solution:
                 indegree[nxt] -= 1
                 if not indegree[nxt]:
                     q.append(nxt)
-        
+
         for i in indegree:
             if i:
                 return []
-        
+
         return res

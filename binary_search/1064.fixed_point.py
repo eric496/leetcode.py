@@ -27,24 +27,23 @@ Note:
 # Solution 1: O(n) TC
 class Solution:
     def fixedPoint(self, A: List[int]) -> int:
-        for i,n in enumerate(A):
+        for i, n in enumerate(A):
             if i == n:
                 return n
-        
+
         return -1
 
 
 # Solution 2: Binary Search
 class Solution:
     def fixedPoint(self, A: List[int]) -> int:
-        low, high = 0, len(A)-1
-        
+        low, high = 0, len(A) - 1
+
         while low < high:
-            mid = low + ((high-low) >> 1)
+            mid = low + ((high - low) >> 1)
             if A[mid] < mid:
                 low = mid + 1
             else:
                 high = mid
-        
+
         return low if A[low] == low else -1
-        

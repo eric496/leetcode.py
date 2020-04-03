@@ -21,7 +21,7 @@ class Solution:
     def getHint(self, secret: str, guess: str) -> str:
         bulls = cows = 0
         cnt = [0] * 10
-        
+
         for s, g in zip(secret, guess):
             if s == g:
                 bulls += 1
@@ -30,6 +30,5 @@ class Solution:
                 cows += 1 if cnt[int(g)] > 0 else 0
                 cnt[int(s)] += 1
                 cnt[int(g)] -= 1
-                    
-        return str(bulls) + 'A' + str(cows) + 'B' 
-        
+
+        return str(bulls) + "A" + str(cows) + "B"

@@ -27,15 +27,14 @@ All the integers in the given input belong to the range: [-1e7, 1e7].
 class Solution:
     def findPairs(self, nums: List[int], k: int) -> int:
         cnt, res = {}, 0
-        
+
         for num in nums:
             cnt[num] = cnt.get(num, 0) + 1
-        
+
         for num in cnt:
-            if k > 0 and num+k in cnt:
+            if k > 0 and num + k in cnt:
                 res += 1
             elif k == 0 and cnt[num] > 1:
                 res += 1
-        
+
         return res
-        

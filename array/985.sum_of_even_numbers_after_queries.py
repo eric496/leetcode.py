@@ -25,7 +25,7 @@ Note:
 
 class Solution:
     def sumEvenAfterQueries(self, A: List[int], queries: List[List[int]]) -> List[int]:
-        even_sum = sum(x for x in A if x%2 == 0)
+        even_sum = sum(x for x in A if x % 2 == 0)
         res = []
 
         for q in queries:
@@ -33,18 +33,17 @@ class Solution:
 
             # If current element and query value are both even,
             # then add the query value to sum
-            if val%2 == 0 and A[ix]%2 == 0:
+            if val % 2 == 0 and A[ix] % 2 == 0:
                 even_sum += val
             # If both are odd, add both to sum
-            elif val%2 == 1 and A[ix]%2 == 1:
+            elif val % 2 == 1 and A[ix] % 2 == 1:
                 even_sum += val + A[ix]
             # If query value is odd and current element is even,
             # then subtract the current value from the sum
-            elif val%2 == 1 and A[ix]%2 == 0:
+            elif val % 2 == 1 and A[ix] % 2 == 0:
                 even_sum -= A[ix]
 
             A[ix] += val
             res.append(even_sum)
 
         return res
-

@@ -22,13 +22,12 @@ class Solution:
     def maxSubArrayLen(self, nums: List[int], k: int) -> int:
         cumsum = res = 0
         seen = {0: -1}
-        
+
         for i, n in enumerate(nums):
             cumsum += n
-            if cumsum-k in seen:
-                res = max(res, i-seen[cumsum-k])
+            if cumsum - k in seen:
+                res = max(res, i - seen[cumsum - k])
             if cumsum not in seen:
                 seen[cumsum] = i
-                
+
         return res
-        

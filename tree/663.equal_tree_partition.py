@@ -47,18 +47,17 @@ class Solution:
     def checkEqualTree(self, root: TreeNode) -> bool:
         seen = set()
         sum_ = root.val + self.dfs(root.left, seen) + self.dfs(root.right, seen)
-        
+
         if sum_ % 2:
             return False
-        
-        return (sum_//2) in seen
-        
-        
+
+        return (sum_ // 2) in seen
+
     def dfs(self, node: TreeNode, seen: set) -> int:
         if not node:
             return 0
-        
+
         cur = node.val + self.dfs(node.left, seen) + self.dfs(node.right, seen)
         seen.add(cur)
-        
+
         return cur

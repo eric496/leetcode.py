@@ -1,4 +1,4 @@
-'''
+"""
 Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
 
 Example:
@@ -10,11 +10,11 @@ Explanation: The process is like: 3 + 8 = 11, 1 + 1 = 2.
 
 Follow up:
 Could you do it without any loop/recursion in O(1) runtime?
-'''
+"""
 
 # O(n) time solution
 class Solution:
-    def addDigits(self, num:int) -> int:
+    def addDigits(self, num: int) -> int:
         while num // 10:
             res = 0
             while num:
@@ -23,10 +23,11 @@ class Solution:
             num = res
         return num
 
+
 # O(1) time solution - digital root
 class Solution:
-    def addDigits(self, num:int) -> int:
+    def addDigits(self, num: int) -> int:
         if num == 0:
             return 0
         else:
-            return (num-1) % 9 + 1
+            return (num - 1) % 9 + 1

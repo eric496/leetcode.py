@@ -23,16 +23,16 @@ Note:
 -10000 < points[i][1] < 10000
 """
 
+
 class Solution:
     def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:
         res = []
         for i, p in enumerate(points):
             res.append((i, self.calcDist(p[0], p[1])))
-        
+
         res.sort(key=lambda x: x[1])
-        
+
         return [points[i] for i, d in res[:K]]
-     
-    
+
     def calcDist(self, x: int, y: int) -> int:
-        return x**2 + y**2
+        return x ** 2 + y ** 2

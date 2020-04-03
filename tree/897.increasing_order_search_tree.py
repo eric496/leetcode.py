@@ -46,23 +46,23 @@ class TreeNode:
 # Solution 1: recursive
 class Solution:
     prev, head = None, None
-    
+
     def increasingBST(self, root: TreeNode) -> TreeNode:
         if not root:
             return None
-        
+
         self.increasingBST(root.left)
-        
+
         if self.prev:
             root.left = None
             self.prev.right = root
-            
+
         if not self.head:
             self.head = root
-        
+
         self.prev = root
         self.increasingBST(root.right)
-        
+
         return self.head
 
 
@@ -84,4 +84,3 @@ class Solution:
             root = root.right
 
         return sentinel.right
-        

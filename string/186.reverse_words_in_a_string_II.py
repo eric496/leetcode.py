@@ -18,24 +18,23 @@ Thought process:
     Reverse each word and then reverse the whole list.
 """
 
+
 class Solution:
     def reverseWords(self, s: List[str]) -> None:
         start = 0
 
         for end in range(len(s)):
-            if s[end] == ' ':
-                self.reverse(s, start, end-1)
+            if s[end] == " ":
+                self.reverse(s, start, end - 1)
                 start = end + 1
-        
+
         # Reverse the last word which is not handled in the for-loop
-        self.reverse(s, start, len(s)-1)
+        self.reverse(s, start, len(s) - 1)
         # Reverse the whole list
-        self.reverse(s, 0, len(s)-1)
-        
-        
+        self.reverse(s, 0, len(s) - 1)
+
     def reverse(self, s: List[str], low: int, high: int) -> None:
         while low < high:
             s[low], s[high] = s[high], s[low]
             low += 1
             high -= 1
-        

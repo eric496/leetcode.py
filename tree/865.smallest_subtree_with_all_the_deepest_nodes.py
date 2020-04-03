@@ -33,28 +33,29 @@ class Solution:
     def subtreeWithAllDeepest(self, root: TreeNode) -> TreeNode:
         if not root:
             return root
-        
+
         depth = {}
         left = self.getMaxDepth(root.left, depth)
         right = self.getMaxDepth(root.right, depth)
-        
+
         if left == right:
             return root
         elif left > right:
             return self.subtreeWithAllDeepest(root.left)
         elif left < right:
             return self.subtreeWithAllDeepest(root.right)
-        
-        
+
     def getMaxDepth(self, node: TreeNode, depth: dict) -> int:
         if not node:
             return 0
-        
+
         if node in depth:
             return depth[node]
-        
-        cur_depth = max(self.getMaxDepth(node.left, depth), self.getMaxDepth(node.right, depth)) + 1
+
+        cur_depth = (
+            max(self.getMaxDepth(node.left, depth), self.getMaxDepth(node.right, depth))
+            + 1
+        )
         depth[node] = cur_depth
-        
+
         return cur_depth
-        

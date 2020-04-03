@@ -14,28 +14,29 @@ A.length % 2 == 0
 0 <= A[i] <= 1000
 """
 
+
 class Solution:
     def sortArrayByParityII(self, A: List[int]) -> List[int]:
         if not A or len(A) < 2:
             return A
-        
+
         even, odd = 0, 1
         len_A = len(A)
-        
+
         while even < len_A and odd < len_A:
             # Skip all qualified even-indexed elements
-            while even < len_A and A[even]&1 == 0:
+            while even < len_A and A[even] & 1 == 0:
                 even += 2
 
             # Skip all qualified odd-indexed elements
-            while odd < len_A and A[odd]&1 == 1:
+            while odd < len_A and A[odd] & 1 == 1:
                 odd += 2
-            
+
             # Test the condition that the indices are in the range!
             if even < len_A and odd < len_A:
                 A[even], A[odd] = A[odd], A[even]
-                
+
             even += 2
             odd += 2
-        
+
         return A

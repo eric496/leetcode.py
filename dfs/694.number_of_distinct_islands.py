@@ -27,30 +27,42 @@ are considered different island shapes, because we do not consider reflection / 
 Note: The length of each dimension in the given grid does not exceed 50.
 """
 
+
 class Solution:
     def numDistinctIslands(self, grid: List[List[int]]) -> int:
         if not grid or not grid[0]:
             return 0
-        
+
         res = set()
-        
+
         for x in range(len(grid)):
             for y in range(len(grid[0])):
                 if grid[x][y] == 1:
-                   res.add(self.dfs(grid, x, y, ""))
+                    res.add(self.dfs(grid, x, y, ""))
 
         return len(res)
-    
-        
+
     def dfs(self, grid: List[List[int]], x: int, y: int, path: str) -> str:
-        if x < 0 or y < 0 or x > len(grid)-1 or y > len(grid[0])-1 or grid[x][y] == 0:
+        if (
+            x < 0
+            or y < 0
+            or x > len(grid) - 1
+            or y > len(grid[0]) - 1
+            or grid[x][y] == 0
+        ):
             return ""
-        
+
         grid[x][y] = 0
-        
+
         # Keep track of the moving trace of each element in the island
-        return path \
-            + self.dfs(grid, x+1, y, path) + "u" \
-            + self.dfs(grid, x-1, y, path) + "d" \
-            + self.dfs(grid, x, y+1, path) + "l" \
-            + self.dfs(grid, x, y-1, path) + "r" 
+        return (
+            path
+            + self.dfs(grid, x + 1, y, path)
+            + "u"
+            + self.dfs(grid, x - 1, y, path)
+            + "d"
+            + self.dfs(grid, x, y + 1, path)
+            + "l"
+            + self.dfs(grid, x, y - 1, path)
+            + "r"
+        )

@@ -28,37 +28,62 @@ class TreeNode:
 # DFS
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
-        return self.build(len(postorder)-1, 0, len(inorder)-1, inorder, postorder)
-        
-        
-    def build(self, postidx: int, instart: int, inend: int, inorder: List[int], postorder: List[int]) -> TreeNode:
+        return self.build(len(postorder) - 1, 0, len(inorder) - 1, inorder, postorder)
+
+    def build(
+        self,
+        postidx: int,
+        instart: int,
+        inend: int,
+        inorder: List[int],
+        postorder: List[int],
+    ) -> TreeNode:
         if postidx < 0 or instart > inend:
             return None
-        
+
         root = TreeNode(postorder[postidx])
         inidx = inorder.index(postorder[postidx])
-        root.left = self.build(postidx-(inend-inidx)-1, instart, inidx-1, inorder, postorder)
-        root.right = self.build(postidx-1, inidx+1, inend, inorder, postorder)
-        
+        root.left = self.build(
+            postidx - (inend - inidx) - 1, instart, inidx - 1, inorder, postorder
+        )
+        root.right = self.build(postidx - 1, inidx + 1, inend, inorder, postorder)
+
         return root
 
 
 # Improved
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
-        lookup = {n:i for i,n in enumerate(inorder)}
-        
-        return self.build(len(postorder)-1, 0, len(inorder)-1, inorder, postorder, lookup)
-        
-        
-    def build(self, postidx: int, instart: int, inend: int, inorder: List[int], postorder: List[int], lookup: dict) -> TreeNode:
+        lookup = {n: i for i, n in enumerate(inorder)}
+
+        return self.build(
+            len(postorder) - 1, 0, len(inorder) - 1, inorder, postorder, lookup
+        )
+
+    def build(
+        self,
+        postidx: int,
+        instart: int,
+        inend: int,
+        inorder: List[int],
+        postorder: List[int],
+        lookup: dict,
+    ) -> TreeNode:
         if postidx < 0 or instart > inend:
             return None
-        
+
         root = TreeNode(postorder[postidx])
         inidx = lookup[postorder[postidx]]
-        root.left = self.build(postidx-(inend-inidx)-1, instart, inidx-1, inorder, postorder, lookup)
-        root.right = self.build(postidx-1, inidx+1, inend, inorder, postorder, lookup)
-        
+        root.left = self.build(
+            postidx - (inend - inidx) - 1,
+            instart,
+            inidx - 1,
+            inorder,
+            postorder,
+            lookup,
+        )
+        root.right = self.build(
+            postidx - 1, inidx + 1, inend, inorder, postorder, lookup
+        )
+
         return root
-        

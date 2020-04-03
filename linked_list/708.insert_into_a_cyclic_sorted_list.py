@@ -13,26 +13,26 @@ class Node:
 
 
 class Solution:
-    def insert(self, head: 'Node', val: int) -> 'Node':
+    def insert(self, head: "Node", val: int) -> "Node":
         insert_node = Node(val, head)
-        
+
         if not head:
             # Given an empty list, the inserted node's next pointer should point to itself
             insert_node.next = insert_node
             return insert_node
-        
+
         cur = head
-        
+
         while 1:
             if cur.val <= val <= cur.next.val:
                 break
-            elif cur.val>cur.next.val and (val>=cur.val or val<=cur.next.val):
+            elif cur.val > cur.next.val and (val >= cur.val or val <= cur.next.val):
                 break
             elif cur.next is head:
-                break        
+                break
             cur = cur.next
-            
+
         insert_node.next = cur.next
         cur.next = insert_node
-        
+
         return head

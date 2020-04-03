@@ -33,26 +33,25 @@ class TreeNode:
 # Solution 1: recursive
 class Solution:
     def __init__(self):
-        self.prev = float('-inf')
-        self.res = float('inf')
-
+        self.prev = float("-inf")
+        self.res = float("inf")
 
     def minDiffInBST(self, root: TreeNode) -> int:
         if not root:
             return
-        
+
         self.minDiffInBST(root.left)
-        self.res = min(self.res, root.val-self.prev)
+        self.res = min(self.res, root.val - self.prev)
         self.prev = root.val
         self.minDiffInBST(root.right)
-        
+
         return self.res
 
 
 # Solution 2: iterative
 class Solution:
     def minDiffInBST(self, root: TreeNode) -> int:
-        diff, stk, prev = float('inf'), [], None
+        diff, stk, prev = float("inf"), [], None
 
         while stk or root:
             while root:
@@ -60,11 +59,11 @@ class Solution:
                 root = root.left
 
             node = stk.pop()
-            
+
             if prev:
-                diff = min(diff, node.val-prev.val)
-            
+                diff = min(diff, node.val - prev.val)
+
             prev = node
             root = node.right
-        
+
         return diff

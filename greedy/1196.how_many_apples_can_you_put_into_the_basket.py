@@ -22,13 +22,12 @@ class Solution:
     def maxNumberOfApples(self, arr: List[int]) -> int:
         arr_sorted = sorted(arr)
         weight = cnt = 0
-        
+
         for apple in arr_sorted:
             if weight + apple > 5000:
                 return cnt
             else:
                 weight += apple
                 cnt += 1
-        
+
         return cnt
-        

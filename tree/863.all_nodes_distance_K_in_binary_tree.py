@@ -25,45 +25,43 @@ class TreeNode:
         self.val = x
         self.left = None
         self.right = None
-        
+
 
 # Solution: DFS to build undirected graph, BFS to traverse nodes
 from collections import defaultdict
 
+
 class Solution:
-    
     def distanceK(self, root: TreeNode, target: TreeNode, K: int) -> List[int]:
         graph = defaultdict(set)
         self.dfs(root, graph)
         q = [target]
         visited = set()
-        
+
         for _ in range(K):
             bfs = []
-            
+
             for _ in range(len(q)):
                 cur = q.pop()
-                
+
                 if cur not in visited:
                     bfs += graph.get(cur, [])
                     visited.add(cur)
-            
+
             q = bfs
-            
+
         return [node.val for node in q if node not in visited]
-            
-    
+
     def dfs(self, node: TreeNode, graph: dict) -> None:
         if not node:
             return
-        
+
         if node.left:
             graph[node].add(node.left)
             graph[node.left].add(node)
             self.dfs(node.left, graph)
-            
+
         if node.right:
             graph[node].add(node.right)
             graph[node.right].add(node)
             self.dfs(node.right, graph)
-            

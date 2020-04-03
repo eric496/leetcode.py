@@ -29,24 +29,23 @@ num's digits are 6 or 9.
 
 
 class Solution:
-    def maximum69Number (self, num: int) -> int:
+    def maximum69Number(self, num: int) -> int:
         digits = []
-        
+
         while num:
-            digits.append(num%10)
+            digits.append(num % 10)
             num //= 10
 
         digits = digits[::-1]
-        
+
         for i in range(len(digits)):
             if digits[i] == 6:
                 digits[i] = 9
                 break
-                
+
         res = 0
-        
+
         for n in digits:
-            res = res*10 + n
-            
-        return res 
-        
+            res = res * 10 + n
+
+        return res

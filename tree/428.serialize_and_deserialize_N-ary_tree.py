@@ -20,33 +20,30 @@ class Node(object):
 
 from collections import deque
 
-class Codec:
 
+class Codec:
     def serialize(self, root):
         res = []
         self.serialize_dfs(root, res)
-        
-        return ''.join(res)
-    
+
+        return "".join(res)
 
     def deserialize(self, data):
         if not data:
             return None
-        
-        q = deque([x for x in data.split('#') if x])        
-        
+
+        q = deque([x for x in data.split("#") if x])
+
         return self.deserialize_dfs(q)
 
-    
     def serialize_dfs(self, root, res):
         if root:
-            res.append(str(root.val) + '#')
-            res.append(str(len(root.children)) + '#')
-            
+            res.append(str(root.val) + "#")
+            res.append(str(len(root.children)) + "#")
+
             for child in root.children:
                 self.serialize_dfs(child, res)
-        
-        
+
     def deserialize_dfs(self, q):
         if q:
             val = int(q.popleft())
@@ -55,5 +52,5 @@ class Codec:
 
             for _ in range(num_children):
                 root.children.append(self.deserialize_dfs(q))
-            
+
             return root

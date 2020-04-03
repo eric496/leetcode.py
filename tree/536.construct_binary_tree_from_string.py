@@ -30,25 +30,25 @@ class Solution:
     def str2tree(self, s: str) -> TreeNode:
         stk = []
         start = walker = 0
-        
+
         while walker < len(s):
-            if s[walker].isdigit() or s[walker] == '-':
-                while walker+1 < len(s) and s[walker+1].isdigit():
+            if s[walker].isdigit() or s[walker] == "-":
+                while walker + 1 < len(s) and s[walker + 1].isdigit():
                     walker += 1
-                
-                node = TreeNode(int(s[start:walker+1]))
-                
+
+                node = TreeNode(int(s[start : walker + 1]))
+
                 if stk:
                     if stk[-1].left:
                         stk[-1].right = node
                     else:
                         stk[-1].left = node
-                        
+
                 stk.append(node)
-            elif s[walker] == ')':
+            elif s[walker] == ")":
                 stk.pop()
-                                
+
             walker += 1
             start = walker
-                    
+
         return stk[-1] if stk else None

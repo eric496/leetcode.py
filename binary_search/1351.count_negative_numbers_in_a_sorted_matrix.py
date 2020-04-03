@@ -32,13 +32,13 @@ class Solution:
     def countNegatives(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
         res = 0
-        
+
         for row in range(m):
             for col in range(n):
                 if grid[row][col] < 0:
                     res += n - col
                     break
-        
+
         return res
 
 
@@ -46,15 +46,15 @@ class Solution:
 class Solution:
     def countNegatives(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
-        r, c, res = m-1, 0, 0
-        
+        r, c, res = m - 1, 0, 0
+
         while r >= 0 and c < n:
             if grid[r][c] < 0:
                 r -= 1
                 res += n - c
             else:
                 c += 1
-        
+
         return res
 
 
@@ -63,19 +63,19 @@ class Solution:
     def countNegatives(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
         res = 0
-        
+
         for r in range(m):
-            low, high = 0, n-1
+            low, high = 0, n - 1
             while low <= high:
-                mid = (low+high) >> 1
+                mid = (low + high) >> 1
                 if grid[r][mid] < 0:
                     high = mid - 1
                 else:
                     low = mid + 1
-        
+
             res += n - low
-        
-        return res 
+
+        return res
 
 
 # Solution 4: Binary Search optimized
@@ -84,17 +84,17 @@ class Solution:
         m, n = len(grid), len(grid[0])
         res = 0
         high = n - 1
-        
+
         for r in range(m):
             low = 0
             while low <= high:
-                mid = (low+high) >> 1
+                mid = (low + high) >> 1
                 if grid[r][mid] < 0:
                     high = mid - 1
                 else:
                     low = mid + 1
-        
+
             high = low - 1
             res += n - low
-        
-        return res 
+
+        return res

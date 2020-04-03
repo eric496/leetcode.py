@@ -36,18 +36,17 @@ class Solution:
     def countCornerRectangles(self, grid: List[List[int]]) -> int:
         if not grid or not grid[0]:
             return 0
-        
+
         m, n = len(grid), len(grid[0])
         res = 0
-        
-        for i in range(m-1):
-            for j in range(i+1, m):
+
+        for i in range(m - 1):
+            for j in range(i + 1, m):
                 cnt = 0
-                
+
                 for c in range(n):
                     if grid[i][c] and grid[j][c]:
                         res += cnt
                         cnt += 1
-                        
+
         return res
-        

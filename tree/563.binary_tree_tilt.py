@@ -36,14 +36,12 @@ class Solution:
 
         return res[0]
 
-
     def dfs(self, node: TreeNode, res: List[int]) -> int:
         if not node:
             return 0
 
         left = self.dfs(node.left, res)
         right = self.dfs(node.right, res)
-        res[0] += abs(left-right)
+        res[0] += abs(left - right)
 
         return node.val + left + right
-

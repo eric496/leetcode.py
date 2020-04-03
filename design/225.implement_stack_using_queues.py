@@ -1,4 +1,4 @@
-'''
+"""
 Implement the following operations of a stack using queues.
 
 push(x) -- Push element x onto stack.
@@ -20,30 +20,27 @@ Notes:
 You must use only standard operations of a queue -- which means only push to back, peek/pop from front, size, and is empty operations are valid.
 Depending on your language, queue may not be supported natively. You may simulate a queue by using a list or deque (double-ended queue), as long as you use only standard operations of a queue.
 You may assume that all operations are valid (for example, no pop or top operations will be called on an empty stack).
-'''
+"""
 
 
 from collections import deque
+
 
 class MyStack:
     def __init__(self):
         self.queue = deque()
 
-
-    def push(self, x:int) -> None:
+    def push(self, x: int) -> None:
         self.queue.append(x)
 
-        for _ in range(len(self.queue)-1):
+        for _ in range(len(self.queue) - 1):
             self.queue.append(self.queue.popleft())
-        
 
     def pop(self):
         return self.queue.popleft()
 
-
     def top(self):
         return self.queue[0]
-
 
     def empty(self):
         return not len(self.queue)

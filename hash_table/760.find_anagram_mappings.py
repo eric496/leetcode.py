@@ -22,14 +22,15 @@ Thought process:
     Loop through A and pop elements from the lists.
 """
 
+
 class Solution:
     def anagramMappings(self, A: List[int], B: List[int]) -> List[int]:
         b_idx = {}
-        
+
         for i, n in enumerate(B):
             if n in b_idx:
                 b_idx[n].append(i)
             else:
                 b_idx[n] = [i]
-            
+
         return [b_idx[n].pop() for n in A]

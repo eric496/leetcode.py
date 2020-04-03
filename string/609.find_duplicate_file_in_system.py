@@ -28,21 +28,22 @@ What is the time complexity of your modified solution? What is the most time-con
 How to make sure the duplicated files you find are not false positive?
 """
 
+
 class Solution:
     def findDuplicate(self, paths: List[str]) -> List[List[str]]:
         abs_paths = []
         d = {}
-        
+
         for p in paths:
             sp = p.split()
             for f in sp[1:]:
-                abs_path = sp[0] + '/' + f
-                start = abs_path.rindex('(') + 1
-                path = abs_path[:start-1]
+                abs_path = sp[0] + "/" + f
+                start = abs_path.rindex("(") + 1
+                path = abs_path[: start - 1]
                 content = abs_path[start:-1]
                 if content in d:
                     d[content].append(path)
                 else:
                     d[content] = [path]
-                    
+
         return [v for v in d.values() if len(v) > 1]

@@ -16,18 +16,17 @@ All the scores of athletes are guaranteed to be unique.
 class Solution:
     def findRelativeRanks(self, nums: List[int]) -> List[str]:
         n = sorted(nums, reverse=True)
-        rank = {x: str(i+1) for i, x in enumerate(n)}
+        rank = {x: str(i + 1) for i, x in enumerate(n)}
         res = []
-        
+
         for i in nums:
-            if rank[i] == '1':
-                res.append('Gold Medal')
-            elif rank[i] == '2':
-                res.append('Silver Medal')
-            elif rank[i] == '3':
-                res.append('Bronze Medal')
+            if rank[i] == "1":
+                res.append("Gold Medal")
+            elif rank[i] == "2":
+                res.append("Silver Medal")
+            elif rank[i] == "3":
+                res.append("Bronze Medal")
             else:
                 res.append(rank[i])
-                
+
         return res
-    

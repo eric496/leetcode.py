@@ -18,10 +18,11 @@ Explanation: The answer is "wke", with the length of 3.
              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
 """
 
+
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         max_len = 0
-        
+
         for ix, ch in enumerate(s):
             sub = ch
             nxt = ix + 1
@@ -31,8 +32,5 @@ class Solution:
                 nxt += 1
                 cur_max += 1
             max_len = cur_max if cur_max > max_len else max_len
-        
+
         return max_len
-
-
-

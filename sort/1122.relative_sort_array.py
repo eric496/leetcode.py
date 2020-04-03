@@ -17,18 +17,17 @@ Each arr2[i] is in arr1.
 class Solution:
     def relativeSortArray(self, arr1: List[int], arr2: List[int]) -> List[int]:
         cnt, res = {}, []
-        
+
         for num in arr1:
             cnt[num] = cnt.get(num, 0) + 1
-            
+
         for num in arr2:
             if num in cnt:
                 res += [num] * cnt[num]
                 del cnt[num]
-                
+
         for num in range(1001):
             if num in cnt:
                 res += [num] * cnt[num]
-                
+
         return res
-        

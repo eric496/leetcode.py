@@ -1,4 +1,4 @@
-'''
+"""
 Given an array, rotate the array to the right by k steps, where k is non-negative.
 
 Example 1:
@@ -21,10 +21,10 @@ rotate 2 steps to the right: [3,99,-1,-100]
 Note:
 Try to come up as many solutions as you can, there are at least 3 different ways to solve this problem.
 Could you do it in-place with O(1) extra space?
-'''
+"""
 
 # solution 1: O(n) space and O(n) time
 class Solution:
     def rotate(self, nums: list, k: int) -> None:
         k %= len(nums)
-        nums[:] = nums[len(nums)-k:] + nums[:len(nums)-k]
+        nums[:] = nums[len(nums) - k :] + nums[: len(nums) - k]

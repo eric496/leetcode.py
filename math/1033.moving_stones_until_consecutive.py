@@ -30,15 +30,14 @@ a != b, b != c, c != a
 class Solution:
     def numMovesStones(self, a: int, b: int, c: int) -> List[int]:
         a, b, c = sorted([a, b, c])
-        
-        if a+1 == b == c-1:
+
+        if a + 1 == b == c - 1:
             return [0, 0]
-        elif b-a > 2 and c-b > 2:
+        elif b - a > 2 and c - b > 2:
             min_moves = 2
         else:
             min_moves = 1
-        
+
         max_moves = c - a - 2
-        
+
         return [min_moves, max_moves]
-        

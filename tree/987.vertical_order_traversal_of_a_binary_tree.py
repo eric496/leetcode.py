@@ -38,14 +38,15 @@ class TreeNode:
 
 from collections import deque
 
+
 class Solution:
     def verticalTraversal(self, root: TreeNode) -> List[List[int]]:
         if not root:
             return []
-        
+
         q = deque([(root, 0)])
         d = {}
-        
+
         while q:
             size = len(q)
             cur_d = {}
@@ -56,14 +57,14 @@ class Solution:
                 else:
                     cur_d[v] = [node.val]
                 if node.left:
-                    q.append((node.left, v-1))
+                    q.append((node.left, v - 1))
                 if node.right:
-                    q.append((node.right, v+1))
-                
+                    q.append((node.right, v + 1))
+
             for key in cur_d:
                 if key in d:
                     d[key].extend(sorted(cur_d[key]))
                 else:
                     d[key] = sorted(cur_d[key])
-        
+
         return [d[key] for key in sorted(d)]

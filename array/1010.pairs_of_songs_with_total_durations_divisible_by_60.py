@@ -25,10 +25,9 @@ class Solution:
     def numPairsDivisibleBy60(self, time: List[int]) -> int:
         cnt = {}
         res = 0
-        
+
         for t in time:
-            res += cnt.get(-t%60, 0)
-            cnt[t%60] = cnt.get(t%60, 0) + 1
-            
+            res += cnt.get(-t % 60, 0)
+            cnt[t % 60] = cnt.get(t % 60, 0) + 1
+
         return res
-        

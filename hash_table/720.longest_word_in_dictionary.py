@@ -27,11 +27,11 @@ class Solution:
     def longestWord(self, words: List[str]) -> str:
         words.sort()
         seen = set()
-        res = ''
-        
+        res = ""
+
         for w in words:
             if len(w) == 1 or w[:-1] in seen:
-                res = w if len(w)>len(res) else res
+                res = w if len(w) > len(res) else res
                 seen.add(w)
-        
+
         return res

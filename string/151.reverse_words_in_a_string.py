@@ -24,6 +24,7 @@ Follow up:
 For C programmers, try to solve it in-place in O(1) extra space.
 """
 
+
 class Solution:
     def reverseWords(self, s: str) -> str:
         return " ".join(s.split()[::-1])

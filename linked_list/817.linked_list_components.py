@@ -33,11 +33,12 @@ Thought process:
     IMPORTANT: If the counter has non-zero value after the loop, result should be incremented by 1, because the last component in the list is not counted in the loop.
 """
 
+
 class Solution:
     def numComponents(self, head: ListNode, G: List[int]) -> int:
         lookup = set(G)
         res = cnt = 0
-        
+
         while head:
             if head.val in lookup:
                 cnt += 1
@@ -45,5 +46,5 @@ class Solution:
                 res += 1 if cnt else 0
                 cnt = 0
             head = head.next
-            
-        return res+1 if cnt else res
+
+        return res + 1 if cnt else res

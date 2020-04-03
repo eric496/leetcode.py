@@ -8,46 +8,46 @@ Output: 6
 """
 
 
-# Solution 1: Brute force - O(n^2) TC and O(1) SC 
+# Solution 1: Brute force - O(n^2) TC and O(1) SC
 class Solution:
     def trap(self, height: List[int]) -> int:
         res = 0
-        
-        for i in range(1, len(height)-1):
+
+        for i in range(1, len(height) - 1):
             shortest_bar = min(max(height[:i]), max(height[i:]))
-            
+
             if shortest_bar > height[i]:
                 res += shortest_bar - height[i]
-                
-        return res
-    
 
-# Solution 2: DP 
+        return res
+
+
+# Solution 2: DP
 class Solution:
     def trap(self, height: List[int]) -> int:
         if not height:
             return 0
-        
+
         n = len(height)
-        max_left = [0] * n 
+        max_left = [0] * n
         max_right = [0] * n
         max_left[0] = height[0]
-        max_right[n-1] = height[n-1]
-        
+        max_right[n - 1] = height[n - 1]
+
         for i in range(1, n):
-            max_left[i] = max(max_left[i-1], height[i])
-            
-        for j in range(n-2, 0, -1):
-            max_right[j] = max(max_right[j+1], height[j])
-            
+            max_left[i] = max(max_left[i - 1], height[i])
+
+        for j in range(n - 2, 0, -1):
+            max_right[j] = max(max_right[j + 1], height[j])
+
         res = 0
-        
+
         for k in range(n):
             min_bound = min(max_left[k], max_right[k])
-            
+
             if min_bound > height[k]:
                 res += min_bound - height[k]
-            
+
         return res
 
 
@@ -56,18 +56,17 @@ class Solution:
     def trap(self, height: List[int]) -> int:
         res = 0
         left_max = right_max = 0
-        start, end = 0, len(height)-1
-        
+        start, end = 0, len(height) - 1
+
         while start < end:
             left_max = max(left_max, height[start])
             right_max = max(right_max, height[end])
-            
+
             if left_max < right_max:
                 res += left_max - height[start]
                 start += 1
             else:
                 res += right_max - height[end]
                 end -= 1
-                
+
         return res
-        

@@ -19,8 +19,8 @@ You may assume that nums' length ≥ k-1 and k ≥ 1.
 
 import heapq
 
-class KthLargest:
 
+class KthLargest:
     def __init__(self, k: int, nums: List[int]):
         self.k = k
         self.heap = []
@@ -34,7 +34,6 @@ class KthLargest:
             else:
                 nums.pop()
 
-
     def add(self, val: int) -> int:
         if len(self.heap) < self.k:
             heapq.heappush(self.heap, val)
@@ -43,4 +42,3 @@ class KthLargest:
             heapq.heappush(self.heap, val)
 
         return self.heap[0]
-

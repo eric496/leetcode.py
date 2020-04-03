@@ -1,4 +1,4 @@
-'''
+"""
 Design your implementation of the linked list. You can choose to use the singly linked list or the doubly linked list. A node in a singly linked list should have two attributes: val and next. val is the value of the current node, and next is a pointer/reference to the next node. If you want to use the doubly linked list, you will need one more attribute prev to indicate the previous node in the linked list. Assume all nodes in the linked list are 0-indexed.
 
 Implement these functions in your linked list class:
@@ -22,16 +22,15 @@ Note:
 All values will be in the range of [1, 1000].
 The number of operations will be in the range of [1, 1000].
 Please do not use the built-in LinkedList library.
-'''
+"""
 
 # Implement with deque
-class MyLinkedList:    
+class MyLinkedList:
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.q = collections.deque([])    
-        
+        self.q = collections.deque([])
 
     def get(self, index: int) -> int:
         """
@@ -60,8 +59,7 @@ class MyLinkedList:
         """
         if 0 <= index <= len(self.q):
             self.q.insert(index, val)
-            
-            
+
     def deleteAtIndex(self, index: int) -> None:
         """
         Delete the index-th node in the linked list, if the index is valid.

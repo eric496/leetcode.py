@@ -35,11 +35,10 @@ We ensure that the input n can be converted into the form 2k, where k is a posit
 
 class Solution:
     def findContestMatch(self, n: int) -> str:
-        res = [str(i) for i in range(1, n+1)]
-        
+        res = [str(i) for i in range(1, n + 1)]
+
         while n > 1:
-            res = ['(' + res[i] + ',' + res[n-1-i] + ')' for i in range(n>>1)]
+            res = ["(" + res[i] + "," + res[n - 1 - i] + ")" for i in range(n >> 1)]
             n >>= 1
-        
+
         return res[0]
-        

@@ -26,9 +26,9 @@ class Solution:
         g.sort()
         s.sort()
         child = cookie = 0
-        
+
         while cookie < len(s) and child < len(g):
             child += 1 if g[child] <= s[cookie] else 0
             cookie += 1
-        
+
         return child

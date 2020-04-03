@@ -27,20 +27,18 @@ The total time limit for this problem has been reduced by 75% for C++, and 50% f
 
 
 class StockSpanner:
-
     def __init__(self):
         self.stk = []
-        
 
     def next(self, price: int) -> int:
         res = 1
-        
+
         while self.stk and self.stk[-1][0] <= price:
             res += self.stk[-1][1]
             self.stk.pop()
-            
+
         self.stk.append((price, res))
-        
+
         return res
 
 

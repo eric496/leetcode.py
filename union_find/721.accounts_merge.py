@@ -22,35 +22,36 @@ The length of accounts[i][j] will be in the range [1, 30].
 
 from collections import defaultdict
 
+
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
         parent = {}
         email_to_name = {}
-        
+
         for account in accounts:
             name, *emails = account
-            
+
             for email in emails:
                 if email not in parent:
                     parent[email] = email
                 email_to_name[email] = name
-                
+
                 self.union(email, emails[0], parent)
-                
+
         trees = defaultdict(list)
-        
+
         for email in parent:
             trees[self.find(email, parent)].append(email)
-            
-        return [[email_to_name[root]] + sorted(emails) for (root, emails) in trees.items()]
-    
-        
+
+        return [
+            [email_to_name[root]] + sorted(emails) for (root, emails) in trees.items()
+        ]
+
     def find(self, email: str, parent: dict) -> str:
         if parent[email] != email:
             parent[email] = self.find(parent[email], parent)
-        
+
         return parent[email]
-    
-    
+
     def union(self, email1: str, email2: str, parent: dict) -> None:
         parent[self.find(email1, parent)] = self.find(email2, parent)

@@ -30,11 +30,11 @@ class Solution:
         self.dfs(root, res)
 
         return res
-    
+
     def dfs(self, root: TreeNode, res: List[int]) -> None:
         if not root:
             return
-        
+
         self.dfs(root.left, res)
         res.append(root.val)
         self.dfs(root.right, res)
@@ -44,12 +44,12 @@ class Solution:
 class Solution:
     def inorderTraversal(self, root: TreeNode) -> List[int]:
         stk, res = [], []
-        
+
         while stk or root:
             while root:
                 stk.append(root)
                 root = root.left
-            
+
             root = stk.pop()
             res.append(root.val)
             root = root.right
@@ -72,4 +72,3 @@ class Solution:
                 root = root.right
 
         return res
-        

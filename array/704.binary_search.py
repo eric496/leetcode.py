@@ -17,17 +17,18 @@ n will be in the range [1, 10000].
 The value of each element in nums will be in the range [-9999, 9999].
 """
 
+
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         low, high = 0, len(nums) - 1
-        
+
         while low <= high:
-            mid = low + (high-low)//2
+            mid = low + (high - low) // 2
             if nums[mid] == target:
                 return mid
             elif nums[mid] < target:
                 low = mid + 1
             else:
-                high = mid -1
-            
+                high = mid - 1
+
         return -1

@@ -33,20 +33,19 @@ class Solution:
     def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
         stk = []
         res = [0] * n
-        
+
         for log in logs:
-            fn, tag, t = log.split(':')
+            fn, tag, t = log.split(":")
             fn, t = int(fn), int(t)
-            
-            if tag == 'start':
+
+            if tag == "start":
                 if stk:
                     res[stk[-1]] += t - prev_t
-                    
+
                 stk.append(fn)
                 prev_t = t
-            elif tag == 'end':
+            elif tag == "end":
                 res[stk.pop()] += t - prev_t + 1
                 prev_t = t + 1
-            
+
         return res
-        

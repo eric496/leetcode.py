@@ -30,12 +30,12 @@ class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         if not matrix or not matrix[0]:
             return False
-        
+
         first_col = [row[0] for row in matrix]
-        low, high = 0, len(first_col)-1
-        
+        low, high = 0, len(first_col) - 1
+
         while low < high:
-            mid = low + (high-low)//2
+            mid = low + (high - low) // 2
             if first_col[mid] == target:
                 return True
             elif first_col[mid] > target:
@@ -43,7 +43,7 @@ class Solution:
             else:
                 low = mid + 1
 
-        # Need to compare with the high positioned element                
+        # Need to compare with the high positioned element
         if target == first_col[high]:
             return True
         elif target > first_col[high]:
@@ -52,19 +52,19 @@ class Solution:
             idx = high - 1 if high > 0 else 0
             if matrix[idx][-1] < target:
                 return False
-            
-        search_row =  matrix[idx]
-        low, high = 0, len(search_row)-1
-        
+
+        search_row = matrix[idx]
+        low, high = 0, len(search_row) - 1
+
         while low < high:
-            mid = low + (high-low)//2
+            mid = low + (high - low) // 2
             if search_row[mid] == target:
                 return True
             elif search_row[mid] > target:
                 high = mid - 1
             else:
                 low = mid + 1
-        
+
         # Need to compare with the high positioned element
         return True if search_row[high] == target else False
 
@@ -74,19 +74,19 @@ class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         if not matrix or not matrix[0]:
             return False
-        
+
         m, n = len(matrix), len(matrix[0])
-        low, high = 0, m*n-1
-        
+        low, high = 0, m * n - 1
+
         while low <= high:
-            mid = low + ((high-low)>>1)
-            num = matrix[mid//n][mid%n]
-            
+            mid = low + ((high - low) >> 1)
+            num = matrix[mid // n][mid % n]
+
             if num == target:
                 return True
             elif num < target:
                 low = mid + 1
             else:
                 high = mid - 1
-                
+
         return False

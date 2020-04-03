@@ -31,23 +31,23 @@ Explanation: The endWord "cog" is not in wordList, therefore no possible transfo
 from collections import deque
 import string
 
+
 class Solution:
     def ladderLength(self, begin_word: str, end_word: str, word_list: List[str]) -> int:
         wset = set(word_list)
         queue = deque([(begin_word, 1)])
-        
+
         while queue:
             word, steps = queue.popleft()
-            
+
             if word == end_word:
                 return steps
-            
+
             for i in range(len(word)):
                 for ch in string.ascii_lowercase:
-                    trans = word[:i] + ch + word[i+1:]
+                    trans = word[:i] + ch + word[i + 1 :]
                     if trans in wset:
                         wset.remove(trans)
-                        queue.append((trans, steps+1))
-            
+                        queue.append((trans, steps + 1))
+
         return 0
-    

@@ -25,21 +25,21 @@ Y A   H R
 P     I
 """
 
+
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
         if numRows == 1 or numRows >= len(s):
             return s
-        
-        res = [''] * numRows
+
+        res = [""] * numRows
         ix, step = 0, 1
-        
+
         for ch in s:
             res[ix] += ch
             if ix == 0:
                 step = 1
-            elif ix == numRows-1:
+            elif ix == numRows - 1:
                 step = -1
             ix += step
-        
-        return ''.join(res)
-    
+
+        return "".join(res)

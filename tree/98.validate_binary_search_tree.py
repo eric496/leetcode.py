@@ -37,18 +37,17 @@ class Solution:
     def isValidBST(self, root: TreeNode) -> bool:
         res = []
         self.inorder(root, res)
-        
+
         for i in range(1, len(res)):
-            if res[i] <= res[i-1]:
+            if res[i] <= res[i - 1]:
                 return False
-        
+
         return True
-        
-    
+
     def inorder(self, root: TreeNode, res: List[int]) -> None:
         if not root:
             return
-        
+
         self.inorder(root.left, res)
         res.append(root.val)
         self.inorder(root.right, res)
@@ -57,41 +56,41 @@ class Solution:
 # Solution 1: inorder traversal improved - no need to keep all nodes but only the previous node
 class Solution:
     def isValidBST(self, root: TreeNode) -> bool:
-        return self.inorder(root, [float('-inf')])
-        
-    
+        return self.inorder(root, [float("-inf")])
+
     def inorder(self, root: TreeNode, prev: List[int]) -> bool:
         if not root:
             return True
-        
+
         if not self.inorder(root.left, prev):
             return False
-        
+
         if prev[0] >= root.val:
             return False
-        
+
         prev[0] = root.val
-        
+
         if not self.inorder(root.right, prev):
             return False
-        
+
         return True
 
 
 # Solution 2: recursive
 class Solution:
     def isValidBST(self, root: TreeNode) -> bool:
-        return self.validate(root, float('-inf'), float('inf'))
-
+        return self.validate(root, float("-inf"), float("inf"))
 
     def validate(self, root: TreeNode, lower: float, upper: float) -> bool:
         if not root:
             return True
-            
+
         if root.val <= lower or root.val >= upper:
             return False
 
-        return self.validate(root.left, lower, root.val) and self.validate(root.right, root.val, upper)
+        return self.validate(root.left, lower, root.val) and self.validate(
+            root.right, root.val, upper
+        )
 
 
 # Solution 2: iterative
@@ -99,19 +98,18 @@ class Solution:
     def isValidBST(self, root: TreeNode) -> bool:
         stk = []
         prev = None
-        
+
         while root or stk:
             while root:
                 stk.append(root)
                 root = root.left
-                
+
             node = stk.pop()
 
             if prev and node.val <= prev.val:
                 return False
-            
+
             prev = node
             root = node.right
-            
+
         return True
-        

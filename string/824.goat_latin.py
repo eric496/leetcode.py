@@ -23,16 +23,16 @@ S contains only uppercase, lowercase and spaces. Exactly one space between each 
 1 <= S.length <= 150.
 """
 
+
 class Solution:
     def toGoatLatin(self, S: str) -> str:
-        vowels = set('aeiouAEIOU')
+        vowels = set("aeiouAEIOU")
         res = []
-        
+
         for i, word in enumerate(S.split(), 1):
             if word[0] in vowels:
-                res.append(word + 'ma' + 'a'*i)
+                res.append(word + "ma" + "a" * i)
             else:
-                res.append(word[1:] + word[0] + 'ma' + 'a'*i)
-                
-        return ' '.join(res)
-        
+                res.append(word[1:] + word[0] + "ma" + "a" * i)
+
+        return " ".join(res)

@@ -29,11 +29,10 @@ Accepted
 class Solution:
     def maxEqualRowsAfterFlips(self, matrix: List[List[int]]) -> int:
         cnt = {}
-        
+
         for row in matrix:
-            flip = [1-num for num in row]
+            flip = [1 - num for num in row]
             cnt[tuple(row)] = cnt.get(tuple(row), 0) + 1
             cnt[tuple(flip)] = cnt.get(tuple(flip), 0) + 1
-        
+
         return max(cnt.values())
-        

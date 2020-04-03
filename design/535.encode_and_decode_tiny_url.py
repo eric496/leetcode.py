@@ -8,15 +8,15 @@ Design the encode and decode methods for the TinyURL service. There is no restri
 
 import string, random
 
+
 class Codec:
-    charset = string.ascii_letters + '0123456789'
-    base = 'http://tinyurl.com/'
+    charset = string.ascii_letters + "0123456789"
+    base = "http://tinyurl.com/"
     code_len = 6
-    
+
     def __init__(self):
         self.url2code = {}
         self.code2url = {}
-
 
     def encode(self, longUrl):
         """Encodes a URL to a shortened URL.
@@ -25,13 +25,12 @@ class Codec:
         :rtype: str
         """
         while longUrl not in self.url2code:
-            code = ''.join(random.choice(self.charset) for _ in range(self.code_len))
+            code = "".join(random.choice(self.charset) for _ in range(self.code_len))
             if code not in self.code2url:
                 self.url2code[longUrl] = self.base + code
-                self.code2url[self.base+code] = longUrl
-        
+                self.code2url[self.base + code] = longUrl
+
         return self.url2code[longUrl]
-        
 
     def decode(self, shortUrl):
         """Decodes a shortened URL to its original URL.
@@ -39,5 +38,4 @@ class Codec:
         :type shortUrl: str
         :rtype: str
         """
-        return self.code2url.get(shortUrl, '')
-        
+        return self.code2url.get(shortUrl, "")

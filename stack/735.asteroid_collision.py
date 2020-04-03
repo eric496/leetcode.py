@@ -42,22 +42,22 @@ class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
         if len(asteroids) < 2:
             return asteroids
-        
+
         stk = []
-        
+
         for ast in asteroids:
             if ast > 0:
                 stk.append(ast)
             else:
                 # Postive on the left are smaller, it explodes
-                while stk and stk[-1]>0 and stk[-1]<abs(ast):
+                while stk and stk[-1] > 0 and stk[-1] < abs(ast):
                     stk.pop()
                 # Current asteroid is largest in size and all previous exploded
                 # Or the previous one is moving towards left too
-                if not stk or stk[-1]<0:
+                if not stk or stk[-1] < 0:
                     stk.append(ast)
                 # Two asteroids are opposites, e.g. [-8,8] >>> []
                 elif stk[-1] == abs(ast):
                     stk.pop()
-            
+
         return stk

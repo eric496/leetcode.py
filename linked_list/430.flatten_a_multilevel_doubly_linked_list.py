@@ -16,23 +16,23 @@ class ListNode:
 class Solution:
     def flatten(self, head: ListNode) -> ListNode:
         walk = head
-        
+
         while walk:
             if walk.child:
                 nxt = walk.next
                 walk.next = self.flatten(walk.child)
                 walk.next.prev = walk
                 walk.child = None
-                
+
                 while walk.next:
                     walk = walk.next
-                
+
                 if nxt:
                     walk.next = nxt
                     walk.next.prev = walk
-                    
+
             walk = walk.next
-        
+
         return head
 
 
@@ -41,25 +41,24 @@ class Solution:
     def flatten(self, head: ListNode) -> ListNode:
         if not head:
             return head
-        
+
         sentinel = prev = ListNode(None, None, head, None)
         stk = [head]
-        
+
         while stk:
             cur = stk.pop()
             cur.prev = prev
             prev.next = cur
             prev = cur
-            
+
             if cur.next:
                 stk.append(cur.next)
                 cur.next = None
-                
+
             if cur.child:
                 stk.append(cur.child)
                 cur.child = None
-                
+
         sentinel.next.prev = None
-        
+
         return sentinel.next
-        

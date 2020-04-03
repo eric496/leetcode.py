@@ -27,17 +27,17 @@ class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
         intervals.sort()
         i = res = 0
-        
-        while i < len(intervals)-1:
+
+        while i < len(intervals) - 1:
             j = i + 1
-            
-            while j<len(intervals) and intervals[i][1]>intervals[j][0]:
-                i = j if intervals[i][1]>intervals[j][1] else i
+
+            while j < len(intervals) and intervals[i][1] > intervals[j][0]:
+                i = j if intervals[i][1] > intervals[j][1] else i
                 j += 1
                 res += 1
-            
+
             i = j if j > i else i + 1
-            
+
         return res
 
 
@@ -45,14 +45,13 @@ class Solution:
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
         intervals.sort(key=lambda x: x[1])
-        end = float('-inf')
+        end = float("-inf")
         res = 0
-        
+
         for interval in intervals:
             if interval[0] >= end:
                 end = interval[1]
             else:
                 res += 1
-                
+
         return res
-        

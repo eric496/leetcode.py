@@ -22,10 +22,9 @@ Note:
 class Solution:
     def isArmstrong(self, N: int) -> bool:
         res, n, k = 0, N, len(str(N))
-        
+
         while N:
-            res += (N%10) ** k
+            res += (N % 10) ** k
             N //= 10
-            
+
         return True if res == n else False
-        

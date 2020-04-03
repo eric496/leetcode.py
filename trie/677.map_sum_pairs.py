@@ -15,38 +15,34 @@ class TrieNode:
     def __init__(self):
         self.children = {}
         self.cnt = 0
-        
 
 
 class MapSum:
-
     def __init__(self):
         """
         Initialize your data structure here.
         """
         self.root = TrieNode()
         self.map = {}
-        
 
     def insert(self, key: str, val: int) -> None:
         diff = val - self.map.get(key, 0)
         self.map[key] = val
         walk = self.root
         walk.cnt += diff
-        
+
         for c in key:
             if c not in walk.children:
                 walk.children[c] = TrieNode()
             walk = walk.children[c]
             walk.cnt += diff
-        
 
     def sum(self, prefix: str) -> int:
         walk = self.root
-        
+
         for c in prefix:
             if c not in walk.children:
                 return 0
             walk = walk.children[c]
-        
+
         return walk.cnt

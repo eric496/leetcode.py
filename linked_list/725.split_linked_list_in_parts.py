@@ -45,26 +45,25 @@ class Solution:
     def splitListToParts(self, root: ListNode, k: int) -> List[ListNode]:
         walk = root
         n = 0
-        
+
         while walk:
             walk = walk.next
             n += 1
-        
+
         div, mod = divmod(n, k)
-        partitions = [div+1]*mod + [div]*(k-mod) 
-        
+        partitions = [div + 1] * mod + [div] * (k - mod)
+
         prev, cur = None, root
         res = []
-        
+
         for p in partitions:
             # Let the tail of the previous partition point to NULL
             if prev:
                 prev.next = None
-            
+
             res.append(cur)
-            
+
             for _ in range(p):
                 prev, cur = cur, cur.next
-            
+
         return res
-        

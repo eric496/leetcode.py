@@ -10,8 +10,8 @@ Output: 10
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         n, max_area = len(heights), 0
-        left, right = [1]*n, [1]*n
-        
+        left, right = [1] * n, [1] * n
+
         for i in range(n):
             j = i - 1
             while j >= 0:
@@ -20,8 +20,8 @@ class Solution:
                     j -= left[j]
                 else:
                     break
-        
-        for i in range(n-1, -1, -1):
+
+        for i in range(n - 1, -1, -1):
             j = i + 1
             while j < n:
                 if heights[j] >= heights[i]:
@@ -29,11 +29,12 @@ class Solution:
                     j += right[j]
                 else:
                     break
-        
+
         for i in range(n):
-            max_area = max(max_area, heights[i]*(left[i]+right[i]-1))
-            
+            max_area = max(max_area, heights[i] * (left[i] + right[i] - 1))
+
         return max_area
+
 
 # Solution 2: Stack
 class Solution:
@@ -41,13 +42,12 @@ class Solution:
         heights.append(0)
         stk = [-1]
         max_area = 0
-        
+
         for i in range(len(heights)):
             while heights[i] < heights[stk[-1]]:
                 h = heights[stk.pop()]
                 w = i - stk[-1] - 1
-                max_area = max(max_area, h*w)
+                max_area = max(max_area, h * w)
             stk.append(i)
-        
-        return max_area
 
+        return max_area

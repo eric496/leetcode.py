@@ -14,6 +14,7 @@ Given word = "SEE", return true.
 Given word = "ABCB", return false.
 """
 
+
 class Solution:
     def exist(self, board: list, word: str) -> bool:
         seen = set()
@@ -25,12 +26,13 @@ class Solution:
 
         return False
 
-
-    def backtrack(self, board: list, row: int, col: int, word: str, wix: int, seen: set) -> bool:
+    def backtrack(
+        self, board: list, row: int, col: int, word: str, wix: int, seen: set
+    ) -> bool:
         if wix == len(word):
             return True
 
-        if row<0 or col<0 or row>=len(board) or col>=len(board[0]):
+        if row < 0 or col < 0 or row >= len(board) or col >= len(board[0]):
             return False
 
         if board[row][col] != word[wix]:
@@ -41,12 +43,13 @@ class Solution:
 
         seen.add((row, col))
 
-        found = self.backtrack(board, row+1, col, word, wix+1, seen) \
-            or self.backtrack(board, row-1, col, word, wix+1, seen) \
-            or self.backtrack(board, row, col+1, word, wix+1, seen) \
-            or self.backtrack(board, row, col-1, word, wix+1, seen)
+        found = (
+            self.backtrack(board, row + 1, col, word, wix + 1, seen)
+            or self.backtrack(board, row - 1, col, word, wix + 1, seen)
+            or self.backtrack(board, row, col + 1, word, wix + 1, seen)
+            or self.backtrack(board, row, col - 1, word, wix + 1, seen)
+        )
 
         seen.remove((row, col))
 
         return found
-

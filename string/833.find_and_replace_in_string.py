@@ -23,15 +23,17 @@ Notes:
 All characters in given inputs are lowercase letters.
 """
 
+
 class Solution:
-    def findReplaceString(self, S: str, indexes: List[int], sources: List[str], targets: List[str]) -> str:
+    def findReplaceString(
+        self, S: str, indexes: List[int], sources: List[str], targets: List[str]
+    ) -> str:
         ls, offset = list(S), 0
         idx_sort = sorted(zip(indexes, sources, targets))
-        
+
         for idx, src, trgt in idx_sort:
-            if ls[idx+offset:idx+len(src)+offset] == list(src):
-                ls[idx+offset:idx+len(src)+offset] = list(trgt)
+            if ls[idx + offset : idx + len(src) + offset] == list(src):
+                ls[idx + offset : idx + len(src) + offset] = list(trgt)
                 offset += len(trgt) - len(src)
-        
-        return ''.join(ls)
-        
+
+        return "".join(ls)

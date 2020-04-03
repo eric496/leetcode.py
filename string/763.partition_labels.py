@@ -15,6 +15,7 @@ S will have length in range [1, 500].
 S will consist of lowercase letters ('a' to 'z') only.
 """
 
+
 class Solution:
     def partitionLabels(self, S: str) -> List[int]:
         if not S:
@@ -27,8 +28,7 @@ class Solution:
         for i, ch in enumerate(S):
             last = max(last, last_idx[ch])
             if last == i:
-                res.append(last-start+1)
+                res.append(last - start + 1)
                 start = last + 1
 
         return res
-

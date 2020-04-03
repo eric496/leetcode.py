@@ -31,20 +31,18 @@ The total number of FreqStack.push and FreqStack.pop calls will not exceed 15000
 
 from collections import Counter, defaultdict
 
-class FreqStack:
 
+class FreqStack:
     def __init__(self):
         self.cnt = Counter()
         self.freq = defaultdict(list)
         self.most_freq = 0
-        
 
     def push(self, x: int) -> None:
         self.cnt[x] += 1
         self.freq[self.cnt[x]].append(x)
         self.most_freq = max(self.most_freq, self.cnt[x])
-            
-        
+
     def pop(self) -> int:
         top = self.freq[self.most_freq].pop()
         # Update most frequency of most common elements.
@@ -53,8 +51,9 @@ class FreqStack:
         if not self.freq[self.most_freq]:
             self.most_freq -= 1
         self.cnt[top] -= 1
-        
+
         return top
+
 
 # Your FreqStack object will be instantiated and called as such:
 # obj = FreqStack()

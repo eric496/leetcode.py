@@ -21,16 +21,22 @@ class Solution:
     def checkStraightLine(self, coordinates: List[List[int]]) -> bool:
         if len(coordinates) == 2 and coordinates[0] != coordinates[1]:
             return True
-        
-        x, y = coordinates[0][0]-coordinates[1][0], coordinates[0][1]-coordinates[1][1]
-        slope = y / x if x else float('inf')
-        
-        for i in range(1, len(coordinates)-1):
-            x, y = coordinates[i][0] - coordinates[i+1][0], coordinates[i][1] - coordinates[i+1][1]
-            alpha = y / x if x else float('inf') 
+
+        x, y = (
+            coordinates[0][0] - coordinates[1][0],
+            coordinates[0][1] - coordinates[1][1],
+        )
+        slope = y / x if x else float("inf")
+
+        for i in range(1, len(coordinates) - 1):
+            x, y = (
+                coordinates[i][0] - coordinates[i + 1][0],
+                coordinates[i][1] - coordinates[i + 1][1],
+            )
+            alpha = y / x if x else float("inf")
             if alpha != slope:
                 return False
-            
+
         return True
 
 
@@ -40,11 +46,11 @@ class Solution:
     def checkStraightLine(self, coordinates: List[List[int]]) -> bool:
         x0, y0 = coordinates[0]
         x1, y1 = coordinates[1]
-        
-        for i in range(len(coordinates)-1):
+
+        for i in range(len(coordinates) - 1):
             x2, y2 = coordinates[i]
-            x3, y3 = coordinates[i+1]
-            if (y1-y0) * (x3-x2) != (x1-x0) * (y3-y2):
+            x3, y3 = coordinates[i + 1]
+            if (y1 - y0) * (x3 - x2) != (x1 - x0) * (y3 - y2):
                 return False
-            
+
         return True

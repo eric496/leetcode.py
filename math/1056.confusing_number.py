@@ -41,15 +41,14 @@ class Solution:
             8: 8,
             9: 6,
         }
-        
+
         res, num = 0, N
-        
+
         while num:
             digit = num % 10
             if digit not in conversion:
                 return False
-            res = res*10 + conversion[digit]
+            res = res * 10 + conversion[digit]
             num //= 10
-            
+
         return res != N
-        

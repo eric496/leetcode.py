@@ -16,28 +16,28 @@ The input array may contain duplicates, so ascending order here means <=.
 class Solution:
     def findUnsortedSubarray(self, nums: List[int]) -> int:
         sort = sorted(nums)
-        start, end = 0, len(nums)-1
-        
+        start, end = 0, len(nums) - 1
+
         while start < len(nums) and nums[start] == sort[start]:
             start += 1
-        
+
         while end > start and nums[end] == sort[end]:
             end -= 1
-        
+
         return end - start + 1
 
 
 # Solution 2: O(n) TC, O(1) SC
 class Solution:
     def findUnsortedSubarray(self, nums: List[int]) -> int:
-        length, start, end, max_so_far, min_so_far = len(nums), 0, 0,  nums[0], nums[-1]
-        
+        length, start, end, max_so_far, min_so_far = len(nums), 0, 0, nums[0], nums[-1]
+
         for i, n in enumerate(nums[1:], 1):
             max_so_far = max(max_so_far, n)
-            min_so_far = min(min_so_far, nums[length-1-i])
+            min_so_far = min(min_so_far, nums[length - 1 - i])
             if max_so_far > n:
                 end = i
-            if min_so_far < nums[length-1-i]:
-                start = len(nums)-1-i
-        
+            if min_so_far < nums[length - 1 - i]:
+                start = len(nums) - 1 - i
+
         return end - start + 1 if end else 0

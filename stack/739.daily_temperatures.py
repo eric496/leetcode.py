@@ -11,19 +11,19 @@ class Solution:
     def dailyTemperatures(self, T: List[int]) -> List[int]:
         stk = []
         res = [0] * len(T)
-        
-        for i in range(len(T)-1, -1, -1):
+
+        for i in range(len(T) - 1, -1, -1):
             if not stk:
                 stk.append((T[i], i))
             else:
                 while stk and stk[-1][0] <= T[i]:
                     stk.pop()
-                
+
                 if stk:
                     res[i] = stk[-1][1] - i
-                
+
                 stk.append((T[i], i))
-                
+
         return res
 
 
@@ -32,12 +32,12 @@ class Solution:
     def dailyTemperatures(self, T: List[int]) -> List[int]:
         res = [0] * len(T)
         stk = []
-        
+
         for i, t in enumerate(T):
             while stk and T[stk[-1]] < t:
                 top = stk.pop()
                 res[top] = i - top
 
             stk.append(i)
-        
+
         return res

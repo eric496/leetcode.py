@@ -1,4 +1,4 @@
-'''
+"""
 In a row of seats, 1 represents a person sitting in that seat, and 0 represents that the seat is empty. 
 There is at least one empty seat, and at least one person sitting.
 Alex wants to sit in the seat such that the distance between him and the closest person to him is maximized. 
@@ -22,20 +22,21 @@ This is the maximum distance possible, so the answer is 3.
 Note:
 1 <= seats.length <= 20000
 seats contains only 0s or 1s, at least one 0, and at least one 1.
-'''
+"""
+
 
 class Solution:
     def maxDistToClosest(self, seats: List[int]) -> int:
         prev, dist = 0, []
-        
+
         for ix, s in enumerate(seats):
             if s:
                 if not seats[prev]:
-                    dist.append(ix-prev)
+                    dist.append(ix - prev)
                 else:
-                    dist.append((ix-prev)//2)
+                    dist.append((ix - prev) // 2)
                 prev = ix
-            elif ix == len(seats)-1:
-                dist.append(ix-prev)
-        
+            elif ix == len(seats) - 1:
+                dist.append(ix - prev)
+
         return max(dist)

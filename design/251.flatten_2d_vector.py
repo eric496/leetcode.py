@@ -19,13 +19,12 @@ Follow up:
 As an added challenge, try to code it using only iterators in C++ or iterators in Java.
 """
 
-class Vector2D:
 
+class Vector2D:
     def __init__(self, v: List[List[int]]):
         self.matrix = []
         for ls in v:
             self.matrix.extend(ls)
-        
 
     def next(self) -> int:
         return self.matrix.pop(0)

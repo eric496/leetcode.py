@@ -27,28 +27,28 @@ class Solution:
     def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
         sentinel = prev = ListNode(None)
         sentinel.next = head
-        
-        for _ in range(m-1):
+
+        for _ in range(m - 1):
             prev = prev.next
-        
+
         # cur will be the tail node after reversal
         # The linked list is divided into three parts: before m, m to n, and after n.
         # prev_tail is the tail node of the first part, rev_tail is the tail of the second part.
         # We keep track of these two tails to stitch the linked list after reversal.
         prev_tail, rev_tail, cur = prev, prev.next, prev.next
-        
+
         # Reverse from m-th to n-th nodes (a total of n-m+1 nodes)
-        for _ in range(n-m+1):
+        for _ in range(n - m + 1):
             nxt = cur.next
             cur.next = prev
             prev = cur
             cur = nxt
-        
+
         # After the reversal, prev is pointing at the head of second part, and cur is pointing at the head of the third part
         # Stitch the linked list in the correct order: sentinel.next -> prev_tail -> prev -> rev_tail -> cur -> the original tail
         prev_tail.next = prev
         rev_tail.next = cur
-        
+
         return sentinel.next
 
 
@@ -57,20 +57,19 @@ class Solution:
     def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
         sentinel = prev = ListNode(None)
         sentinel.next = head
-        
-        for _ in range(m-1):
+
+        for _ in range(m - 1):
             prev = prev.next
-        
+
         new_head, cur = None, prev.next
-        
-        for _ in range(n-m+1):
+
+        for _ in range(n - m + 1):
             nxt = cur.next
             cur.next = new_head
             new_head = cur
             cur = nxt
-            
+
         prev.next.next = cur
         prev.next = new_head
-        
+
         return sentinel.next
-        

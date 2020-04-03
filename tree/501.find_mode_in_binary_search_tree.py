@@ -33,21 +33,20 @@ class Solution:
         freq = {}
         self.dfs(root, freq)
         res, max_freq = [], 0
-        
-        for k,v in freq.items():
+
+        for k, v in freq.items():
             if v > max_freq:
                 max_freq = v
                 res = [k]
             elif v == max_freq:
                 res.append(k)
-                
+
         return res
-        
-        
+
     def dfs(self, node: TreeNode, freq: dict) -> None:
         if not node:
             return
-        
+
         freq[node.val] = freq.get(node.val, 0) + 1
         self.dfs(node.left, freq)
         self.dfs(node.right, freq)
@@ -60,33 +59,30 @@ class Solution:
         self.cur_freq = 0
         self.max_freq = 0
         self.res = []
-    
-    
+
     def findMode(self, root: TreeNode) -> List[int]:
         self.dfs(root)
-        
-        return self.res
-        
 
-    # inorder traversal    
+        return self.res
+
+    # inorder traversal
     def dfs(self, node: TreeNode) -> None:
         if not node:
             return
-        
+
         self.dfs(node.left)
-        
+
         if node.val != self.prev:
             self.cur_freq = 1
         else:
             self.cur_freq += 1
-        
+
         if self.cur_freq == self.max_freq:
             self.res.append(node.val)
         elif self.cur_freq > self.max_freq:
             self.res = [node.val]
             self.max_freq = self.cur_freq
-            
+
         self.prev = node.val
-        
+
         self.dfs(node.right)
-        

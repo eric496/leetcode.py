@@ -21,47 +21,50 @@ class Solution:
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
         if not s or not words:
             return []
-        
+
         window = len(words) * len(words[0])
         res = []
-        
-        for i in range(len(s)-window+1):
+
+        for i in range(len(s) - window + 1):
             unit_len = len(words[0])
-            w = [s[i:i+window][j:j+unit_len] for j in range(0, window, unit_len)]
+            w = [
+                s[i : i + window][j : j + unit_len] for j in range(0, window, unit_len)
+            ]
             if sorted(w) == sorted(words):
                 res.append(i)
-        
+
         return res
+
 
 # Solution 2: use two dictionaries
 class Solution:
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
         if not s or not words:
             return []
-        
+
         res = []
         cnt = {}
         unit_len = len(words[0])
         window = len(words) * unit_len
-        
+
         for w in words:
             cnt[w] = cnt.get(w, 0) + 1
-        
-        for i in range(len(s)-window+1):
+
+        for i in range(len(s) - window + 1):
             seen = {}
 
-            for j in range(i, i+window-unit_len+1, unit_len):
-                sub = s[j:j+unit_len]
-                
+            for j in range(i, i + window - unit_len + 1, unit_len):
+                sub = s[j : j + unit_len]
+
                 if sub not in cnt:
                     break
-                
+
                 seen[sub] = seen.get(sub, 0) + 1
 
                 if seen[sub] > cnt[sub]:
                     break
-        
-                if j == i+window-unit_len:
+
+                if j == i + window - unit_len:
                     res.append(i)
-                
+
         return res

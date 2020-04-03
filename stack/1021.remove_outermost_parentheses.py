@@ -42,16 +42,17 @@ Thought process:
     At each iteration, update the count variable accordingly.
 """
 
+
 class Solution:
     def removeOuterParentheses(self, S: str) -> str:
         res, openp = [], 0
-        
+
         for ch in S:
-            if ch == '(' and openp > 0:
+            if ch == "(" and openp > 0:
                 res.append(ch)
-            elif ch == ')' and openp > 1:
+            elif ch == ")" and openp > 1:
                 res.append(ch)
-                
-            openp += 1 if ch == '(' else -1
-            
-        return ''.join(res)
+
+            openp += 1 if ch == "(" else -1
+
+        return "".join(res)

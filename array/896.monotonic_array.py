@@ -28,17 +28,18 @@ Note:
 -100000 <= A[i] <= 100000
 """
 
+
 class Solution:
     def isMonotonic(self, A: List[int]) -> bool:
         inc = dec = False
-        
-        for i in range(len(A)-1):
-            if A[i] < A[i+1]:
+
+        for i in range(len(A) - 1):
+            if A[i] < A[i + 1]:
                 inc = True
-            if A[i] > A[i+1]:
+            if A[i] > A[i + 1]:
                 dec = True
-            
+
             if inc and dec:
                 return False
-        
+
         return True

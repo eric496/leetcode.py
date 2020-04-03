@@ -1,4 +1,4 @@
-'''
+"""
 You are given two arrays (without duplicates) nums1 and nums2 where nums1’s elements are subset of nums2. Find all the next greater numbers for nums1's elements in the corresponding places of nums2.
 The Next Greater Number of a number x in nums1 is the first greater number to its right in nums2. If it does not exist, output -1 for this number.
 
@@ -20,7 +20,7 @@ Explanation:
 Note:
 All elements in nums1 and nums2 are unique.
 The length of both nums1 and nums2 would not exceed 1000.
-'''
+"""
 
 """
 Thought process:
@@ -41,25 +41,25 @@ class Solution:
                     res.append(n2)
                     found = 1
                     break
-            
+
             if not found:
                 res.append(-1)
-        
+
         return res
 
 
 # Solution 2: forward traversal
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        nxt = {n:-1 for n in nums1}
+        nxt = {n: -1 for n in nums1}
         stk = []
-        
+
         for n in nums2:
             while stk and stk[-1] < n:
                 nxt[stk.pop()] = n
-            
+
             stk.append(n)
-                
+
         return [nxt[n] for n in nums1]
 
 
@@ -68,17 +68,16 @@ class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         nxt = {}
         stk = []
-        
+
         for n in nums2[::-1]:
             if not stk:
                 nxt[n] = -1
             else:
                 while stk and stk[-1] <= n:
                     stk.pop()
-                
-                nxt[n] = stk[-1] if stk else -1
-                
-            stk.append(n)
-            
-        return [nxt[n] for n in nums1]
 
+                nxt[n] = stk[-1] if stk else -1
+
+            stk.append(n)
+
+        return [nxt[n] for n in nums1]

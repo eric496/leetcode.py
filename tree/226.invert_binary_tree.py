@@ -1,4 +1,4 @@
-'''
+"""
 Invert a binary tree.
 
 Example:
@@ -17,7 +17,7 @@ Output:
   7     2
  / \   / \
 9   6 3   1
-'''
+"""
 
 
 # Definition for a binary tree node.
@@ -30,18 +30,18 @@ class TreeNode:
 
 # Recursive solution
 class Solution:
-    def invertTree(self, root:TreeNode) -> TreeNode:
+    def invertTree(self, root: TreeNode) -> TreeNode:
         if not root:
             return root
-        
-        root.left, root.right = self.invertTree(root.right), self.invertTree(root.left) 
+
+        root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
 
         return root
 
 
 # Iterative solution
 class Solution:
-    def invertTree(self, root:TreeNode) -> TreeNode:
+    def invertTree(self, root: TreeNode) -> TreeNode:
         if not root:
             return root
 

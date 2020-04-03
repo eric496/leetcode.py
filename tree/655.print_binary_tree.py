@@ -52,31 +52,30 @@ class TreeNode:
         self.val = x
         self.left = None
         self.right = None
-        
+
 
 class Solution:
     def printTree(self, root: TreeNode) -> List[List[str]]:
         depth = self.getDepth(root)
-        width = 2**depth - 1
+        width = 2 ** depth - 1
         res = [[""] * width for _ in range(depth)]
-        self.dfs(root, 0, 0, width-1, res)
-        
+        self.dfs(root, 0, 0, width - 1, res)
+
         return res
-        
-    
+
     def getDepth(self, node: TreeNode) -> int:
         if not node:
             return 0
-        
+
         return max(self.getDepth(node.left), self.getDepth(node.right)) + 1
-    
-    
-    def dfs(self, node: TreeNode, depth: int, left: int, right: int, res: List[List[str]]) -> None:
+
+    def dfs(
+        self, node: TreeNode, depth: int, left: int, right: int, res: List[List[str]]
+    ) -> None:
         if not node:
             return
-        
-        mid = (left+right) // 2
+
+        mid = (left + right) // 2
         res[depth][mid] = str(node.val)
-        self.dfs(node.left, depth+1, left, mid-1, res)
-        self.dfs(node.right, depth+1, mid+1, right, res)
-    
+        self.dfs(node.left, depth + 1, left, mid - 1, res)
+        self.dfs(node.right, depth + 1, mid + 1, right, res)

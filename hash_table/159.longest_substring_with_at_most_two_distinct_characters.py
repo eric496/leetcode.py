@@ -18,19 +18,19 @@ class Solution:
     def lengthOfLongestSubstringTwoDistinct(self, s: str) -> int:
         freq = {}
         res = start = 0
-        
-        for i,c in enumerate(s):
-            freq[c] = freq.get(c,0) + 1
-            
+
+        for i, c in enumerate(s):
+            freq[c] = freq.get(c, 0) + 1
+
             while len(freq) > 2:
                 freq[s[start]] -= 1
                 if freq[s[start]] == 0:
                     del freq[s[start]]
                 start += 1
 
-            res = max(res, i-start+1)
-        
+            res = max(res, i - start + 1)
+
         return res
-                
+
 
 # Solution 2: sliding window

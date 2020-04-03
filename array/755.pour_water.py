@@ -115,16 +115,15 @@ class Solution:
         for i in range(V):
             cur = K
 
-            while cur > 0 and heights[cur] >= heights[cur-1]:
+            while cur > 0 and heights[cur] >= heights[cur - 1]:
                 cur -= 1
 
-            while cur < len(heights)-1 and heights[cur] >= heights[cur+1]:
+            while cur < len(heights) - 1 and heights[cur] >= heights[cur + 1]:
                 cur += 1
 
-            while cur > K and heights[cur] >= heights[cur-1]:
+            while cur > K and heights[cur] >= heights[cur - 1]:
                 cur -= 1
 
             heights[cur] += 1
 
         return heights
-
