@@ -43,16 +43,38 @@ Thought process:
 """
 
 
+# Solution 1: stack - O(n) TC and O(n) SC
 class Solution:
     def removeOuterParentheses(self, S: str) -> str:
-        res, openp = [], 0
+        res = []
+        stk = []
+        
+        for c in S:
+            if c == "(":
+                if stk:
+                    res.append(c)
+                    
+                stk.append(c)
+            elif c == ")":
+                if len(stk) > 1:
+                    res.append(c)
+                
+                stk.pop()
+                
+        return "".join(res)
 
-        for ch in S:
-            if ch == "(" and openp > 0:
-                res.append(ch)
-            elif ch == ")" and openp > 1:
-                res.append(ch)
 
-            openp += 1 if ch == "(" else -1
+# Solution 2: O(n) TC and O(1) SC
+class Solution:
+    def removeOuterParentheses(self, S: str) -> str:
+        res, open_brackets = [], 0
+
+        for c in S:
+            if c == "(" and open_brackets > 0:
+                res.append(c)
+            elif c == ")" and open_brackets > 1:
+                res.append(c)
+
+            open_brackets += 1 if c == "(" else -1
 
         return "".join(res)
