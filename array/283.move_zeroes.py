@@ -14,11 +14,11 @@ Minimize the total number of operations.
 
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        zero = 0
-        for ix, n in enumerate(nums):
-            if n != 0:
-                nums[zero], nums[ix] = nums[ix], nums[zero]
-                zero += 1
+        next_non_zero = next_zero = 0
+        
+        while next_non_zero < len(nums):
+            if nums[next_non_zero]:
+                nums[next_non_zero], nums[next_zero] = nums[next_zero], nums[next_non_zero]
+                next_zero += 1
+            
+            next_non_zero += 1
