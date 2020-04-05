@@ -46,11 +46,14 @@ class Solution:
         while i < len(formula):
             if formula[i] == "(":
                 stk.append(formula[i])    
-            elif formula[i] in string.ascii_uppercase:
-                stk.append((formula[i], 1))
-            elif formula[i] in string.ascii_lowercase:
-                top, n = stk.pop()
-                stk.append((top+formula[i], n))
+            elif formula[i].isalpha():
+                atom = formula[i]
+                
+                while i < len(formula) and formula[i+1] in string.ascii_lowercase:
+                    atom += formula[i+1]
+                    i += 1
+            
+                stk.append((atom, 1))
             elif formula[i].isdigit():
                 m = formula[i]
 
@@ -60,22 +63,14 @@ class Solution:
                 
                 if not group:
                     top, n = stk.pop()
-        
-                    if n == 1:
-                        stk.append((top, int(m)))
-                    else:
-                        stk.append((top, n*10+int(formula[i])))
+                    stk.append((top, n*int(m)))
                 else:
-                    for x, n in group:
-                        if n == 1:
-                            stk.append((x, int(m)))
-                        else:
-                            stk.append((x, n*int(m)))
-
-                    group = []
+                    stk += [(x, n*int(m)) for x,n in group]
+                    group.clear()
             elif formula[i] == ")":
                 while stk and stk[-1] != "(":
-                    group.append(stk.pop())
+                    atom, n = stk.pop()
+                    group.append((atom, n))
                 
                 if stk and stk[-1] == "(":
                     stk.pop()
@@ -88,8 +83,9 @@ class Solution:
         
         res = ""
         
-        for atom in sorted(cnt.keys()):
+        for atom in sorted(cnt):
             res += atom
             res += str(cnt[atom]) if cnt[atom] != 1 else ""
             
         return res
+        
