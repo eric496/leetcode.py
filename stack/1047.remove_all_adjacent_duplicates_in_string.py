@@ -19,10 +19,10 @@ class Solution:
     def removeDuplicates(self, S: str) -> str:
         stk = []
 
-        for ch in S:
-            if stk and stk[-1] == ch:
+        for c in S:
+            if stk and stk[-1] == c:
                 stk.pop()
             else:
-                stk.append(ch)
+                stk.append(c)
 
         return "".join(stk)
