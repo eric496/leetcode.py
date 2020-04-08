@@ -15,37 +15,37 @@ Output: 2
 
 # Solution 1: O(n) time and O(n) space by using a map
 class Solution:
-    def majorityElement(self, nums: list) -> int:
-        count = {}
-
-        for n in nums:
-            if n in count:
-                count[n] += 1
-            else:
-                count[n] = 1
-
-        for k, v in count.items():
-            if v > len(nums) // 2:
-                return k
+    def majorityElement(self, nums: List[int]) -> int:
+        cnt = {}
+        half_size = len(nums) // 2
+        
+        for num in nums:
+            cnt[num] = cnt.get(num, 0) + 1
+            
+            # Early stopping
+            if cnt[num] > half_size:
+                return num
 
 
-# Solution 2: Boyer-Moore majority vote algorithm
+# Solution 2: Boyer-Moore majority vote algorithm - O(n) TC and O(1) SC
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        maj, cnt = nums[0], 1
-
-        for n in nums[1:]:
+        majority = nums[0]
+        cnt = 1 
+        
+        for i in range(1, len(nums)):
             if cnt == 0:
-                maj, cnt = n, 1
-            elif n == maj:
+                majority = nums[i]
+                cnt = 1
+            elif nums[i] == majority:
                 cnt += 1
-            elif n != maj:
+            elif nums[i] != majority:
                 cnt -= 1
+        
+        return majority
 
-        return maj
 
-
-# One liner
+# Solution 3: sort - O(nlogn) TC and O(n) SC
 class Solution:
     def majorityElement(self, nums: list) -> int:
         return sorted(nums)[len(nums) // 2]
