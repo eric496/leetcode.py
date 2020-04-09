@@ -20,6 +20,7 @@ n is a 32-bit signed integer, within the range [−231, 231 − 1]
 """
 
 
+# Solution 1: recursive
 class Solution:
     def myPow(self, x: float, n: int) -> float:
         if n == 0:
@@ -29,4 +30,23 @@ class Solution:
             x = 1 / x
             n = -n
 
-        return self.myPow(x * x, n // 2) * x if n & 1 else self.myPow(x * x, n // 2)
+        return self.myPow(x*x, n//2) * x if n&1 else self.myPow(x*x, n//2)
+
+
+# Solution 2: iterative
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        if n < 0:
+            x = 1 / x
+            n = -n
+            
+        res = 1
+        
+        while n:
+            if n & 1:
+                res *= x
+            
+            x *= x
+            n >>= 1
+            
+        return res
