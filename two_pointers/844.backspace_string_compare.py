@@ -53,41 +53,34 @@ class Solution:
         return stk1 == stk2
 
 
-# Follow up
+# Follow up - two pointers
 class Solution:
-    def backspaceCompare(self, S: str, T: str) -> bool:
-        s_ptr = len(S) - 1
-        t_ptr = len(T) - 1
-        s_skips = t_skips = 0
-
-        while s_ptr >= 0 or t_ptr >= 0:
-            while s_ptr >= 0:
-                if S[s_ptr] == "#":
-                    s_skips += 1
-                    s_ptr -= 1
-                elif s_skips > 0:
-                    s_skips -= 1
-                    s_ptr -= 1
+    def backspaceCompare(self, S: str, T: str) -> bool:        
+        i = len(S) - 1
+        j = len(T) - 1
+        skips_S = skips_T = 0
+        
+        while i >= 0 or j >= 0:
+            while i >= 0 and (S[i] == "#" or skips_S):
+                if S[i] == "#":
+                    skips_S += 1
                 else:
-                    break
-
-            while t_ptr >= 0:
-                if T[t_ptr] == "#":
-                    t_skips += 1
-                    t_ptr -= 1
-                elif t_skips > 0:
-                    t_skips -= 1
-                    t_ptr -= 1
+                    skips_S -= 1
+                
+                i -= 1
+            
+            while j >= 0 and (T[j] == "#" or skips_T):
+                if T[j] == "#":
+                    skips_T += 1
                 else:
-                    break
-
-            if s_ptr >= 0 and t_ptr >= 0 and S[s_ptr] != T[t_ptr]:
+                    skips_T -= 1
+                
+                j -= 1
+            
+            if S[i] != T[j]:
                 return False
-
-            if s_ptr >= 0 and t_ptr < 0 or t_ptr >= 0 and s_ptr < 0:
-                return False
-
-            s_ptr -= 1
-            t_ptr -= 1
-
+        
+            i -= 1
+            j -= 1
+        
         return True
