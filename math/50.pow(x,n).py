@@ -30,7 +30,7 @@ class Solution:
             x = 1 / x
             n = -n
 
-        return self.myPow(x*x, n//2) * x if n&1 else self.myPow(x*x, n//2)
+        return self.myPow(x*x, n>>1)*x if n&1 else self.myPow(x*x, n>>1)
 
 
 # Solution 2: iterative
