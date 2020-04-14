@@ -16,17 +16,53 @@ Explanation: The square root of 8 is 2.82842..., and since the decimal part is t
 
 """
 Thought: 
-    Solution 1: Newton's method
-    Solution 2: Binary search
+    Solution 1: binary search
+    Solution 2: Newton's method
+    Solution 3: bit manipulation
 """
 
-# Newton's method
+
+# Solution 1: binary search
+class Solution:
+    def mySqrt(self, x: int) -> int:
+        low, high = 1, x
+        
+        while low <= high:
+            mid = low + ((high-low) >> 1)
+            
+            if mid > x / mid:
+                high = mid - 1
+            elif mid + 1 > x / (mid + 1):
+                return mid
+            else:
+                low = mid + 1
+                
+        return 0
+
+
+# Solution 2: Newton's method
 class Solution:
     def mySqrt(self, x: int) -> int:
         r = x
+
         while r * r > x:
-            r = (r + x // r) // 2
+            r = (r + x // r) >> 1
+        
         return r
 
 
-# Binary search
+# Solution 3: bit manipulation
+class Solution:
+    def mySqrt(self, x: int) -> int:
+        res = 0
+        bit = 1 << 16
+        
+        while bit:
+            res |= bit
+            
+            if res * res > x:
+                res ^= bit
+                
+            bit >>= 1
+        
+        return res
