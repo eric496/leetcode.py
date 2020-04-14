@@ -4,13 +4,10 @@ Suppose you have n versions [1, 2, ..., n] and you want to find out the first ba
 You are given an API bool isBadVersion(version) which will return whether version is bad. Implement a function to find the first bad version. You should minimize the number of calls to the API.
 
 Example:
-
 Given n = 5, and version = 4 is the first bad version.
-
 call isBadVersion(3) -> false
 call isBadVersion(5) -> true
 call isBadVersion(4) -> true
-
 Then 4 is the first bad version. 
 """
 
@@ -20,13 +17,36 @@ Then 4 is the first bad version.
 # def isBadVersion(version):
 
 
+# Solution 1: template 1 (number of API calls is not minimized)
 class Solution:
     def firstBadVersion(self, n: int) -> int:
         low, high = 1, n
+        
+        while low <= high:
+            mid = low + ((high-low) >> 1)
+            
+            if isBadVersion(mid):
+                if mid-1 >= 1 and isBadVersion(mid-1):
+                    high = mid - 1
+                else:
+                    return mid
+            else:
+                low = mid + 1
+        
+        return high
+
+
+# Solution 2: template 2 (number of API calls is minimized)
+class Solution:
+    def firstBadVersion(self, n: int) -> int:
+        low, high = 1, n
+
         while low < high:
-            mid = low + (high - low) // 2
+            mid = low + ((high-low) >> 1)
+            
             if isBadVersion(mid):
                 high = mid
             else:
                 low = mid + 1
+        
         return low
