@@ -23,15 +23,14 @@ Your solution should be in logarithmic complexity.
 class Solution:
     def findPeakElement(self, nums: List[int]) -> int:
         low, high = 0, len(nums) - 1
-
+        
         while low < high:
-            mid = low + (high - low) // 2
-
-            if nums[mid] > nums[mid + 1] and nums[mid] > nums[mid - 1]:
-                return mid
-            elif nums[mid] < nums[mid + 1]:
+            mid = low + ((high-low) >> 1)
+            
+            if nums[mid] < nums[mid+1]:
                 low = mid + 1
             else:
-                high = mid - 1
-
-        return low if nums[low] >= nums[high] else high
+                high = mid
+                
+        return low
+        
