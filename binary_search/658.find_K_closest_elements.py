@@ -11,17 +11,18 @@ Output: [1,2,3,4]
 """
 
 
+# Solution: look at (k+1) range and remove left or right end element
 class Solution:
     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
-        left, right = 0, len(arr)-k
+        low, high = 0, len(arr) - k
         
-        while left < right:
-            mid = left + ((right-left)>>1)
+        while low < high:
+            mid = low + ((high-low) >> 1)
             
-            if x-arr[mid] > arr[mid+k]-x:
-                left = mid + 1
+            if x - arr[mid] > arr[mid+k] - x:
+                low = mid + 1
             else:
-                right = mid
+                high = mid
                 
-        return arr[left:left+k]
+        return arr[low:low+k]
     
