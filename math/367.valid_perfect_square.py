@@ -13,13 +13,50 @@ Input: 14
 Returns: False
 """
 
-# Newton's method
+
+# Solution 1: binary search
+class Solution:
+    def isPerfectSquare(self, num: int) -> bool:
+        low, high = 0, num
+        
+        while low <= high:
+            mid = low + ((high-low) >> 1)
+            square = mid * mid
+            
+            if square < num:
+                low = mid + 1
+            elif square > num:
+                high = mid - 1
+            elif square == num:
+                return True
+            
+        return False
+
+
+# Solution 2: Newton's method
 class Solution:
     def isPerfectSquare(self, num: int) -> bool:
         r = num
+
         while r * r > num:
-            r = (r + num // r) // 2
+            r = (r + num // r) >> 1
+        
         return r * r == num
 
 
-# binary search
+# Solution 3: bit manipulation
+class Solution:
+    def isPerfectSquare(self, num: int) -> bool:
+           r = 0
+           bit = 1 << 15
+
+           while bit:
+                r |= bit
+
+                if r > num // r:    
+                   r ^= bit                
+
+                bit >>= 1        
+
+           return r * r == num
+           
