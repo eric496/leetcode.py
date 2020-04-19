@@ -9,6 +9,7 @@ Each element in the result must be unique.
 The result can be in any order.
 """
 
+
 # Solution 1: brute force - O(mn) TC
 class Solution:
     def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
@@ -59,7 +60,7 @@ class Solution:
         low, high = 0, len(nums) - 1
         
         while low <= high:
-            mid = low + ((high-low) >> 1)
+            mid = low + (high - low >> 1)
             
             if nums[mid] == target:
                 return True
