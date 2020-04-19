@@ -25,12 +25,11 @@ class Solution:
         while low <= high:
             mid = low + (high - low >> 1)
             
-            if nums[mid] > nums[high]:
-                low = mid + 1
-            elif nums[mid] < nums[high]:
+            if nums[mid] < nums[high]:
                 high = mid
+            elif nums[mid] > nums[high]:
+                low = mid + 1
             elif nums[mid] == nums[high]:
                 high -= 1
         
         return nums[low]
-        
