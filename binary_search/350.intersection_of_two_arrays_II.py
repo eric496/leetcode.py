@@ -15,6 +15,7 @@ What if elements of nums2 are stored on disk, and the memory is limited such tha
 """
 
 
+# Solution 1: two pointers O(nlogn) TC
 class Solution:
     def intersect(self, nums1: list, nums2: list) -> list:
         nums1.sort()
@@ -34,4 +35,23 @@ class Solution:
         return res
 
 
-# Follow up
+# Solution 2: hash map
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        cnt = {}
+        
+        for n in nums1:
+            cnt[n] = cnt.get(n, 0) + 1
+        
+        res = []
+        
+        for n in nums2:
+            if n in cnt and cnt[n] > 0:
+                res.append(n)
+                cnt[n] -= 1
+            
+        return res
+
+
+# Follow up - binary search
+
