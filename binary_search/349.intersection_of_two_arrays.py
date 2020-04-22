@@ -47,16 +47,19 @@ class Solution:
 # Solution 3: binary search - O(nlogm) TC
 class Solution:
     def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        res = set()
-        nums2.sort()
+        if len(nums1) > len(nums2):
+            return self.intersection(nums2, nums1)
         
-        for n in nums1:
-            if self.binarySearch(nums2, n):
-                res.add(n)
+        nums2.sort()
+        res = set()
+        
+        for target in nums1:
+            if self.binary_search(nums2, target):
+                res.add(target)
                 
         return list(res)
-        
-    def binarySearch(self, nums: List[int], target: int) -> bool:
+    
+    def binary_search(self, nums: List[int], target: int) -> bool:
         low, high = 0, len(nums) - 1
         
         while low <= high:
@@ -64,13 +67,13 @@ class Solution:
             
             if nums[mid] == target:
                 return True
-            elif nums[mid] < target:
-                low = mid + 1
-            elif nums[mid] > target:
+            elif target < nums[mid]:
                 high = mid - 1
+            elif target > nums[mid]:
+                low = mid + 1
         
         return False
-
+                
 
 # Solution 4: two sets - O(m+n) TC
 class Solution:
