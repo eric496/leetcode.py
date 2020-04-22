@@ -13,16 +13,15 @@ The range of numbers in the array is [-1000, 1000] and the range of the integer 
 
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        res = sum_ = 0
-        d = {0: 1}
-
-        for n in nums:
-            sum_ += n
-            if d.get(sum_ - k):
-                res += d[sum_ - k]
-            if sum_ in d:
-                d[sum_] += 1
-            else:
-                d[sum_] = 1
-
+        cnt = {0: 1}
+        presum = res = 0
+        
+        for num in nums:
+            presum += num
+            
+            if presum - k in cnt:
+                res += cnt[presum-k]
+                
+            cnt[presum] = cnt.get(presum, 0) + 1
+            
         return res
