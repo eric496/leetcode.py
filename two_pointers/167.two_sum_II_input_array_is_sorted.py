@@ -13,24 +13,8 @@ Explanation: The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.
 """
 
 
-# Solution 1: two pointers - O(n) TC
-class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        start = 0
-        end = len(nums) - 1
-        
-        while start < end:
-            if nums[start] + nums[end] == target:
-                return [start+1, end+1]
-            elif nums[start] + nums[end] < target:
-                start += 1
-            elif nums[start] + nums[end] > target:
-                end -= 1
-        
-        return []
 
-
-# Solution 2: binary search - O(nlogn) TC
+# Solution 1: binary search - O(nlogn) TC
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         for i in range(len(nums)):
@@ -38,7 +22,7 @@ class Solution:
             high = len(nums) - 1
             
             while low <= high:
-                mid = low + ((high-low) >> 1)
+                mid = low + (high - low >> 1)
                 
                 if nums[mid] == target - nums[i]:
                     return [i+1, mid+1]
@@ -48,3 +32,22 @@ class Solution:
                     high = mid - 1
             
         return []
+
+
+# Solution 2: two pointers - O(n) TC
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        low, high = 0, len(nums) - 1
+        
+        while low < high:
+            twosum = nums[low] + nums[high]
+            
+            if twosum == target:
+                return [low+1, high+1]
+            elif twosum > target:
+                high -= 1
+            elif twosum < target:
+                low += 1
+            
+        return []
+        
