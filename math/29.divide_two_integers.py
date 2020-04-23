@@ -20,27 +20,19 @@ Assume we are dealing with an environment which could only store integers within
 
 class Solution:
     def divide(self, dividend: int, divisor: int) -> int:
-        if dividend >= 0 and divisor >= 0 or dividend < 0 and divisor < 0:
-            sign = 1
-        else:
-            sign = -1
-
+        sign = -1 if (dividend > 0) ^ (divisor > 0) else 1
         dividend, divisor = abs(dividend), abs(divisor)
         res = 0
-
-        while dividend >= divisor:
-            d, i = divisor, 1
-
-            while dividend >= d:
-                dividend -= d
-                res += i
-                i *= 2
-                d *= 2
-
-        if sign == -1:
-            res *= sign
-
-        if -(2 ** 31) <= res <= 2 ** 31 - 1:
-            return res
-        else:
-            return 2 ** 31 - 1
+        
+        while divisor <= dividend:
+            n = divisor
+            shift = 1
+            
+            while n << 1 <= dividend:
+                n <<= 1
+                shift <<= 1
+            
+            dividend -= n
+            res += shift
+            
+        return sign * res if -1 << 31 <= sign * res <= (1 << 31) - 1 else (1 << 31) - 1
