@@ -26,12 +26,12 @@ class Solution:
             mid = low + (high - low >> 1)
             cnt = 0
             
-            for n in nums:
-                cnt += 1 if n <= mid else 0
-                        
+            for num in nums:
+                cnt += 1 if num <= mid else 0
+                
             if cnt <= mid:
                 low = mid + 1
-            else:
+            elif cnt > mid:
                 high = mid - 1
                 
         return low
