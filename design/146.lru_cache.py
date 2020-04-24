@@ -20,68 +20,63 @@ cache.get(3);       // returns 3
 cache.get(4);       // returns 4
 """
 
-# Solution 1: Does not work
+
+# Solution 1: Doubly linked list + hash map
 class ListNode:
-    def __init__(self, k, v):
-        self.key = k
-        self.val = v
+    def __init__(self, key: int, val: int):
+        self.key = key
+        self.val = val
         self.prev = None
         self.next = None
 
-
 class LRUCache:
-    def __init__(self, capacity):
-        """
-        :type capacity: int
-        """
-        self.capacity = capacity
-        self.d = {}
-        self.head = ListNode(0, 0)
-        self.tail = ListNode(0, 0)
-        self.head.next = self.tail
-        self.tail.prev = self.head
 
-    def get(self, key):
-        """
-        :type key: int
-        :rtype: int
-        """
-        if key in self.d:
-            node = self.d[key]
-            self.remove_from_list(node)
-            self.insert_to_front(node)
+    def __init__(self, capacity: int):
+        self.cap = capacity
+        self.cache = {}
+        self.sentinel = ListNode(None, None)
+        self.tail = ListNode(None, None)
+        self.sentinel.next = self.tail
+        self.tail.prev = self.sentinel
+
+    def get(self, key: int) -> int:
+        node = self.cache.get(key, None)
+        
+        if node:
+            self.remove_node_from_list(node)
+            self.push_node_to_front(node)
             return node.val
         else:
             return -1
-
-    def put(self, key, value):
-        """
-        :type key: int
-        :type value: int
-        :rtype: void
-        """
-        if key not in self.d:
-            node = ListNode(key, value)
-            self.insert_to_front(node)
-            self.d[key] = node
-
-        if len(self.d) > self.capacity:
-            self.remove_from_list(self.tail.prev)
-            del self.d[self.tail.prev.key]
-
-    def remove_from_list(self, node):
+        
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            self.remove_node_from_list(self.cache[key])
+        
+        node = ListNode(key, value)
+        self.cache[key] = node
+        self.push_node_to_front(node)
+            
+        if len(self.cache) > self.cap:
+            last_node = self.tail.prev
+            self.remove_node_from_list(last_node)
+            self.cache.pop(last_node.key)
+            
+    def remove_node_from_list(self, node: "ListNode") -> None:
         prev = node.prev
         nxt = node.next
         prev.next = nxt
         nxt.prev = prev
+        
+    def push_node_to_front(self, node: "ListNode") -> None:
+        nxt = self.sentinel.next
+        self.sentinel.next = node
+        node.next = nxt
+        node.prev = self.sentinel
+        nxt.prev = node
 
-    def insert_to_front(self, node):
-        node.next = self.head.next
-        self.head.next = node
-        node.prev = self.head
 
-
-# Solution 2: Ordered Dict
+# Solution 2: Ordered Dict (LinkedHashMap)
 from collections import OrderedDict
 
 
@@ -91,16 +86,16 @@ class LRUCache:
         :type capacity: int
         """
         self.capacity = capacity
-        self.d = OrderedDict()
+        self.cache = OrderedDict()
 
     def get(self, key):
         """
         :type key: int
         :rtype: int
         """
-        if key in self.d:
-            val = self.d.pop(key)
-            self.d[key] = val
+        if key in self.cache:
+            val = self.cache.pop(key)
+            self.cache[key] = val
             return val
         else:
             return -1
@@ -111,10 +106,11 @@ class LRUCache:
         :type value: int
         :rtype: void
         """
-        if key in self.d:
-            self.d.pop(key)
-            self.d[key] = value
+        if key in self.cache:
+            self.cache.pop(key)
+            self.cache[key] = value
         else:
-            self.d[key] = value
-            if len(self.d) > self.capacity:
-                self.d.popitem(last=False)
+            self.cache[key] = value
+
+            if len(self.cache) > self.capacity:
+                self.cache.popitem(last=False)
