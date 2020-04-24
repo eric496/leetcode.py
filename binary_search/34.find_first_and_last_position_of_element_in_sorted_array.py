@@ -66,10 +66,10 @@ class Solution:
         return [left, right]
     
     def lower_bound(self, nums: List[int], target: int) -> int:
-        low, high = 0, len(nums) - 1
+        low, high = 0, len(nums)
         
         while low < high:
-            mid = low + ((high-low) >> 1)
+            mid = low + (high - low >> 1)
             
             if nums[mid] >= target:
                 high = mid
