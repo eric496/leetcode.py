@@ -17,19 +17,23 @@ Given target = 20, return false.
 """
 
 
+# Solution: O(m+n) TC 
 class Solution:
-    def searchMatrix(self, matrix, target):
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         if not matrix or not matrix[0]:
             return False
-
-        row, col = 0, len(matrix[0]) - 1
-
-        while row < len(matrix) and col >= 0:
-            if matrix[row][col] == target:
+        
+        m, n = len(matrix), len(matrix[0])
+        r, c = m - 1, 0
+        
+        while r >= 0 and c < n:
+            val = matrix[r][c]
+            
+            if val == target:
                 return True
-            elif matrix[row][col] < target:
-                row += 1
-            elif matrix[row][col] > target:
-                col -= 1
-
+            elif val < target:
+                c += 1
+            elif val > target:
+                r -= 1
+        
         return False
