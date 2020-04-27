@@ -18,15 +18,16 @@ class Solution:
         if not matrix or not matrix[0]:
             return 0
 
-        m, n, res = len(matrix), len(matrix[0]), 0
+        m, n = len(matrix), len(matrix[0])
         dp = [[0] * (n + 1) for _ in range(m + 1)]
+        size = 0
 
         for i in range(1, m + 1):
             for j in range(1, n + 1):
                 if matrix[i - 1][j - 1] == "1":
                     dp[i][j] = (
-                        min(min(dp[i][j - 1], dp[i - 1][j - 1]), dp[i - 1][j]) + 1
+                        min(dp[i][j - 1], dp[i - 1][j - 1], dp[i - 1][j]) + 1
                     )
-                    res = max(dp[i][j], res)
+                    size = max(size, dp[i][j])
 
-        return res ** 2
+        return size ** 2
