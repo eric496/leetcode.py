@@ -25,7 +25,7 @@ class Solution:
         low, high = 1, n
         
         while low <= high:
-            mid = low + ((high-low) >> 1)
+            mid = low + (high - low >> 1)
             
             if guess(mid) == 0:
                 return mid
