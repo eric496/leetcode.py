@@ -24,6 +24,7 @@ Thought process:
 """
 
 
+# Solution 1
 class Solution:
     def findComplement(self, num: int) -> int:
         i = 1
@@ -32,3 +33,15 @@ class Solution:
             i <<= 1
 
         return (i - 1) ^ num
+
+
+# Solution 2
+class Solution:
+    def findComplement(self, num: int) -> int:
+        mask = ~0
+        
+        while mask & num:
+            mask <<= 1
+        
+        return ~num ^ mask
+        
