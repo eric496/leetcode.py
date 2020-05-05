@@ -12,27 +12,35 @@ return 2.
 Note: You may assume the string contain only lowercase letters.
 """
 
-
+# Solution 1 - O(n) TC and O(n) SC
 class Solution:
     def firstUniqChar(self, s: str) -> int:
-        if not s:
-            return -1
-        char_ix = {}
-        for ix, char in enumerate(s):
-            char_ix[char] = ix if char_ix.get(char) is None else len(s)
-        return min(char_ix.values()) if min(char_ix.values()) < len(s) else -1
+        cnt = [0] * len(s)
+        seen = {}
+        
+        for i, c in enumerate(s):
+            cnt[seen.get(c, i)] += 1
+            
+            if c not in seen:
+                seen[c] = i
+                
+        for i, n in enumerate(cnt):
+            if n == 1:
+                return i
+        
+        return -1
 
 
-# A more straightforward solution
+# Solution 2 - O(n) TC and O(1) SC
 class Solution:
     def firstUniqChar(self, s: str) -> int:
         cnt = [0] * 26
 
-        for ch in s:
-            cnt[ord(ch) - ord("a")] += 1
+        for c in s:
+            cnt[ord(c) - ord("a")] += 1
 
-        for ix, ch in enumerate(s):
-            if cnt[ord(ch) - ord("a")] == 1:
-                return ix
+        for i, c in enumerate(s):
+            if cnt[ord(c) - ord("a")] == 1:
+                return i
 
         return -1
