@@ -30,6 +30,24 @@ class Solution:
 # Solution 2: Boyer-Moore majority vote algorithm - O(n) TC and O(1) SC
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
+        major = nums[0]
+        cnt = 0
+        
+        for num in nums:
+            if num == major:
+                cnt += 1
+            else:
+                cnt -= 1
+                
+                if cnt == 0:
+                    major = num
+                    cnt = 1
+                    
+        return major
+
+
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
         majority = nums[0]
         cnt = 1 
         
