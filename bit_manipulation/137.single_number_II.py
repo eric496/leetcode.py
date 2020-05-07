@@ -14,6 +14,24 @@ Output: 99
 """
 
 
+# Solution 1: 
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        res = 0
+        
+        for i in range(32):
+            cnt = 0
+            
+            for num in nums:
+                cnt += 1 if num >> i & 1 else 0
+                
+            if cnt % 3:
+                res |= 1 << i 
+                
+        return res if res < 1 << 31 else res - (1 << 32)
+
+
+# Solution 2:
 # Detailed explanation please see https://leetcode.com/problems/single-number-ii/discuss/?currentPage=1&orderBy=most_votes&query=
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
