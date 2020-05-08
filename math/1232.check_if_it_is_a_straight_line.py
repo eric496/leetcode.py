@@ -19,7 +19,7 @@ coordinates contains no duplicate point.
 
 class Solution:
     def checkStraightLine(self, coordinates: List[List[int]]) -> bool:
-        if len(coordinates) == 2 and coordinates[0] != coordinates[1]:
+        if len(coordinates) == 2:
             return True
 
         x, y = (
