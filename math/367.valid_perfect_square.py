@@ -4,11 +4,10 @@ Given a positive integer num, write a function which returns True if num is a pe
 Note: Do not use any built-in library function such as sqrt.
 
 Example 1:
-
 Input: 16
 Returns: True
-Example 2:
 
+Example 2:
 Input: 14
 Returns: False
 """
@@ -20,7 +19,7 @@ class Solution:
         low, high = 0, num
         
         while low <= high:
-            mid = low + ((high-low) >> 1)
+            mid = low + (high - low >> 1)
             square = mid * mid
             
             if square < num:
@@ -48,15 +47,15 @@ class Solution:
 class Solution:
     def isPerfectSquare(self, num: int) -> bool:
            r = 0
-           bit = 1 << 15
+           mask = 1 << 15
 
            while bit:
-                r |= bit
+                r |= mask
 
                 if r > num // r:    
-                   r ^= bit                
+                   r ^= mask                
 
-                bit >>= 1        
+                mask >>= 1        
 
            return r * r == num
            
