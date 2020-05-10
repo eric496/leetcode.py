@@ -36,26 +36,28 @@ trust[i][0] != trust[i][1]
 """
 
 # Solution 1: Set intersection
+from collections import defaultdict
+
 class Solution:
     def findJudge(self, N: int, trust: List[List[int]]) -> int:
-        if N < 1:
-            return 0
-        elif N == 1:
-            return N
-
-        trust_d = {p: set([p]) for p in range(1, N + 1)}
-
-        for t in trust:
-            trust_d[t[0]].add(t[1])
-
-        judge = None
-
-        for p in trust_d:
-            if trust_d[p] == {p}:
-                judge = p
-                break
-
-        return judge if set([judge]) == set.intersection(*trust_d.values()) else -1
+        mp = defaultdict(set)
+        candidates = set(range(1, N+1))
+        
+        for p1, p2 in trust:
+            mp[p2].add(p1)
+            
+            if p1 in candidates:
+                candidates.remove(p1)
+            
+        if not candidates:
+            return -1
+        else:
+            judge = list(candidates)[0]
+            
+            if len(mp[judge]) == N -1:
+                return judge
+            else:
+                return -1
 
 
 # Solution 2: Graph indgree - outdegree = N - 1
