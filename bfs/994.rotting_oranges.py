@@ -25,3 +25,41 @@ Note:
 1 <= grid[0].length <= 10
 grid[i][j] is only 0, 1, or 2.
 """
+
+
+from collections import deque
+
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        rotten = []
+        
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 2:
+                    rotten.append((i, j))
+                    
+        q = deque(rotten)
+        res = 0
+        d = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+        
+        while q:
+            res += 1
+            
+            for _ in range(len(q)):
+                x, y = q.popleft()
+                
+                for dx, dy in d:
+                    x1, y1 = x + dx, y + dy
+                    
+                    if 0 <= x1 < m and 0 <= y1 < n and grid[x1][y1] == 1:
+                        grid[x1][y1] = 2
+                        q.append((x1, y1))
+                    
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    return -1
+        
+        return res - 1 if res else 0
+                    
