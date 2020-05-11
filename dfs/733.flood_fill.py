@@ -22,6 +22,7 @@ The value of each color in image[i][j] and newColor will be an integer in [0, 65
 """
 
 
+# Solution 1: DFS
 class Solution:
     def floodFill(
         self, image: List[List[int]], sr: int, sc: int, newColor: int
@@ -29,9 +30,9 @@ class Solution:
         if not image:
             return image
 
-        old_color = image[sr][sc]
-        seen = []
-        self.dfs(image, sr, sc, old_color, newColor, seen)
+        oldColor = image[sr][sc]
+        visited = set()
+        self.dfs(image, sr, sc, oldColor, newColor, visited)
 
         return image
 
@@ -42,7 +43,7 @@ class Solution:
         sc: int,
         oldColor: int,
         newColor: int,
-        seen: List[tuple],
+        visited: set,
     ) -> None:
         # Case 1: index out of range
         # Case 2: current pixel has different color from the starting pixel
@@ -53,14 +54,45 @@ class Solution:
             or sr >= len(image)
             or sc >= len(image[0])
             or image[sr][sc] != oldColor
-            or (sr, sc) in seen
+            or (sr, sc) in visited
         ):
             return
 
         image[sr][sc] = newColor
-        seen.append((sr, sc))
+        visited.add((sr, sc))
 
-        self.dfs(image, sr + 1, sc, oldColor, newColor, seen)
-        self.dfs(image, sr - 1, sc, oldColor, newColor, seen)
-        self.dfs(image, sr, sc + 1, oldColor, newColor, seen)
-        self.dfs(image, sr, sc - 1, oldColor, newColor, seen)
+        self.dfs(image, sr + 1, sc, oldColor, newColor, visited)
+        self.dfs(image, sr - 1, sc, oldColor, newColor, visited)
+        self.dfs(image, sr, sc + 1, oldColor, newColor, visited)
+        self.dfs(image, sr, sc - 1, oldColor, newColor, visited)
+
+
+# Solution 2: BFS
+from copy import deepcopy
+from collections import deque
+
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        res = deepcopy(image)
+        q = deque([(sr, sc)])
+        dirs = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+        visited = set()
+        
+        while q:
+            for _ in range(len(q)):
+                x, y = q.popleft()
+                res[x][y] = newColor 
+                visited.add((x, y))
+                
+                for dx, dy in dirs:
+                    x1, y1 = x + dx, y + dy
+                    
+                    if (
+                        0 <= x1 < len(image) 
+                        and 0 <= y1 < len(image[0]) 
+                        and image[x1][y1] == image[sr][sc] 
+                        and (x1, y1) not in visited
+                    ):    
+                        q.append((x1, y1))    
+            
+        return res
