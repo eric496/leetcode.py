@@ -43,9 +43,6 @@ class Solution:
         res = []
         
         for i, j in queries:
-            if i == j:
-                res.append(arr[i])
-            else:
-                res.append(prexor[j+1] ^ prexor[i])
+            res.append(prexor[j+1] ^ prexor[i])
                 
         return res
