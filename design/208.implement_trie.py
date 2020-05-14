@@ -18,52 +18,56 @@ All inputs are guaranteed to be non-empty strings.
 
 class TrieNode:
     def __init__(self):
+        self.end = False
         self.children = {}
-        self.has_word = False
 
 
 class Trie:
+
     def __init__(self):
         """
         Initialize your data structure here.
         """
         self.root = TrieNode()
+        
 
     def insert(self, word: str) -> None:
         """
         Inserts a word into the trie.
         """
-        root = self.root
-
-        for ch in word:
-            if ch not in root.children:
-                root.children[ch] = TrieNode()
-            root = root.children[ch]
-
-        root.has_word = True
+        walk = self.root
+        
+        for c in word:
+            if c not in walk.children:
+                walk.children[c] = TrieNode()
+            walk = walk.children[c]
+            
+        walk.end = True
 
     def search(self, word: str) -> bool:
         """
         Returns if the word is in the trie.
         """
-        root = self.root
-
-        for ch in word:
-            if ch not in root.children:
+        walk = self.root
+        
+        for c in word:
+            if c not in walk.children:
                 return False
-            root = root.children[ch]
-
-        return root.has_word
-
+            
+            walk = walk.children[c]
+            
+        return walk.end
+        
     def startsWith(self, prefix: str) -> bool:
         """
         Returns if there is any word in the trie that starts with the given prefix.
         """
-        root = self.root
-
-        for ch in prefix:
-            if ch not in root.children:
+        walk = self.root
+        
+        for c in prefix:
+            if c not in walk.children:
                 return False
-            root = root.children[ch]
-
+            
+            walk = walk.children[c]
+            
         return True
