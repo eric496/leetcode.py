@@ -34,19 +34,19 @@ class Solution:
         res = nums[0]
         
         for i in range(1, len(nums)):
-            dp[i] = max(nums[i], dp[i-1]+nums[i])
+            dp[i] = max(nums[i], dp[i-1] + nums[i])
             res = max(res, dp[i])
             
         return res
 
 
-# Greedy
+# Greedy: Kadane's algorithm
 class Solution:
     def maxSubArray(self, nums: list) -> int:
         cur = res = nums[0]
         
         for i in range(1, len(nums)):
-            cur = max(nums[i], cur+nums[i])
+            cur = max(nums[i], cur + nums[i])
             res = max(res, cur)
         
         return res
@@ -61,7 +61,7 @@ class Solution:
         if start > end:
             return float('-inf')
         
-        mid = start + ((end-start)>>1)
+        mid = start + (end - start >> 1)
         left = self.dfs(nums, start, mid-1)
         right = self.dfs(nums, mid+1, end)
         cur = left_max = 0
