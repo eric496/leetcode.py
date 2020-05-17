@@ -39,10 +39,10 @@ class Solution:
 # Solution 2: template 2 (number of API calls is minimized)
 class Solution:
     def firstBadVersion(self, n: int) -> int:
-        low, high = 1, n
+        low, high = 1, n + 1
 
         while low < high:
-            mid = low + ((high-low) >> 1)
+            mid = low + (high - low >> 1)
             
             if isBadVersion(mid):
                 high = mid
