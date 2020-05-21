@@ -38,25 +38,27 @@ class TreeNode:
 
 # Solution 1: recursive
 class Solution:
-    def kthSmallest(self, root: TreeNode, k: int) -> int:
-        self.cnt = 0
+    def __init__(self):
         self.res = 0
+        self.cnt = 0
+    
+    def kthSmallest(self, root: TreeNode, k: int) -> int:
         self.dfs(root, k)
-
+        
         return self.res
-
-    def dfs(self, node: TreeNode, k: int) -> None:
-        if not node:
-            return
-
-        self.dfs(node.left, k)
+        
+    def dfs(self, root: TreeNode, k: int) -> None:
+        if not root:
+            return 
+        
+        self.dfs(root.left, k)
         self.cnt += 1
-
+        
         if self.cnt == k:
-            self.res = node.val
+            self.res = root.val
             return
-
-        self.dfs(node.right, k)
+            
+        self.dfs(root.right, k)
 
 
 # Solution 2: iterative
@@ -72,8 +74,10 @@ class Solution:
             else:
                 node = stk.pop()
                 cnt += 1
+
                 if cnt == k:
                     return node.val
+                
                 node = node.right
 
         return -1
