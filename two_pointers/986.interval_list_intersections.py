@@ -14,24 +14,23 @@ Note:
 0 <= A[i].start, A[i].end, B[i].start, B[i].end < 10^9
 """
 
-# Two pointers
+
 class Solution:
-    def intervalIntersection(
-        self, A: List[List[int]], B: List[List[int]]
-    ) -> List[List[int]]:
+    def intervalIntersection(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
         res = []
-        ixa = ixb = 0
-
-        while ixa < len(A) and ixb < len(B):
-            if A[ixa][1] < B[ixb][0]:
-                ixa += 1
-            elif B[ixb][1] < A[ixa][0]:
-                ixb += 1
+        i = j = 0
+        
+        while i < len(A) and j < len(B):
+            if A[i][1] < B[j][0]:
+                i += 1
+            elif B[j][1] < A[i][0]:
+                j += 1
             else:
-                res.append([max(A[ixa][0], B[ixb][0]), min(A[ixa][1], B[ixb][1])])
-                if A[ixa][1] > B[ixb][1]:
-                    ixb += 1
+                res.append([max(A[i][0], B[j][0]), min(A[i][1], B[j][1])])
+                
+                if A[i][1] < B[j][1]:
+                    i += 1
                 else:
-                    ixa += 1
-
+                    j += 1
+        
         return res
