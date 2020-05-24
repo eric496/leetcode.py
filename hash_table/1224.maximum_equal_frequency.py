@@ -23,3 +23,25 @@ Constraints:
 2 <= nums.length <= 10^5
 1 <= nums[i] <= 10^5
 """
+
+
+from collections import defaultdict
+
+
+class Solution:
+    def maxEqualFreq(self, nums: List[int]) -> int:
+        num_cnt = defaultdict(int)
+        freq_cnt = defaultdict(int)
+        res = max_freq = 0
+        
+        for i, n in enumerate(nums):
+            freq_cnt[num_cnt[n]] -= 1
+            num_cnt[n] += 1
+            freq_cnt[num_cnt[n]] += 1
+            max_freq = max(max_freq, num_cnt[n])
+            
+            if max_freq == 1 or max_freq * freq_cnt[max_freq] == i or (max_freq - 1) * freq_cnt[max_freq - 1] + max_freq == i + 1:
+                res = i + 1
+                
+        return res
+        
