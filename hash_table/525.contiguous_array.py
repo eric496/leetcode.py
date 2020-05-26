@@ -15,18 +15,39 @@ Note: The length of the given binary array will not exceed 50,000.
 """
 
 
+# Solution 1
 class Solution:
     def findMaxLength(self, nums: List[int]) -> int:
         aux = {0: 0}
         res = 0
         cnt = 0
         
-        for i,n in enumerate(nums):
+        for i, n in enumerate(nums):
             cnt += 1 if n else -1
             
             if cnt in aux:
-                res = max(res, i+1-aux[cnt])
+                res = max(res, i - aux[cnt] + 1)
             else:
                 aux[cnt] = i + 1
                 
         return res
+
+
+# Solution 2: prefix sum
+class Solution:
+    def findMaxLength(self, nums: List[int]) -> int:
+        mp = {}
+        presum = res = 0
+        
+        for i, n in enumerate(nums):
+            presum += 1 if n else -1
+            
+            if presum == 0:
+                res = i + 1
+            elif presum in mp:
+                res = max(res, i - mp[presum])
+            else:
+                mp[presum] = i
+                
+        return res
+        
