@@ -16,16 +16,24 @@ Can you do it like a boss? Do it without using any builtin function like __built
 """
 
 
+"""
+Thought process:
+    For even numbers, the number of set bits is same if doubling the number,
+    e.g. 6 (110) -> 12 (1100) -> 24 (11000)
+    For odd numbers, the number of set bits is its integer division by 2 and then add 1,
+    e.g. 25 (11001) -> 12 (1100)   
+    Because the last bit is always 1 
+"""
+
+
 class Solution:
     def countBits(self, num: int) -> List[int]:
         res = [0] * (num + 1)
-
+        
         for n in range(1, num + 1):
-            # n&1 is equivalent to n%2
-            if n & 1 == 0:
-                # n>>1 is equivalent to n//2
-                res[n] = res[n >> 1]
+            if n & 1:
+                res[n] = res[n >> 1] + 1
             else:
-                res[n] = res[n - 1] + 1
-
+                res[n] = res[n >> 1]
+                
         return res
