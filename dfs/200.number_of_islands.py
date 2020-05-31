@@ -22,36 +22,27 @@ Output: 3
 # Solution 1: DFS
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        if not grid:
+        if not grid or not grid[0]:
             return 0
-
-        cnt = 0
+        
+        res = 0
         visited = set()
         
         for r in range(len(grid)):
             for c in range(len(grid[0])):
                 if grid[r][c] == "1" and (r, c) not in visited:
                     self.dfs(grid, r, c, visited)
-                    cnt += 1
+                    res += 1
         
-        return cnt
+        return res
+    
+    def dfs(self, grid: List[List[int]], r: int, c: int, visited: set) -> None:
+        if 0 <= r < len(grid) and 0 <= c < len(grid[0]) and (r, c) not in visited and grid[r][c] == "1":
+            visited.add((r, c))
+            dirs = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 
-    def dfs(self, grid: List[List[str]], r: int, c: int, visited: set) -> None:
-        if (
-            r < 0
-            or c < 0
-            or r >= len(grid)
-            or c >= len(grid[0])
-            or grid[r][c] == "0"
-            or (r,c) in visited
-        ):
-            return
-
-        visited.add((r, c))
-        self.dfs(grid, r - 1, c, visited)
-        self.dfs(grid, r, c - 1, visited)
-        self.dfs(grid, r + 1, c, visited)
-        self.dfs(grid, r, c + 1, visited)
+            for dy, dx in dirs:
+                self.dfs(grid, r + dy, c + dx, visited)
         
 
 # Solution 2: BFS
@@ -132,3 +123,53 @@ class Solution:
                                     visited.add((cur_r, cur_c))             
                         
         return res
+
+
+# Solution 4: Union Find
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid or not grid[0]:
+            return 0
+        
+        m, n = len(grid), len(grid[0])
+        parent = {(i, j): (i, j) for i in range(m) for j in range(n) if grid[i][j] == "1"}
+        rank = {(i, j): 0 for (i, j) in parent}
+        directions = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+        
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == "1":
+                    for dy, dx in directions:
+                        if 0 <= i + dy < m and 0 <= j + dx < n and grid[i + dy][j + dx] == "1":
+                            self.union((i, j), (i + dy, j + dx), parent, rank)
+
+        islands = set()
+        
+        for p in parent:
+            islands.add(self.find(p, parent))
+                            
+        return len(islands)
+    
+    def find(self, point: tuple, parent: List[tuple]) -> tuple:
+        if point == parent[point]:
+            return point
+        else:
+            root = self.find(parent[point], parent)
+            parent[point] = root
+            return root
+        
+    def union(self, u: List[tuple], v: List[tuple], parent: List[tuple], rank: List[tuple]) -> None:
+        u_root = self.find(u, parent)
+        v_root = self.find(v, parent)
+        
+        if u_root == v_root:
+            return
+        
+        if rank[u_root] > rank[v_root]:
+            parent[v_root] = u_root
+        elif rank[u_root] < rank[v_root]:
+            parent[u_root] = v_root
+        else:
+            parent[v_root] = u_root
+            rank[u_root] += 1
+            
