@@ -52,8 +52,8 @@ class Solution:
         if u == parent[u]:
             return u
         else:
-            p = parent[u]
             root = self.find(parent[u], parent, weight)
+            p = parent[u]
             parent[u] = root
             weight[u] = weight[u] * weight[p]
             return root
@@ -63,4 +63,4 @@ class Solution:
         v_root = self.find(v, parent, weight)
         parent[u_root] = v_root
         weight[u_root] = weight[v] * val / weight[u]
-        
+    
