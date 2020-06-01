@@ -53,6 +53,7 @@ class Solution:
 
             if node.left:
                 stk.append(node.left)
+                
             if node.right:
                 stk.append(node.right)
 
