@@ -31,8 +31,7 @@ class Solution:
 
         for n in arr:
             while stk[-1] <= n:
-                val = stk.pop()
-                res += val * min(stk[-1], n)
+                res += stk.pop() * min(stk[-1], n)
 
             stk.append(n)
 

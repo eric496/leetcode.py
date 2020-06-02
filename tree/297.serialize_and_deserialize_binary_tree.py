@@ -27,20 +27,29 @@ class TreeNode(object):
 # Solution 1: recursive
 from collections import deque
 
-
 class Codec:
-    def serialize(self, root: TreeNode) -> str:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
         res = []
         self.build_string(root, res)
+        
         return "".join(res)
-
-    def deserialize(self, data: str) -> TreeNode:
-        if not data:
-            return None
-
-        q = deque([x for x in data.split("#")])
-        return self.build_tree(q)
-
+        
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        res = deque([x for x in data.split("#")])
+        
+        return self.build_tree(res)
+        
     def build_string(self, root: TreeNode, res: List[str]) -> None:
         if root:
             res.append(str(root.val))
@@ -50,17 +59,21 @@ class Codec:
         else:
             res.append("X")
             res.append("#")
-
-    def build_tree(self, q) -> TreeNode:
-        if q:
-            val = q.popleft()
-            if val == "X":
-                return None
-            else:
-                root = TreeNode(int(val))
-                root.left = self.build_tree(q)
-                root.right = self.build_tree(q)
-                return root
+            
+    def build_tree(self, res: deque) -> TreeNode:
+        if not res:
+            return None
+        
+        val = res.popleft()
+        
+        if val == "X":
+            return None
+        else:
+            root = TreeNode(int(val))
+            root.left = self.build_tree(res)
+            root.right = self.build_tree(res)
+        
+            return root
 
 
 # Solution 2: iterative
