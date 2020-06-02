@@ -39,7 +39,7 @@ class TreeNode:
         self.right = None
 
 
-# recursive solution
+# Solution 1: recursive solution
 class Solution:
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
         if not p and not q:
@@ -54,9 +54,8 @@ class Solution:
         return False
 
 
-# iterative solution
+# Solution 2: iterative solution
 from collections import deque
-
 
 class Solution:
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
@@ -78,3 +77,23 @@ class Solution:
             queue.append((n1.right, n2.right))
 
         return True
+
+
+# Solution 3: preorder traversal
+class Solution:
+    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+        p_res = []
+        q_res = []
+        self.preorderTraversal(p, p_res)
+        self.preorderTraversal(q, q_res)
+        
+        return p_res == q_res
+        
+    def preorderTraversal(self, root: TreeNode, res: List[int]) -> None:
+        if not root:
+            res.append(float("-inf"))
+            return
+        
+        res.append(root.val)
+        self.preorderTraversal(root.left, res)
+        self.preorderTraversal(root.right, res)

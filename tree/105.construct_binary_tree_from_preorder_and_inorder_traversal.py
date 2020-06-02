@@ -24,7 +24,7 @@ class TreeNode:
         self.right = None
 
 
-# DFS
+# Recursive 
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
         return self.build(0, 0, len(inorder) - 1, preorder, inorder)
@@ -53,29 +53,17 @@ class Solution:
 # Improved
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
-        lookup = {n: i for i, n in enumerate(inorder)}
-
-        return self.build(0, 0, len(inorder) - 1, preorder, inorder, lookup)
-
-    def build(
-        self,
-        prestart: int,
-        instart: int,
-        inend: int,
-        preorder: List[int],
-        inorder: List[int],
-        lookup: dict,
-    ) -> TreeNode:
-        if prestart > len(preorder) - 1 or instart > inend:
+        mp = {n: i for i, n in enumerate(inorder)}
+        
+        return self.build_tree(0, 0, len(inorder) - 1, preorder, inorder, mp)
+        
+    def build_tree(self, prestart: int, instart: int, inend: int, preorder: List[int], inorder: List[int], mp: dict) -> TreeNode:
+        if prestart >= len(preorder) or instart > inend:
             return None
-
-        idx = lookup[preorder[prestart]]
+        
         root = TreeNode(preorder[prestart])
-        root.left = self.build(
-            prestart + 1, instart, idx - 1, preorder, inorder, lookup
-        )
-        root.right = self.build(
-            prestart + idx - instart + 1, idx + 1, inend, preorder, inorder, lookup
-        )
-
+        idx = mp[preorder[prestart]]
+        root.left = self.build_tree(prestart + 1, instart, idx - 1, preorder, inorder, mp)
+        root.right = self.build_tree(prestart + idx - instart + 1, idx + 1, inend, preorder, inorder, mp)
+        
         return root
