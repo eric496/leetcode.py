@@ -46,25 +46,26 @@ class Solution:
 
 
 # Solution 2: iterative - level order traversal
+from collections import deque
+
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:
         if not root:
             return 0
-
-        depth, q = 0, [root]
-
+        
+        q = deque([root])
+        depth = 0
+        
         while q:
             depth += 1
-            level = []
-
+            
             for _ in range(len(q)):
-                node = q.pop()
-
+                node = q.popleft()
+                
                 if node.left:
-                    level.append(node.left)
+                    q.append(node.left)
+                    
                 if node.right:
-                    level.append(node.right)
-
-            q = level
-
+                    q.append(node.right)
+                    
         return depth
