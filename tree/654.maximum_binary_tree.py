@@ -50,19 +50,17 @@ class Solution:
 # Improved
 class Solution:
     def constructMaximumBinaryTree(self, nums: List[int]) -> TreeNode:
-        lookup = {n: i for i, n in enumerate(nums)}
-
-        return self.construct(nums, 0, len(nums) - 1, lookup)
-
-    def construct(
-        self, nums: List[int], start: int, end: int, lookup: dict
-    ) -> TreeNode:
-        if start > end:
+        mp = {n: i for i, n in enumerate(nums)}
+        
+        return self.build(0, len(nums) - 1, nums, mp)
+        
+    def build(self, start: int, end: int, nums: List[int], mp: dict) -> TreeNode:
+        if not nums or start > end:
             return None
-
-        max_idx = lookup[max(nums[start : end + 1])]
-        root = TreeNode(nums[max_idx])
-        root.left = self.construct(nums, start, max_idx - 1, lookup)
-        root.right = self.construct(nums, max_idx + 1, end, lookup)
-
+        
+        root = TreeNode(max(nums[start: end + 1]))
+        idx = mp[root.val]
+        root.left = self.build(start, idx - 1, nums, mp)
+        root.right = self.build(idx + 1, end, nums, mp)
+        
         return root

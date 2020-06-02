@@ -52,7 +52,6 @@ class Solution:
 
 
 # Improved
-
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
         mp = {n: i for i, n in enumerate(inorder)}
