@@ -36,18 +36,18 @@ class TreeNode:
 
 # Solution 1:
 class Solution:
-    def findTarget(self, root: TreeNode, target: int) -> bool:
-        seen = set()
-
-        return self.dfs(root, target, seen)
-
-    def dfs(self, node: TreeNode, target: int, seen: set) -> bool:
-        if not node:
+    def findTarget(self, root: TreeNode, k: int) -> bool:
+        target = set()
+        
+        return self.dfs(root, k, target)
+        
+    def dfs(self, root: TreeNode, k: int, target: int) -> bool:
+        if not root:
             return False
-
-        if node.val in seen:
+        
+        if root.val in target:
             return True
         else:
-            seen.add(target - node.val)
-
-        return self.dfs(node.left, target, seen) or self.dfs(node.right, target, seen)
+            target.add(k - root.val)
+        
+        return self.dfs(root.left, k, target) or self.dfs(root.right, k, target)
