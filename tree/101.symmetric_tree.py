@@ -69,3 +69,35 @@ class Solution:
             stk.append((n1.right, n2.left))
 
         return True
+
+
+# Soltuion 3: iterative - level order traversal
+from collections import deque
+
+
+class Solution:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+        
+        q = deque([root])
+        
+        while q:
+            size = len(q)
+            level = []
+            
+            for _ in range(size):
+                node = q.popleft()
+                
+                if node:        
+                    q.append(node.left)
+                    q.append(node.right)
+                    level.append(node.val)
+                else:
+                    level.append(None)
+                    
+            if level != level[::-1]:
+                return False
+            
+            
+        return True
