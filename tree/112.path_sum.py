@@ -28,21 +28,18 @@ class TreeNode:
 # Solution 1: recurisve - by adding up node values
 class Solution:
     def hasPathSum(self, root: TreeNode, target: int) -> bool:
+        return self.dfs(root, 0, target)
+        
+    def dfs(self, root: TreeNode, cur: int, target: int) -> bool:
         if not root:
             return False
-
-        return self.dfs(root, 0, target)
-
-    def dfs(self, node: TreeNode, cur: int, target: int) -> bool:
-        if not node:
-            return False
-
-        cur += node.val
-
-        if cur == target and not node.left and not node.right:
+        
+        cur += root.val
+        
+        if cur == target and not root.left and not root.right:
             return True
-
-        return self.dfs(node.left, cur, target) or self.dfs(node.right, cur, target)
+        
+        return self.dfs(root.left, cur, target) or self.dfs(root.right, cur, target)
 
 
 # Solution 1: recursive - by decrementing the target value

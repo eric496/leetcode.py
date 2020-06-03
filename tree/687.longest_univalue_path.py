@@ -39,27 +39,18 @@ class TreeNode:
 class Solution:
     def longestUnivaluePath(self, root: TreeNode) -> int:
         res = [0]
-        self.dfs(root, res)
-
+        self.dfs(root, None, res)
         return res[0]
-
-    def dfs(self, node: TreeNode, res: List[int]) -> int:
-        if not node:
+    
+    def dfs(self, root: TreeNode, parent_val: int, res: List[int]) -> int:
+        if not root:
             return 0
-
-        left = self.dfs(node.left, res)
-        right = self.dfs(node.right, res)
-
-        if node.left and node.left.val == node.val:
-            left += 1
-        else:
-            left = 0
-
-        if node.right and node.right.val == node.val:
-            right += 1
-        else:
-            right = 0
-
+        
+        left = self.dfs(root.left, root.val, res)
+        right = self.dfs(root.right, root.val, res)
         res[0] = max(res[0], left + right)
-
-        return max(left, right)
+        
+        if root.val == parent_val:
+            return max(left, right) + 1
+        else:
+            return 0
