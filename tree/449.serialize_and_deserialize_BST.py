@@ -17,7 +17,6 @@ class TreeNode(object):
 
 from collections import deque
 
-
 class Codec:
     def serialize(self, root):
         res = []
@@ -25,19 +24,29 @@ class Codec:
         return "".join(res)
 
     def deserialize(self, data):
-        q = deque([x for x in data.split("#") if x])
+        q = deque([x for x in data.split("#")])
         return self.deserialize_dfs(q, float("-inf"), float("inf"))
 
     def serialize_dfs(self, root, res):
         if root:
-            res.append(str(root.val) + "#")
+            res.append(str(root.val))
+            res.append("#")
             self.serialize_dfs(root.left, res)
             self.serialize_dfs(root.right, res)
+        else:
+            res.append("X")
+            res.append("#")
 
     def deserialize_dfs(self, q, low, high):
-        if q and low <= int(q[0]) <= high:
-            val = int(q.popleft())
-            root = TreeNode(val)
-            root.left = self.deserialize_dfs(q, low, val)
-            root.right = self.deserialize_dfs(q, val, high)
+        if not q:
+            return None
+
+        val = q.popleft()
+        
+        if val == "X":
+            return None
+        elif low <= int(val) <= high:
+            root = TreeNode(int(val))
+            root.left = self.deserialize_dfs(q, low, int(val))
+            root.right = self.deserialize_dfs(q, int(val), high)
             return root
