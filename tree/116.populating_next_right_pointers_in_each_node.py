@@ -33,22 +33,21 @@ class Node:
 
 # Solution 1: recursive
 class Solution:
-    def connect(self, root: "Node") -> "Node":
+    def connect(self, root: 'Node') -> 'Node':
         if not root:
-            return None
-
+            return root
+        
         if not root.left and not root.right:
             return root
-
-        if root and root.left and root.right:
-            root.left.next = root.right
-
-            if root.next:
-                root.right.next = root.next.left
-
-            self.connect(root.left)
-            self.connect(root.right)
-
+        
+        root.left.next = root.right
+        
+        if root.next:
+            root.right.next = root.next.left
+            
+        self.connect(root.left)
+        self.connect(root.right)
+            
         return root
 
 
