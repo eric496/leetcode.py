@@ -29,27 +29,22 @@ class TreeNode:
 # Solution 1: recursive
 class Solution:
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
-        if not root:
-            return []
-
         res = []
         self.dfs(root, [], res)
-        res = ["->".join(x) for x in res]
-
+        
         return res
-
-    def dfs(self, node: TreeNode, cur: List[int], res: List[List[int]]) -> None:
+        
+    def dfs(self, node: TreeNode, path: List[str], res: List[str]) -> None:
         if not node:
             return
-
-        # A leaf is found, append path to the answer list
+        
         if not node.left and not node.right:
-            cur.append(str(node.val))
-            res.append(cur)
+            path.append(str(node.val))
+            res.append("->".join(path))
             return
-
-        self.dfs(node.left, cur + [str(node.val)], res)
-        self.dfs(node.right, cur + [str(node.val)], res)
+        
+        self.dfs(node.left, path + [str(node.val)], res)
+        self.dfs(node.right, path + [str(node.val)], res)
 
 
 # Solution 2: iterative
