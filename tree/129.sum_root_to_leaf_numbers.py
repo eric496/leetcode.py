@@ -62,7 +62,28 @@ class Solution:
         self.dfs(node.right, cursum * 10 + node.val, res)
 
 
-# Solution 2: iterative
+# Solution 2: recursive
+class Solution:
+    def sumNumbers(self, root: TreeNode) -> int:
+        res = [0]
+        self.dfs(root, [], res)
+        
+        return res[0]
+        
+    def dfs(self, root: TreeNode, path: List[str], res: List[int]) -> None:
+        if not root:
+            return
+        
+        if not root.left and not root.right:
+            path.append(str(root.val))
+            res[0] += int("".join(path))
+            return
+        
+        self.dfs(root.left, path + [str(root.val)], res)
+        self.dfs(root.right, path + [str(root.val)], res)
+
+
+# Solution 3: iterative
 class Solution:
     def sumNumbers(self, root: TreeNode) -> int:
         if not root:

@@ -33,7 +33,7 @@ class TreeNode:
         self.right = None
 
 
-# Solution: BFS - a variation of level order traversal
+# Solution 1: BFS - a variation of level order traversal
 from collections import deque
 
 
@@ -52,3 +52,29 @@ class Solution:
                 q.append(node.left)
 
         return node.val
+
+
+# Solution 2
+from collections import deque
+
+
+class Solution:
+    def findBottomLeftValue(self, root: TreeNode) -> int:
+        q = deque([root])
+        res = None
+        
+        while q:
+            for i in range(len(q)):
+                node = q.popleft()
+                
+                if i == 0:
+                    res = node.val
+                
+                if node.left:
+                    q.append(node.left)
+                    
+                if node.right:
+                    q.append(node.right)
+                    
+        return res
+        
