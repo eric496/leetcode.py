@@ -50,9 +50,11 @@ class TreeNode:
         self.right = None
 
 
+from collections import defaultdict
+
 class Solution:
     def __init__(self):
-        self.graph = {}
+        self.graph = defaultdict(list)
         self.leaves = set()
 
     def findClosestLeaf(self, root: TreeNode, k: int) -> int:
@@ -61,10 +63,13 @@ class Solution:
 
         while q:
             one_step_away = []
+            
             for val in q:
                 if val in self.leaves:
                     return val
+                
                 one_step_away += self.graph.pop(val, [])
+            
             q = one_step_away
 
         return -1
@@ -73,32 +78,16 @@ class Solution:
         if not node:
             return
 
-        if node.left is None and node.right is None:
+        if not node.left and not node.right:
             self.leaves.add(node.val)
             return
 
         if node.left:
-            if node.val in self.graph:
-                self.graph[node.val].append(node.left.val)
-            else:
-                self.graph[node.val] = [node.left.val]
-
-            if node.left.val in self.graph:
-                self.graph[node.left.val].append(node.val)
-            else:
-                self.graph[node.left.val] = [node.val]
-
+            self.graph[node.val].append(node.left.val)
+            self.graph[node.left.val].append(node.val)
             self.dfs(node.left)
 
         if node.right:
-            if node.val in self.graph:
-                self.graph[node.val].append(node.right.val)
-            else:
-                self.graph[node.val] = [node.right.val]
-
-            if node.right.val in self.graph:
-                self.graph[node.right.val].append(node.val)
-            else:
-                self.graph[node.right.val] = [node.val]
-
+            self.graph[node.val].append(node.right.val)
+            self.graph[node.right.val].append(node.val)
             self.dfs(node.right)
