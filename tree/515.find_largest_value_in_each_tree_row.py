@@ -44,7 +44,7 @@ class Solution:
         self.dfs(node.right, depth + 1, res)
 
 
-# Solution 2: iterative
+# Solution 2: iterative - level order traversal
 from collections import deque
 
 
