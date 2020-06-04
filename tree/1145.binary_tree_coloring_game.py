@@ -28,29 +28,24 @@ class TreeNode:
 class Solution:
     def btreeGameWinningMove(self, root: TreeNode, n: int, x: int) -> bool:
         res = [0, 0]
-        self.countNodes(root, x, res)
-
+        n = self.dfs(root, x, res)
         left, right = res
-        root_n = n - left - right - 1
-
-        if (
-            root_n > left + right + 1
-            or left > root_n + right + 1
-            or right > root_n + left + 1
-        ):
+        up = n - left - right - 1
+        
+        if up > left + right + 1 or left > up + right + 1 or right > up + left + 1:
             return True
-
+        
         return False
-
-    def countNodes(self, root: TreeNode, x: int, res: List[int]) -> int:
+        
+    def dfs(self, root: TreeNode, x: int, res: List[int]) -> int:
         if not root:
             return 0
-
-        left = self.countNodes(root.left, x, res)
-        right = self.countNodes(root.right, x, res)
-
+        
+        left = self.dfs(root.left, x, res)
+        right = self.dfs(root.right, x, res)
+        
         if root.val == x:
             res[0] = left
             res[1] = right
-
+            
         return left + right + 1
