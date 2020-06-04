@@ -37,6 +37,7 @@ class TreeNode:
 
 
 from collections import deque
+from collections import defaultdict
 
 
 class Solution:
@@ -45,26 +46,23 @@ class Solution:
             return []
 
         q = deque([(root, 0)])
-        d = {}
+        mp = defaultdict(list)
 
         while q:
             size = len(q)
-            cur_d = {}
+            level = defaultdict(list)
+
             for _ in range(size):
                 node, v = q.popleft()
-                if v in cur_d:
-                    cur_d[v].append(node.val)
-                else:
-                    cur_d[v] = [node.val]
+                level[v].append(node.val)
+                
                 if node.left:
                     q.append((node.left, v - 1))
+                
                 if node.right:
                     q.append((node.right, v + 1))
 
-            for key in cur_d:
-                if key in d:
-                    d[key].extend(sorted(cur_d[key]))
-                else:
-                    d[key] = sorted(cur_d[key])
+            for key in level:
+                mp[key] += sorted(level[key])
 
-        return [d[key] for key in sorted(d)]
+        return [mp[key] for key in sorted(mp)]
