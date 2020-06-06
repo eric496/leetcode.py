@@ -58,10 +58,13 @@ class Solution:
 
         while stk:
             n1, n2 = stk.pop()
+
             if not n1 and not n2:
                 continue
+            
             if None in (n1, n2):
                 return False
+            
             if n1.val != n2.val:
                 return False
 
