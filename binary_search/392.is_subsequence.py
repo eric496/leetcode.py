@@ -16,6 +16,7 @@ If there are lots of incoming S, say S1, S2, ... , Sk where k >= 1B, and you wan
 """
 
 
+# Solution 1: greedy
 class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
         if not s:
@@ -25,6 +26,7 @@ class Solution:
 
         for c in t:
             i = i + 1 if s[i] == c else i
+
             if i == len(s):
                 return True
 
@@ -32,3 +34,40 @@ class Solution:
 
 
 # Follow up: Binary Search
+from collections import defaultdict
+
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        if not s:
+            return True
+        
+        pos = defaultdict(list)
+        
+        for i, c in enumerate(t):
+            pos[c].append(i)
+        
+        last = -1
+        
+        for c in s:
+            if c not in pos:
+                return False
+            
+            last = self.binary_search(pos[c], last, 0, len(pos[c]))
+            
+            if last == -1:
+                return False
+            
+            last += 1
+            
+        return True
+    
+    def binary_search(self, arr: List[int], last: int, lo: int, hi: int) -> int:
+        while lo < hi:
+            mid = lo + (hi - lo >> 1)
+            
+            if arr[mid] < last:
+                lo = mid + 1
+            else:
+                hi = mid
+                
+        return -1 if lo == len(arr) else arr[lo]
