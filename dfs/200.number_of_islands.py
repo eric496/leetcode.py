@@ -53,79 +53,34 @@ class Solution:
         if not grid or not grid[0]:
             return 0
         
-        q = deque()
         m, n = len(grid), len(grid[0])
         res = 0
         visited = set()
-                
-        for i in range(m):
-            for j in range(n):
-                if (i, j) not in visited:
-                    visited.add((i, j))
-
-                    if grid[i][j] == "1":
-                        res += 1
-                        q.append((i, j))
-                    
-                        while q:
-                            r, c = q.popleft()
-                            
-                            if r < m-1 and grid[r+1][c] == "1" and (r+1, c) not in visited:
-                                q.append((r+1, c))
-                                visited.add((r+1, c))
-                            
-                            if c < n-1 and grid[r][c+1] == "1" and (r, c+1) not in visited:
-                                q.append((r, c+1))
-                                visited.add((r, c+1))
-                                
-                            if r > 0 and grid[r-1][c] == "1" and (r-1, c) not in visited:
-                                q.append((r-1, c))
-                                visited.add((r-1, c))
-                                
-                            if c > 0 and grid[r][c-1] == "1" and (r, c-1) not in visited:
-                                q.append((r, c-1))
-                                visited.add((r, c-1))               
-                        
-        return res
-
-
-# Solution 3: BFS a more concise version
-from collections import deque
-
-class Solution:
-    def numIslands(self, grid: List[List[str]]) -> int:
-        if not grid or not grid[0]:
-            return 0
+        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
         
-        q = deque()
-        m, n = len(grid), len(grid[0])
-        res = 0
-        visited = set()
-        d = [(0, -1), (0, 1), (-1, 0), (1, 0)]
-                
         for i in range(m):
             for j in range(n):
                 if (i, j) not in visited:
                     visited.add((i, j))
-
+                    
                     if grid[i][j] == "1":
                         res += 1
-                        q.append((i, j))
-                    
-                        while q:
-                            r, c = q.popleft()
-                            
-                            for delta_r, delta_c in d:
-                                cur_r, cur_c = r + delta_r, c + delta_c
-                                
-                                if 0 <= cur_r < m and 0 <= cur_c < n and grid[cur_r][cur_c] == "1" and (cur_r, cur_c) not in visited:
-                                    q.append((cur_r, cur_c))
-                                    visited.add((cur_r, cur_c))             
+                        q = deque([(i, j)])
                         
+                        while q:
+                            y, x = q.popleft()
+                            
+                            for dy, dx in directions:
+                                y1, x1 = y + dy, x + dx
+                                
+                                if 0 <= y1 < m and 0 <= x1 < n and grid[y1][x1] == "1" and (y1, x1) not in visited:
+                                    q.append((y1, x1))
+                                    visited.add((y1, x1))
+                                    
         return res
 
 
-# Solution 4: Union Find
+# Solution 3: Union Find
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         if not grid or not grid[0]:
