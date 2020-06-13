@@ -20,6 +20,56 @@ Do not use the eval built-in library function.
 """
 
 
+# Solution 1
+class Solution:
+    def calculate(self, s: str) -> int:
+        operand_stk = []
+        operator_stk = []
+        depth = 0
+        tokens = self.tokenize(s)
+                
+        for token in tokens:
+            if token.isdigit():
+                operand_stk.append(int(token))
+            elif token in "()":
+                depth += 1 if token == "(" else -1
+            elif token in "+-":
+                while operator_stk and operator_stk[-1][1] >= depth:
+                    operator, _ = operator_stk.pop()
+                    right, left = operand_stk.pop(), operand_stk.pop()
+                    res = left + right if operator == "+" else left - right
+                    operand_stk.append(res)
+                
+                operator_stk.append((token, depth))
+        
+        while operator_stk:
+            operator, _ = operator_stk.pop()
+            right, left = operand_stk.pop(), operand_stk.pop()
+            res = left + right if operator == "+" else left - right
+            operand_stk.append(res)
+            
+        return operand_stk[0]
+                 
+    def tokenize(self, s: str) -> List[str]:
+        res = []
+        cur = -1
+        
+        for c in s:
+            if c.isspace():
+                continue
+            elif c.isdigit():
+                cur = cur * 10 + int(c) if cur != -1 else int(c)
+            else:
+                if cur != -1:
+                    res.append(str(cur))
+                    cur = -1
+                
+                res.append(c)
+            
+        return res + [str(cur)] if cur != -1 else res
+
+
+# Solution 2
 class Solution:
     def calculate(self, s: str) -> int:
         res, cur, sign, stk = 0, 0, 1, []
