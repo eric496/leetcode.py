@@ -39,10 +39,9 @@ class LRUCache:
         self.sentinel.next = self.tail
         self.tail.prev = self.sentinel
 
-    def get(self, key: int) -> int:
-        node = self.cache.get(key, None)
-        
-        if node:
+    def get(self, key: int) -> int:        
+        if key in self.cache:
+            node = self.cache[key]
             self.remove_node_from_list(node)
             self.push_node_to_front(node)
             return node.val
