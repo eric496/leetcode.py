@@ -22,11 +22,12 @@ class Solution:
             return []
 
         res = []
-        last_idx = {ch: i for i, ch in enumerate(S)}
+        last_pos = {ch: i for i, ch in enumerate(S)}
         start = last = 0
 
-        for i, ch in enumerate(S):
-            last = max(last, last_idx[ch])
+        for i, c in enumerate(S):
+            last = max(last, last_pos[c])
+
             if last == i:
                 res.append(last - start + 1)
                 start = last + 1
