@@ -38,7 +38,7 @@ class Solution:
 
         res = []
         q = deque([kill])
-        
+
         while q:
             for _ in range(len(q)):
                 k = q.popleft()

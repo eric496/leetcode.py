@@ -28,25 +28,25 @@ For [2,3], the interval [3,4] has minimum-"right" start point.
 
 class Solution:
     def findRightInterval(self, intervals: List[List[int]]) -> List[int]:
-        sort = [(x[0], i) for i,x in enumerate(intervals)]
+        sort = [(x[0], i) for i, x in enumerate(intervals)]
         sort.sort()
         res = []
-        
+
         for interval in intervals:
             target = interval[1]
-            low, high = 0, len(intervals)-1
-            
+            low, high = 0, len(intervals) - 1
+
             while low <= high:
-                mid = low + ((high-low)>>1)
-                
+                mid = low + ((high - low) >> 1)
+
                 if sort[mid][0] < target:
                     low = mid + 1
                 else:
                     high = mid - 1
-                    
+
             if low == len(intervals):
                 res.append(-1)
             else:
                 res.append(sort[low][1])
-                
+
         return res

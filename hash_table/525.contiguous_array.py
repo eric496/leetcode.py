@@ -21,15 +21,15 @@ class Solution:
         aux = {0: 0}
         res = 0
         cnt = 0
-        
+
         for i, n in enumerate(nums):
             cnt += 1 if n else -1
-            
+
             if cnt in aux:
                 res = max(res, i - aux[cnt] + 1)
             else:
                 aux[cnt] = i + 1
-                
+
         return res
 
 
@@ -38,16 +38,15 @@ class Solution:
     def findMaxLength(self, nums: List[int]) -> int:
         mp = {}
         presum = res = 0
-        
+
         for i, n in enumerate(nums):
             presum += 1 if n else -1
-            
+
             if presum == 0:
                 res = i + 1
             elif presum in mp:
                 res = max(res, i - mp[presum])
             else:
                 mp[presum] = i
-                
+
         return res
-        

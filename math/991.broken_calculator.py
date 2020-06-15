@@ -34,14 +34,13 @@ Note:
 class Solution:
     def brokenCalc(self, X: int, Y: int) -> int:
         cnt = 0
-        
+
         while X < Y:
             if Y & 1 == 0:
                 Y >>= 1
             else:
                 Y += 1
-                
+
             cnt += 1
-        
+
         return cnt + X - Y
-        

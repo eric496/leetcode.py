@@ -32,7 +32,7 @@ S only consists of '(' and ')' characters.
 class Solution:
     def minAddToMakeValid(self, S: str) -> int:
         stk = []
-        
+
         for c in S:
             if c == "(":
                 stk.append(c)
@@ -41,7 +41,7 @@ class Solution:
                     stk.pop()
                 else:
                     stk.append(c)
-        
+
         return len(stk)
 
 
@@ -49,7 +49,7 @@ class Solution:
 class Solution:
     def minAddToMakeValid(self, S: str) -> int:
         left_brackets = right_brackets = 0
-        
+
         for c in S:
             if c == "(":
                 right_brackets += 1
@@ -58,6 +58,5 @@ class Solution:
                     right_brackets -= 1
                 else:
                     left_brackets += 1
-        
+
         return left_brackets + right_brackets
-        

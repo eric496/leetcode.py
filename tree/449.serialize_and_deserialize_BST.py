@@ -17,6 +17,7 @@ class TreeNode(object):
 
 from collections import deque
 
+
 class Codec:
     def serialize(self, root):
         res = []
@@ -42,7 +43,7 @@ class Codec:
             return None
 
         val = q.popleft()
-        
+
         if val == "X":
             return None
         elif low <= int(val) <= high:

@@ -28,28 +28,28 @@ hasApple.length == n
 
 from collections import defaultdict
 
+
 class Solution:
     def minTime(self, n: int, edges: List[List[int]], hasApple: List[bool]) -> int:
         graph = defaultdict(list)
-        
+
         for u, v in edges:
             graph[u].append(v)
             graph[v].append(u)
-            
+
         visited = set()
-        
+
         return self.dfs(0, graph, hasApple, visited)
-        
+
     def dfs(self, node: int, graph: dict, hasApple: List[bool], visited: set) -> None:
         visited.add(node)
         res = 0
-        
+
         for neighbor in graph[node]:
             if neighbor not in visited:
                 res += self.dfs(neighbor, graph, hasApple, visited)
-                
+
         if (res > 0 or hasApple[node]) and node:
             res += 2
-            
+
         return res
-        

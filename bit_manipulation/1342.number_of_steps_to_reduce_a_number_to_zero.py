@@ -32,40 +32,39 @@ Constraints:
 
 # Solution 1
 class Solution:
-    def numberOfSteps (self, num: int) -> int:
+    def numberOfSteps(self, num: int) -> int:
         steps = 0
-        
+
         while num:
             if num & 1:
                 num -= 1
             else:
                 num >>= 1
-            
+
             steps += 1
-            
+
         return steps
-            
+
 
 # Solution 2
 class Solution:
-    def numberOfSteps (self, num: int) -> int:
+    def numberOfSteps(self, num: int) -> int:
         steps = 0
-        
+
         while num:
             steps += 2 if num & 1 else 1
             num >>= 1
-            
+
         return steps - 1
-            
+
 
 # Solution 3: can be even shorter
 class Solution:
-    def numberOfSteps (self, num: int) -> int:
+    def numberOfSteps(self, num: int) -> int:
         steps = 0
-        
+
         while num:
             steps += (num & 1) + 1
             num >>= 1
-            
+
         return steps - 1
-            

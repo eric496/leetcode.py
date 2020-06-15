@@ -32,30 +32,29 @@ from collections import defaultdict
 class Solution:
     def possibleBipartition(self, N: int, dislikes: List[List[int]]) -> bool:
         enemies = defaultdict(list)
-        
+
         for a, b in dislikes:
             enemies[a].append(b)
             enemies[b].append(a)
-            
+
         colors = [0] * (N + 1)
-        
+
         for i in range(1, N + 1):
             if colors[i] == 0:
                 if not self.dfs(i, 1, colors, enemies):
                     return False
-                
+
         return True
-    
+
     def dfs(self, n: int, color: int, colors: List[int], enemies: dict) -> bool:
         colors[n] = color
-        
+
         for enemy in enemies[n]:
             if colors[enemy] == color:
                 return False
-            
+
             if colors[enemy] == 0:
                 if not self.dfs(enemy, -color, colors, enemies):
                     return False
-        
+
         return True
-        

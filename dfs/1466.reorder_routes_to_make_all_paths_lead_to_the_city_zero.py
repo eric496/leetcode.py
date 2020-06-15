@@ -32,53 +32,54 @@ connections[i][0] != connections[i][1]
 from collections import defaultdict
 from collections import deque
 
+
 class Solution:
     def minReorder(self, n: int, connections: List[List[int]]) -> int:
         graph = defaultdict(list)
-        
+
         for u, v in connections:
             graph[u].append((v, 1))
             graph[v].append((u, 0))
-            
+
         q = deque([0])
         visited = {0}
         res = 0
-        
+
         while q:
             node = q.popleft()
-            
+
             for neighbor, cost in graph[node]:
                 if neighbor not in visited:
                     visited.add(neighbor)
                     res += cost
                     q.append(neighbor)
-                    
+
         return res
 
 
 # Solution 2: DFS
 from collections import defaultdict
 
+
 class Solution:
     def minReorder(self, n: int, connections: List[List[int]]) -> int:
         graph = defaultdict(list)
-        
+
         for u, v in connections:
             graph[u].append((v, 1))
             graph[v].append((u, 0))
-            
+
         visited = {0}
         res = [0]
         self.dfs(0, graph, visited, res)
-        
+
         return res[0]
-    
+
     def dfs(self, city: int, graph: dict, visited: set, res: List[int]) -> None:
         visited.add(city)
-        
+
         for neighbor, cost in graph[city]:
             if neighbor not in visited:
                 visited.add(neighbor)
                 res[0] += cost
                 self.dfs(neighbor, graph, visited, res)
-                

@@ -57,6 +57,7 @@ class Solution:
 # Solution 2: iterative solution
 from collections import deque
 
+
 class Solution:
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
         queue = deque([(p, q)])
@@ -86,14 +87,14 @@ class Solution:
         q_res = []
         self.preorderTraversal(p, p_res)
         self.preorderTraversal(q, q_res)
-        
+
         return p_res == q_res
-        
+
     def preorderTraversal(self, root: TreeNode, res: List[int]) -> None:
         if not root:
             res.append(float("-inf"))
             return
-        
+
         res.append(root.val)
         self.preorderTraversal(root.left, res)
         self.preorderTraversal(root.right, res)

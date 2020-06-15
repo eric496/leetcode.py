@@ -34,28 +34,31 @@ There will not be any duplicated flights or self cycles.
 from collections import defaultdict
 from collections import deque
 
+
 class Solution:
-    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, K: int) -> int:
+    def findCheapestPrice(
+        self, n: int, flights: List[List[int]], src: int, dst: int, K: int
+    ) -> int:
         graph = defaultdict(list)
         q = deque([(src, 0)])
         res = float("inf")
-        
+
         for u, v, c in flights:
             graph[u].append((v, c))
-            
+
         while q:
             K -= 1
 
             for _ in range(len(q)):
                 city, cur_cost = q.popleft()
-            
+
                 for neighbor, cost in graph[city]:
                     if neighbor == dst:
                         res = min(res, cur_cost + cost)
                     elif cur_cost + cost < res:
                         q.append((neighbor, cur_cost + cost))
-        
+
             if K == -1:
                 break
-        
+
         return res if res != float("inf") else -1

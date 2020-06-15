@@ -34,37 +34,36 @@ Constraints:
 """
 
 
-# Solution 1: O(n^2) TC 
+# Solution 1: O(n^2) TC
 class Solution:
     def countTriplets(self, arr: List[int]) -> int:
         prexor = {0: [-1]}
         cur = res = 0
-        
+
         for i, n in enumerate(arr):
             cur ^= n
-            
+
             if cur in prexor:
                 for pre in prexor[cur]:
                     res += i - pre - 1
                 prexor[cur].append(i)
             else:
                 prexor[cur] = [i]
-        
+
         return res
-            
-        
+
+
 # Solution 2: O(n) TC
 # (i -a -1) + (i - b - 1) + (i - c - 1) = i * 3 - (a + b + c) - 3
 class Solution:
     def countTriplets(self, arr: List[int]) -> int:
         prexor = {0: (-1, 1)}
         cur = res = 0
-        
+
         for i, n in enumerate(arr):
             cur ^= n
             presum, cnt = prexor.get(cur, (0, 0))
             res += i * cnt - presum - cnt
             prexor[cur] = (presum + i, cnt + 1)
-        
+
         return res
-            

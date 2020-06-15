@@ -33,10 +33,9 @@ s contains only lowercase English letters.
 class Solution:
     def maxPower(self, s: str) -> int:
         res = cnt = 1
-        
+
         for i in range(1, len(s)):
-            cnt = cnt + 1 if s[i] == s[i-1] else 1
+            cnt = cnt + 1 if s[i] == s[i - 1] else 1
             res = max(res, cnt)
-            
+
         return res
-            

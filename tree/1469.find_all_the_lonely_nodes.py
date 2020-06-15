@@ -48,19 +48,19 @@ class Solution:
     def getLonelyNodes(self, root: TreeNode) -> List[int]:
         res = []
         self.dfs(root, res)
-        
+
         return res
-        
+
     def dfs(self, root: TreeNode, res: List[int]) -> None:
         if not root:
             return
-        
+
         if root.left and not root.right:
             res.append(root.left.val)
-        
+
         if root.right and not root.left:
             res.append(root.right.val)
-            
+
         self.dfs(root.left, res)
         self.dfs(root.right, res)
 
@@ -70,20 +70,20 @@ class Solution:
     def getLonelyNodes(self, root: TreeNode) -> List[int]:
         stk = [root]
         res = []
-        
+
         while stk:
             node = stk.pop()
-            
+
             if node.left:
                 stk.append(node.left)
-                
+
                 if not node.right:
                     res.append(node.left.val)
-                    
+
             if node.right:
                 stk.append(node.right)
-                
+
                 if not node.left:
                     res.append(node.right.val)
-        
+
         return res

@@ -41,15 +41,15 @@ class Solution:
         res = [0]
         self.dfs(root, None, res)
         return res[0]
-    
+
     def dfs(self, root: TreeNode, parent_val: int, res: List[int]) -> int:
         if not root:
             return 0
-        
+
         left = self.dfs(root.left, root.val, res)
         right = self.dfs(root.right, root.val, res)
         res[0] = max(res[0], left + right)
-        
+
         if root.val == parent_val:
             return max(left, right) + 1
         else:

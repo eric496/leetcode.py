@@ -15,10 +15,13 @@ Minimize the total number of operations.
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
         next_non_zero = next_zero = 0
-        
+
         while next_non_zero < len(nums):
             if nums[next_non_zero]:
-                nums[next_non_zero], nums[next_zero] = nums[next_zero], nums[next_non_zero]
+                nums[next_non_zero], nums[next_zero] = (
+                    nums[next_zero],
+                    nums[next_non_zero],
+                )
                 next_zero += 1
-            
+
             next_non_zero += 1

@@ -37,13 +37,12 @@ Constraints:
 class Solution:
     def sortByBits(self, arr: List[int]) -> List[int]:
         return sorted(arr, key=lambda x: (self.count_ones(x), x))
-        
+
     def count_ones(self, num: int) -> int:
         cnt = 0
-        
+
         while num:
             cnt += 1 if num & 1 else 0
             num >>= 1
-        
+
         return cnt
-        

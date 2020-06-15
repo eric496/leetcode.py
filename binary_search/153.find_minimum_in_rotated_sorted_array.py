@@ -20,7 +20,7 @@ class Solution:
 
         while low < high:
             mid = low + ((high - low) >> 1)
-            
+
             if nums[mid] < nums[high]:
                 high = mid
             else:

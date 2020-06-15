@@ -29,16 +29,16 @@ class TreeNode:
 class Solution:
     def hasPathSum(self, root: TreeNode, target: int) -> bool:
         return self.dfs(root, 0, target)
-        
+
     def dfs(self, root: TreeNode, cur: int, target: int) -> bool:
         if not root:
             return False
-        
+
         cur += root.val
-        
+
         if cur == target and not root.left and not root.right:
             return True
-        
+
         return self.dfs(root.left, cur, target) or self.dfs(root.right, cur, target)
 
 

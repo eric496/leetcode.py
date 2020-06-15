@@ -26,33 +26,34 @@ class Solution:
         tokens = self.tokenize(s)
         num_stk = []
         op_stk = []
-        
+
         for token in tokens:
             if token.isdigit():
                 if op_stk and op_stk[-1] in "*/":
                     op = op_stk.pop()
                     left = abs(num_stk.pop())
-                    num_stk.append(left // int(token) if op == "/" else left * int(token))
+                    num_stk.append(
+                        left // int(token) if op == "/" else left * int(token)
+                    )
                 else:
                     num_stk.append(int(token))
             else:
                 op_stk.append(token)
-        
-        
+
         op_stk.reverse()
         num_stk.reverse()
-        
+
         while op_stk:
             op = op_stk.pop()
             left, right = num_stk.pop(), num_stk.pop()
             num_stk.append(left + right if op == "+" else left - right)
-            
+
         return num_stk[0]
-        
+
     def tokenize(self, s: str) -> List[str]:
         res = []
         cur = -1
-        
+
         for c in s:
             if c.isspace():
                 continue
@@ -62,9 +63,9 @@ class Solution:
                 if cur != -1:
                     res.append(str(cur))
                     cur = -1
-                
+
                 res.append(c)
-                
+
         return res + [str(cur)] if cur != -1 else res
 
 
@@ -86,7 +87,7 @@ class Solution:
                     stk.append(stk.pop() * cur)
                 elif op == "/":
                     stk.append(int(stk.pop() / cur))
-                
+
                 cur, op = 0, s[i]
 
         return sum(stk)

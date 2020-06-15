@@ -52,6 +52,7 @@ class TreeNode:
 
 from collections import defaultdict
 
+
 class Solution:
     def __init__(self):
         self.graph = defaultdict(list)
@@ -63,13 +64,13 @@ class Solution:
 
         while q:
             one_step_away = []
-            
+
             for val in q:
                 if val in self.leaves:
                     return val
-                
+
                 one_step_away += self.graph.pop(val, [])
-            
+
             q = one_step_away
 
         return -1

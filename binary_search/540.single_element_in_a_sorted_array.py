@@ -16,20 +16,20 @@ Note: Your solution should run in O(log n) time and O(1) space.
 class Solution:
     def singleNonDuplicate(self, nums: List[int]) -> int:
         lo, hi = 0, len(nums)
-        
+
         while lo < hi:
             mid = lo + (hi - lo >> 1)
-            
+
             if (
-                mid & 1 == 0 
-                and mid + 1 < len(nums) 
-                and nums[mid] == nums[mid+1]
+                mid & 1 == 0
+                and mid + 1 < len(nums)
+                and nums[mid] == nums[mid + 1]
                 or mid & 1 == 1
                 and mid - 1 >= 0
-                and nums[mid] == nums[mid-1]
-            ):  
+                and nums[mid] == nums[mid - 1]
+            ):
                 lo = mid + 1
             else:
                 hi = mid
-        
+
         return nums[lo]

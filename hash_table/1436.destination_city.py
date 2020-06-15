@@ -34,26 +34,25 @@ All strings consist of lowercase and uppercase English letters and the space cha
 class Solution:
     def destCity(self, paths: List[List[str]]) -> str:
         destination = {}
-        
+
         for start, end in paths:
             destination[start] = end
-            
+
             if end not in destination:
                 destination[end] = None
-            
+
         for k, v in destination.items():
             if not v:
                 return k
-            
+
 
 # Solution 2
 class Solution:
     def destCity(self, paths: List[List[str]]) -> str:
-        departures, arrivals = set() , set()
-        
+        departures, arrivals = set(), set()
+
         for d, a in paths:
             departures.add(d)
             arrivals.add(a)
-            
+
         return (arrivals - departures).pop()
-    

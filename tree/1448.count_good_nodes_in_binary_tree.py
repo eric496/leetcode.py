@@ -40,17 +40,17 @@ class Solution:
     def goodNodes(self, root: TreeNode) -> int:
         res = [0]
         self.dfs(root, float("-inf"), res)
-        
+
         return res[0]
-        
+
     def dfs(self, root: TreeNode, mx: int, res: List[int]) -> None:
         if not root:
-            return 
-        
+            return
+
         if root.val >= mx:
             res[0] += 1
             mx = root.val
-            
+
         self.dfs(root.left, mx, res)
         self.dfs(root.right, mx, res)
 
@@ -58,24 +58,24 @@ class Solution:
 # Solution 2: iterative
 from collections import deque
 
+
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        if not root: 
+        if not root:
             return 0
-        
+
         q = deque([(root, root.val)])
         res = 0
-        
+
         while q:
             for _ in range(len(q)):
                 node, mx = q.popleft()
                 res += 1 if mx <= node.val else 0
-                
+
                 if node.left:
                     q.append((node.left, max(mx, node.left.val)))
-                    
+
                 if node.right:
                     q.append((node.right, max(mx, node.right.val)))
-                    
+
         return res
-        

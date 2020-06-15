@@ -26,18 +26,17 @@ class Solution:
         heapq.heapify(pq)
         res = [-1e5, 1e5]
         right = max(row[0] for row in nums)
-        
+
         while pq:
             left, r, c = heapq.heappop(pq)
-            
+
             if right - left < res[1] - res[0]:
                 res = [left, right]
-                
+
             if c + 1 == len(nums[r]):
                 return res
-            
-            right = max(right, nums[r][c+1])
-            heapq.heappush(pq, (nums[r][c+1], r, c + 1))
-            
+
+            right = max(right, nums[r][c + 1])
+            heapq.heappush(pq, (nums[r][c + 1], r, c + 1))
+
         return res
-        

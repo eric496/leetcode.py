@@ -20,19 +20,13 @@ Constraints:
 class Solution:
     def maxAbsValExpr(self, arr1: List[int], arr2: List[int]) -> int:
         arr = []
-        
+
         for i, (a, b) in enumerate(zip(arr1, arr2)):
-            arr.append((
-                a + b + i, 
-                a + b - i,
-                a - b + i,
-                a - b - i
-            ))
-        
+            arr.append((a + b + i, a + b - i, a - b + i, a - b - i))
+
         res = 0
-        
+
         for points in zip(*arr):
             res = max(res, max(points) - min(points))
-            
+
         return res
-        

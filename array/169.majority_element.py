@@ -18,10 +18,10 @@ class Solution:
     def majorityElement(self, nums: List[int]) -> int:
         cnt = {}
         half_size = len(nums) // 2
-        
+
         for num in nums:
             cnt[num] = cnt.get(num, 0) + 1
-            
+
             # Early stopping
             if cnt[num] > half_size:
                 return num
@@ -32,25 +32,25 @@ class Solution:
     def majorityElement(self, nums: List[int]) -> int:
         major = nums[0]
         cnt = 0
-        
+
         for num in nums:
             if num == major:
                 cnt += 1
             else:
                 cnt -= 1
-                
+
                 if cnt == 0:
                     major = num
                     cnt = 1
-                    
+
         return major
 
 
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
         majority = nums[0]
-        cnt = 1 
-        
+        cnt = 1
+
         for i in range(1, len(nums)):
             if cnt == 0:
                 majority = nums[i]
@@ -59,7 +59,7 @@ class Solution:
                 cnt += 1
             elif nums[i] != majority:
                 cnt -= 1
-        
+
         return majority
 
 

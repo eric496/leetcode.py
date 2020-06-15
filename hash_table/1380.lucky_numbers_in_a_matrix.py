@@ -26,24 +26,24 @@ All elements in the matrix are distinct.
 
 
 class Solution:
-    def luckyNumbers (self, matrix: List[List[int]]) -> List[int]:
+    def luckyNumbers(self, matrix: List[List[int]]) -> List[int]:
         m, n = len(matrix), len(matrix[0])
         row_mins = [float("inf")] * m
         col_maxs = [float("-inf")] * n
-        
+
         for i in range(m):
             for j in range(n):
                 if matrix[i][j] < row_mins[i]:
                     row_mins[i] = matrix[i][j]
-                    
+
                 if matrix[i][j] > col_maxs[j]:
                     col_maxs[j] = matrix[i][j]
-                    
+
         res = []
-    
+
         for i in range(m):
             for j in range(n):
                 if matrix[i][j] == row_mins[i] and matrix[i][j] == col_maxs[j]:
                     res.append(matrix[i][j])
-                    
+
         return res

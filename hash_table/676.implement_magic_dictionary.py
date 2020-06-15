@@ -20,8 +20,8 @@ Please remember to RESET your class variables declared in class MagicDictionary,
 # Solution 1: use a hashmap to count length
 from collections import defaultdict
 
-class MagicDictionary:
 
+class MagicDictionary:
     def __init__(self):
         """
         Initialize your data structure here.
@@ -40,20 +40,20 @@ class MagicDictionary:
         Returns if there is any word in the trie that equals to the given word after modifying exactly one character
         """
         size = len(word)
-        
+
         if size in self.cnt:
             for candidate in self.cnt[size]:
                 diff = 0
-                
+
                 for a, b in zip(word, candidate):
                     diff += 1 if a != b else 0
-                    
+
                     if diff > 1:
                         break
-            
+
                 if diff == 1:
                     return True
-            
+
         return False
 
 
@@ -68,7 +68,7 @@ class MagicDictionary:
         """
         self.words = set(words)
         self.pool = defaultdict(int)
-        
+
         for word in self.words:
             for mask in self._add_mask(word):
                 self.pool[mask] += 1
@@ -76,17 +76,17 @@ class MagicDictionary:
     def search(self, word: str) -> bool:
         """
         Returns if there is any word in the trie that equals to the given word after modifying exactly one character
-        """        
+        """
         for w in self._add_mask(word):
             if self.pool[w] and word not in self.words or self.pool[w] > 1:
                 return True
-        
+
         return False
-        
+
     def _add_mask(self, word: str) -> List[str]:
         mask = []
-        
+
         for i in range(len(word)):
-            mask.append(word[:i] + "*" + word[i+1:])
-            
+            mask.append(word[:i] + "*" + word[i + 1 :])
+
         return mask

@@ -42,23 +42,23 @@ class Solution:
 # Solution 2: heap
 import heapq
 
+
 class Solution:
     def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:
         # max heap
         pq = []
-        
+
         for point in points:
             dist = self.calcDist(point)
-            
+
             if len(pq) == K:
                 if dist < -pq[0][0]:
                     heapq.heappop(pq)
                     heapq.heappush(pq, (-dist, point))
             else:
                 heapq.heappush(pq, (-dist, point))
-        
+
         return [x[1] for x in pq]
-        
+
     def calcDist(self, point: List[int]) -> int:
         return point[0] ** 2 + point[1] ** 2
-        

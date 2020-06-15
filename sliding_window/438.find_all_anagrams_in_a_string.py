@@ -29,32 +29,32 @@ class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
         if not s or len(s) < len(p):
             return []
-    
+
         cnt = [0] * 26
-        
+
         for c in p:
             cnt[ord(c) - ord("a")] += 1
-        
+
         start = end = 0
         need = len(p)
         res = []
-        
+
         while end < len(s):
             if cnt[ord(s[end]) - ord("a")] >= 1:
                 need -= 1
-                
+
             cnt[ord(s[end]) - ord("a")] -= 1
-            
+
             if need == 0:
                 res.append(start)
-                
+
             if end - start + 1 == len(p):
                 if cnt[ord(s[start]) - ord("a")] >= 0:
                     need += 1
-                    
+
                 cnt[ord(s[start]) - ord("a")] += 1
                 start += 1
-            
+
             end += 1
-            
+
         return res

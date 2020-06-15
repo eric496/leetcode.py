@@ -22,28 +22,27 @@ Note:
 
 class Solution:
     def subarraysWithKDistinct(self, A: List[int], K: int) -> int:
-        return self.atMostK(A, K) - self.atMostK(A, K-1)
-        
-    def atMostK(self, A: List[int], K:int) -> int:
+        return self.atMostK(A, K) - self.atMostK(A, K - 1)
+
+    def atMostK(self, A: List[int], K: int) -> int:
         lookup = {}
         start = end = cnt = res = 0
-        
+
         while end < len(A):
             lookup[A[end]] = lookup.get(A[end], 0) + 1
-            
+
             if lookup[A[end]] == 1:
                 cnt += 1
-            
+
             while start <= end and cnt > K:
                 lookup[A[start]] = lookup.get(A[start], 0) - 1
-                
+
                 if lookup[A[start]] == 0:
                     cnt -= 1
-                
+
                 start += 1
-            
+
             res += end - start + 1
             end += 1
-        
+
         return res
-        

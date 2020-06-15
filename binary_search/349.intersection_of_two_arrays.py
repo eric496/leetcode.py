@@ -14,12 +14,12 @@ The result can be in any order.
 class Solution:
     def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
         res = set()
-        
+
         for n1 in nums1:
             for n2 in nums2:
                 if n1 == n2:
                     res.add(n1)
-                    
+
         return list(res)
 
 
@@ -30,7 +30,7 @@ class Solution:
         nums2.sort()
         i = j = 0
         res = set()
-        
+
         while i < len(nums1) and j < len(nums2):
             if nums1[i] == nums2[j]:
                 res.add(nums1[i])
@@ -40,7 +40,7 @@ class Solution:
                 i += 1
             elif nums1[i] > nums2[j]:
                 j += 1
-            
+
         return list(res)
 
 
@@ -49,31 +49,31 @@ class Solution:
     def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
         if len(nums1) > len(nums2):
             return self.intersection(nums2, nums1)
-        
+
         nums2.sort()
         res = set()
-        
+
         for target in nums1:
             if self.binary_search(nums2, target):
                 res.add(target)
-                
+
         return list(res)
-    
+
     def binary_search(self, nums: List[int], target: int) -> bool:
         low, high = 0, len(nums) - 1
-        
+
         while low <= high:
             mid = low + (high - low >> 1)
-            
+
             if nums[mid] == target:
                 return True
             elif target < nums[mid]:
                 high = mid - 1
             elif target > nums[mid]:
                 low = mid + 1
-        
+
         return False
-                
+
 
 # Solution 4: two sets - O(m+n) TC
 class Solution:

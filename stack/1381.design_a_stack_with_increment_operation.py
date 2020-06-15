@@ -37,7 +37,6 @@ At most 1000 calls will be made to each method of increment, push and pop each s
 
 
 class CustomStack:
-
     def __init__(self, maxSize: int):
         self.max_size = maxSize
         self.stk = []
@@ -52,8 +51,8 @@ class CustomStack:
     def increment(self, k: int, val: int) -> None:
         for i in range(min(k, len(self.stk))):
             self.stk[i] += val
-            
-                
+
+
 # Your CustomStack object will be instantiated and called as such:
 # obj = CustomStack(maxSize)
 # obj.push(x)

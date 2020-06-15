@@ -28,24 +28,23 @@ class Solution:
         dominoes = "L" + dominoes + "R"
         res = []
         i = 0
-        
+
         for j in range(1, len(dominoes)):
             if dominoes[j] == ".":
                 continue
-                
+
             mid = j - i - 1
-            
+
             if i:
                 res.append(dominoes[i])
-            
+
             if dominoes[i] == dominoes[j]:
                 res.append(dominoes[i] * mid)
             elif dominoes[i] == "L" and dominoes[j] == "R":
                 res.append("." * mid)
             elif dominoes[i] == "R" and dominoes[j] == "L":
                 res.append("R" * (mid >> 1) + "." * (mid & 1) + "L" * (mid >> 1))
-            
+
             i = j
-            
+
         return "".join(res)
-        

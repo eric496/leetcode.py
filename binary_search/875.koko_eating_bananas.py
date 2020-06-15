@@ -26,23 +26,21 @@ piles.length <= H <= 10^9
 class Solution:
     def minEatingSpeed(self, piles: List[int], H: int) -> int:
         lo, hi = 1, max(piles) + 1
-        
+
         while lo < hi:
             mid = lo + (hi - lo >> 1)
-            
+
             if self.eat(piles, mid) > H:
                 lo = mid + 1
             else:
                 hi = mid
-                
+
         return lo
-    
+
     def eat(self, piles: List[int], speed: int) -> int:
         res = 0
-        
+
         for p in piles:
             res += p // speed + 1 if p % speed else p // speed
-        
+
         return res
-                
-                

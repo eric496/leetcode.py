@@ -51,16 +51,16 @@ class Solution:
 class Solution:
     def constructMaximumBinaryTree(self, nums: List[int]) -> TreeNode:
         mp = {n: i for i, n in enumerate(nums)}
-        
+
         return self.build(0, len(nums) - 1, nums, mp)
-        
+
     def build(self, start: int, end: int, nums: List[int], mp: dict) -> TreeNode:
         if not nums or start > end:
             return None
-        
-        root = TreeNode(max(nums[start: end + 1]))
+
+        root = TreeNode(max(nums[start : end + 1]))
         idx = mp[root.val]
         root.left = self.build(start, idx - 1, nums, mp)
         root.right = self.build(idx + 1, end, nums, mp)
-        
+
         return root

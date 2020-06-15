@@ -13,23 +13,25 @@ class Solution:
     def generateAbbreviations(self, word: str) -> List[str]:
         res = []
         self.backtrack(word, [], 0, 0, res)
-        
+
         return res
-        
-    def backtrack(self, word: str, cur: List[str], pos: int, cnt: int, res: List[str]) -> None:
+
+    def backtrack(
+        self, word: str, cur: List[str], pos: int, cnt: int, res: List[str]
+    ) -> None:
         if pos == len(word):
             if cnt:
                 cur.append(str(cnt))
-                
+
             res.append("".join(cur))
-            
-            return 
-        
+
+            return
+
         self.backtrack(word, cur, pos + 1, cnt + 1, res)
-        
+
         cur.pop()
-        
+
         if cnt:
             cur.append(str(cnt))
-        
+
         self.backtrack(word, cur + [word[pos]], pos + 1, 0, res)

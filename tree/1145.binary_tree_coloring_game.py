@@ -31,21 +31,21 @@ class Solution:
         n = self.dfs(root, x, res)
         left, right = res
         up = n - left - right - 1
-        
+
         if up > left + right + 1 or left > up + right + 1 or right > up + left + 1:
             return True
-        
+
         return False
-        
+
     def dfs(self, root: TreeNode, x: int, res: List[int]) -> int:
         if not root:
             return 0
-        
+
         left = self.dfs(root.left, x, res)
         right = self.dfs(root.right, x, res)
-        
+
         if root.val == x:
             res[0] = left
             res[1] = right
-            
+
         return left + right + 1

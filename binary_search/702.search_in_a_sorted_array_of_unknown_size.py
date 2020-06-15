@@ -20,8 +20,8 @@ The value of each element in the array will be in the range [-9999, 9999].
 
 # This is ArrayReader's API interface.
 # You should not implement it, or speculate about its implementation
-# 
-#class ArrayReader:
+#
+# class ArrayReader:
 #    def get(self, index: int) -> int:
 
 
@@ -32,19 +32,18 @@ class Solution:
         :type target: int
         :rtype: int
         """
-        
+
         low, high = 0, 2147483647
-        
+
         while low <= high:
-            mid = low + ((high-low) >> 1)
+            mid = low + ((high - low) >> 1)
             cur = reader.get(mid)
-            
+
             if cur == 2147483647 or cur > target:
                 high = mid - 1
             elif cur < target:
                 low = mid + 1
             elif cur == target:
                 return mid
-            
+
         return -1
-                

@@ -24,27 +24,26 @@ class Solution:
     def findLongestWord(self, s: str, d: List[str]) -> str:
         if not s or not d:
             return ""
-        
+
         res = ""
-        
+
         for word in d:
             if self.is_sub(s, word):
                 if len(word) > len(res):
                     res = word
                 elif len(word) == len(res):
                     res = min(res, word)
-        
+
         return res
-    
+
     def is_sub(self, s: str, word: str) -> bool:
         i = j = 0
-        
+
         while i < len(s) and j < len(word):
             if s[i] == word[j]:
                 i += 1
                 j += 1
             else:
                 i += 1
-            
+
         return j == len(word)
-        

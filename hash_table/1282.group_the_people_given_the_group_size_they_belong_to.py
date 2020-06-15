@@ -21,17 +21,18 @@ groupSizes.length == n
 
 from collections import defaultdict
 
+
 class Solution:
     def groupThePeople(self, groupSizes: List[int]) -> List[List[int]]:
         cnt = defaultdict(list)
-        
+
         for i, n in enumerate(groupSizes):
             cnt[n].append(i)
-            
+
         res = []
-            
+
         for i, n in cnt.items():
-            for x in range(0, len(n)-i+1, i):
-                res.append(n[x:x+i])
-        
+            for x in range(0, len(n) - i + 1, i):
+                res.append(n[x : x + i])
+
         return res

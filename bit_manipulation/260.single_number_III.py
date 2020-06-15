@@ -15,16 +15,16 @@ Your algorithm should run in linear runtime complexity. Could you implement it u
 class Solution:
     def singleNumber(self, nums: List[int]) -> List[int]:
         cnt = {}
-        
+
         for num in nums:
             cnt[num] = cnt.get(num, 0) + 1
-        
+
         res = []
-        
+
         for k, v in cnt.items():
             if v == 1:
                 res.append(k)
-                
+
         return res
 
 
@@ -32,18 +32,17 @@ class Solution:
 class Solution:
     def singleNumber(self, nums: List[int]) -> List[int]:
         xor = 0
-        
+
         for num in nums:
             xor ^= num
-            
+
         last_set_bit = xor & ~xor + 1
         res = [0, 0]
-        
+
         for num in nums:
             if num & last_set_bit:
                 res[0] ^= num
             else:
                 res[1] ^= num
-                
+
         return res
-        

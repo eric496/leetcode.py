@@ -18,36 +18,38 @@ The input is always valid. You may assume that evaluating the queries will resul
 
 # Solution 1: Union Find
 class Solution:
-    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+    def calcEquation(
+        self, equations: List[List[str]], values: List[float], queries: List[List[str]]
+    ) -> List[float]:
         res = []
         parent = {}
         weight = {}
-        
+
         for u, v in equations:
             parent[u] = u
             weight[u] = 1.0
             parent[v] = v
             weight[v] = 1.0
-            
+
         for i, (u, v) in enumerate(equations):
             self.union(u, v, parent, weight, values[i])
-            
+
         for u, v in queries:
             if u not in parent or v not in parent:
                 res.append(-1.0)
                 continue
-                
+
             u_root = self.find(u, parent, weight)
             v_root = self.find(v, parent, weight)
-            
+
             if u_root != v_root:
                 res.append(-1.0)
                 continue
-            
+
             res.append(weight[u] / weight[v])
 
         return res
-        
+
     def find(self, u: str, parent: dict, weight: dict) -> str:
         if u == parent[u]:
             return u
@@ -57,10 +59,9 @@ class Solution:
             parent[u] = root
             weight[u] = weight[u] * weight[p]
             return root
-        
+
     def union(self, u: str, v: str, parent: dict, weight: dict, val: float) -> None:
         u_root = self.find(u, parent, weight)
         v_root = self.find(v, parent, weight)
         parent[u_root] = v_root
         weight[u_root] = weight[v] * val / weight[u]
-    

@@ -39,26 +39,28 @@ class Solution:
         neq = [[e[0], e[-1]] for e in equations if e[1] == "!"]
         parent = list(range(26))
         rank = [0] * 26
-        
+
         for u, v in eq:
             self.union(ord(u) - ord("a"), ord(v) - ord("a"), parent, rank)
-            
+
         for u, v in neq:
-            if self.find(ord(u) - ord("a"), parent) == self.find(ord(v) - ord("a"), parent):
+            if self.find(ord(u) - ord("a"), parent) == self.find(
+                ord(v) - ord("a"), parent
+            ):
                 return False
-        
+
         return True
-    
+
     def find(self, u: int, parent: List[int]) -> int:
         return u if u == parent[u] else self.find(parent[u], parent)
-    
+
     def union(self, u: int, v: int, parent: List[int], rank: List[int]) -> None:
         u_root = self.find(u, parent)
         v_root = self.find(v, parent)
-        
+
         if u_root == v_root:
             return
-        
+
         if rank[u_root] > rank[v_root]:
             parent[v_root] = u_root
         elif rank[u_root] < rank[v_root]:

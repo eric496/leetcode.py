@@ -28,21 +28,21 @@ class Solution:
     def maxLength(self, arr: List[str]) -> int:
         res = [0]
         mx = 0
-        
+
         for s in arr:
             mask = 0
-            
+
             for c in s:
                 mask |= 1 << ord(c) - ord("a")
-                
+
             if bin(mask).count("1") == len(s):
                 new = []
-                
+
                 for b in res:
                     if mask & b == 0:
                         new.append(mask | b)
-                        mx = max(mx, bin(mask|b).count("1"))
-                        
+                        mx = max(mx, bin(mask | b).count("1"))
+
                 res += new
-                        
+
         return mx

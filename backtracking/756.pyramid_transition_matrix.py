@@ -36,36 +36,37 @@ from collections import defaultdict
 class Solution:
     def pyramidTransition(self, bottom: str, allowed: List[str]) -> bool:
         mp = defaultdict(set)
-        
+
         for a in allowed:
             mp[a[:2]].add(a[-1])
-            
+
         return self.dfs(bottom, mp)
-        
+
     def dfs(self, bottom: str, mp: dict) -> bool:
         if len(bottom) == 1:
             return True
-        
+
         for i in range(len(bottom) - 1):
-            if bottom[i:i+2] not in mp:
+            if bottom[i : i + 2] not in mp:
                 return False
-        
+
         res = []
         self.backtrack(bottom, 0, [], res, mp)
-        
+
         for s in res:
             if self.dfs(s, mp):
                 return True
-            
+
         return False
-    
-    def backtrack(self, bottom: str, i: int, cur: List[str], res: List[str], mp: dict) -> None:
+
+    def backtrack(
+        self, bottom: str, i: int, cur: List[str], res: List[str], mp: dict
+    ) -> None:
         if i == len(bottom) - 1:
             res.append("".join(cur))
-            return 
-        
-        for c in mp[bottom[i: i+2]]:
+            return
+
+        for c in mp[bottom[i : i + 2]]:
             cur.append(c)
             self.backtrack(bottom, i + 1, cur, res, mp)
             cur.pop()
-            

@@ -27,7 +27,7 @@ class Solution:
         operator_stk = []
         depth = 0
         tokens = self.tokenize(s)
-                
+
         for token in tokens:
             if token.isdigit():
                 operand_stk.append(int(token))
@@ -39,21 +39,21 @@ class Solution:
                     right, left = operand_stk.pop(), operand_stk.pop()
                     res = left + right if operator == "+" else left - right
                     operand_stk.append(res)
-                
+
                 operator_stk.append((token, depth))
-        
+
         while operator_stk:
             operator, _ = operator_stk.pop()
             right, left = operand_stk.pop(), operand_stk.pop()
             res = left + right if operator == "+" else left - right
             operand_stk.append(res)
-            
+
         return operand_stk[0]
-                 
+
     def tokenize(self, s: str) -> List[str]:
         res = []
         cur = -1
-        
+
         for c in s:
             if c.isspace():
                 continue
@@ -63,9 +63,9 @@ class Solution:
                 if cur != -1:
                     res.append(str(cur))
                     cur = -1
-                
+
                 res.append(c)
-            
+
         return res + [str(cur)] if cur != -1 else res
 
 

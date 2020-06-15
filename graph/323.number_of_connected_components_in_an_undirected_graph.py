@@ -28,21 +28,20 @@ You can assume that no duplicate edges will appear in edges. Since all edges are
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
         roots = list(range(n))
-        
+
         for v, w in edges:
             r1 = self.find(roots, v)
             r2 = self.find(roots, w)
-            
+
             if r1 != r2:
                 roots[r2] = r1
                 n -= 1
-                
+
         return n
-        
+
     def find(self, roots: List[int], key: int) -> int:
         while roots[key] != key:
             roots[key] = roots[roots[key]]
             key = roots[key]
-            
+
         return key
-        

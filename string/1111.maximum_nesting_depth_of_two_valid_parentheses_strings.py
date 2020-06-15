@@ -28,18 +28,18 @@ Constraints:
 class Solution:
     def maxDepthAfterSplit(self, seq: str) -> List[int]:
         depth = cur = 0
-        
+
         for c in seq:
             if c == "(":
                 cur += 1
                 depth = max(depth, cur)
             elif c == ")":
                 cur -= 1
-        
+
         half = depth // 2
         res = [0] * len(seq)
         cur = 0
-        
+
         for i, c in enumerate(seq):
             if c == "(":
                 cur += 1
@@ -47,6 +47,5 @@ class Solution:
             elif c == ")":
                 res[i] = 1 if cur > half else 0
                 cur -= 1
-        
+
         return res
-        

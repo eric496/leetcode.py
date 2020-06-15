@@ -30,20 +30,19 @@ class Solution:
     def countServers(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
         r_cnt = [0] * m
-        c_cnt = [0] * n 
+        c_cnt = [0] * n
         res = 0
-        
+
         for r in range(m):
             for c in range(n):
                 if grid[r][c]:
                     r_cnt[r] += 1
                     c_cnt[c] += 1
                     res += 1
-                
+
         for r in range(m):
             for c in range(n):
                 if r_cnt[r] == c_cnt[c] == 1 and grid[r][c] == 1:
                     res -= 1
-                
+
         return res
-        

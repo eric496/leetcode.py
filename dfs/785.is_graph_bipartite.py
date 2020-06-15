@@ -39,31 +39,30 @@ class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:
         neighbors = defaultdict(set)
         colors = dict()
-        
+
         for i, adj in enumerate(graph):
             neighbors[i] |= set(adj)
             colors[i] = 0
-            
+
             for a in adj:
                 colors[a] = 0
-                            
+
         for n in colors:
             if colors[n] == 0:
                 if not self.dfs(n, 1, colors, neighbors):
                     return False
-        
+
         return True
-    
+
     def dfs(self, n: int, color: int, colors: dict, neighbors: dict) -> bool:
         colors[n] = color
-        
+
         for neighbor in neighbors[n]:
             if colors[neighbor] == color:
                 return False
-            
+
             if colors[neighbor] == 0:
                 if not self.dfs(neighbor, -color, colors, neighbors):
                     return False
-        
+
         return True
-        

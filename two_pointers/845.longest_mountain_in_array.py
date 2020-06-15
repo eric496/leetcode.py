@@ -26,41 +26,40 @@ Can you solve it in O(1) space?
 """
 
 
-# Solution 1: two passes 
+# Solution 1: two passes
 class Solution:
     def longestMountain(self, A: List[int]) -> int:
         up, down = [0] * len(A), [0] * len(A)
-        
+
         for i in range(1, len(A)):
-            if A[i] > A[i-1]:
-                up[i] = up[i-1] + 1
-        
+            if A[i] > A[i - 1]:
+                up[i] = up[i - 1] + 1
+
         for i in range(len(A) - 1)[::-1]:
-            if A[i] > A[i+1]:
-                down[i] = down[i+1] + 1
-                
+            if A[i] > A[i + 1]:
+                down[i] = down[i + 1] + 1
+
         longest = [u + d + 1 for u, d in zip(up, down) if u and d]
-        
+
         return max(longest) if longest else 0
-                
+
 
 # Solution 2: one pass
 class Solution:
     def longestMountain(self, A: List[int]) -> int:
         res = ups = downs = 0
-        
+
         for i in range(1, len(A)):
-            if downs and A[i] > A[i-1] or A[i] == A[i-1]:
+            if downs and A[i] > A[i - 1] or A[i] == A[i - 1]:
                 ups = downs = 0
-            
-            if A[i] > A[i-1]:
+
+            if A[i] > A[i - 1]:
                 ups += 1
-                
-            if A[i] < A[i-1]:
+
+            if A[i] < A[i - 1]:
                 downs += 1
-                
+
             if ups and downs:
                 res = max(res, ups + downs + 1)
-                
+
         return res
-        

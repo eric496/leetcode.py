@@ -29,9 +29,9 @@ class Solution:
     def arrayRankTransform(self, arr: List[int]) -> List[int]:
         arr_sort = sorted(arr)
         rank = {}
-        
+
         for n in arr_sort:
             if n not in rank:
                 rank[n] = len(rank) + 1
-            
+
         return [rank[n] for n in arr]

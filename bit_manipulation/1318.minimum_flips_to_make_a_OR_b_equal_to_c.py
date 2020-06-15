@@ -25,20 +25,19 @@ Constraints:
 class Solution:
     def minFlips(self, a: int, b: int, c: int) -> int:
         res = 0
-        
+
         while a or b or c:
-            a_bit, b_bit, c_bit = a&1, b&1, c&1
-            
+            a_bit, b_bit, c_bit = a & 1, b & 1, c & 1
+
             if a_bit ^ b_bit and not c_bit:
                 res += 1
             elif not a_bit and not b_bit and c_bit:
                 res += 1
             elif a_bit & b_bit and not c_bit:
                 res += 2
-                
+
             a >>= 1
             b >>= 1
             c >>= 1
-                
+
         return res
-                

@@ -15,13 +15,13 @@ class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
         cnt = {0: 1}
         presum = res = 0
-        
+
         for num in nums:
             presum += num
-            
+
             if presum - k in cnt:
-                res += cnt[presum-k]
-                
+                res += cnt[presum - k]
+
             cnt[presum] = cnt.get(presum, 0) + 1
-            
+
         return res

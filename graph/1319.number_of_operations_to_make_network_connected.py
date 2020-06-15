@@ -35,19 +35,19 @@ class Solution:
     def makeConnected(self, n: int, connections: List[List[int]]) -> int:
         parent = list(range(n))
         rank = [0] * n
-        cables =  0
-        
+        cables = 0
+
         for u, v in connections:
             if not self.union(u, v, parent, rank):
                 cables += 1
-                
-        components = set()  
-    
+
+        components = set()
+
         for p in parent:
             components.add(self.find(p, parent))
-            
-        return len(components) - 1 if cables - len(components) + 1 >= 0 else -1 
-        
+
+        return len(components) - 1 if cables - len(components) + 1 >= 0 else -1
+
     def find(self, u: int, parent: List[int]) -> int:
         if u == parent[u]:
             return u
@@ -55,14 +55,14 @@ class Solution:
             root = self.find(parent[u], parent)
             parent[u] = root
             return root
-    
+
     def union(self, u: int, v: int, parent: List[int], rank: List[int]) -> bool:
         u_root = self.find(u, parent)
         v_root = self.find(v, parent)
-        
+
         if u_root == v_root:
             return False
-        
+
         if rank[u_root] > rank[v_root]:
             parent[v_root] = u_root
         elif rank[u_root] < rank[v_root]:
@@ -70,6 +70,5 @@ class Solution:
         else:
             parent[v_root] = u_root
             rank[u_root] += 1
-            
+
         return True
-        

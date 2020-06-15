@@ -16,15 +16,14 @@ class Solution:
     def replaceElements(self, arr: List[int]) -> List[int]:
         if len(arr) == 1:
             return [-1]
-        
+
         n = len(arr)
         res = [0] * n
         res[-1] = -1
         cur_max = float("-inf")
-        
+
         for i in range(n - 2, -1, -1):
-            cur_max = max(cur_max, arr[i+1])
+            cur_max = max(cur_max, arr[i + 1])
             res[i] = cur_max
-            
+
         return res
-        

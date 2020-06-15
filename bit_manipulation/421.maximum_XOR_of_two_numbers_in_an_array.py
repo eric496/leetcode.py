@@ -14,23 +14,22 @@ class Solution:
     def findMaximumXOR(self, nums: List[int]) -> int:
         mask = 0
         res = 0
-        
+
         for i in range(31, -1, -1):
             mask = mask | (1 << i)
             lookup = set()
-            
+
             for num in nums:
                 left = num & mask
                 lookup.add(left)
-                
+
             want = res | (1 << i)
-            
+
             for n in lookup:
                 m = n ^ want
-                
+
                 if m in lookup:
                     res = want
                     break
-            
+
         return res
-        

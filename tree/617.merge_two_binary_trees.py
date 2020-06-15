@@ -59,7 +59,7 @@ class Solution:
 
             if n1 and n2:
                 n1.val += n2.val
-                
+
                 if n2.left and not n1.left:
                     n1.left = TreeNode(0)
                 # Don't need to check Tree 2, because it already came to a leaf node

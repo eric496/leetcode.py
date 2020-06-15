@@ -26,19 +26,18 @@ Constraints:
 class Solution:
     def numberOfSubarrays(self, nums: List[int], k: int) -> int:
         start = end = cnt = res = 0
-        
+
         while end < len(nums):
             if nums[end] & 1:
                 k -= 1
                 cnt = 0
-            
+
             while k == 0:
                 k += 1 if nums[start] & 1 else 0
                 start += 1
                 cnt += 1
-            
+
             res += cnt
             end += 1
-        
+
         return res
-        

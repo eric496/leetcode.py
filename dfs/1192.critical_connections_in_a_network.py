@@ -18,33 +18,45 @@ There are no repeated connections.
 
 from collections import defaultdict
 
+
 class Solution:
-    def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
+    def criticalConnections(
+        self, n: int, connections: List[List[int]]
+    ) -> List[List[int]]:
         graph = defaultdict(set)
-        
+
         for u, v in connections:
             graph[u].add(v)
             graph[v].add(u)
-            
+
         visited = set()
         lowest_rank = [0] * n
         res = []
         self.dfs(0, -1, 0, lowest_rank, visited, res, graph)
-        
+
         return res
-        
-    def dfs(self, rank: int, prev: int, node: int, lowest_rank: List[int], visited: set, res: List[List[int]], graph: dict) -> None:
+
+    def dfs(
+        self,
+        rank: int,
+        prev: int,
+        node: int,
+        lowest_rank: List[int],
+        visited: set,
+        res: List[List[int]],
+        graph: dict,
+    ) -> None:
         visited.add(node)
         lowest_rank[node] = rank
-        
+
         for neighbor in graph[node]:
             if neighbor == prev:
                 continue
-            
+
             if neighbor not in visited:
                 self.dfs(rank + 1, node, neighbor, lowest_rank, visited, res, graph)
-                
+
             lowest_rank[node] = min(lowest_rank[node], lowest_rank[neighbor])
-            
+
             if lowest_rank[neighbor] > rank:
                 res.append([node, neighbor])

@@ -26,11 +26,10 @@ class Solution:
     def subtractProductAndSum(self, n: int) -> int:
         s = 0
         p = 1
-        
+
         while n:
             n, mod = divmod(n, 10)
             s += mod
             p *= mod
-        
+
         return p - s
-            

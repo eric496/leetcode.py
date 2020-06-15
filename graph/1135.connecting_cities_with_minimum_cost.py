@@ -30,33 +30,33 @@ class Solution:
         rank = [0] * N
         parent = list(range(N))
         res = 0
-        
+
         for u, v, cost in connections:
-            if self.union(u-1, v-1, parent, rank):
+            if self.union(u - 1, v - 1, parent, rank):
                 res += cost
-        
+
         components = set()
-        
+
         for p in parent:
             components.add(self.find(p, parent))
-            
+
         return res if len(components) == 1 else -1
-    
+
     def find(self, u: int, parent: List[int]) -> int:
         if u == parent[u]:
             return u
-        
+
         root = self.find(parent[u], parent)
         parent[u] = root
         return root
-    
+
     def union(self, u: int, v: int, parent: List[int], rank: List[int]) -> bool:
         u_root = self.find(u, parent)
         v_root = self.find(v, parent)
-        
+
         if u_root == v_root:
             return False
-        
+
         if rank[u_root] > rank[v_root]:
             parent[v_root] = u_root
         elif rank[u_root] < rank[v_root]:
@@ -64,6 +64,5 @@ class Solution:
         else:
             parent[v_root] = u_root
             rank[u_root] += 1
-            
+
         return True
-            

@@ -29,39 +29,39 @@ class Solution:
         rank = {}
         m, n = len(A), len(A[0])
         points = []
-        
+
         for i in range(m):
             for j in range(n):
                 parent[(i, j)] = (i, j)
                 rank[(i, j)] = 0
                 points.append((i, j))
-                
+
         points.sort(key=lambda x: A[x[0]][x[1]], reverse=True)
         directions = [(-1, 0), (0, -1), (0, 1), (1, 0)]
 
         for y, x in points:
             for dy, dx in directions:
-                if 0 <= y + dy < m and 0 <= x + dx < n and A[y][x] <= A[y+dy][x+dx]:
+                if 0 <= y + dy < m and 0 <= x + dx < n and A[y][x] <= A[y + dy][x + dx]:
                     self.union((y, x), (y + dy, x + dx), parent, rank)
 
-            if self.find((0, 0), parent) == self.find((m-1, n-1), parent):
+            if self.find((0, 0), parent) == self.find((m - 1, n - 1), parent):
                 return A[y][x]
-                    
+
     def find(self, point: tuple, parent: dict) -> tuple:
         if point == parent[point]:
             return point
-        
+
         root = self.find(parent[point], parent)
         parent[point] = root
         return root
-    
+
     def union(self, u: tuple, v: tuple, parent: dict, rank: dict) -> None:
         u_root = self.find(u, parent)
         v_root = self.find(v, parent)
-        
+
         if u_root == v_root:
             return
-        
+
         if rank[u_root] > rank[v_root]:
             parent[v_root] = u_root
         elif rank[u_root] < rank[v_root]:
@@ -69,4 +69,3 @@ class Solution:
         else:
             parent[v_root] = u_root
             rank[u_root] += 1
-            

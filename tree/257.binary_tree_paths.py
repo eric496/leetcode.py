@@ -31,18 +31,18 @@ class Solution:
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
         res = []
         self.dfs(root, [], res)
-        
+
         return res
-        
+
     def dfs(self, node: TreeNode, path: List[str], res: List[str]) -> None:
         if not node:
             return
-        
+
         if not node.left and not node.right:
             path.append(str(node.val))
             res.append("->".join(path))
             return
-        
+
         self.dfs(node.left, path + [str(node.val)], res)
         self.dfs(node.right, path + [str(node.val)], res)
 

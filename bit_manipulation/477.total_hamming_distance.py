@@ -18,16 +18,15 @@ Length of the array will not exceed 10^4.
 class Solution:
     def totalHammingDistance(self, nums: List[int]) -> int:
         cnt_ones = [0] * 31
-        
+
         for num in nums:
             for i in range(31):
                 cnt_ones[i] += 1 if num & 1 else 0
                 num >>= 1
-            
+
         res = 0
-        
+
         for n in cnt_ones:
             res += n * (len(nums) - n)
-            
+
         return res
-        

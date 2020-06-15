@@ -20,14 +20,17 @@ difficulty[i], profit[i], worker[i]  are in range [1, 10^5]
 # Solution 1: binary search
 from collections import defaultdict
 
+
 class Solution:
-    def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
+    def maxProfitAssignment(
+        self, difficulty: List[int], profit: List[int], worker: List[int]
+    ) -> int:
         cur_max = float("-inf")
         aux = [(d, p) for d, p in zip(difficulty, profit)]
         aux.sort()
         difficulty.sort()
         mp = defaultdict(int)
-        
+
         for d, p in aux:
             cur_max = max(cur_max, p)
             if d in mp:
@@ -35,48 +38,47 @@ class Solution:
                     mp[d] = cur_max
             else:
                 mp[d] = cur_max
-        
+
         res = 0
-                
+
         for w in worker:
             print(self.lower_bound(difficulty, w))
             res += mp[self.lower_bound(difficulty, w)]
-            
+
         return res
-                
-        
+
     def lower_bound(self, difficulty: List[int], target: int) -> int:
         if target < difficulty[0]:
             return 0
         elif target > difficulty[-1]:
             return difficulty[-1]
-        
+
         lo, hi = 0, len(difficulty)
-        
+
         while lo < hi:
             mid = lo + (hi - lo >> 1)
-            
+
             if difficulty[mid] >= target:
                 hi = mid
             else:
                 lo = mid + 1
-                
-        return difficulty[lo] if difficulty[lo] <= target else difficulty[lo-1]      
-        
+
+        return difficulty[lo] if difficulty[lo] <= target else difficulty[lo - 1]
 
 
 # Solution 2: two pointers
 class Solution:
-    def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
+    def maxProfitAssignment(
+        self, difficulty: List[int], profit: List[int], worker: List[int]
+    ) -> int:
         jobs = sorted(zip(difficulty, profit))
         res = i = best = 0
-        
+
         for w in sorted(worker):
             while i < len(jobs) and w >= jobs[i][0]:
                 best = max(best, jobs[i][1])
                 i += 1
-            
+
             res += best
-        
+
         return res
-        

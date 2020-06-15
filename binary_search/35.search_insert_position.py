@@ -59,15 +59,15 @@ class Solution:
 class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
         low, high = 0, len(nums)
-        
+
         while low < high:
             mid = low + (high - low >> 1)
-            
+
             if nums[mid] == target:
-                return mid 
+                return mid
             elif nums[mid] > target:
                 high = mid
             elif nums[mid] < target:
                 low = mid + 1
-        
+
         return low

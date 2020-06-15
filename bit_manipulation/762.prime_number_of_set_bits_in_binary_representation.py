@@ -31,16 +31,16 @@ R - L will be at most 10000.
 class Solution:
     def countPrimeSetBits(self, L: int, R: int) -> int:
         primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31}
-        
+
         res = 0
-        
-        for n in range(L, R+1):
+
+        for n in range(L, R + 1):
             cnt = 0
-            
-            while n != 0:  
+
+            while n != 0:
                 cnt += n & 1
                 n >>= 1
-            
+
             res += 1 if cnt in primes else 0
-            
+
         return res

@@ -21,25 +21,25 @@ All points are distinct.
 # Solution: O(n^2) using hashmap
 from collections import defaultdict
 
+
 class Solution:
     def minAreaRect(self, points: List[List[int]]) -> int:
         mp = defaultdict(set)
-        
+
         for x, y in points:
             mp[x].add(y)
-            
-        res = float("inf")    
-        
+
+        res = float("inf")
+
         for i in range(len(points)):
-            for j in range(i+1, len(points)):
+            for j in range(i + 1, len(points)):
                 x1, y1 = points[i]
                 x2, y2 = points[j]
-                
+
                 if x1 == x2 or y1 == y2:
                     continue
-                    
+
                 if y1 in mp[x2] and y2 in mp[x1]:
-                    res = min(res, abs(x1-x2) * abs(y1-y2))
-                    
+                    res = min(res, abs(x1 - x2) * abs(y1 - y2))
+
         return 0 if res == float("inf") else res
-                  

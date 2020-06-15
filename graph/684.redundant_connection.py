@@ -32,11 +32,11 @@ class Solution:
         parent = list(range(n))
         rank = [0] * n
         res = []
-        
+
         for u, v in edges:
-            if not self.union(u-1, v-1, parent, rank):
+            if not self.union(u - 1, v - 1, parent, rank):
                 res.append([u, v])
-                
+
         return res[-1]
 
     def find(self, u: int, parent: List[int]) -> int:
@@ -46,14 +46,14 @@ class Solution:
             root = self.find(parent[u], parent)
             parent[u] = root
             return root
-        
+
     def union(self, u: int, v: int, parent: List[int], rank: List[int]) -> bool:
         u_root = self.find(u, parent)
         v_root = self.find(v, parent)
-        
+
         if u_root == v_root:
             return False
-        
+
         if rank[u_root] > rank[v_root]:
             parent[v_root] = u_root
         elif rank[v_root] > rank[u_root]:
@@ -61,6 +61,5 @@ class Solution:
         else:
             parent[v_root] = u_root
             rank[u_root] += 1
-            
+
         return True
-        

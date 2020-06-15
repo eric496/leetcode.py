@@ -32,26 +32,25 @@ from collections import defaultdict
 class Solution:
     def countLargestGroup(self, n: int) -> int:
         groups = defaultdict(list)
-        
-        for i in range(1, n+1):
+
+        for i in range(1, n + 1):
             cur = i
             sum_ = 0
-            
+
             while cur:
                 sum_ += cur % 10
                 cur //= 10
-            
+
             groups[sum_].append(i)
-            
+
         res = 1
         max_size = 0
-        
+
         for v in groups.values():
             if len(v) > max_size:
-                res = 1 
+                res = 1
                 max_size = len(v)
             elif len(v) == max_size:
                 res += 1
-                
+
         return res
-        

@@ -33,11 +33,10 @@ Note that 'A' and 'a' are treated as two different characters.
 class Solution:
     def frequencySort(self, s: str) -> str:
         freq = {}
-        
+
         for c in s:
             freq[c] = freq.get(c, 0) + 1
-            
+
         sort_by_freq = sorted(freq.items(), key=lambda x: x[1], reverse=True)
-        
+
         return "".join(c * n for c, n in sort_by_freq)
-        

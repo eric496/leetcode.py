@@ -29,8 +29,8 @@ class ListNode:
         self.prev = None
         self.next = None
 
-class LRUCache:
 
+class LRUCache:
     def __init__(self, capacity: int):
         self.cap = capacity
         self.cache = {}
@@ -39,7 +39,7 @@ class LRUCache:
         self.sentinel.next = self.tail
         self.tail.prev = self.sentinel
 
-    def get(self, key: int) -> int:        
+    def get(self, key: int) -> int:
         if key in self.cache:
             node = self.cache[key]
             self.remove_node_from_list(node)
@@ -47,26 +47,26 @@ class LRUCache:
             return node.val
         else:
             return -1
-        
+
     def put(self, key: int, value: int) -> None:
         if key in self.cache:
             self.remove_node_from_list(self.cache[key])
-        
+
         node = ListNode(key, value)
         self.cache[key] = node
         self.push_node_to_front(node)
-            
+
         if len(self.cache) > self.cap:
             last_node = self.tail.prev
             self.remove_node_from_list(last_node)
             self.cache.pop(last_node.key)
-            
+
     def remove_node_from_list(self, node: "ListNode") -> None:
         prev = node.prev
         nxt = node.next
         prev.next = nxt
         nxt.prev = prev
-        
+
     def push_node_to_front(self, node: "ListNode") -> None:
         nxt = self.sentinel.next
         self.sentinel.next = node

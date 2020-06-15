@@ -16,7 +16,7 @@ The order of your output does not matter.
 """
 
 
-# Solution 1: sort each string - O(nlogn) TC and O(n) TC 
+# Solution 1: sort each string - O(nlogn) TC and O(n) TC
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         d = {}
@@ -36,19 +36,18 @@ class Solution:
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         res = {}
-        
+
         for s in strs:
             d = [0] * 26
-            
+
             for c in s:
-                d[ord(c)-ord("a")] += 1
-                
+                d[ord(c) - ord("a")] += 1
+
             key = tuple(d)
-            
+
             if key in res:
                 res[key].append(s)
             else:
                 res[key] = [s]
-            
+
         return res.values()
-        

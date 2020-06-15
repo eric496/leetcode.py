@@ -23,16 +23,16 @@ class Solution:
         sign = -1 if (dividend > 0) ^ (divisor > 0) else 1
         dividend, divisor = abs(dividend), abs(divisor)
         res = 0
-        
+
         while divisor <= dividend:
             n = divisor
             shift = 1
-            
+
             while n << 1 <= dividend:
                 n <<= 1
                 shift <<= 1
-            
+
             dividend -= n
             res += shift
-            
+
         return sign * res if -1 << 31 <= sign * res <= (1 << 31) - 1 else (1 << 31) - 1

@@ -18,35 +18,35 @@ class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
         if not nums:
             return [-1, -1]
-        
+
         low, high = 0, len(nums) - 1
         res = [-1, -1]
-        
+
         while low < high:
-            mid = low + ((high-low) >> 1)
-            
+            mid = low + ((high - low) >> 1)
+
             if nums[mid] >= target:
                 high = mid
             else:
                 low = mid + 1
-                
+
         if nums[low] != target:
             return res
         else:
             res[0] = low
-        
+
         high = len(nums) - 1
-        
+
         while low < high:
-            mid = low + ((high-low) >> 1) + 1
-            
+            mid = low + ((high - low) >> 1) + 1
+
             if nums[mid] <= target:
                 low = mid
             else:
                 high = mid - 1
-                
+
         res[1] = low
-        
+
         return res
 
 
@@ -55,26 +55,25 @@ class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
         if not nums:
             return [-1, -1]
-        
+
         left = self.lower_bound(nums, target)
-        
+
         if left == len(nums) or nums[left] != target:
             return [-1, -1]
-        
-        right = self.lower_bound(nums, target+1) - 1
-        
+
+        right = self.lower_bound(nums, target + 1) - 1
+
         return [left, right]
-    
+
     def lower_bound(self, nums: List[int], target: int) -> int:
         low, high = 0, len(nums)
-        
+
         while low < high:
             mid = low + (high - low >> 1)
-            
+
             if nums[mid] >= target:
                 high = mid
             else:
                 low = mid + 1
-                
+
         return low
-        

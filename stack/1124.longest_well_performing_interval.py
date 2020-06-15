@@ -19,18 +19,17 @@ class Solution:
     def longestWPI(self, hours: List[int]) -> int:
         lookup = {}
         cur = res = 0
-        
-        for i,h in enumerate(hours):
-            cur += 1 if h>8 else -1
-            
+
+        for i, h in enumerate(hours):
+            cur += 1 if h > 8 else -1
+
             if cur > 0:
                 res = i + 1
             else:
                 if cur not in lookup:
                     lookup[cur] = i
-                    
-                if cur-1 in lookup:
-                    res = max(res, i-lookup[cur-1])
-        
+
+                if cur - 1 in lookup:
+                    res = max(res, i - lookup[cur - 1])
+
         return res
-        

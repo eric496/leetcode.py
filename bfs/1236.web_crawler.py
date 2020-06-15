@@ -57,7 +57,7 @@ You may assume there're no duplicates in url library.
 """
 
 
-#class HtmlParser(object):
+# class HtmlParser(object):
 #    def getUrls(self, url):
 #        """
 #        :type url: str
@@ -68,18 +68,17 @@ from collections import deque
 
 
 class Solution:
-    def crawl(self, startUrl: str, htmlParser: 'HtmlParser') -> List[str]:
+    def crawl(self, startUrl: str, htmlParser: "HtmlParser") -> List[str]:
         hostname = startUrl.split("/")[2]
         q = deque([startUrl])
         visited = {startUrl}
-        
+
         while q:
             cur = q.pop()
-            
+
             for url in htmlParser.getUrls(cur):
                 if hostname in url and url not in visited:
                     q.append(url)
                     visited.add(url)
-                    
+
         return list(visited)
-        

@@ -26,29 +26,33 @@ class Solution:
     def checkValidString(self, s: str) -> bool:
         if not s:
             return True
-        
+
         return self.dfs(s, 0, 0)
-        
+
     def dfs(self, s: str, i: int, cnt: int) -> bool:
         if cnt < 0:
             return False
-        
+
         if i == len(s):
             return cnt == 0
-        
+
         if s[i] == "(":
-            return self.dfs(s, i+1, cnt+1)
+            return self.dfs(s, i + 1, cnt + 1)
         elif s[i] == ")":
-            return self.dfs(s, i+1, cnt-1)
+            return self.dfs(s, i + 1, cnt - 1)
         elif s[i] == "*":
-            return self.dfs(s, i+1, cnt+1) or self.dfs(s, i+1, cnt-1) or self.dfs(s, i+1, cnt)
+            return (
+                self.dfs(s, i + 1, cnt + 1)
+                or self.dfs(s, i + 1, cnt - 1)
+                or self.dfs(s, i + 1, cnt)
+            )
 
 
 # Solution 2: count the min and max possible numbers of left open brackets
 class Solution:
     def checkValidString(self, s: str) -> bool:
         min_open_left = max_open_left = 0
-        
+
         for c in s:
             if c == "(":
                 min_open_left += 1
@@ -59,11 +63,11 @@ class Solution:
             elif c == "*":
                 min_open_left -= 1
                 max_open_left += 1
-                
+
             if min_open_left < 0:
                 min_open_left = 0
-                
+
             if max_open_left < 0:
                 return False
-                        
+
         return min_open_left == 0

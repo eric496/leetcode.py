@@ -22,24 +22,23 @@ class Solution:
             return False
 
         cnt = [0] * 26
-    
+
         for i in range(len(s1)):
             cnt[ord(s1[i]) - ord("a")] += 1
             cnt[ord(s2[i]) - ord("a")] -= 1
-            
+
         if not any(cnt):
             return True
 
         end = len(s1)
-        
+
         while end < len(s2):
             cnt[ord(s2[end]) - ord("a")] -= 1
             cnt[ord(s2[end - len(s1)]) - ord("a")] += 1
-            
+
             if not any(cnt):
                 return True
-            
+
             end += 1
-        
+
         return False
-                

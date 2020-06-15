@@ -66,14 +66,13 @@ class ListNode:
 
 
 class FirstUnique:
-
     def __init__(self, nums: List[int]):
         self.sentinel = ListNode(None)
         self.tail = ListNode(None)
         self.sentinel.next = self.tail
         self.tail.prev = self.sentinel
         self.nodes = {}
-        
+
         for n in nums:
             self.add(n)
 
@@ -100,4 +99,3 @@ class FirstUnique:
             node.next = self.tail
             self.tail.prev = node
             self.nodes[value] = node
-            

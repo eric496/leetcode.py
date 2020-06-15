@@ -17,18 +17,18 @@ Returns: False
 class Solution:
     def isPerfectSquare(self, num: int) -> bool:
         low, high = 0, num
-        
+
         while low <= high:
             mid = low + (high - low >> 1)
             square = mid * mid
-            
+
             if square < num:
                 low = mid + 1
             elif square > num:
                 high = mid - 1
             elif square == num:
                 return True
-            
+
         return False
 
 
@@ -39,23 +39,22 @@ class Solution:
 
         while r * r > num:
             r = (r + num // r) >> 1
-        
+
         return r * r == num
 
 
 # Solution 3: bit manipulation
 class Solution:
     def isPerfectSquare(self, num: int) -> bool:
-           r = 0
-           mask = 1 << 15
+        r = 0
+        mask = 1 << 15
 
-           while bit:
-                r |= mask
+        while bit:
+            r |= mask
 
-                if r > num // r:    
-                   r ^= mask                
+            if r > num // r:
+                r ^= mask
 
-                mask >>= 1        
+            mask >>= 1
 
-           return r * r == num
-           
+        return r * r == num

@@ -31,17 +31,16 @@ class Solution:
         res = 0
         most_freq = 0
         cnt = [0] * 26
-        
+
         while end < len(s):
             cnt[ord(s[end]) - ord("A")] += 1
             most_freq = max(most_freq, cnt[ord(s[end]) - ord("A")])
-            
+
             if end - start + 1 - most_freq > k:
                 cnt[ord(s[start]) - ord("A")] -= 1
                 start += 1
-                
+
             res = max(res, end - start + 1)
             end += 1
-            
+
         return res
-                

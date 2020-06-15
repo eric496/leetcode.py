@@ -27,13 +27,12 @@ class Solution:
     def validSubarrays(self, nums: List[int]) -> int:
         stk = []
         res = 0
-        
+
         for n in nums:
             while stk and stk[-1] > n:
                 stk.pop()
-            
+
             stk.append(n)
             res += len(stk)
-        
+
         return res
-            

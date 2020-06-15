@@ -16,13 +16,12 @@ class Solution:
     def numEquivDominoPairs(self, dominoes: List[List[int]]) -> int:
         visited = {}
         res = 0
-        
+
         for d in dominoes:
             target = tuple(d)
             rev = tuple(d[::-1])
             res += visited.get(target, 0)
             res += visited.get(rev, 0) if d[0] != d[1] else 0
             visited[target] = visited.get(target, 0) + 1
-        
+
         return res
-        

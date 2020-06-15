@@ -22,19 +22,19 @@ Note:
 
 import heapq
 
+
 class Solution:
     def lastStoneWeight(self, stones: List[int]) -> int:
         hp = []
-        
+
         for stone in stones:
             heapq.heappush(hp, -stone)
-            
+
         while len(hp) > 1:
             stone1 = heapq.heappop(hp)
             stone2 = heapq.heappop(hp)
-            
+
             if stone1 != stone2:
-                heapq.heappush(hp, stone1-stone2)
-                
+                heapq.heappush(hp, stone1 - stone2)
+
         return -hp[0] if hp else 0
-        

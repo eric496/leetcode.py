@@ -21,18 +21,18 @@ Then 4 is the first bad version.
 class Solution:
     def firstBadVersion(self, n: int) -> int:
         low, high = 1, n
-        
+
         while low <= high:
-            mid = low + ((high-low) >> 1)
-            
+            mid = low + ((high - low) >> 1)
+
             if isBadVersion(mid):
-                if mid-1 >= 1 and isBadVersion(mid-1):
+                if mid - 1 >= 1 and isBadVersion(mid - 1):
                     high = mid - 1
                 else:
                     return mid
             else:
                 low = mid + 1
-        
+
         return high
 
 
@@ -43,10 +43,10 @@ class Solution:
 
         while low < high:
             mid = low + (high - low >> 1)
-            
+
             if isBadVersion(mid):
                 high = mid
             else:
                 low = mid + 1
-        
+
         return low

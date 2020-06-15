@@ -39,13 +39,12 @@ class Solution:
         total = 0
         cur_min = min_sum = float("inf")
         cur_max = max_sum = float("-inf")
-        
+
         for n in A:
             cur_min = min(n, cur_min + n)
             min_sum = min(cur_min, min_sum)
             cur_max = max(n, cur_max + n)
             max_sum = max(cur_max, max_sum)
             total += n
-            
+
         return max(max_sum, total - min_sum) if max_sum > 0 else max_sum
-        

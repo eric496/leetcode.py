@@ -55,10 +55,10 @@ class Solution:
             for _ in range(size):
                 node, v = q.popleft()
                 level[v].append(node.val)
-                
+
                 if node.left:
                     q.append((node.left, v - 1))
-                
+
                 if node.right:
                     q.append((node.right, v + 1))
 

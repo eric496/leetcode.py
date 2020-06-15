@@ -55,32 +55,32 @@ class Solution:
 
 # Follow up - two pointers
 class Solution:
-    def backspaceCompare(self, S: str, T: str) -> bool:        
+    def backspaceCompare(self, S: str, T: str) -> bool:
         i = len(S) - 1
         j = len(T) - 1
         skips_S = skips_T = 0
-        
+
         while i >= 0 or j >= 0:
             while i >= 0 and (S[i] == "#" or skips_S):
                 if S[i] == "#":
                     skips_S += 1
                 else:
                     skips_S -= 1
-                
+
                 i -= 1
-            
+
             while j >= 0 and (T[j] == "#" or skips_T):
                 if T[j] == "#":
                     skips_T += 1
                 else:
                     skips_T -= 1
-                
+
                 j -= 1
-            
+
             if S[i] != T[j]:
                 return False
-        
+
             i -= 1
             j -= 1
-        
+
         return True

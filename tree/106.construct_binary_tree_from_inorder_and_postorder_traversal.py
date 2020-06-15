@@ -55,16 +55,28 @@ class Solution:
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
         mp = {n: i for i, n in enumerate(inorder)}
-        
-        return self.build(len(postorder) - 1, 0, len(inorder) - 1, postorder, inorder, mp)
-    
-    def build(self, poststart: int, instart: int, inend: int, postorder: List[int], inorder: List[int], mp: dict) -> TreeNode:
+
+        return self.build(
+            len(postorder) - 1, 0, len(inorder) - 1, postorder, inorder, mp
+        )
+
+    def build(
+        self,
+        poststart: int,
+        instart: int,
+        inend: int,
+        postorder: List[int],
+        inorder: List[int],
+        mp: dict,
+    ) -> TreeNode:
         if poststart < 0 or instart > inend:
             return None
-        
+
         root = TreeNode(postorder[poststart])
         idx = mp[postorder[poststart]]
-        root.left = self.build(poststart - (inend - idx) - 1, instart, idx - 1, postorder, inorder, mp)
+        root.left = self.build(
+            poststart - (inend - idx) - 1, instart, idx - 1, postorder, inorder, mp
+        )
         root.right = self.build(poststart - 1, idx + 1, inend, postorder, inorder, mp)
-        
+
         return root

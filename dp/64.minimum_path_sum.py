@@ -19,7 +19,7 @@ class Solution:
     def minPathSum(self, grid: List[List[int]]) -> int:
         if not grid or not grid[0]:
             return 0
-        
+
         m, n = len(grid), len(grid[0])
         dp = [[0] * n for _ in range(m)]
 

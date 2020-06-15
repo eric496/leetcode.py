@@ -19,13 +19,12 @@ Explanation: You will always arrive at index 3 no matter what. Its maximum
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
         reach = 0
-        
+
         for i in range(len(nums)):
             if i <= reach:
                 reach = max(reach, nums[i] + i)
-                
+
                 if reach >= len(nums) - 1:
                     return True
             else:
                 return False
-            

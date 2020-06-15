@@ -25,18 +25,18 @@ Explanation: Remove all the digits from the number and it is left with nothing w
 class Solution:
     def removeKdigits(self, num: str, k: int) -> str:
         stk = []
-        
+
         for n in num:
             while stk and k and stk[-1] > n:
                 stk.pop()
                 k -= 1
-            
+
             stk.append(n)
 
-        # edge cases like "1111" or "9"   
+        # edge cases like "1111" or "9"
         while k and stk:
             stk.pop()
             k -= 1
-            
+
         # edge case when stack is empty
         return str(int("".join(stk))) if stk else "0"

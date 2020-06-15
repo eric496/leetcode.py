@@ -23,7 +23,7 @@ class Solution:
         h = hex(int(num))[2:]
         legal = {"a", "b", "c", "d", "e", "f", "i", "o"}
         res = ""
-        
+
         for d in h:
             if d == "0":
                 res += "O"
@@ -33,6 +33,5 @@ class Solution:
                 res += d.upper()
             else:
                 return "ERROR"
-                
+
         return res
-        

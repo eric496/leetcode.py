@@ -18,14 +18,13 @@ Constraints:
 class Solution:
     def encode(self, num: int) -> str:
         res = []
-        
+
         while num >= 1:
             if num & 1:
                 res.append("0")
             else:
                 res.append("1")
-            
+
             num = num - 1 >> 1
-        
+
         return "".join(res[::-1])
-        

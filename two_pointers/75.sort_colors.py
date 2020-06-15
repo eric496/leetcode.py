@@ -22,18 +22,18 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         cnt = [0] * 3
-        
+
         for n in nums:
             cnt[n] += 1
-        
+
         c0, c1, c2 = cnt
-        
+
         for i in range(c0):
             nums[i] = 0
-            
+
         for i in range(c0, c0 + c1):
             nums[i] = 1
-            
+
         for i in range(c0 + c1, c0 + c1 + c2):
             nums[i] = 2
 
@@ -47,7 +47,7 @@ class Solution:
         """
         lo, hi = 0, len(nums) - 1
         i = lo
-        
+
         while i <= hi:
             if nums[i] == 0:
                 nums[lo], nums[i] = nums[i], nums[lo]

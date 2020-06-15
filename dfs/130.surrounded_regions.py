@@ -24,29 +24,34 @@ class Solution:
         """
         if not board or not board[0]:
             return board
-        
+
         m, n = len(board), len(board[0])
         visited = set()
-        
+
         for i in range(m):
             self.dfs(i, 0, board, visited)
-            self.dfs(i, n-1, board, visited)
-            
+            self.dfs(i, n - 1, board, visited)
+
         for j in range(n):
             self.dfs(0, j, board, visited)
-            self.dfs(m-1, j, board, visited)
-            
+            self.dfs(m - 1, j, board, visited)
+
         for i in range(m):
             for j in range(n):
                 if board[i][j] == "O":
                     board[i][j] = "X"
                 elif board[i][j] == "*":
                     board[i][j] = "O"
-        
+
     def dfs(self, i: int, j: int, board: List[List[str]], visited: set) -> None:
-        if 0 <= i < len(board) and 0 <= j < len(board[0]) and (i, j) not in visited and board[i][j] == "O":
+        if (
+            0 <= i < len(board)
+            and 0 <= j < len(board[0])
+            and (i, j) not in visited
+            and board[i][j] == "O"
+        ):
             visited.add((i, j))
             board[i][j] = "*"
-            
+
             for dy, dx in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
                 self.dfs(i + dy, j + dx, board, visited)

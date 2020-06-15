@@ -52,19 +52,18 @@ class Solution:
     def kWeakestRows(self, mat: List[List[int]], k: int) -> List[int]:
         pq = [(self.count_ones(row), i) for i, row in enumerate(mat)]
         hq.heapify(pq)
-        
+
         return [hq.heappop(pq)[1] for _ in range(k)]
-            
+
     def count_ones(self, nums: List[int]) -> int:
         lo, hi = 0, len(nums)
-        
+
         while lo < hi:
             mid = lo + (hi - lo >> 1)
-            
+
             if nums[mid] == 1:
                 lo = mid + 1
             else:
                 hi = mid
-            
+
         return lo
-        

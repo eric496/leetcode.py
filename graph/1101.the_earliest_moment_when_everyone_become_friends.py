@@ -33,30 +33,30 @@ class Solution:
         parent = list(range(N))
         rank = [0] * N
         self.components = N
-        
+
         for t, u, v in logs:
             self.union(u, v, parent, rank)
-            
+
             if self.components == 1:
                 return t
-            
+
         return -1
-    
+
     def find(self, u: int, parent: List[int]) -> int:
         if u == parent[u]:
             return u
-        
+
         root = self.find(parent[u], parent)
         parent[u] = root
         return root
-    
+
     def union(self, u: int, v: int, parent: List[int], rank: List[int]) -> None:
         u_root = self.find(u, parent)
         v_root = self.find(v, parent)
-        
+
         if u_root == v_root:
             return
-        
+
         if rank[u_root] > rank[v_root]:
             parent[v_root] = u_root
         elif rank[u_root] < rank[v_root]:
@@ -64,6 +64,5 @@ class Solution:
         else:
             parent[v_root] = u_root
             rank[u_root] += 1
-            
+
         self.components -= 1
-        

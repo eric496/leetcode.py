@@ -36,35 +36,36 @@ s only contains lower case English letters.
 
 from collections import defaultdict
 
+
 class Solution:
     def smallestStringWithSwaps(self, s: str, pairs: List[List[int]]) -> str:
         n = len(s)
         parent = list(range(n))
         rank = [0] * n
-        
+
         for u, v in pairs:
             self.union(u, v, parent, rank)
-        
+
         offsprings = defaultdict(list)
-        
+
         for i, p in enumerate(parent):
             offsprings[self.find(p, parent)].append(i)
-            
+
         order = {}
-        
+
         for indices in offsprings.values():
             vals = [s[i] for i in indices]
-            
+
             for c, i in zip(sorted(vals), sorted(indices)):
                 order[i] = c
-                
+
         res = [""] * n
-        
+
         for k, v in order.items():
             res[k] = v
-            
+
         return "".join(res)
-            
+
     def find(self, u: int, parent: List[int]) -> int:
         if u == parent[u]:
             return u
@@ -72,14 +73,14 @@ class Solution:
             root = self.find(parent[u], parent)
             parent[u] = root
             return root
-        
+
     def union(self, u: int, v: int, parent: List[int], rank: List[int]) -> None:
         u_root = self.find(u, parent)
         v_root = self.find(v, parent)
-        
+
         if u_root == v_root:
             return
-        
+
         if rank[u_root] > rank[v_root]:
             parent[v_root] = u_root
         elif rank[u_root] < rank[v_root]:
@@ -87,4 +88,3 @@ class Solution:
         else:
             parent[v_root] = u_root
             rank[u_root] += 1
-            

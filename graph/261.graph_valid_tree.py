@@ -21,24 +21,24 @@ from collections import deque
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
         neighbors = defaultdict(set)
-        
+
         for v, w in edges:
             neighbors[v].add(w)
             neighbors[w].add(v)
-            
+
         q = deque([0])
         visited = set()
-        
+
         while q:
             node = q.popleft()
-            
+
             if node in visited:
                 return False
-            
+
             visited.add(node)
-            
+
             for neighbor in neighbors[node]:
                 q.append(neighbor)
                 neighbors[neighbor].remove(node)
-            
+
         return len(visited) == n

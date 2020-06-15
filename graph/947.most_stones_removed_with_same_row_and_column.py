@@ -26,17 +26,17 @@ class Solution:
         n = len(stones)
         parent = list(range(n))
         rank = [0] * n
-        
+
         for i in range(n):
-            for j in range(i+1, n):
+            for j in range(i + 1, n):
                 if stones[i][0] == stones[j][0] or stones[i][1] == stones[j][1]:
                     self.union(i, j, parent, rank)
-                    
+
         components = set()
-        
+
         for p in parent:
             components.add(self.find(p, parent))
-        
+
         return n - len(components)
 
     def find(self, u: int, parent: List[int]) -> int:
@@ -46,14 +46,14 @@ class Solution:
             root = self.find(parent[u], parent)
             parent[u] = root
             return root
-    
+
     def union(self, u: int, v: int, parent: List[int], rank: List[int]) -> None:
         u_root = self.find(u, parent)
         v_root = self.find(v, parent)
-        
+
         if u_root == v_root:
             return
-        
+
         if rank[u_root] > rank[v_root]:
             parent[v_root] = u_root
         elif rank[u_root] < rank[v_root]:

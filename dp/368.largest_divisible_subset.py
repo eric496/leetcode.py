@@ -21,23 +21,22 @@ class Solution:
         mx = 0
         imx = -1
         nums.sort()
-        
+
         for i in range(n):
             for j in range(i):
                 if nums[i] % nums[j] == 0:
                     if dp[j] + 1 > dp[i]:
                         dp[i] = dp[j] + 1
                         prev[i] = j
-                        
+
             if dp[i] > mx:
                 mx = dp[i]
                 imx = i
-        
+
         res = []
-            
+
         while imx != -1:
             res.append(nums[imx])
             imx = prev[imx]
-                    
+
         return res
-        

@@ -48,19 +48,19 @@ class Solution:
     def removeOuterParentheses(self, S: str) -> str:
         res = []
         stk = []
-        
+
         for c in S:
             if c == "(":
                 if stk:
                     res.append(c)
-                    
+
                 stk.append(c)
             elif c == ")":
                 if len(stk) > 1:
                     res.append(c)
-                
+
                 stk.pop()
-                
+
         return "".join(res)
 
 

@@ -35,6 +35,7 @@ formula will only consist of letters, digits, and round parentheses, and is a va
 
 import string
 
+
 class Solution:
     def countOfAtoms(self, formula: str) -> str:
         formula = "(" + formula + ")"
@@ -42,50 +43,49 @@ class Solution:
         stk = []
         group = []
         i = 0
-        
+
         while i < len(formula):
             if formula[i] == "(":
-                stk.append(formula[i])    
+                stk.append(formula[i])
             elif formula[i].isalpha():
                 atom = formula[i]
-                
-                while i < len(formula) and formula[i+1] in string.ascii_lowercase:
-                    atom += formula[i+1]
+
+                while i < len(formula) and formula[i + 1] in string.ascii_lowercase:
+                    atom += formula[i + 1]
                     i += 1
-            
+
                 stk.append((atom, 1))
             elif formula[i].isdigit():
                 m = formula[i]
 
-                while i < len(formula)-1 and formula[i+1].isdigit():
-                    m += formula[i+1]
+                while i < len(formula) - 1 and formula[i + 1].isdigit():
+                    m += formula[i + 1]
                     i += 1
-                
+
                 if not group:
                     top, n = stk.pop()
-                    stk.append((top, n*int(m)))
+                    stk.append((top, n * int(m)))
                 else:
-                    stk += [(x, n*int(m)) for x,n in group]
+                    stk += [(x, n * int(m)) for x, n in group]
                     group.clear()
             elif formula[i] == ")":
                 while stk and stk[-1] != "(":
                     atom, n = stk.pop()
                     group.append((atom, n))
-                
+
                 if stk and stk[-1] == "(":
                     stk.pop()
-                    
+
             i += 1
-                
+
         while group:
             atom, n = group.pop()
             cnt[atom] = cnt.get(atom, 0) + n
-        
+
         res = ""
-        
+
         for atom in sorted(cnt):
             res += atom
             res += str(cnt[atom]) if cnt[atom] != 1 else ""
-            
+
         return res
-        

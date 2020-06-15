@@ -28,24 +28,26 @@ or
 class Solution:
     def __init__(self):
         self.dp = {1: 0}
-    
+
     def integerReplacement(self, n: int) -> int:
         if n in self.dp:
             return self.dp[n]
-        
+
         if n & 1:
-            self.dp[n] = 1 + min(self.integerReplacement(n-1), self.integerReplacement(n+1))
+            self.dp[n] = 1 + min(
+                self.integerReplacement(n - 1), self.integerReplacement(n + 1)
+            )
         else:
-            self.dp[n] = 1 + self.integerReplacement(n>>1)
-            
+            self.dp[n] = 1 + self.integerReplacement(n >> 1)
+
         return self.dp[n]
-        
-    
+
+
 # Solution 2: bit manipulation
 class Solution:
     def integerReplacement(self, n: int) -> int:
         res = 0
-        
+
         while n != 1:
             if n & 1:
                 if (n + 1) % 4 == 0 and n != 3:
@@ -54,7 +56,7 @@ class Solution:
                     n -= 1
             else:
                 n >>= 1
-            
+
             res += 1
-        
+
         return res

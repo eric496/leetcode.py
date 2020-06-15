@@ -38,16 +38,16 @@ class TreeNode:
 class Solution:
     def findTarget(self, root: TreeNode, k: int) -> bool:
         target = set()
-        
+
         return self.dfs(root, k, target)
-        
+
     def dfs(self, root: TreeNode, k: int, target: int) -> bool:
         if not root:
             return False
-        
+
         if root.val in target:
             return True
         else:
             target.add(k - root.val)
-        
+
         return self.dfs(root.left, k, target) or self.dfs(root.right, k, target)

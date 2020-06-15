@@ -29,14 +29,17 @@ Thought:
 # DP
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+
         dp = [0] * len(nums)
         dp[0] = nums[0]
         res = nums[0]
-        
+
         for i in range(1, len(nums)):
-            dp[i] = max(nums[i], dp[i-1] + nums[i])
+            dp[i] = max(nums[i], dp[i - 1] + nums[i])
             res = max(res, dp[i])
-            
+
         return res
 
 
@@ -44,36 +47,36 @@ class Solution:
 class Solution:
     def maxSubArray(self, nums: list) -> int:
         cur = res = nums[0]
-        
+
         for i in range(1, len(nums)):
             cur = max(nums[i], cur + nums[i])
             res = max(res, cur)
-        
+
         return res
 
 
 # Divide and Conquer
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        return self.dfs(nums, 0, len(nums)-1)        
-    
+        return self.dfs(nums, 0, len(nums) - 1)
+
     def dfs(self, nums: List[int], start: int, end: int) -> int:
         if start > end:
-            return float('-inf')
-        
+            return float("-inf")
+
         mid = start + (end - start >> 1)
-        left = self.dfs(nums, start, mid-1)
-        right = self.dfs(nums, mid+1, end)
+        left = self.dfs(nums, start, mid - 1)
+        right = self.dfs(nums, mid + 1, end)
         cur = left_max = 0
-        
-        for i in range(mid-1, start-1, -1):
+
+        for i in range(mid - 1, start - 1, -1):
             cur += nums[i]
             left_max = max(left_max, cur)
-        
+
         cur = right_max = 0
-        
-        for i in range(mid+1, end+1):
+
+        for i in range(mid + 1, end + 1):
             cur += nums[i]
             right_max = max(right_max, cur)
-            
-        return max(left_max+right_max+nums[mid], max(left, right))
+
+        return max(left_max + right_max + nums[mid], max(left, right))

@@ -32,40 +32,39 @@ class TreeNode:
 
 # Solution 1
 class Solution:
-    def pseudoPalindromicPaths (self, root: TreeNode) -> int:
+    def pseudoPalindromicPaths(self, root: TreeNode) -> int:
         paths = []
         self.dfs(root, 0, paths)
         res = 0
-        
+
         for path in paths:
             if self.is_palindromic(path):
                 res += 1
-        
+
         return res
-        
+
     def dfs(self, root: TreeNode, path: int, paths: List[int]) -> None:
         if not root:
             return
-        
+
         if not root.left and not root.right:
             path = path * 10 + root.val
             paths.append(path)
             return
-        
+
         self.dfs(root.left, path * 10 + root.val, paths)
         self.dfs(root.right, path * 10 + root.val, paths)
-        
+
     def is_palindromic(self, path: int) -> bool:
         cnt = [0] * 10
-        
+
         while path:
             cnt[path % 10] += 1
             path //= 10
-            
+
         odd = 0
-        
+
         for n in cnt:
             odd += 1 if n & 1 else 0
-            
+
         return odd <= 1
-    

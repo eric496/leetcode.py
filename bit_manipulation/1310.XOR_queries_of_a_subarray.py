@@ -35,14 +35,14 @@ class Solution:
         n = len(arr)
         prexor = [0] * (n + 1)
         cur = 0
-        
+
         for i in range(n):
             cur ^= arr[i]
-            prexor[i+1] = cur            
-            
+            prexor[i + 1] = cur
+
         res = []
-        
+
         for i, j in queries:
-            res.append(prexor[j+1] ^ prexor[i])
-                
+            res.append(prexor[j + 1] ^ prexor[i])
+
         return res

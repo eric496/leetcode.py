@@ -15,33 +15,33 @@ class Solution:
     def minSubArrayLen(self, s: int, nums: List[int]) -> int:
         if not nums:
             return 0
-        
+
         n = len(nums)
         presum = [0] * (n + 1)
-        
-        for i in range(1, n+1):
-            presum[i] = presum[i-1] + nums[i-1]
-        
+
+        for i in range(1, n + 1):
+            presum[i] = presum[i - 1] + nums[i - 1]
+
         res = float("inf")
-        
-        for i in range(n+1):
+
+        for i in range(n + 1):
             target = presum[i] + s
             j = self.lower_bound(presum, target)
-            res = min(res, j-i)
-            
+            res = min(res, j - i)
+
         return 0 if res == float("inf") else res
-                        
+
     def lower_bound(self, nums: List[int], target: int) -> int:
         low, high = 0, len(nums)
-        
+
         while low < high:
             mid = low + (high - low >> 1)
-            
+
             if nums[mid] >= target:
                 high = mid
             else:
                 low = mid + 1
-        
+
         return float("inf") if low == len(nums) else low
 
 
@@ -50,17 +50,17 @@ class Solution:
     def minSubArrayLen(self, s: int, nums: List[int]) -> int:
         if not nums:
             return 0
-        
+
         start = end = presum = 0
         res = float("inf")
-        
+
         while end < len(nums):
             presum += nums[end]
             end += 1
-            
+
             while presum >= s:
                 res = min(res, end - start)
                 presum -= nums[start]
                 start += 1
-            
+
         return 0 if res == float("inf") else res

@@ -31,28 +31,27 @@ class Solution:
     def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
         sorted_nums = sorted(nums)
         cnt = {}
-        
+
         for i, num in enumerate(sorted_nums):
             if num not in cnt:
                 cnt[num] = i
-                
+
         return [cnt[n] for n in nums]
-        
+
 
 # Solution 2: O(n) TC
 class Solution:
     def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
         cnt = [0] * 101
-        
+
         for num in nums:
             cnt[num] += 1
-            
+
         cursum = 0
         presum = [0] * 101
-        
+
         for i in range(len(cnt)):
             presum[i] = cursum
             cursum += cnt[i]
-        
+
         return [presum[n] for n in nums]
-            

@@ -13,24 +13,23 @@ Explanation: The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.
 """
 
 
-
 # Solution 1: binary search - O(nlogn) TC
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         for i in range(len(nums)):
             low = i + 1
             high = len(nums) - 1
-            
+
             while low <= high:
                 mid = low + (high - low >> 1)
-                
+
                 if nums[mid] == target - nums[i]:
-                    return [i+1, mid+1]
+                    return [i + 1, mid + 1]
                 elif nums[mid] < target - nums[i]:
                     low = mid + 1
                 elif nums[mid] > target - nums[i]:
                     high = mid - 1
-            
+
         return []
 
 
@@ -38,16 +37,15 @@ class Solution:
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         low, high = 0, len(nums) - 1
-        
+
         while low < high:
             twosum = nums[low] + nums[high]
-            
+
             if twosum == target:
-                return [low+1, high+1]
+                return [low + 1, high + 1]
             elif twosum > target:
                 high -= 1
             elif twosum < target:
                 low += 1
-            
+
         return []
-        

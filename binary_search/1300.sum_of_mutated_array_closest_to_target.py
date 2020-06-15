@@ -26,29 +26,29 @@ class Solution:
     def findBestValue(self, arr: List[int], target: int) -> int:
         sm = sum(arr)
         mx = max(arr)
-        
+
         if sm <= target:
             return mx
-        
+
         lo, hi = 1, mx
-        
+
         while lo < hi:
             mid = lo + (hi - lo >> 1)
-            
+
             if self.peak_shave(arr, mid) >= target:
                 hi = mid
             else:
                 lo = mid + 1
-        
+
         sm1 = self.peak_shave(arr, lo)
-        sm2 = self.peak_shave(arr, lo-1)
-        
+        sm2 = self.peak_shave(arr, lo - 1)
+
         return lo if abs(sm1 - target) < abs(sm2 - target) else lo - 1
-        
+
     def peak_shave(self, arr: List[int], peak: int) -> int:
         res = 0
-        
+
         for n in arr:
             res += peak if n >= peak else n
-            
+
         return res

@@ -41,23 +41,23 @@ class Solution:
     def __init__(self):
         self.res = 0
         self.cnt = 0
-    
+
     def kthSmallest(self, root: TreeNode, k: int) -> int:
         self.dfs(root, k)
-        
+
         return self.res
-        
+
     def dfs(self, root: TreeNode, k: int) -> None:
         if not root:
-            return 
-        
+            return
+
         self.dfs(root.left, k)
         self.cnt += 1
-        
+
         if self.cnt == k:
             self.res = root.val
             return
-            
+
         self.dfs(root.right, k)
 
 
@@ -77,7 +77,7 @@ class Solution:
 
                 if cnt == k:
                     return node.val
-                
+
                 node = node.right
 
         return -1

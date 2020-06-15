@@ -71,28 +71,31 @@ class Solution:
 from copy import deepcopy
 from collections import deque
 
+
 class Solution:
-    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+    def floodFill(
+        self, image: List[List[int]], sr: int, sc: int, newColor: int
+    ) -> List[List[int]]:
         res = deepcopy(image)
         q = deque([(sr, sc)])
         dirs = [(1, 0), (0, 1), (-1, 0), (0, -1)]
         visited = set()
-        
+
         while q:
             for _ in range(len(q)):
                 x, y = q.popleft()
-                res[x][y] = newColor 
+                res[x][y] = newColor
                 visited.add((x, y))
-                
+
                 for dx, dy in dirs:
                     x1, y1 = x + dx, y + dy
-                    
+
                     if (
-                        0 <= x1 < len(image) 
-                        and 0 <= y1 < len(image[0]) 
-                        and image[x1][y1] == image[sr][sc] 
+                        0 <= x1 < len(image)
+                        and 0 <= y1 < len(image[0])
+                        and image[x1][y1] == image[sr][sc]
                         and (x1, y1) not in visited
-                    ):    
-                        q.append((x1, y1))    
-            
+                    ):
+                        q.append((x1, y1))
+
         return res

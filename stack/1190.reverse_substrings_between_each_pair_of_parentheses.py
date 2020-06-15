@@ -32,21 +32,21 @@ It's guaranteed that all parentheses are balanced.
 class Solution:
     def reverseParentheses(self, s: str) -> str:
         stk = []
-        
+
         for c in s:
             if c == ")":
                 rev = []
-                
+
                 while stk and stk[-1] != "(":
                     rev.append(stk.pop())
-                    
+
                 if stk and stk[-1] == "(":
                     stk.pop()
-                    
+
                 stk += rev
             else:
                 stk.append(c)
-                
+
         return "".join(stk)
 
 

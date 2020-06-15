@@ -33,10 +33,9 @@ Constraints:
 class Solution:
     def minStartValue(self, nums: List[int]) -> int:
         min_presum = presum = 0
-        
+
         for n in nums:
             presum += n
             min_presum = min(min_presum, presum)
-            
-        return 1 - min_presum 
-        
+
+        return 1 - min_presum

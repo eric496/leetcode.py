@@ -38,23 +38,24 @@ trust[i][0] != trust[i][1]
 # Solution 1: Set intersection
 from collections import defaultdict
 
+
 class Solution:
     def findJudge(self, N: int, trust: List[List[int]]) -> int:
         mp = defaultdict(set)
-        candidates = set(range(1, N+1))
-        
+        candidates = set(range(1, N + 1))
+
         for p1, p2 in trust:
             mp[p2].add(p1)
-            
+
             if p1 in candidates:
                 candidates.remove(p1)
-            
+
         if not candidates:
             return -1
         else:
             judge = list(candidates)[0]
-            
-            if len(mp[judge]) == N -1:
+
+            if len(mp[judge]) == N - 1:
                 return judge
             else:
                 return -1

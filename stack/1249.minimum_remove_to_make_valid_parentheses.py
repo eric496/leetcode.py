@@ -34,18 +34,17 @@ class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
         stk = []
         arr = list(s)
-        
+
         for i in range(len(arr)):
             if arr[i] == "(":
                 stk.append(i)
             elif arr[i] == ")":
                 if stk:
                     stk.pop()
-                else:    
+                else:
                     arr[i] = "*"
-            
+
         while stk:
             arr[stk.pop()] = "*"
-            
+
         return "".join(x for x in arr if x != "*")
-        

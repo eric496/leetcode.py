@@ -30,7 +30,7 @@ class Solution:
             x = 1 / x
             n = -n
 
-        return self.myPow(x*x, n>>1)*x if n&1 else self.myPow(x*x, n>>1)
+        return self.myPow(x * x, n >> 1) * x if n & 1 else self.myPow(x * x, n >> 1)
 
 
 # Solution 2: iterative
@@ -39,14 +39,14 @@ class Solution:
         if n < 0:
             x = 1 / x
             n = -n
-            
+
         res = 1
-        
+
         while n:
             if n & 1:
                 res *= x
-            
+
             x *= x
             n >>= 1
-            
+
         return res

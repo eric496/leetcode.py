@@ -52,22 +52,22 @@ class Solution:
     def findCircleNum(self, M: List[List[int]]) -> int:
         n = len(M)
         parent = list(range(n))
-        
+
         for i in range(n):
-            for j in range(i+1, n):
+            for j in range(i + 1, n):
                 if M[i][j] == 1:
                     self.union(i, j, parent)
-                    
+
         res = set()
-        
+
         for i in range(n):
             res.add(self.find(i, parent))
-            
+
         return len(res)
-        
+
     def find(self, p: int, parent: List[int]) -> int:
         return p if parent[p] == p else self.find(parent[p], parent)
-    
+
     def union(self, p: int, q: int, parent: List[int]) -> None:
         p_root = self.find(p, parent)
         q_root = self.find(q, parent)
@@ -80,24 +80,24 @@ class Solution:
         n = len(M)
         parent = list(range(n))
         rank = [0] * n
-        
+
         for i in range(n):
-            for j in range(i+1, n):
+            for j in range(i + 1, n):
                 if M[i][j] == 1:
                     self.union(i, j, parent, rank)
-         
+
         res = set()
-        
+
         for p in parent:
             res.add(self.find(p, parent))
-            
+
         return len(res)
-        
+
     def find(self, p: int, parent: List[int]) -> int:
         # while p != parent[p]:
         #     parent[p] = parent[parent[p]]
         #     p = parent[p]
-            
+
         # return p
         if p != parent[p]:
             root = self.find(parent[p], parent)
@@ -105,11 +105,11 @@ class Solution:
             return root
         else:
             return p
-        
+
     def union(self, p: int, q: int, parent: List[int], rank: List[int]) -> None:
         p_root = self.find(p, parent)
         q_root = self.find(q, parent)
-        
+
         if rank[p_root] > rank[q_root]:
             parent[q_root] = p_root
         elif rank[p_root] < rank[q_root]:
@@ -117,4 +117,3 @@ class Solution:
         else:
             parent[q_root] = p_root
             rank[p_root] += 1
-            

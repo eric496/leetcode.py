@@ -35,7 +35,7 @@ S[i] is 'a', 'b', or 'c'
 class Solution:
     def isValid(self, S: str) -> bool:
         stk = []
-        
+
         for c in S:
             if c == "a" or c == "b":
                 stk.append(c)
@@ -45,5 +45,5 @@ class Solution:
                     stk.pop()
                 else:
                     return False
-        
+
         return not stk

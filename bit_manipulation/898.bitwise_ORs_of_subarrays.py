@@ -32,10 +32,9 @@ Note:
 class Solution:
     def subarrayBitwiseORs(self, nums: List[int]) -> int:
         cur, nxt = set(), set()
-        
+
         for num in nums:
             nxt = {num | n for n in nxt} | {num}
             cur |= nxt
-        
+
         return len(cur)
-        

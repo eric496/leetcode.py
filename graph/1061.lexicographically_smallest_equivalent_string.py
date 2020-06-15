@@ -32,34 +32,33 @@ String A and B are of the same length.
 class Solution:
     def smallestEquivalentString(self, A: str, B: str, S: str) -> str:
         parent = list(range(26))
-        
+
         for a, b in zip(A, B):
             self.union(ord(a) - ord("a"), ord(b) - ord("a"), parent)
-            
+
         res = []
-        
+
         for c in S:
             res.append(chr(self.find(ord(c) - ord("a"), parent) + ord("a")))
-                        
+
         return "".join(res)
-    
+
     def find(self, u: int, parent: List[int]) -> int:
         if u == parent[u]:
             return u
-        
+
         root = self.find(parent[u], parent)
         parent[u] = root
         return root
-    
+
     def union(self, u: int, v: int, parent: List[int]) -> None:
         u_root = self.find(u, parent)
         v_root = self.find(v, parent)
-        
+
         if u_root == v_root:
             return
-        
+
         if u_root > v_root:
             parent[u_root] = v_root
         else:
             parent[v_root] = u_root
-            

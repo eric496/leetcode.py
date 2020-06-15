@@ -27,26 +27,28 @@ class TreeNode:
         self.left = None
         self.right = None
 
+
 from collections import defaultdict
+
 
 class Solution:
     def findFrequentTreeSum(self, root: TreeNode) -> List[int]:
         if not root:
             return []
-        
+
         freq = defaultdict(int)
         self.dfs(root, freq)
         mx = max(freq.values())
-        
+
         return [k for k, v in freq.items() if v == mx]
-        
+
     def dfs(self, root: TreeNode, freq: dict) -> int:
         if not root:
             return 0
-        
+
         left = self.dfs(root.left, freq)
         right = self.dfs(root.right, freq)
         sub = left + right + root.val
         freq[sub] += 1
-        
+
         return sub

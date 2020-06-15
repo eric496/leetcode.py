@@ -34,15 +34,14 @@ Constraints:
 class Solution:
     def findLucky(self, arr: List[int]) -> int:
         freq = {}
-        
+
         for n in arr:
             freq[n] = freq.get(n, 0) + 1
-            
+
         res = -1
-        
+
         for k, v in freq.items():
             if k == v and v > res:
                 res = v
-                
+
         return res
-        

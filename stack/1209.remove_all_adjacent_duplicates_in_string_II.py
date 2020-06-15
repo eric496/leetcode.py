@@ -31,15 +31,14 @@ s only contains lower case English letters.
 class Solution:
     def removeDuplicates(self, s: str, k: int) -> str:
         stk = []
-        
+
         for c in s:
             if stk and stk[-1][0] == c:
-                if stk[-1][1]+1 == k:
+                if stk[-1][1] + 1 == k:
                     stk.pop()
                 else:
                     stk[-1][1] += 1
             else:
                 stk.append([c, 1])
-            
-        return "".join(c*n for c,n in stk)
-        
+
+        return "".join(c * n for c, n in stk)

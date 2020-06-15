@@ -24,12 +24,12 @@ class Solution:
     def multiply(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
         m, n, nB = len(A), len(A[0]), len(B[0])
         res = [[0] * nB for _ in range(m)]
-        
+
         for i in range(m):
             for k in range(n):
                 if A[i][k] != 0:
                     for j in range(nB):
                         if B[k][j] != 0:
                             res[i][j] += A[i][k] * B[k][j]
-                            
+
         return res

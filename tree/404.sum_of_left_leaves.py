@@ -43,21 +43,21 @@ class Solution:
     def sumOfLeftLeaves(self, root: TreeNode) -> int:
         if not root:
             return 0
-        
+
         q = deque([(root, 0)])
         res = 0
-        
+
         while q:
             for _ in range(len(q)):
                 node, left = q.popleft()
-                
+
                 if left and not node.left and not node.right:
                     res += node.val
-                
+
                 if node.left:
                     q.append((node.left, 1))
-                    
+
                 if node.right:
                     q.append((node.right, 0))
-                    
+
         return res

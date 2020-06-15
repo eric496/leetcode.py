@@ -33,7 +33,7 @@ But the second continuation byte does not start with 10, so it is invalid.
 class Solution:
     def validUtf8(self, data: List[int]) -> bool:
         cnt = 0
-        
+
         for n in data:
             if cnt == 0:
                 if n >> 7 == 0b0:
@@ -49,8 +49,7 @@ class Solution:
             else:
                 if n >> 6 != 0b10:
                     return False
-                
+
                 cnt -= 1
-            
+
         return cnt == 0
-        

@@ -28,30 +28,35 @@ class Solution:
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
         if not matrix or not matrix[0]:
             return 0
-        
+
         m, n = len(matrix), len(matrix[0])
         cache = [[0] * (n + 1) for _ in range(m + 1)]
         res = 1
-        
+
         for i in range(m):
             for j in range(n):
                 res = max(res, self.dfs(matrix, i, j, cache))
-        
+
         return res
-    
-    def dfs(self, matrix: List[List[int]], i: int, j: int, cache: List[List[int]]) -> int:
+
+    def dfs(
+        self, matrix: List[List[int]], i: int, j: int, cache: List[List[int]]
+    ) -> int:
         if cache[i][j]:
             return cache[i][j]
-        
+
         ds = [(1, 0), (0, 1), (-1, 0), (0, -1)]
         res = 1
-        
+
         for d in ds:
             y, x = i + d[0], j + d[1]
-            if 0 <= y < len(matrix) and 0 <= x < len(matrix[0]) and matrix[i][j] < matrix[y][x]:
+            if (
+                0 <= y < len(matrix)
+                and 0 <= x < len(matrix[0])
+                and matrix[i][j] < matrix[y][x]
+            ):
                 res = max(res, self.dfs(matrix, y, x, cache) + 1)
-        
+
         cache[i][j] = res
-        
+
         return res
-        

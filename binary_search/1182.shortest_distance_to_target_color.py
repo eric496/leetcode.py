@@ -27,40 +27,42 @@ queries[i].length == 2
 
 from collections import defaultdict
 
+
 class Solution:
-    def shortestDistanceColor(self, colors: List[int], queries: List[List[int]]) -> List[int]:
+    def shortestDistanceColor(
+        self, colors: List[int], queries: List[List[int]]
+    ) -> List[int]:
         pos = defaultdict(list)
-        
+
         for i, c in enumerate(colors):
             pos[c].append(i)
-            
-        res = []    
-        
+
+        res = []
+
         for i, c in queries:
             if c in pos:
                 ix = self.lower_bound(pos[c], i)
-                
+
                 if ix == len(pos[c]):
                     res.append(abs(i - pos[c][-1]))
                 elif ix == 0:
                     res.append(abs(i - pos[c][0]))
                 else:
-                    res.append(min(abs(pos[c][ix]-i), abs(pos[c][ix-1]-i)))
+                    res.append(min(abs(pos[c][ix] - i), abs(pos[c][ix - 1] - i)))
             else:
                 res.append(-1)
-            
+
         return res
-        
+
     def lower_bound(self, indices: List[int], i: int) -> int:
         lo, hi = 0, len(indices)
-        
+
         while lo < hi:
             mid = lo + (hi - lo >> 1)
-            
+
             if indices[mid] >= i:
                 hi = mid
             else:
                 lo = mid + 1
-                
-        return lo  
-        
+
+        return lo

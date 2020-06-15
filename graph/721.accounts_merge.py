@@ -26,25 +26,25 @@ from collections import defaultdict
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
         user = {}
-        
+
         for account in accounts:
             for i in range(1, len(account)):
                 user[account[i]] = account[0]
-                
+
         parent = {u: u for u in user}
         rank = {u: 0 for u in user}
-        
+
         for account in accounts:
             for i in range(1, len(account)):
                 self.union(account[i], account[1], parent, rank)
-                
+
         email_group = defaultdict(list)
-        
+
         for p in parent:
             email_group[self.find(p, parent)].append(p)
 
         return [[user[email]] + sorted(email_group[email]) for email in email_group]
-    
+
     def find(self, u: str, parent: dict) -> str:
         if u == parent[u]:
             return u
@@ -52,14 +52,14 @@ class Solution:
             root = self.find(parent[u], parent)
             parent[u] = root
             return root
-        
+
     def union(self, u: str, v: str, parent: dict, rank: dict) -> None:
         u_root = self.find(u, parent)
         v_root = self.find(v, parent)
-        
+
         if u_root == v_root:
             return
-        
+
         if rank[u_root] > rank[v_root]:
             parent[v_root] = u_root
         elif rank[u_root] < rank[v_root]:

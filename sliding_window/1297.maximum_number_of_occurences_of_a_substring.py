@@ -34,24 +34,23 @@ s only contains lowercase English letters.
 class Solution:
     def maxFreq(self, s: str, maxLetters: int, minSize: int, maxSize: int) -> int:
         cnt = {}
-        
+
         for i in range(len(s) - minSize + 1):
-            target = s[i:i+minSize]
-            
+            target = s[i : i + minSize]
+
             if target in cnt:
                 cnt[target] += 1
             elif self.unique_count(target) <= maxLetters:
                 cnt[target] = 1
-                
+
         return max(cnt.values()) if cnt else 0
-        
-        
+
     def unique_count(self, s: str) -> int:
         cnt = [0] * 26
-        
+
         for c in s:
             cnt[ord(c) - ord("a")] += 1
-            
+
         return sum(1 for n in cnt if n)
 
 

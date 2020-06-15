@@ -39,19 +39,18 @@ class Solution:
 class Solution:
     def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
         cnt = {}
-        
+
         for n in nums1:
             cnt[n] = cnt.get(n, 0) + 1
-        
+
         res = []
-        
+
         for n in nums2:
             if n in cnt and cnt[n] > 0:
                 res.append(n)
                 cnt[n] -= 1
-            
+
         return res
 
 
 # Follow up - binary search
-

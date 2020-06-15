@@ -23,17 +23,23 @@ class TreeNode:
 # Solution 1: recursive
 class Solution:
     def bstFromPreorder(self, preorder: List[int]) -> TreeNode:
-        return self.dfs(preorder, float('-inf'), float('inf'), [0])
-        
-    def dfs(self, preorder: List[int], lower: int, upper: int, idx: List[int]) -> TreeNode:
-        if idx[0] == len(preorder) or preorder[idx[0]] < lower or preorder[idx[0]] > upper:
+        return self.dfs(preorder, float("-inf"), float("inf"), [0])
+
+    def dfs(
+        self, preorder: List[int], lower: int, upper: int, idx: List[int]
+    ) -> TreeNode:
+        if (
+            idx[0] == len(preorder)
+            or preorder[idx[0]] < lower
+            or preorder[idx[0]] > upper
+        ):
             return None
-        
+
         node = TreeNode(preorder[idx[0]])
         idx[0] += 1
         node.left = self.dfs(preorder, lower, node.val, idx)
         node.right = self.dfs(preorder, node.val, upper, idx)
-        
+
         return node
 
 

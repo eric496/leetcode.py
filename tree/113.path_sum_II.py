@@ -46,7 +46,7 @@ class Solution:
     ) -> None:
         if not node:
             return
-        
+
         if node.val == target and not node.left and not node.right:
             path.append(node.val)
             res.append(path)
@@ -61,18 +61,20 @@ class Solution:
     def pathSum(self, root: TreeNode, target: int) -> List[List[int]]:
         res = []
         self.dfs(root, 0, [], target, res)
-        
+
         return res
-    
-    def dfs(self, root: TreeNode, cursum: int, path: List[int], target: int, res: List[int]) -> None:
+
+    def dfs(
+        self, root: TreeNode, cursum: int, path: List[int], target: int, res: List[int]
+    ) -> None:
         if not root:
             return
-        
+
         if cursum + root.val == target and not root.left and not root.right:
             path.append(root.val)
             res.append(path)
             return
-        
+
         self.dfs(root.left, cursum + root.val, path + [root.val], target, res)
         self.dfs(root.right, cursum + root.val, path + [root.val], target, res)
 

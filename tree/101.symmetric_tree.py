@@ -61,10 +61,10 @@ class Solution:
 
             if not n1 and not n2:
                 continue
-            
+
             if None in (n1, n2):
                 return False
-            
+
             if n1.val != n2.val:
                 return False
 
@@ -82,25 +82,24 @@ class Solution:
     def isSymmetric(self, root: TreeNode) -> bool:
         if not root:
             return True
-        
+
         q = deque([root])
-        
+
         while q:
             size = len(q)
             level = []
-            
+
             for _ in range(size):
                 node = q.popleft()
-                
-                if node:        
+
+                if node:
                     q.append(node.left)
                     q.append(node.right)
                     level.append(node.val)
                 else:
                     level.append(None)
-                    
+
             if level != level[::-1]:
                 return False
-            
-            
+
         return True

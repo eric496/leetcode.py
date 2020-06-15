@@ -53,7 +53,7 @@ class Solution:
                 # Two asteroids are opposites, e.g. [-8,8] >>> []
                 if stk[-1] == -ast:
                     stk.pop()
-                
+
                 # Current asteroid is largest in size and all previous exploded
                 # Or the previous one is moving towards left too
                 if not stk or stk[-1] < 0:

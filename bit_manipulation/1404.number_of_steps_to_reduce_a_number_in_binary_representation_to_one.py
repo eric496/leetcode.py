@@ -35,10 +35,10 @@ s[0] == '1'
 class Solution:
     def numSteps(self, s: str) -> int:
         res = carry = 0
-        
-        for i in range(len(s)-1, 0, -1):
+
+        for i in range(len(s) - 1, 0, -1):
             n = int(s[i])
-            
+
             if n == carry == 0:
                 res += 1
                 carry = 0
@@ -47,7 +47,6 @@ class Solution:
                 carry = 1
             else:
                 res += 2
-                carry = 1    
-        
+                carry = 1
+
         return res + carry
-                
