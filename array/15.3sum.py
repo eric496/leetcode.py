@@ -14,7 +14,7 @@ A solution set is:
 """
 
 
-# Solution 0: 3 nested loops - O(n^3) TC
+# Solution 0: Brute force - 3 nested loops - O(n^3) TC
 
 
 # Solution 1: use a set as a lookup table - O(n^2) TC and O(n) SC
@@ -49,38 +49,38 @@ class Solution:
 # Solution 2: two pointers - O(n^2) TC and O(1) SC
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        res = []
+        if len(nums) < 3:
+            return []
+        
         nums.sort()
-
-        for i in range(len(nums)):
-            # Early stopping - all following elements are positive
-            if nums[i] > 0:
-                break
-
+        res = []
+        n = len(nums)
+        
+        for i in range(n - 2):
             # Skip duplicates
-            if i and nums[i] == nums[i - 1]:
+            if i > 0 and nums[i] == nums[i - 1]:
                 continue
-
-            start, end = i + 1, len(nums) - 1
-
-            while start < end:
-                total = nums[i] + nums[start] + nums[end]
-
+            
+            lo, hi = i + 1, n - 1
+            
+            while lo < hi:
+                total = nums[i] + nums[lo] + nums[hi]
+                
                 if total == 0:
-                    res.append([nums[i], nums[start], nums[end]])
-
+                    res.append([nums[i], nums[lo], nums[hi]])
+                    
                     # Skip duplicates
-                    while start < end and nums[start] == nums[start + 1]:
-                        start += 1
-
-                    while start < end and nums[end] == nums[end - 1]:
-                        end -= 1
-
-                    start += 1
-                    end -= 1
+                    while lo < hi and nums[lo] == nums[lo + 1]:
+                        lo += 1
+                    
+                    while lo < hi and nums[hi] == nums[hi - 1]:
+                        hi -= 1
+                    
+                    lo += 1
+                    hi -= 1
                 elif total < 0:
-                    start += 1
+                    lo += 1
                 elif total > 0:
-                    end -= 1
-
+                    hi -= 1
+                    
         return res
