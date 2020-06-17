@@ -27,6 +27,8 @@ Explanation: In this case, no transaction is done, i.e. max profit = 0.
 class Solution:
     def maxProfit(self, prices: list) -> int:
         profit = 0
+
         for i in range(len(prices) - 1):
             profit += prices[i + 1] - prices[i] if prices[i + 1] - prices[i] > 0 else 0
+        
         return profit
