@@ -24,11 +24,12 @@ Explanation: This is neither a IPv4 address nor a IPv6 address.
 """
 
 
+# Solution 1
 class Solution:
     def validIPAddress(self, IP: str) -> str:
         if IP.count(".") == 3 and all(self.isIPv4(i) for i in IP.split(".")): 
             return "IPv4"
-            
+
         if IP.count(":") == 7 and all(self.isIPv6(i) for i in IP.split(":")): 
             return "IPv6"
         
@@ -47,3 +48,36 @@ class Solution:
             return int(s, 16) >= 0 and s[0] != '-'
         except: 
             return False
+
+
+# Solution 2
+class Solution:
+    def validate_IPv4(self, IP: str) -> str:
+        nums = IP.split('.')
+        
+        for x in nums:
+            if len(x) == 0 or len(x) > 3:
+                return "Neither"
+
+            if x[0] == '0' and len(x) != 1 or not x.isdigit() or int(x) > 255:
+                return "Neither"
+            
+        return "IPv4"
+    
+    def validate_IPv6(self, IP: str) -> str:
+        nums = IP.split(':')
+        hexdigits = '0123456789abcdefABCDEF'
+
+        for x in nums:
+            if len(x) == 0 or len(x) > 4 or not all(c in hexdigits for c in x):
+                return "Neither"
+            
+        return "IPv6"
+        
+    def validIPAddress(self, IP: str) -> str:
+        if IP.count('.') == 3:
+            return self.validate_IPv4(IP)
+        elif IP.count(':') == 7:
+            return self.validate_IPv6(IP)
+        else:
+            return "Neither"
