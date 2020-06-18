@@ -19,13 +19,14 @@ Could you solve it in logarithmic time complexity?
 """
 
 
+# Solution 1
 class Solution:
     def hIndex(self, citations: List[int]) -> int:
         n = len(citations)
         low, high = 0, n - 1
 
         while low <= high:
-            mid = low + ((high - low) >> 1)
+            mid = low + (high - low >> 1)
             if citations[mid] == n - mid:
                 return citations[mid]
             elif citations[mid] < n - mid:
@@ -34,3 +35,21 @@ class Solution:
                 high = mid - 1
 
         return n - (high + 1)
+
+
+# Solution 2
+class Solution:
+    def hIndex(self, citations: List[int]) -> int:
+        n = len(citations)
+        lo, hi = 0, n - 1
+        
+        while lo <= hi:
+            mid = lo + (hi - lo >> 1)
+            
+            if citations[mid] >= n - mid:
+                hi = mid - 1
+            else:
+                lo = mid + 1
+                
+        return n - lo
+        
