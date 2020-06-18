@@ -25,7 +25,7 @@ class Solution:
             return "Zero"
 
         places = ["", "Thousand", "Million", "Billion", "Trillion"]
-        d = {
+        mp = {
             0: "",
             1: "One",
             2: "Two",
@@ -56,46 +56,42 @@ class Solution:
             90: "Ninety",
             100: "Hundred",
         }
-
-        ls_res = []
+        
+        res = []
         place_cnt = 0
-
+        
         while num:
-            cur_num = num % 1000
-            # Get the hundredth place
-            hs = cur_num // 100
-            # Get the tenth place
-            ts = cur_num // 10 % 10 * 10
-            # Get the oneth place
-            os = cur_num % 10
-
-            # Tenth place less than twenty
-            if ts == 10:
-                ts = ts + os
-                os = 0
-
+            cur = num % 1000
+            ones = cur % 10
+            tens = cur // 10 % 10 * 10
+            hundreds = cur // 100
+            
+            if tens == 10:
+                tens += ones
+                ones = 0
+                
             cur_res = []
-
-            if hs:
-                cur_res.append(d[hs])
-                cur_res.append(d[100])
-            if ts:
-                cur_res.append(d[ts])
-            if os:
-                cur_res.append(d[os])
-
-            ls_res.append(cur_res)
-
-            # Less than one thousand or all places are zeros
+                
+            if hundreds:
+                cur_res.append(mp[hundreds])
+                cur_res.append(mp[100])
+                
+            if tens:
+                cur_res.append(mp[tens])
+                
+            if ones:
+                cur_res.append(mp[ones])
+                
             if place_cnt and cur_res:
                 cur_res.append(places[place_cnt])
-
+                
+            res.append(cur_res)
             num //= 1000
             place_cnt += 1
-
-        res = []
-
-        for ls in ls_res[::-1]:
-            res.extend(ls)
-
-        return " ".join(res)
+        
+        merge_res = []
+        
+        for ls in res[::-1]:
+            merge_res.extend(ls)
+        
+        return " ".join(merge_res)
