@@ -14,20 +14,24 @@ Note: If there are several possible values for h, the maximum one is taken as th
 """
 
 
+# Solution: Hash map and bucket sort
 class Solution:
     def hIndex(self, citations: List[int]) -> int:
-        total, n = 0, len(citations)
-        res = [0] * (n + 1)
-
+        n = len(citations)
+        buckets = [0] * (n + 1)
+        
         for c in citations:
             if c >= n:
-                res[n] += 1
+                buckets[n] += 1
             else:
-                res[c] += 1
-
+                buckets[c] += 1
+                
+        res = 0
+        
         for i in range(n, -1, -1):
-            total += res[i]
-            if total >= i:
+            res += buckets[i]
+            
+            if res >= i:
                 return i
-
+            
         return 0
