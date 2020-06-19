@@ -22,12 +22,38 @@ Output: false
 """
 
 
+# Solution 1: DFS with memoization
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        slen = len(s)
-        dp = [False] * slen
+        word_set = set(wordDict)
+        cache = {}
+        
+        return self.dfs(s, word_set, cache)
+        
+    def dfs(self, s: str, word_set: set, cache: set) -> bool:
+        if s in cache:
+            return cache[s]
+        
+        if s in word_set:
+            cache[s] = True
+            return True
+        
+        for i in range(1, len(s)):
+            if s[:i] in word_set and self.dfs(s[i:], word_set, cache):
+                cache[s] = True
+                return True
+    
+        cache[s] = False
+        return False
 
-        for i in range(slen):
+
+# Solution 2: DP
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        n = len(s)
+        dp = [False] * n
+
+        for i in range(n):
             for w in wordDict:
                 # Current word is in the dictionary and previous word is in the dict too
                 # or it is the first word in the string
