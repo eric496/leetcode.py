@@ -48,3 +48,4 @@ class Solution:
             res.insert(i, n)
             
         return res
+        
