@@ -49,6 +49,6 @@ class Solution:
             node.right, cursum, target, presum
         )
         # backtrack
-        presum[cursum] = presum[cursum] - 1
+        presum[cursum] -= 1
 
         return res

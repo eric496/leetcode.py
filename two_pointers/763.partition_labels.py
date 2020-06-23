@@ -22,7 +22,7 @@ class Solution:
             return []
 
         res = []
-        last_pos = {ch: i for i, ch in enumerate(S)}
+        last_pos = {c: i for i, c in enumerate(S)}
         start = last = 0
 
         for i, c in enumerate(S):

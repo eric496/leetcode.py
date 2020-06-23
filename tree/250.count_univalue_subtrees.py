@@ -43,7 +43,7 @@ class Solution:
             if node.right and node.val != node.right.val:
                 return False
 
-            res[0] = res[0] + 1
+            res[0] += 1
 
             return True
 
