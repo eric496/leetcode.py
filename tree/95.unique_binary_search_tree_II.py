@@ -22,18 +22,21 @@ The above output corresponds to the 5 unique BST's shown below:
 """
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 
 class Solution:
     def generateTrees(self, n: int) -> List[TreeNode]:
-        return self.helper(1, n) if n else []
+        if n <= 0:
+            return []
 
-    def helper(self, start, end):
+        return self.helper(1, n)
+
+    def helper(self, start: int, end: int) -> List[TreeNode]:
         if start > end:
             return [None]
 
