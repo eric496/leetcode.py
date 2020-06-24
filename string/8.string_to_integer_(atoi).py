@@ -39,33 +39,30 @@ Explanation: The number "-91283472332" is out of the range of a 32-bit signed in
 
 
 class Solution:
-    def myAtoi(self, str: str) -> int:
-        if not str.strip():
+    def myAtoi(self, s: str) -> int:
+        s = s.strip()
+        
+        if not s:
             return 0
-
-        lstr = list(str.strip())
-        sign = -1 if lstr[0] == "-" else 1
-
-        if lstr[0] in ("-", "+"):
-            del lstr[0]
-
+        
+        if not s[0].isdigit() and s[0] not in ("+", "-"):
+            return 0
+        
+        sign = -1 if s[0] == "-" else 1
+        s = s[1:] if s[0] in ("+", "-") else s
         res = 0
-
-        for ix, ch in enumerate(lstr):
-            if ix == 0 and not ch.isdigit():
-                return 0
-
-            if ch == ".":
+        
+        for c in s:
+            if not c.isdigit():
                 break
-
-            if ch.isdigit():
-                res = res * 10 + int(ch)
-            else:
-                break
-
-        if sign * res >= 2 ** 31 - 1:
+                
+            res = res * 10 + int(c)
+            
+        res *= sign
+        
+        if res > 2 ** 31 - 1:
             return 2 ** 31 - 1
-        elif sign * res <= -(2 ** 31):
-            return -(2 ** 31)
+        elif res < - 2 ** 31:
+            return - 2 ** 31
         else:
-            return sign * res
+            return res
