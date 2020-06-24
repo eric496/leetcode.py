@@ -16,26 +16,20 @@ Could you solve it with constant space complexity? (The output array does not co
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         n = len(nums)
-        left = [0] * n 
-        right = [0] * n
-
-        prod = 1
-
+        left = [1] * n
+        right = [1] * n
+        
+        for i in range(1, n):
+            left[i] = left[i - 1] * nums[i - 1]
+            
+        for i in range(n - 2, -1, -1):
+            right[i] = right[i + 1] * nums[i + 1]
+            
+        res = []
+        
         for i in range(n):
-            left[i] = prod
-            prod *= nums[i]
-
-        prod = 1
-
-        for j in range(n - 1, -1, -1):
-            right[j] = prod
-            prod *= nums[j]
-
-        res = [0] * n
-
-        for i in range(len(nums)):
-            res[i] = left[i] * right[i]
-
+            res.append(left[i] * right[i])
+            
         return res
         
 
