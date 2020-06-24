@@ -21,16 +21,15 @@ Explanation: The answer is "wke", with the length of 3.
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        max_len = 0
-
-        for ix, ch in enumerate(s):
-            sub = ch
-            nxt = ix + 1
-            cur_max = 1
-            while nxt < len(s) and s[nxt] not in sub:
-                sub += s[nxt]
-                nxt += 1
-                cur_max += 1
-            max_len = cur_max if cur_max > max_len else max_len
-
-        return max_len
+        last_seen = {}
+        start = res = 0
+        
+        for i, c in enumerate(s):
+            if c in last_seen and start <= last_seen[c]:
+                start = last_seen[c] + 1
+            else:
+                res = max(res, i - start + 1)
+                
+            last_seen[c] = i
+                
+        return res
