@@ -46,7 +46,28 @@ class Solution:
         return map(list, res)
 
 
-# Solution 2: two pointers - O(n^2) TC and O(1) SC
+# Solution 2: without changing the input, convert it to a two sum problem by fixing one number
+# TLE
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        n = len(nums)
+        need = set()
+        res = set()
+        
+        for i in range(n - 2):
+            need.clear()
+            target = -nums[i]
+            
+            for j in range(i + 1, n):
+                if target - nums[j] in need:    
+                    res.add(tuple(sorted([nums[i], nums[j], target - nums[j]])))
+                else:
+                    need.add(nums[j])
+                    
+        return list(map(list, res))
+
+
+# Solution 3: two pointers - O(n^2) TC and O(1) SC
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         if len(nums) < 3:
