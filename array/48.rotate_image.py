@@ -38,16 +38,22 @@ rotate the input matrix in-place such that it becomes:
 ]
 """
 
-# Transpose and then reverse elements in each row
+"""
+Thought process:
+  1. Flip the matrix along the diagonal 
+  2. Reverse each row to get the result
+"""
+
+# Solution: Transpose and then reverse elements in each row
 class Solution:
     def rotate(self, matrix: List[List[int]]) -> None:
         """
         Do not return anything, modify matrix in-place instead.
         """
-        size = len(matrix)
+        n = len(matrix)
 
-        for i in range(size):
-            for j in range(size):
+        for i in range(n):
+            for j in range(n):
                 if i < j:
                     matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 
