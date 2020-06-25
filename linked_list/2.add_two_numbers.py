@@ -37,6 +37,40 @@ class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         sentinel = walk = ListNode(-1)
         carry = 0
+        
+        while l1 and l2:
+            cur = l1.val + l2.val + carry
+            walk.next = ListNode(cur % 10)
+            carry = cur // 10
+            walk = walk.next
+            l1 = l1.next
+            l2 = l2.next
+            
+        while l1:
+            cur = l1.val + carry
+            walk.next = ListNode(cur % 10)
+            carry = cur // 10
+            l1 = l1.next
+            walk = walk.next
+            
+        while l2:
+            cur = l2.val + carry
+            walk.next = ListNode(cur % 10)
+            carry = cur // 10
+            l2 = l2.next
+            walk = walk.next
+                        
+        if carry:
+            walk.next = ListNode(carry)
+            
+        return sentinel.next
+        
+
+# Solution 2
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        sentinel = walk = ListNode(-1)
+        carry = 0
 
         while l1 or l2:
             if l1 and l2:
@@ -62,12 +96,12 @@ class Solution:
         return sentinel.next
 
 
-# Solution 2:
+# Solution 3:
 # The same idea as Solution 1, but more concise.
 # Sequentially add up node values of l1 and l2 if they exist.
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        sentinel = walk = ListNode(None)
+        sentinel = walk = ListNode(-1)
         sum_ = 0
 
         while l1 or l2 or sum_:
