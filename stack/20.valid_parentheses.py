@@ -69,4 +69,4 @@ class Solution:
             elif not stk or stk.pop() != c:
                 return False
 
-        return True if not stk else False
+        return False if stk else True
