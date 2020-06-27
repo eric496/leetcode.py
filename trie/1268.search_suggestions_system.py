@@ -46,44 +46,45 @@ class TrieNode:
 class Trie:
     def __init__(self) -> None:
         self.root = TrieNode()
-        
+
     def insert(self, word: str) -> None:
         cur = self.root
-        
+
         for c in word:
             if c not in cur.children:
                 cur.children[c] = TrieNode()
-                
+
             cur = cur.children[c]
             cur.words.append(word)
             cur.words.sort()
-            
+
             while len(cur.words) > 3:
                 cur.words.pop()
-                
+
     def find(self, word: str) -> List[List[str]]:
         res = []
         cur = self.root
-        
+
         for c in word:
             if c not in cur.children:
                 break
-            
+
             cur = cur.children[c]
             res.append(cur.words[:])
-            
+
         for _ in range(len(word) - len(res)):
             res.append([])
 
         return res
-        
-        
+
+
 class Solution:
-    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+    def suggestedProducts(
+        self, products: List[str], searchWord: str
+    ) -> List[List[str]]:
         trie = Trie()
-        
+
         for product in products:
             trie.insert(product)
-            
+
         return trie.find(searchWord)
-        

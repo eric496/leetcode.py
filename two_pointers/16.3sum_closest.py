@@ -12,17 +12,17 @@ class Solution:
         n = len(nums)
         res = float("inf")
         nums.sort()
-        
+
         for i in range(n - 2):
-            if i > 0 and nums[i] == nums[i-1]:
+            if i > 0 and nums[i] == nums[i - 1]:
                 continue
-                
+
             lo, hi = i + 1, n - 1
-            
+
             while lo < hi:
                 cur = nums[i] + nums[lo] + nums[hi]
-                res = cur if abs(cur - target) < abs(res -target) else res
-                
+                res = cur if abs(cur - target) < abs(res - target) else res
+
                 if cur < target:
                     # Skip duplicate
                     while lo < hi and nums[lo] == nums[lo + 1]:
@@ -35,5 +35,5 @@ class Solution:
                     hi -= 1
                 else:
                     break
-                    
+
         return res

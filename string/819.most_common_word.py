@@ -31,17 +31,17 @@ Words only consist of letters, never apostrophes or other punctuation symbols.
 class Solution:
     def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
         banned_set = set(banned)
-        
+
         # Replace ignored characters with space instead of "", because there is such case "a, b,b,b,b, c"
         # You don't want to convert it to "a bbbb c", but "a b b b b c" instead
         for c in "!?',;.":
             paragraph = paragraph.replace(c, " ")
-        
+
         words = paragraph.lower().split()
         cnt = {}
         res = ""
         max_freq = 0
-        
+
         for word in words:
             if word not in banned_set:
                 cnt[word] = cnt.get(word, 0) + 1
@@ -49,5 +49,5 @@ class Solution:
                 if cnt[word] > max_freq:
                     max_freq = cnt[word]
                     res = word
-                
-        return res 
+
+        return res

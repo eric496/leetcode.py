@@ -26,10 +26,9 @@ class Solution:
     def runningSum(self, nums: List[int]) -> List[int]:
         res = []
         cumsum = 0
-        
+
         for n in nums:
             cumsum += n
             res.append(cumsum)
-            
+
         return res
-        

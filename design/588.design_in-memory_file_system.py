@@ -26,38 +26,37 @@ class TrieNode:
 
 
 class FileSystem:
-
     def __init__(self):
         self.root = TrieNode()
-        
+
     def find(self, path: str) -> TrieNode:
         cur = self.root
-        
+
         for directory in path.split("/")[1:]:
             if directory not in cur.children:
                 return cur
-            
+
             cur = cur.children[directory]
-            
+
         return cur
-    
+
     def insert(self, path: str) -> "TrieNode":
         cur = self.root
-        
+
         for directory in path.split("/")[1:]:
             if directory not in cur.children:
                 cur.children[directory] = TrieNode()
-                
-            cur = cur.children[directory]    
-                
+
+            cur = cur.children[directory]
+
         return cur
 
     def ls(self, path: str) -> List[str]:
         cur = self.find(path)
-        
+
         if cur.content:
             return [path.split("/")[-1]]
-        
+
         return sorted(cur.children.keys())
 
     def mkdir(self, path: str) -> None:
@@ -69,9 +68,9 @@ class FileSystem:
 
     def readContentFromFile(self, filePath: str) -> str:
         cur = self.find(filePath)
-        
+
         return cur.content
-    
+
 
 # Your FileSystem object will be instantiated and called as such:
 # obj = FileSystem()

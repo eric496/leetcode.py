@@ -14,25 +14,26 @@ Output: 1
 # Solution 1: heap
 import heapq
 
+
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         if not intervals:
             return 0
-        
+
         intervals.sort()
         pq = [intervals[0][1]]
         res = 1
-        
+
         for i in range(1, len(intervals)):
             start, end = intervals[i]
-            
+
             if start < pq[0]:
                 res += 1
             else:
                 heapq.heappop(pq)
-                
+
             heapq.heappush(pq, end)
-            
+
         return res
 
 
@@ -56,4 +57,3 @@ class Solution:
                 e += 1
 
         return num_rms
-        

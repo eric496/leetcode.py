@@ -37,13 +37,13 @@ There are at most 25 cells containing gold.
 class Solution:
     def getMaximumGold(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
-        
+
         return max(self.backtrack(grid, y, x) for y in range(m) for x in range(n))
-        
+
     def backtrack(self, grid: List[List[int]], y: int, x: int) -> int:
         if y < 0 or y >= len(grid) or x < 0 or x >= len(grid[0]) or grid[y][x] == 0:
             return 0
-        
+
         original_val = grid[y][x]
         grid[y][x] = 0
         curmax = 0
@@ -54,4 +54,3 @@ class Solution:
         grid[y][x] = original_val
 
         return curmax + original_val
-        

@@ -29,14 +29,14 @@ class Solution:
     def missingNumber(self, nums: List[int]) -> int:
         n = len(nums)
         res = n
-        
+
         for i, n in enumerate(nums):
             res ^= i ^ n
-            
+
         return res
 
 
-# Solution 3: math 
+# Solution 3: math
 class Solution:
     def missingNumber(self, nums: list) -> int:
         n = len(nums)

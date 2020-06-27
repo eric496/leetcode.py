@@ -29,22 +29,22 @@ class Solution(object):
     def mergeKLists(self, lists) -> ListNode:
         if not lists:
             return None
-        
+
         if len(lists) == 1:
             return lists[0]
-        
+
         mid = len(lists) // 2
         left = self.mergeKLists(lists[:mid])
         right = self.mergeKLists(lists[mid:])
-        
+
         return self.merge(left, right)
-    
+
     def merge(self, left: ListNode, right: ListNode) -> ListNode:
         if not left or not right:
             return left or right
-            
+
         sentinel = walk = ListNode(-1)
-        
+
         while left and right:
             if left.val < right.val:
                 walk.next = left
@@ -52,11 +52,11 @@ class Solution(object):
             else:
                 walk.next = right
                 right = right.next
-            
+
             walk = walk.next
-            
+
         walk.next = left or right
-        
+
         return sentinel.next
 
 

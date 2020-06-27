@@ -23,13 +23,13 @@ class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         last_seen = {}
         start = res = 0
-        
+
         for i, c in enumerate(s):
             if c in last_seen and start <= last_seen[c]:
                 start = last_seen[c] + 1
             else:
                 res = max(res, i - start + 1)
-                
+
             last_seen[c] = i
-                
+
         return res

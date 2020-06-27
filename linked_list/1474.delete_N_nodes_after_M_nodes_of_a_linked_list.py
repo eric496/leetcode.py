@@ -46,24 +46,23 @@ class ListNode:
 class Solution:
     def deleteNodes(self, head: ListNode, m: int, n: int) -> ListNode:
         walk = head
-        
+
         while walk:
             i = 0
-            
+
             while i < m - 1 and walk:
                 walk = walk.next
                 i += 1
-                
+
             prev = walk
-            
+
             j = 0
-            
+
             while j < n + 1 and walk:
                 walk = walk.next
                 j += 1
-            
+
             if prev:
                 prev.next = walk
-            
+
         return head
-                

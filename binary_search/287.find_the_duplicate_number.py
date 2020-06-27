@@ -21,19 +21,19 @@ There is only one duplicate number in the array, but it could be repeated more t
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
         lo, hi = 1, len(nums) - 1
-        
+
         while lo <= hi:
             mid = lo + (hi - lo >> 1)
             cnt = 0
-            
+
             for num in nums:
                 cnt += 1 if num <= mid else 0
-                
+
             if cnt <= mid:
                 lo = mid + 1
             else:
                 hi = mid - 1
-        
+
         return lo
 
 

@@ -27,22 +27,22 @@ class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         word_set = set(wordDict)
         cache = {}
-        
+
         return self.dfs(s, word_set, cache)
-        
+
     def dfs(self, s: str, word_set: set, cache: set) -> bool:
         if s in cache:
             return cache[s]
-        
+
         if s in word_set:
             cache[s] = True
             return True
-        
+
         for i in range(1, len(s)):
             if s[:i] in word_set and self.dfs(s[i:], word_set, cache):
                 cache[s] = True
                 return True
-    
+
         cache[s] = False
         return False
 

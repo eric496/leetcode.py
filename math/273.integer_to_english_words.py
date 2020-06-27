@@ -56,42 +56,42 @@ class Solution:
             90: "Ninety",
             100: "Hundred",
         }
-        
+
         res = []
         place_cnt = 0
-        
+
         while num:
             cur = num % 1000
             ones = cur % 10
             tens = cur // 10 % 10 * 10
             hundreds = cur // 100
-            
+
             if tens == 10:
                 tens += ones
                 ones = 0
-                
+
             cur_res = []
-                
+
             if hundreds:
                 cur_res.append(mp[hundreds])
                 cur_res.append(mp[100])
-                
+
             if tens:
                 cur_res.append(mp[tens])
-                
+
             if ones:
                 cur_res.append(mp[ones])
-                
+
             if place_cnt and cur_res:
                 cur_res.append(places[place_cnt])
-                
+
             res.append(cur_res)
             num //= 1000
             place_cnt += 1
-        
+
         merge_res = []
-        
+
         for ls in res[::-1]:
             merge_res.extend(ls)
-        
+
         return " ".join(merge_res)

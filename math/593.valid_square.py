@@ -15,17 +15,19 @@ Input points have no order.
 
 from collections import defaultdict
 
+
 class Solution:
-    def validSquare(self, p1: List[int], p2: List[int], p3: List[int], p4: List[int]) -> bool:
+    def validSquare(
+        self, p1: List[int], p2: List[int], p3: List[int], p4: List[int]
+    ) -> bool:
         points = [p1, p2, p3, p4]
         dist = defaultdict(int)
-        
+
         for i in range(len(points)):
             for j in range(i + 1, len(points)):
                 dist[self.calc_dist(points[i], points[j])] += 1
-                
+
         return len(dist) == 2 and 4 in dist.values() and 2 in dist.values()
-        
+
     def calc_dist(self, p1: List[int], p2: List[int]) -> int:
         return (p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2
-        

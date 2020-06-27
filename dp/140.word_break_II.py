@@ -41,27 +41,26 @@ class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
         word_set = set(wordDict)
         memo = {}
-        
+
         return self.dfs(s, word_set, memo)
-        
-        
+
     def dfs(self, s: str, word_set: set, memo: dict) -> None:
         if s in memo:
             return memo[s]
-        
+
         cur = []
-        
+
         if s in word_set:
             cur.append(s)
-            
+
         for i in range(1, len(s)):
             left = s[:i]
-            
+
             if left in word_set:
                 right = self.dfs(s[i:], word_set, memo)
-                
+
                 for w in right:
                     cur.append(left + " " + w)
-                    
-        memo[s] = cur        
+
+        memo[s] = cur
         return memo[s]

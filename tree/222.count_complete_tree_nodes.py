@@ -97,6 +97,7 @@ class Solution:
 # Solution 3: level order traversal - O(n) solution
 from collections import deque
 
+
 class Solution:
     def countNodes(self, root: TreeNode) -> int:
         if not root:

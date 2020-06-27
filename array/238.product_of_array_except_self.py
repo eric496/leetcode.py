@@ -18,20 +18,20 @@ class Solution:
         n = len(nums)
         left = [1] * n
         right = [1] * n
-        
+
         for i in range(1, n):
             left[i] = left[i - 1] * nums[i - 1]
-            
+
         for i in range(n - 2, -1, -1):
             right[i] = right[i + 1] * nums[i + 1]
-            
+
         res = []
-        
+
         for i in range(n):
             res.append(left[i] * right[i])
-            
+
         return res
-        
+
 
 # Follow up: O(n) TC and O(1) SC
 class Solution:
@@ -39,15 +39,15 @@ class Solution:
         n = len(nums)
         res = [0] * n
         prod = 1
-        
+
         for i in range(n):
             res[i] = prod
             prod *= nums[i]
-            
+
         prod = 1
-            
+
         for i in range(n - 1, -1, -1):
             res[i] *= prod
             prod *= nums[i]
-            
+
         return res

@@ -30,5 +30,5 @@ class Solution:
         for i in range(1, len(prices)):
             cur_max = max(0, prices[i] - prices[i - 1] + cur_max)
             global_max = max(global_max, cur_max)
-        
+
         return global_max

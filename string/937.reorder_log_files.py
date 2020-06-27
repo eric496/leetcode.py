@@ -24,7 +24,7 @@ class Solution:
 
         for log in logs:
             sp = log.split()
-            
+
             if sp[1].isdigit():
                 digit_logs.append(log)
             else:

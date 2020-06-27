@@ -41,54 +41,54 @@ There may be multiple valid order of letters, return any one of them is fine.
 from collections import defaultdict
 from collections import deque
 
+
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
         if not words:
             return ""
-        
+
         if len(words) == 1:
             return words[0]
-        
+
         graph = defaultdict(set)
         indegrees = defaultdict(int)
-        
+
         for word in words:
             for c in word:
                 indegrees[c] = 0
-        
+
         for i in range(1, len(words)):
-            if len(words[i-1]) > len(words[i]) and words[i-1].startswith(words[i]):
+            if len(words[i - 1]) > len(words[i]) and words[i - 1].startswith(words[i]):
                 return ""
-            
-            size = min(len(words[i-1]), len(words[i]))
-            
+
+            size = min(len(words[i - 1]), len(words[i]))
+
             for j in range(size):
-                first, second = words[i-1][j], words[i][j]
-                
+                first, second = words[i - 1][j], words[i][j]
+
                 if first != second:
                     if second not in graph[first]:
                         graph[first].add(second)
                         indegrees[second] += 1
-                    
+
                     break
-        
+
         q = deque()
-        
+
         for c, cnt in indegrees.items():
             if cnt == 0:
                 q.append(c)
-                
+
         res = []
-            
+
         while q:
             c = q.popleft()
             res.append(c)
-            
+
             for nxt in graph[c]:
                 indegrees[nxt] -= 1
-                
+
                 if indegrees[nxt] == 0:
                     q.append(nxt)
-                    
+
         return "".join(res) if len(res) == len(indegrees) else ""
-    

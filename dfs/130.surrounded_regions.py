@@ -61,6 +61,7 @@ class Solution:
 # Solution 2: BFS
 from collections import deque
 
+
 class Solution:
     def solve(self, board: List[List[str]]) -> None:
         """
@@ -68,51 +69,55 @@ class Solution:
         """
         if not board or not board[0]:
             return board
-        
+
         m, n = len(board), len(board[0])
         q = deque()
         visited = set()
-        
+
         for i in range(m):
             if board[i][0] == "O" and (i, 0) not in visited:
                 board[i][0] = "#"
                 q.append((i, 0))
                 visited.add((i, 0))
-                
-            if board[i][n-1] == "O" and (i, n - 1) not in visited:
-                board[i][n-1] = "#"
+
+            if board[i][n - 1] == "O" and (i, n - 1) not in visited:
+                board[i][n - 1] = "#"
                 q.append((i, n - 1))
                 visited.add((i, n - 1))
-                
+
         for i in range(n):
             if board[0][i] == "O" and (0, i) not in visited:
                 board[0][i] = "#"
                 q.append((0, i))
                 visited.add((0, i))
-            
-            if board[m-1][i] == "O" and (m - 1, i) not in visited:
-                board[m-1][i] = "#"
+
+            if board[m - 1][i] == "O" and (m - 1, i) not in visited:
+                board[m - 1][i] = "#"
                 q.append((m - 1, i))
                 visited.add((m - 1, i))
-            
+
         directions = [(-1, 0), (0, -1), (0, 1), (1, 0)]
-            
+
         while q:
             for _ in range(len(q)):
                 y, x = q.popleft()
-                
+
                 for dy, dx in directions:
                     y1, x1 = y + dy, x + dx
-                    
-                    if 0 <= y1 < m and 0 <= x1 < n and board[y1][x1] == "O" and (y1, x1) not in visited:
+
+                    if (
+                        0 <= y1 < m
+                        and 0 <= x1 < n
+                        and board[y1][x1] == "O"
+                        and (y1, x1) not in visited
+                    ):
                         board[y1][x1] = "#"
                         q.append((y1, x1))
                         visited.add((y1, x1))
-                        
+
         for i in range(m):
             for j in range(n):
                 if board[i][j] == "O":
                     board[i][j] = "X"
                 elif board[i][j] == "#":
                     board[i][j] = "O"
-                    

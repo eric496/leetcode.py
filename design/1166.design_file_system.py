@@ -44,38 +44,37 @@ class TrieNode:
         self.children = {}
         self.val = val
 
-        
-class FileSystem:
 
+class FileSystem:
     def __init__(self):
         self.root = TrieNode(float("-inf"))
 
     def createPath(self, path: str, value: int) -> bool:
         cur = self.root
         directories = path.split("/")[1:]
-        
+
         for i, directory in enumerate(directories):
             if i == len(directories) - 1:
                 if directory in cur.children:
                     return False
-                
+
                 cur.children[directory] = TrieNode(value)
                 return True
-                
+
             if directory not in cur.children:
                 return False
-            
+
             cur = cur.children[directory]
 
     def get(self, path: str) -> int:
         cur = self.root
-        
+
         for directory in path.split("/")[1:]:
             if directory not in cur.children:
                 return -1
-            
+
             cur = cur.children[directory]
-            
+
         return cur.val
 
 

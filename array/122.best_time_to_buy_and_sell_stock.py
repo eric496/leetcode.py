@@ -30,5 +30,5 @@ class Solution:
 
         for i in range(len(prices) - 1):
             profit += prices[i + 1] - prices[i] if prices[i + 1] - prices[i] > 0 else 0
-        
+
         return profit
