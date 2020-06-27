@@ -37,8 +37,10 @@ class Solution:
 
         while q:
             course = q.popleft()
+
             for nxt in pre[course]:
                 indegree[nxt] -= 1
+
                 if not indegree[nxt]:
                     q.append(nxt)
 

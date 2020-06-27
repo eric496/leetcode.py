@@ -18,10 +18,10 @@ class Solution:
     def numSquares(self, n: int) -> int:
         dp = [float("inf")] * (n + 1)
         dp[0] = 0
-        
+
         for i in range(1, n + 1):
             j = 1
-            
+
             while j * j <= i:
                 dp[i] = min(dp[i], dp[i - j * j] + 1)
                 j += 1
@@ -41,20 +41,20 @@ class Solution:
 
             for val in q1:
                 i = 0
-                
+
                 while 1:
                     i += 1
                     total = val + i ** 2
-                    
+
                     if total == n:
                         return level
-                    
+
                     if total > n:
                         break
-                    
+
                     if visited[total]:
                         continue
-                    
+
                     q2.append(total)
                     visited[total] = True
             q1 = q2

@@ -25,77 +25,70 @@ The value of each color in image[i][j] and newColor will be an integer in [0, 65
 # Solution 1: DFS
 class Solution:
     def floodFill(
-        self, image: List[List[int]], sr: int, sc: int, newColor: int
+        self, image: List[List[int]], sr: int, sc: int, new_color: int
     ) -> List[List[int]]:
-        if not image:
-            return image
+        if not image or not image[0]:
+            return []
 
-        oldColor = image[sr][sc]
+        old_color = image[sr][sc]
         visited = set()
-        self.dfs(image, sr, sc, oldColor, newColor, visited)
+        self.dfs(image, sr, sc, old_color, new_color, visited)
 
         return image
 
     def dfs(
         self,
         image: List[List[int]],
-        sr: int,
-        sc: int,
-        oldColor: int,
-        newColor: int,
+        y: int,
+        x: int,
+        old_color: int,
+        new_color: int,
         visited: set,
     ) -> None:
-        # Case 1: index out of range
-        # Case 2: current pixel has different color from the starting pixel
-        # Case 3: current pixel is already visited
         if (
-            sr < 0
-            or sc < 0
-            or sr >= len(image)
-            or sc >= len(image[0])
-            or image[sr][sc] != oldColor
-            or (sr, sc) in visited
+            0 <= y < len(image)
+            and 0 <= x < len(image[0])
+            and (y, x) not in visited
+            and image[y][x] == old_color
         ):
-            return
+            image[y][x] = new_color
+            visited.add((y, x))
 
-        image[sr][sc] = newColor
-        visited.add((sr, sc))
-
-        self.dfs(image, sr + 1, sc, oldColor, newColor, visited)
-        self.dfs(image, sr - 1, sc, oldColor, newColor, visited)
-        self.dfs(image, sr, sc + 1, oldColor, newColor, visited)
-        self.dfs(image, sr, sc - 1, oldColor, newColor, visited)
+            for dy, dx in [(-1, 0), (0, -1), (0, 1), (1, 0)]:
+                self.dfs(image, y + dy, x + dx, old_color, new_color, visited)
 
 
 # Solution 2: BFS
-from copy import deepcopy
 from collections import deque
 
 
 class Solution:
     def floodFill(
-        self, image: List[List[int]], sr: int, sc: int, newColor: int
+        self, image: List[List[int]], sr: int, sc: int, new_color: int
     ) -> List[List[int]]:
-        res = deepcopy(image)
+        if not image or not image[0]:
+            return []
+
+        m, n = len(image), len(image[0])
         q = deque([(sr, sc)])
-        dirs = [(1, 0), (0, 1), (-1, 0), (0, -1)]
         visited = set()
+        old_color = image[sr][sc]
 
         while q:
             for _ in range(len(q)):
-                x, y = q.popleft()
-                res[x][y] = newColor
-                visited.add((x, y))
+                y, x = q.popleft()
+                image[y][x] = new_color
+                visited.add((y, x))
 
-                for dx, dy in dirs:
-                    x1, y1 = x + dx, y + dy
+                for dy, dx in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
+                    new_y, new_x = y + dy, x + dx
 
                     if (
-                        0 <= x1 < len(image)
-                        and 0 <= y1 < len(image[0])
-                        and image[x1][y1] == image[sr][sc]
-                        and (x1, y1) not in visited
+                        0 <= new_y < m
+                        and 0 <= new_x < n
+                        and (new_y, new_x) not in visited
+                        and image[new_y][new_x] == old_color
                     ):
-                        q.append((x1, y1))
+                        q.append((y + dy, x + dx))
 
-        return res
+        return image
