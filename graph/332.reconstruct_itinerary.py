@@ -18,26 +18,22 @@ Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","
 """
 
 
-from collections import deque
-
+from collections import defaultdict, deque
 
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        targets = {}
-
-        for depart, arrival in sorted(tickets):
-            if depart in targets:
-                targets[depart].append(arrival)
-            else:
-                targets[depart] = deque([arrival])
-
-        route = []
-        self.visit("JFK", targets, route)
-
-        return route[::-1]
-
-    def visit(self, airport: str, targets: dict, route: List) -> None:
-        while airport in targets and targets[airport]:
-            self.visit(targets[airport].popleft(), targets, route)
-
-        route.append(airport)
+        flights = defaultdict(deque)
+        
+        for departure, arrival in sorted(tickets):
+            flights[departure].append(arrival)
+            
+        res = deque()
+        self.dfs("JFK", flights, res)
+        
+        return res
+    
+    def dfs(self, airport: str, flights: dict, res: List[str]) -> None:
+        while airport in flights and flights[airport]:
+            self.dfs(flights[airport].popleft(), flights, res)
+            
+        res.appendleft(airport) 
