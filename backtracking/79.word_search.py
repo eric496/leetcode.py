@@ -16,40 +16,33 @@ Given word = "ABCB", return false.
 
 
 class Solution:
-    def exist(self, board: list, word: str) -> bool:
-        seen = set()
-
-        for row in range(len(board)):
-            for col in range(len(board[0])):
-                if self.backtrack(board, row, col, word, 0, seen):
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        visited = set()
+        m, n = len(board), len(board[0])
+        
+        for y in range(m):
+            for x in range(n):
+                if self.dfs(board, y, x, word, 0, visited):
                     return True
-
+                
         return False
-
-    def backtrack(
-        self, board: list, row: int, col: int, word: str, wix: int, seen: set
-    ) -> bool:
+        
+    def dfs(self, board: List[List[str]], y: int, x: int, word: str, wix: int, visited: set) -> bool:
         if wix == len(word):
             return True
-
-        if row < 0 or col < 0 or row >= len(board) or col >= len(board[0]):
+        
+        if y < 0 or y >= len(board) or x < 0 or x >= len(board[0]) or (y, x) in visited or board[y][x] != word[wix]:
             return False
-
-        if board[row][col] != word[wix]:
-            return False
-
-        if (row, col) in seen:
-            return False
-
-        seen.add((row, col))
-
-        found = (
-            self.backtrack(board, row + 1, col, word, wix + 1, seen)
-            or self.backtrack(board, row - 1, col, word, wix + 1, seen)
-            or self.backtrack(board, row, col + 1, word, wix + 1, seen)
-            or self.backtrack(board, row, col - 1, word, wix + 1, seen)
-        )
-
-        seen.remove((row, col))
-
-        return found
+        
+        visited.add((y, x))
+        
+        for dy, dx in [(-1, 0), (0, -1), (0, 1), (1, 0)]:
+            found = self.dfs(board, y + dy, x + dx, word, wix + 1, visited)
+            
+            if found:
+                return True
+            
+        visited.remove((y, x))
+        
+        return False
+        
