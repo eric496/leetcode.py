@@ -19,7 +19,7 @@ The values of words are distinct.
 """
 
 
-# Solution: Backtrracking + Trie
+# Solution: Backtracking + Trie
 class TrieNode:
     def __init__(self):
         self.end = False
@@ -78,40 +78,33 @@ class Trie:
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         trie = Trie()
-
+        
         for word in words:
             trie.insert(word)
-
+            
         m, n = len(board), len(board[0])
         visited = set()
         res = set()
-
+        
         for i in range(m):
             for j in range(n):
-                self.dfs("", res, i, j, board, trie, visited)
-
+                self.dfs(board, i, j, "", trie, visited, res)
+                
         return list(res)
-
-    def dfs(
-        self,
-        path: str,
-        res: set,
-        y: int,
-        x: int,
-        board: List[List[str]],
-        trie: "Trie",
-        visited: set,
-    ) -> None:
-        if 0 <= y < len(board) and 0 <= x < len(board[0]) and (y, x) not in visited:
-            path += board[y][x]
-
-            if not trie.startswith(path):
-                return
-
-            if trie.search(path):
-                res.add(path)
-
+        
+    def dfs(self, board: List[List[str]], y: int, x: int, cur: str, trie: Trie, visited: set, res: set) -> None:
+        if 0 <= y < len(board) and 0 <= x < len(board[0]) and (y, x) not in visited:   
+            cur += board[y][x]
+            
+            if not trie.startswith(cur):
+                return 
+            
+            if trie.search(cur):
+                res.add(cur)
+                
+            visited.add((y, x))
+                
             for dy, dx in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
-                visited.add((y, x))
-                self.dfs(path, res, y + dy, x + dx, board, trie, visited)
-                visited.remove((y, x))
+                self.dfs(board, y + dy, x + dx, cur, trie, visited, res)        
+            
+            visited.remove((y, x))
