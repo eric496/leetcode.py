@@ -18,34 +18,38 @@ The input prerequisites is a graph represented by a list of edges, not adjacency
 You may assume that there are no duplicate edges in the input prerequisites.
 """
 
-from collections import defaultdict, deque
 
+# Solution 1: BFS
+from collections import defaultdict, deque
 
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         indegree = [0] * numCourses
         pre = defaultdict(list)
         q = deque()
-
-        for p in prerequisites:
-            indegree[p[0]] += 1
-            pre[p[1]].append(p[0])
-
+        
+        for x, y in prerequisites:
+            indegree[x] += 1
+            pre[y].append(x)
+            
         for i, d in enumerate(indegree):
-            if not d:
+            if d == 0:
                 q.append(i)
-
+                
         while q:
             course = q.popleft()
-
+            
             for nxt in pre[course]:
                 indegree[nxt] -= 1
-
-                if not indegree[nxt]:
+                
+                if indegree[nxt] == 0:
                     q.append(nxt)
-
-        for i in indegree:
-            if i:
+                    
+        for d in indegree:
+            if d:
                 return False
-
+            
         return True
+
+
+# Solution 2: DFS
