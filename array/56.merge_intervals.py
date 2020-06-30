@@ -12,46 +12,43 @@ Output: [[1,5]]
 Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 """
 
-# Definition for an interval.
-# class Interval:
-#     def __init__(self, s=0, e=0):
-#         self.start = s
-#         self.end = e
 
 # Solution 1: two pointers
 class Solution:
-    def merge(self, intervals: List[Interval]) -> List[Interval]:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         if not intervals:
             return []
-
-        intervals.sort(key=lambda x: x.start)
-        prev_start, prev_end = intervals[0].start, intervals[0].end
+        
+        intervals.sort()
+        prev_start, prev_end = intervals[0][0], intervals[0][1]
         res = []
-
-        for cur in intervals[1:]:
-            if prev_end >= cur.start:
-                prev_end = max(cur.end, prev_end)
+        
+        for i in range(1, len(intervals)):
+            cur_start, cur_end = intervals[i][0], intervals[i][1]
+            
+            if prev_end >= cur_start:
+                prev_end = max(prev_end, cur_end)
             else:
-                res.append(Interval(prev_start, prev_end))
-                prev_start, prev_end = cur.start, cur.end
-
-        res.append(Interval(prev_start, prev_end))
-
+                res.append([prev_start, prev_end])
+                prev_start, prev_end = cur_start, cur_end
+        
+        res.append([prev_start, prev_end])
+        
         return res
 
 
 # Solution 2: more concise
 class Solution:
-    def merge(self, intervals: List[Interval]) -> List[Interval]:
-        intervals.sort(key=lambda x: x.start)
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort()
         res = []
         prev = None
 
         for cur in intervals:
-            if prev is None or prev.end < cur.start:
+            if prev is None or prev[1] < cur[0]:
                 res.append(cur)
                 prev = cur
             else:
-                prev.end = max(prev.end, cur.end)
+                prev[1] = max(prev[1], cur[1])
 
         return res
