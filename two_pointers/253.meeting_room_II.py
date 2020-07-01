@@ -37,23 +37,27 @@ class Solution:
         return res
 
 
-# Solution 2
+# Solution 2: two pointers
 class Solution:
-    def minMeetingRooms(self, intervals: List[Interval]) -> int:
-        starts = sorted(i.start for i in intervals)
-        ends = sorted(i.end for i in intervals)
-        s = e = 0
-        num_rms = avail = 0
-
-        while s < len(starts):
-            if starts[s] < ends[e]:
-                if not avail:
-                    num_rms += 1
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
+        
+        starts = sorted(x[0] for x in intervals)
+        ends = sorted(x[1] for x in intervals)
+        i = j = 0
+        res = avail = 0
+        
+        while i < len(starts):
+            if starts[i] < ends[j]:
+                if avail == 0:
+                    res += 1
                 else:
                     avail -= 1
-                s += 1
+                
+                i += 1
             else:
                 avail += 1
-                e += 1
-
-        return num_rms
+                j += 1
+                
+        return res
