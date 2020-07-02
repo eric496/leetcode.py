@@ -20,28 +20,32 @@ If all integer numbers from the stream are between 0 and 100, how would you opti
 If 99% of all integer numbers from the stream are between 0 and 100, how would you optimize it?
 """
 
-import heapq
-
+from heapq import heappush, heappop
 
 class MedianFinder:
+
     def __init__(self):
         """
         initialize your data structure here.
         """
-        self.small = []
-        self.large = []
-
+        self.first_half = []
+        self.second_half = []
+        
     def addNum(self, num: int) -> None:
-        if len(self.small) == len(self.large):
-            heapq.heappush(self.large, -heapq.heappushpop(self.small, -num))
+        if len(self.first_half) == len(self.second_half):
+            heappush(self.first_half, -num)
+            largest = -heappop(self.first_half)
+            heappush(self.second_half, largest)
         else:
-            heapq.heappush(self.small, -heapq.heappushpop(self.large, num))
-
+            heappush(self.second_half, num)
+            smallest = heappop(self.second_half)
+            heappush(self.first_half, -smallest)
+    
     def findMedian(self) -> float:
-        if len(self.small) == len(self.large):
-            return (self.large[0] - self.small[0]) / 2
+        if len(self.first_half) == len(self.second_half):
+            return float(self.second_half[0] - self.first_half[0]) / 2
         else:
-            return float(self.large[0])
+            return float(self.second_half[0])
 
 
 # Your MedianFinder object will be instantiated and called as such:
