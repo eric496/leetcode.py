@@ -98,7 +98,6 @@ class Solution:
 # Solution 2: iterative
 from collections import deque
 
-
 class Solution:
     def widthOfBinaryTree(self, root: TreeNode) -> int:
         if not root:
