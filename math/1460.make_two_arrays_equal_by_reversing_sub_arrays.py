@@ -38,10 +38,30 @@ target.length == arr.length
 """
 
 
+# Solution 1
 class Solution:
     def canBeEqual(self, target: List[int], arr: List[int]) -> bool:
         arr.sort()
         target.sort()
         
         return arr == target
+
+
+# Solution 2
+from collections import defaultdict
+
+class Solution:
+    def canBeEqual(self, target: List[int], arr: List[int]) -> bool:
+        cnt = defaultdict(int)
+        
+        for n in target:
+            cnt[n] += 1
+            
+        for n in arr:
+            if n not in cnt or cnt[n] == 0:
+                return False
+            
+            cnt[n] -= 1
+            
+        return sum(cnt.values()) == 0
         
