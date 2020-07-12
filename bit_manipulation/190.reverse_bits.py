@@ -2,7 +2,6 @@
 Reverse bits of a given 32 bits unsigned integer.
 
 Example:
-
 Input: 43261596
 Output: 964176192
 Explanation: 43261596 represented in binary as 00000010100101000001111010011100, 
@@ -14,5 +13,15 @@ If this function is called many times, how would you optimize it?
 
 
 class Solution:
-    def reverseBits(self, n):
-        return int(bin(n)[2:].zfill(32)[::-1], 2)
+    def reverseBits(self, n: int) -> int:
+        if n == 0:
+            return n
+        
+        res = 0
+        
+        for i in range(32):
+            res <<= 1
+            res += n & 1
+            n >>= 1
+            
+        return res
