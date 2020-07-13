@@ -3,31 +3,27 @@ Given two binary trees, write a function to check if they are the same or not.
 Two binary trees are considered the same if they are structurally identical and the nodes have the same value.
 
 Example 1:
-
 Input:     1         1
           / \       / \
          2   3     2   3
 
         [1,2,3],   [1,2,3]
-
 Output: true
-Example 2:
 
+Example 2:
 Input:     1         1
           /           \
          2             2
 
         [1,2],     [1,null,2]
-
 Output: false
-Example 3:
 
+Example 3:
 Input:     1         1
           / \       / \
          2   1     1   2
 
         [1,2,1],   [1,1,2]
-
 Output: false
 """
 
@@ -58,13 +54,12 @@ class Solution:
 # Solution 2: iterative solution
 from collections import deque
 
-
 class Solution:
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
-        queue = deque([(p, q)])
+        res = deque([(p, q)])
 
-        while queue:
-            n1, n2 = queue.popleft()
+        while res:
+            n1, n2 = res.popleft()
 
             if not n1 and not n2:
                 continue
@@ -75,8 +70,8 @@ class Solution:
             if n1.val != n2.val:
                 return False
 
-            queue.append((n1.left, n2.left))
-            queue.append((n1.right, n2.right))
+            res.append((n1.left, n2.left))
+            res.append((n1.right, n2.right))
 
         return True
 
