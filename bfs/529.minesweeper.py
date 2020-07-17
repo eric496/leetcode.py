@@ -71,3 +71,4 @@ class Solution:
                             visited.add((y + dy, x + dx))
                             
         return board
+        
