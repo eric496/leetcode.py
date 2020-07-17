@@ -43,38 +43,31 @@ For simplicity, not mentioned rules should be ignored in this problem. For examp
 
 from collections import deque
 
-
 class Solution:
     def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
         m, n = len(board), len(board[0])
-        q = deque()
-        q.append(click)
-        dirs = (-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)
+        q = deque([click])
         visited = {tuple(click)}
-
+        directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+        
         while q:
-            row, col = q.popleft()
-
-            if board[row][col] == "M":
-                board[row][col] = "X"
-            elif board[row][col] == "E":
+            y, x = q.popleft()
+            
+            if board[y][x] == "M":
+                board[y][x] = "X"
+            elif board[y][x] == "E":
                 cnt = 0
-                for x, y in dirs:
-                    if (
-                        0 <= x + row < m
-                        and 0 <= y + col < n
-                        and board[x + row][y + col] == "M"
-                    ):
+                
+                for dy, dx in directions:
+                    if 0 <= y + dy < m and 0 <= x + dx < n and board[y+dy][x+dx] == "M":
                         cnt += 1
-                board[row][col] = str(cnt) if cnt else "B"
-                if not cnt:
-                    for x, y in dirs:
-                        if (
-                            0 <= x + row < m
-                            and 0 <= y + col < n
-                            and (x + row, y + col) not in visited
-                        ):
-                            q.append([x + row, y + col])
-                            visited.add((x + row, y + col))
-
+                    
+                board[y][x] = str(cnt) if cnt else "B"
+                
+                if cnt == 0:
+                    for dy, dx in directions:
+                        if 0 <= y + dy < m and 0 <= x + dx < n and (y + dy, x + dx) not in visited:
+                            q.append((y + dy, x + dx))
+                            visited.add((y + dy, x + dx))
+                            
         return board
