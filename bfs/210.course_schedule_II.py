@@ -19,8 +19,8 @@ The input prerequisites is a graph represented by a list of edges, not adjacency
 You may assume that there are no duplicate edges in the input prerequisites.
 """
 
-from collections import defaultdict, deque
 
+from collections import defaultdict, deque
 
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
@@ -40,8 +40,10 @@ class Solution:
         while q:
             course = q.popleft()
             res.append(course)
+
             for nxt in pre[course]:
                 indegree[nxt] -= 1
+                
                 if not indegree[nxt]:
                     q.append(nxt)
 
