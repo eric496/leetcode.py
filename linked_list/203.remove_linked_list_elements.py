@@ -25,7 +25,7 @@ class Solution:
         sentinel = walk = ListNode(None)
         sentinel.next = head
 
-        while walk.next:
+        while walk and walk.next:
             if walk.next.val == val:
                 walk.next = walk.next.next
             else:
