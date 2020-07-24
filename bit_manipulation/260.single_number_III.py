@@ -19,13 +19,7 @@ class Solution:
         for num in nums:
             cnt[num] = cnt.get(num, 0) + 1
 
-        res = []
-
-        for k, v in cnt.items():
-            if v == 1:
-                res.append(k)
-
-        return res
+        return [k for k, v in cnt.items() if v == 1]
 
 
 # Solution 2: bit manipulation
