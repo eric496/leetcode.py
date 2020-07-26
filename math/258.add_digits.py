@@ -27,7 +27,4 @@ class Solution:
 # O(1) time solution - digital root
 class Solution:
     def addDigits(self, num: int) -> int:
-        if num == 0:
-            return 0
-        else:
-            return (num - 1) % 9 + 1
+        return (num - 1) % 9 + 1 if num else 0
