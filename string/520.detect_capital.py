@@ -20,16 +20,4 @@ Note: The input will be a non-empty word consisting of uppercase and lowercase l
 
 class Solution:
     def detectCapitalUse(self, word: str) -> bool:
-        cnt = 0
-
-        for ch in word:
-            cnt += 1 if ch.isupper() else 0
-
-        return (
-            True
-            if word[0].isupper()
-            and cnt in (1, len(word))
-            or word[0].islower()
-            and not cnt
-            else False
-        )
+        return word.islower() or word.isupper() or word.istitle()
