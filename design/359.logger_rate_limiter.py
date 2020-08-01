@@ -21,11 +21,12 @@ logger.shouldPrintMessage(11,"foo"); returns true;
 
 
 class Logger:
+
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.print_ts = {}
+        self.mp = {}
 
     def shouldPrintMessage(self, timestamp: int, message: str) -> bool:
         """
@@ -33,14 +34,10 @@ class Logger:
         If this method returns false, the message will not be printed.
         The timestamp is in seconds granularity.
         """
-        if message in self.print_ts:
-            if timestamp - self.print_ts[message] >= 10:
-                self.print_ts[message] = timestamp
-                return True
-            else:
-                return False
+        if message in self.mp and timestamp - self.mp[message] < 10:
+            return False
         else:
-            self.print_ts[message] = timestamp
+            self.mp[message] = timestamp
             return True
 
 
