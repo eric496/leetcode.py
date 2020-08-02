@@ -21,3 +21,31 @@ All values will be in the range of [0, 1000000].
 The number of operations will be in the range of [1, 10000].
 Please do not use the built-in HashSet library.
 """
+
+
+class MyHashSet:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.set = [0] * 1000000
+
+    def add(self, key: int) -> None:
+        self.set[key] = 1
+
+    def remove(self, key: int) -> None:
+        self.set[key] = 0
+
+    def contains(self, key: int) -> bool:
+        """
+        Returns true if this set contains the specified element
+        """
+        return True if self.set[key] else False
+
+
+# Your MyHashSet object will be instantiated and called as such:
+# obj = MyHashSet()
+# obj.add(key)
+# obj.remove(key)
+# param_3 = obj.contains(key)
