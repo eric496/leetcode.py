@@ -63,6 +63,7 @@ class Solution(object):
 # Solution 2: Heap
 import heapq
 
+
 class Solution(object):
     def mergeKLists(self, lists):
         pq = [(n.val, i, n) for i, n in enumerate(lists) if n]
