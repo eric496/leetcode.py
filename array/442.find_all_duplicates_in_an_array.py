@@ -14,10 +14,12 @@ Output:
 # O(n) TC and SC
 class Solution:
     def findDuplicates(self, nums: List[int]) -> List[int]:
-        cnt, res = {}, []
+        cnt = {}
 
-        for n in nums:
-            cnt[n] = cnt.get(n, 0) + 1
+        for num in nums:
+            cnt[num] = cnt.get(num, 0) + 1
+
+        res = []
 
         for k, v in cnt.items():
             if v > 1:
@@ -30,11 +32,11 @@ class Solution:
 class Solution:
     def findDuplicates(self, nums: List[int]) -> List[int]:
         res = []
-
-        for i in range(len(nums)):
-            if nums[abs(nums[i]) - 1] > 0:
-                nums[abs(nums[i]) - 1] *= -1
+        
+        for num in nums:
+            if nums[abs(num)-1] < 0:
+                res.append(abs(num))
             else:
-                res.append(abs(nums[i]))
-
+                nums[abs(num)-1] *= -1
+                
         return res
