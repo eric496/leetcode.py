@@ -36,33 +36,32 @@ class TreeNode:
         self.right = None
 
 
-from collections import deque
-from collections import defaultdict
+from collections import deque, defaultdict
 
 
 class Solution:
     def verticalTraversal(self, root: TreeNode) -> List[List[int]]:
         if not root:
             return []
-
+        
         q = deque([(root, 0)])
         mp = defaultdict(list)
-
+        
         while q:
-            size = len(q)
             level = defaultdict(list)
-
-            for _ in range(size):
-                node, v = q.popleft()
-                level[v].append(node.val)
-
+            
+            for _ in range(len(q)):
+                node, pos = q.popleft()
+                level[pos].append(node.val)
+            
                 if node.left:
-                    q.append((node.left, v - 1))
+                    q.append((node.left, pos - 1))
 
                 if node.right:
-                    q.append((node.right, v + 1))
-
-            for key in level:
-                mp[key] += sorted(level[key])
-
-        return [mp[key] for key in sorted(mp)]
+                    q.append((node.right, pos + 1))
+                
+            for vert in level:
+                mp[vert].extend(sorted(level[vert]))
+            
+        return [mp[vert] for vert in sorted(mp.keys())]
+        
