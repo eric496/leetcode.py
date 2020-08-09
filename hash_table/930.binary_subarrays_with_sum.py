@@ -18,7 +18,7 @@ A[i] is either 0 or 1.
 """
 
 
-# Solution 1: hash table - similar to 2sum
+# Solution 1: hash table - similar to 2sum, O(n) SC
 class Solution:
     def numSubarraysWithSum(self, A: List[int], S: int) -> int:
         presum = {0: 1}
@@ -32,4 +32,26 @@ class Solution:
         return res
 
 
-# Solution 2: sliding window
+# Solution 2: two pointers - O(1) SC
+class Solution:
+    def numSubarraysWithSum(self, A: List[int], S: int) -> int:
+        return self.numSubarrayLessEqualSum(A, S) - self.numSubarrayLessEqualSum(A, S - 1)
+        
+        
+    def numSubarrayLessEqualSum(self, A: List[int], S: int) -> int:
+        lo = hi = 0
+        res = 0
+        cursum = 0
+        
+        while hi < len(A):
+            cursum += A[hi]
+            
+            while lo <= hi and cursum > S:
+                cursum -= A[lo]
+                lo += 1
+                
+            res += hi - lo + 1
+            hi += 1
+            
+        return res
+        
