@@ -33,33 +33,32 @@ from collections import deque
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
-        rotten = []
-
+        res = 0
+        visited = set()
+        rotten = deque()
+        
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == 2:
                     rotten.append((i, j))
-
-        q = deque(rotten)
-        res = 0
-        d = [(-1, 0), (1, 0), (0, 1), (0, -1)]
-
-        while q:
+                    
+        while rotten:
             res += 1
-
-            for _ in range(len(q)):
-                x, y = q.popleft()
-
-                for dx, dy in d:
-                    x1, y1 = x + dx, y + dy
-
-                    if 0 <= x1 < m and 0 <= y1 < n and grid[x1][y1] == 1:
-                        grid[x1][y1] = 2
-                        q.append((x1, y1))
-
+            
+            for _ in range(len(rotten)):
+                y, x = rotten.popleft()
+                visited.add((y, x))
+                
+                for dy, dx in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+                    new_y, new_x = y + dy, x + dx
+                    
+                    if 0 <= new_y < m and 0 <= new_x < n and (new_y, new_x) not in visited and grid[new_y][new_x] == 1:
+                        grid[new_y][new_x] = 2
+                        rotten.append((new_y, new_x))
+                        
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == 1:
                     return -1
-
+                
         return res - 1 if res else 0
