@@ -44,7 +44,7 @@ class Solution:
         cursum = 0
         
         while hi < len(A):
-            cursum += A[hi]
+            cursum += A[hi
             
             while lo <= hi and cursum > S:
                 cursum -= A[lo]
@@ -54,4 +54,3 @@ class Solution:
             hi += 1
             
         return res
-        
