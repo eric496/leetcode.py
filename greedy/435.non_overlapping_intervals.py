@@ -47,11 +47,11 @@ class Solution:
         intervals.sort(key=lambda x: x[1])
         end = float("-inf")
         res = 0
-
-        for interval in intervals:
-            if interval[0] >= end:
-                end = interval[1]
-            else:
+        
+        for i, j in intervals:
+            if i < end:
                 res += 1
-
+            else:
+                end = j
+                
         return res
