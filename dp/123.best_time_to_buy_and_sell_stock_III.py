@@ -29,7 +29,7 @@ class Solution:
             return 0
         
         n = len(prices)
-        dp = [[0] * nn for _ in range(3)]
+        dp = [[0] * n for _ in range(3)]
         
         for k in range(1, 3):
             curmin = prices[0]
