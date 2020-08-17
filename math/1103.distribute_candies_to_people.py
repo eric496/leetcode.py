@@ -29,24 +29,22 @@ Constraints:
 """
 
 
+# Solution 1
 class Solution:
     def distributeCandies(self, candies: int, num_people: int) -> List[int]:
         res = [0] * num_people
-        i, cur = 0, 1
-
+        i = 0
+        
         while candies:
-            i = 0 if i == num_people else i
-
-            if candies >= cur:
-                res[i] += cur
-                candies -= cur
+            if i + 1 <= candies:
+                res[i % num_people] += i + 1
+                candies -= i + 1
             else:
-                res[i] += candies
+                res[i % num_people] += candies
                 candies = 0
-
+             
             i += 1
-            cur += 1
-
+    
         return res
 
 
