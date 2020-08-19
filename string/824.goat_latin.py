@@ -26,13 +26,18 @@ S contains only uppercase, lowercase and spaces. Exactly one space between each 
 
 class Solution:
     def toGoatLatin(self, S: str) -> str:
-        vowels = set("aeiouAEIOU")
+        words = S.split()
+        vowels = "aeiouAEIOU"
         res = []
-
-        for i, word in enumerate(S.split(), 1):
+        
+        for i, word in enumerate(words):
             if word[0] in vowels:
-                res.append(word + "ma" + "a" * i)
+                goat = word + "ma"
             else:
-                res.append(word[1:] + word[0] + "ma" + "a" * i)
-
+                goat = word[1:] + word[0]
+                goat += "ma"
+                
+            goat += "a" * (i + 1)
+            res.append(goat)
+            
         return " ".join(res)
