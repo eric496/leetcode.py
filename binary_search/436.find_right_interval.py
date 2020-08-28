@@ -28,25 +28,26 @@ For [2,3], the interval [3,4] has minimum-"right" start point.
 
 class Solution:
     def findRightInterval(self, intervals: List[List[int]]) -> List[int]:
-        sort = [(x[0], i) for i, x in enumerate(intervals)]
-        sort.sort()
+        ixint = [[i, x[0], x[1]] for i, x in enumerate(intervals)]
+        ixint.sort(key=lambda x: x[1])
         res = []
 
-        for interval in intervals:
-            target = interval[1]
-            low, high = 0, len(intervals) - 1
-
-            while low <= high:
-                mid = low + ((high - low) >> 1)
-
-                if sort[mid][0] < target:
-                    low = mid + 1
-                else:
-                    high = mid - 1
-
-            if low == len(intervals):
-                res.append(-1)
-            else:
-                res.append(sort[low][1])
+        for s, e in intervals:
+            ix = self.binary_search(ixint, e)
+            res.append(ixint[ix][0] if ix < len(ixint) else -1)
 
         return res
+    
+    
+    def binary_search(self, intervals: List[List[int]], target: int) -> int:
+        lo, hi = 0, len(intervals)
+        
+        while lo < hi:
+            mid = lo + (hi - lo >> 1)
+            
+            if intervals[mid][1] >= target:
+                hi = mid
+            else:
+                lo = mid + 1
+                
+        return lo
