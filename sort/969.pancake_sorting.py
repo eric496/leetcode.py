@@ -28,17 +28,22 @@ A[i] is a permutation of [1, 2, ..., A.length]
 class Solution:
     def pancakeSort(self, A: List[int]) -> List[int]:
         res = []
-        done = 0
-        A_sorted = sorted(A)
-
-        while A != A_sorted:
-            check = A[: len(A) - done]
-            max_ix = A.index(max(check))
-            if max_ix:
-                res.append(max_ix + 1)
-            res.append(len(A) - done)
-            A = A[: max_ix + 1][::-1] + A[max_ix + 1 :]
-            A[: len(A) - done] = A[: len(A) - done][::-1]
-            done += 1
-
+        n = mx = len(A)
+        
+        for _ in range(n):
+            ix = A.index(mx)
+            self.flip(A, 0, ix)
+            self.flip(A, 0, mx-1)
+            res.append(ix + 1)
+            res.append(mx)
+            mx -= 1
+        
         return res
+    
+            
+    def flip(self, A: List[int], start: int, end: int) -> None:
+        while start < end:
+            A[start], A[end] = A[end], A[start]
+            start += 1
+            end -= 1
+            
