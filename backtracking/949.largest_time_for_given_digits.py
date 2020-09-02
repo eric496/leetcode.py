@@ -39,6 +39,7 @@ class Solution:
 
         return "".join(str(ch) for ch in max_time)
 
+
     def backtrack(
         self,
         A: List[int],
@@ -52,6 +53,7 @@ class Solution:
             for ix, n in enumerate(A):
                 if visited[ix]:
                     continue
+                    
                 if ix > 0 and n == A[ix - 1] and not visited[ix - 1]:
                     continue
 
