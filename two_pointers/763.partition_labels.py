@@ -20,16 +20,16 @@ class Solution:
     def partitionLabels(self, S: str) -> List[int]:
         if not S:
             return []
-
+        
+        last = {c: i for i, c in enumerate(S)}
+        start = end = 0
         res = []
-        last_pos = {c: i for i, c in enumerate(S)}
-        start = last = 0
-
+        
         for i, c in enumerate(S):
-            last = max(last, last_pos[c])
-
-            if last == i:
-                res.append(last - start + 1)
-                start = last + 1
-
+            end = max(end, last[c])
+            
+            if end == i:
+                res.append(end-start+1) 
+                start = end + 1
+                
         return res
