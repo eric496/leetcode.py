@@ -39,45 +39,46 @@ class TreeNode:
 
 class Solution:
     def getAllElements(self, root1: TreeNode, root2: TreeNode) -> List[int]:
-        arr1, arr2 = [], []
-        self.dfs(root1, arr1)
-        self.dfs(root2, arr2)
-
-        return self.merge(arr1, arr2)
-
-    def dfs(self, root: TreeNode, res: List[int]) -> None:
+        res1, res2 = [], []
+        self.inorder_traverse(root1, res1)
+        self.inorder_traverse(root2, res2)
+        
+        return self.merge(res1, res2)
+        
+        
+    def inorder_traverse(self, root: TreeNode, res: List[int]) -> None:
         if not root:
-            return
-
-        self.dfs(root.left, res)
+            return 
+        
+        self.inorder_traverse(root.left, res) 
         res.append(root.val)
-        self.dfs(root.right, res)
-
-    def merge(self, arr1: List[int], arr2: List[int]) -> List[int]:
-        if None in (arr1, arr2):
-            return arr1 or arr2
-
-        res = [0] * (len(arr1) + len(arr2))
+        self.inorder_traverse(root.right, res)
+        
+        
+    def merge(self, l1: List[int], l2: List[int]) -> List[int]:
+        n = len(l1)
+        m = len(l2)
+        res = [0] * (n + m)
         i = j = k = 0
-
-        while i < len(arr1) and j < len(arr2):
-            if arr1[i] < arr2[j]:
-                res[k] = arr1[i]
+        
+        while i < n and j < m:
+            if l1[i] < l2[j]: 
+                res[k] = l1[i]
                 i += 1
             else:
-                res[k] = arr2[j]
+                res[k] = l2[j]
                 j += 1
-
+                
             k += 1
-
-        while i < len(arr1):
-            res[k] = arr1[i]
+            
+        while i < n:
+            res[k] = l1[i]
             i += 1
             k += 1
-
-        while j < len(arr2):
-            res[k] = arr2[j]
+            
+        while j < m:
+            res[k] = l2[j]
             j += 1
             k += 1
-
+            
         return res
