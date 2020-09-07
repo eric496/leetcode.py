@@ -23,45 +23,51 @@ Notes:
 You may assume pattern contains only lowercase letters, and str contains lowercase letters separated by a single space.
 """
 
-# soution 1: two maps
+# Soution 1: two hashmaps
 class Solution:
-    def wordPattern(self, pattern: str, str: str) -> bool:
-        words = str.split()
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        words = s.split()
+        
         if len(pattern) != len(words):
             return False
-        pattern_map = {}
-        str_map = {}
-        for p, s in zip(list(pattern), str.split()):
-            if p in pattern_map:
-                if pattern_map[p] != s:
+
+        mp1 = {} 
+        mp2 = {}
+
+        for p, w in zip(pattern, words):
+            if p in mp1:
+                if mp1[p] != w:
                     return False
             else:
-                pattern_map[p] = s
-
-            if s in str_map:
-                if str_map[s] != p:
+                mp1[p] = w
+                 
+            if w in mp2:
+                if mp2[w] != p:
                     return False
             else:
-                str_map[s] = p
-        return len(pattern_map) == len(str_map)
+                mp2[w] = p
 
-
-# solution 2: one map
-class Solution:
-    def wordPattern(self, pattern: str, str: str) -> bool:
-        words = str.split()
-        if len(pattern) != len(words):
-            return False
-        pattern_map = {}
-        for p, s in zip(list(pattern), words):
-            if p in pattern_map:
-                if pattern_map[p] != s:
-                    return False
-            else:
-                if s in pattern_map.values():
-                    return False
-                pattern_map[p] = s
         return True
 
 
-# a concise and pythonic solution
+# Solution 2: one hashmap
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        words = s.split()
+
+        if len(pattern) != len(words):
+            return False
+
+        mp = {}
+        
+        for p, w in zip(pattern, words):
+            if p in mp:
+                if mp[p] != w:
+                    return False
+            else:
+                if w in mp.values():
+                    return False
+
+                mp[p] = w
+
+        return True
