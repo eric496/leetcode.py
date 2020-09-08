@@ -11,19 +11,28 @@ m.next(5) = (10 + 3 + 5) / 3
 """
 
 
+from collections import deque
+
+
 class MovingAverage:
+
     def __init__(self, size: int):
         """
         Initialize your data structure here.
         """
+        self.q = deque()
         self.size = size
-        self.q = []
+        self.total = 0
 
+        
     def next(self, val: int) -> float:
         if len(self.q) >= self.size:
-            self.q.pop(0)
+            self.total -= self.q.popleft()
+            
         self.q.append(val)
-        return sum(self.q) / len(self.q)
+        self.total += val
+        
+        return self.total / len(self.q)
 
 
 # Your MovingAverage object will be instantiated and called as such:
