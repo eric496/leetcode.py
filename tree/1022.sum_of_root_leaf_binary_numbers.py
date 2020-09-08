@@ -30,6 +30,7 @@ class Solution:
 
         return sum(int(n, 2) for n in res)
 
+
     def dfs(self, node: TreeNode, cur: str, res: List[str]) -> None:
         if not node.left and not node.right:
             res.append(cur + str(node.val))
