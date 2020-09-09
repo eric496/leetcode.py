@@ -34,24 +34,23 @@ Version strings do not start or end with dots, and they will not be two consecut
 """
 
 
-# Solution 1: padding
+# Solution 1: Pad trailing zeros
 class Solution:
     def compareVersion(self, version1: str, version2: str) -> int:
-        ls1 = [int(d) for d in version1.split(".")]
-        ls2 = [int(d) for d in version2.split(".")]
-        len1, len2 = len(ls1), len(ls2)
+        v1 = [int(d) for d in version1.split(".")]
+        v2 = [int(d) for d in version2.split(".")]
+        n1, n2= len(v1), len(v2)
 
-        if len1 > len2:
-            ls2 += ["0"] * (len1 - len2)
+        if n1 > n2:
+            v2 += [0] * (n1 - n2)
 
-        if len2 > len1:
-            ls1 += ["0"] * (len2 - len1)
+        if n2 > n1:
+            v1 += [0] * (n2 - n1)
 
-        for d1, d2 in zip(ls1, ls2):
-            if int(d1) > int(d2):
+        for d1, d2 in zip(v1, v2):
+            if d1 > d2:
                 return 1
-
-            if int(d2) > int(d1):
+            elif d1 < d2:
                 return -1
 
         return 0
@@ -63,8 +62,9 @@ class Solution:
         v1 = version1.split(".")
         v2 = version2.split(".")
         i = j = 0
+        n1, n2 = len(v1), len(v2)
 
-        while i < len(v1) and j < len(v2):
+        while i < n1 and j < n2:
             if int(v1[i]) < int(v2[j]):
                 return -1
 
@@ -74,13 +74,13 @@ class Solution:
             i += 1
             j += 1
 
-        while i < len(v1):
+        while i < n1:
             if int(v1[i]):
                 return 1
 
             i += 1
 
-        while j < len(v2):
+        while j < n2:
             if int(v2[j]):
                 return -1
 
