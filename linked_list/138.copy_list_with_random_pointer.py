@@ -15,9 +15,9 @@ You must return the copy of the given head as a reference to the cloned list.
 
 """
 Thought process:
-    Use a hash map: 
-        1. Loop through the list, use nodes as keys, corresponding values are new nodes with same value but null pointers for next and random.
-        2. At second iteration, copy next and random pointers.
+    Use a hash map and two-pass 
+        1. Create copy of node in the first pass, original node as key, copy of node as value
+        2. Create next and random pointers for the copy list
 """
 
 # Definition for a Node.
