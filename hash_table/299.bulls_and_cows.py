@@ -17,6 +17,29 @@ Note: You may assume that the secret number and your friend's guess only contain
 """
 
 
+# Solution 1
+class Solution:
+    def getHint(self, secret: str, guess: str) -> str:
+        secret_cnt = [0] * 10
+        guess_cnt = [0] * 10
+        bulls = 0
+        
+        for s, g in zip(secret, guess):
+            if s == g:
+                bulls += 1
+            else:
+                secret_cnt[int(s)] += 1
+                guess_cnt[int(g)] += 1
+                
+        cows = 0
+        
+        for a, b in zip(secret_cnt, guess_cnt):
+            cows += min(a, b)
+            
+        return f"{bulls}A{cows}B"
+
+
+# Solution 2: one pass 
 class Solution:
     def getHint(self, secret: str, guess: str) -> str:
         bulls = cows = 0
@@ -31,4 +54,4 @@ class Solution:
                 cnt[int(s)] += 1
                 cnt[int(g)] -= 1
 
-        return str(bulls) + "A" + str(cows) + "B"
+        return f"{bulls}A{cows}B"
