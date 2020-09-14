@@ -28,43 +28,46 @@ class ListNode:
 # Solution 1: three-step reversal
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
-        if not head or not head.next:
+        if not head:
             return head
-
-        sentinel = walk = ListNode(None)
+        
+        sentinel = cur = ListNode(-1)
         sentinel.next = head
-        length = 0
-
-        while walk and walk.next:
-            walk = walk.next
-            length += 1
-
-        if k % length == 0:
-            return head
-
-        walk = sentinel
-        offset = length - k % length
-
-        for _ in range(offset):
-            walk = walk.next
-
-        new_head = walk.next
-        walk.next = None
-        first_partition_rev = self.reverse(sentinel.next)
-        second_partition_rev = self.reverse(new_head)
-        sentinel.next.next = second_partition_rev
-
-        return self.reverse(first_partition_rev)
-
+        n = 0
+        
+        while cur and cur.next:
+            cur = cur.next
+            n += 1
+        
+        k %= n
+        cur = sentinel
+        cnt = 0
+        
+        while cnt < n - k:
+            cur = cur.next
+            cnt += 1 
+            
+        nxt = cur.next
+        cur.next = None
+        h1 = self.reverse(head)
+        h2 = self.reverse(nxt)
+        sentinel.next.next = h2
+        
+        return self.reverse(h1)
+    
+    
     def reverse(self, head: ListNode) -> ListNode:
-        prev, cur = None, head
-
-        while cur:
-            nxt = cur.next
-            cur.next = prev
-            prev = cur
-            cur = nxt
-
+        if not head:
+            return head
+        
+        prev = None
+        
+        while head:
+            nxt = head.next
+            head.next = prev
+            prev = head
+            head = nxt
+            
         return prev
 
 
@@ -81,10 +84,6 @@ class Solution:
             n += 1
 
         k %= n
-
-        if not k:
-            return head
-
         walk = head
 
         for _ in range(n - k - 1):
