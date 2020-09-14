@@ -18,6 +18,7 @@ class ListNode:
         self.next = None
 
 
+# Solution 1
 class Solution:
     def swapPairs(self, head: ListNode) -> ListNode:
         sentinel = prev = ListNode(-1)
@@ -32,3 +33,31 @@ class Solution:
             prev = prev.next.next
 
         return sentinel.next
+
+
+# Solution 2: use the reverse node in k group template
+class Solution:
+    def swapPairs(self, head: ListNode) -> ListNode:
+        if not head:
+            return head
+        
+        cur = head
+        cnt = 0
+        
+        while cnt < 2:
+            if not cur:
+                return head
+            
+            cur = cur.next
+            cnt += 1
+            
+        prev = self.swapPairs(cur)
+        
+        while cnt:
+            nxt = head.next
+            head.next = prev
+            prev = head
+            head = nxt 
+            cnt -= 1
+            
+        return prev
