@@ -3,14 +3,12 @@ You are a professional robber planning to rob houses along a street. Each house 
 Given a list of non-negative integers representing the amount of money of each house, determine the maximum amount of money you can rob tonight without alerting the police.
 
 Example 1:
-
 Input: [1,2,3,1]
 Output: 4
 Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
              Total amount you can rob = 1 + 3 = 4.
 
 Example 2:
-
 Input: [2,7,9,3,1]
 Output: 12
 Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1).
@@ -19,19 +17,23 @@ Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (m
 
 # O(n) time and O(n) space
 class Solution:
-    def rob(self, nums: list) -> int:
+    def rob(self, nums: List[int]) -> int:
         if not nums:
             return 0
-        if len(nums) < 3:
+        
+        n = len(nums)
+        
+        if n < 3:
             return max(nums)
-        dp = []
-        dp.append(nums[0])
-        dp.append(max(nums[0], nums[1]))
-        for i in range(2, len(nums)):
-            if dp[i - 2] + nums[i] > dp[i - 1]:
-                dp.append(dp[i - 2] + nums[i])
+        
+        dp = [nums[0], max(nums[0], nums[1])]
+        
+        for i in range(2, n): 
+            if dp[i-2] + nums[i] > dp[i-1]: 
+                dp.append(dp[i-2] + nums[i])
             else:
-                dp.append(dp[i - 1])
+                dp.append(dp[i-1])
+                
         return dp[-1]
 
 
@@ -39,6 +41,8 @@ class Solution:
 class Solution:
     def rob(self, nums: list) -> int:
         first, second = 0, 0
+
         for num in nums:
             second, first = num + first, max(first, second)
+
         return max(first, second)
