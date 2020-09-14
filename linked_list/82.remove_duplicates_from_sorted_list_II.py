@@ -35,7 +35,7 @@ class Solution:
         sentinel.next = cur = head
 
         while cur:
-            # Don't forget to check walk.next
+            # Don't forget to check cur.next
             while cur.next and cur.val == cur.next.val:
                 cur = cur.next
 
