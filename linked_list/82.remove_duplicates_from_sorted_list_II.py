@@ -32,22 +32,22 @@ class Solution:
             return head
 
         sentinel = prev = ListNode(None)
-        sentinel.next = walk = head
+        sentinel.next = cur = head
 
-        while walk:
+        while cur:
             # Don't forget to check walk.next
-            while walk.next and walk.val == walk.next.val:
-                walk = walk.next
+            while cur.next and cur.val == cur.next.val:
+                cur = cur.next
 
             # Walking pointer didn't move which means it is a unique node
             # So just move prev pointer to point to this unique node
-            if prev.next is walk:
+            if prev.next is cur:
                 prev = prev.next
             # Walking pointer actually moved which means there are duplicate nodes
             # Let the prev pointer's next pointer point to walking pointer's next node (skip all duplicates)
             else:
-                prev.next = walk.next
+                prev.next = cur.next
 
-            walk = walk.next
+            cur = cur.next
 
         return sentinel.next
