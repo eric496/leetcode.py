@@ -20,31 +20,32 @@ Thought process:
         2. Create next and random pointers for the copy list
 """
 
+
 # Definition for a Node.
 class Node:
-    def __init__(self, val, next, random):
-        self.val = val
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
         self.next = next
         self.random = random
 
 
 class Solution:
-    def copyRandomList(self, head: Node) -> Node:
+    def copyRandomList(self, head: 'Node') -> 'Node':
         if not head:
-            return head
-
+            return None
+        
         cp = {}
-        walk = head
-
-        while walk:
-            cp[walk] = Node(walk.val, None, None)
-            walk = walk.next
-
-        walk = head
-
-        while walk:
-            cp[walk].next = cp.get(walk.next)
-            cp[walk].random = cp.get(walk.random)
-            walk = walk.next
-
+        cur = head
+        
+        while cur:
+            cp[cur] = Node(cur.val)
+            cur = cur.next
+            
+        cur = head
+        
+        while cur:
+            cp[cur].next = cp.get(cur.next)
+            cp[cur].random = cp.get(cur.random)
+            cur = cur.next
+        
         return cp[head]
