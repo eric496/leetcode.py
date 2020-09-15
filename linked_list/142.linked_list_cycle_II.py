@@ -65,15 +65,20 @@ class Solution(object):
         slow = fast = head
 
         while fast and fast.next:
-            slow, fast = slow.next, fast.next.next
+            slow = slow.next
+            fast = fast.next.next
+
             if slow is fast:
                 break
 
         # If there is cycle, fast and fast.next should not be null
         if fast and fast.next:
             slow = head
+
             while slow is not fast:
-                slow, fast = slow.next, fast.next
+                slow = slow.next
+                fast = fast.next
+
             return slow
         # There is no cycle
         else:
@@ -88,6 +93,7 @@ class Solution:
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
+
             if slow is fast:
                 break
         else:
@@ -100,3 +106,32 @@ class Solution:
             fast = fast.next
 
         return slow
+
+
+# Solution 3: Notice the location of if statement in the while loops 
+class Solution:
+    def detectCycle(self, head: ListNode) -> ListNode:
+        slow = fast = head
+        
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            
+            # Move pointers and then check equality
+            if slow is fast:
+                break
+        
+        if not fast or not fast.next:
+            return None
+        
+        slow = head
+        
+        while slow:
+            # Check equality first and then move pointers
+            if slow is fast:
+                return slow
+            
+            slow = slow.next 
+            fast = fast.next
+            
+        return None
