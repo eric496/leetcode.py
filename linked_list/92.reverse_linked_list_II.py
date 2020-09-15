@@ -73,3 +73,42 @@ class Solution:
         prev.next = new_head
 
         return sentinel.next
+
+
+# Solution 3:
+class Solution:
+    def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
+        sentinel = cur = ListNode(-1)
+        sentinel.next = head
+        h = t = prev = None
+        
+        for i in range(n):
+            if i + 1 == m:
+                h = cur.next
+                cur.next = None
+                prev = cur
+                cur = h
+            else:
+                cur = cur.next
+            
+        t = cur
+        cur = cur.next
+        t.next = None
+        newh = self.reverse(h)
+        prev.next = newh
+        h.next = cur
+        
+        return sentinel.next
+        
+    
+    def reverse(self, node: ListNode) -> ListNode:
+        prev = None
+        
+        while node:
+            nxt = node.next
+            node.next = prev
+            prev = node
+            node = nxt
+            
+        return prev
+        
