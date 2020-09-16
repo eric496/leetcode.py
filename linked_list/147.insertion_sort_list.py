@@ -22,7 +22,31 @@ class ListNode:
         self.next = None
 
 
-# Solution 1: TLE
+# Solution 1
+class Solution:
+    def insertionSortList(self, head: ListNode) -> ListNode:
+        sentinel = ListNode(-1)
+        sentinel.next = head
+        insert = None
+        
+        while head and head.next:
+            if head.val > head.next.val:
+                insert = head.next
+                start = sentinel
+                
+                while start.next.val < insert.val:
+                    start = start.next
+                
+                head.next = insert.next
+                insert.next = start.next
+                start.next = insert
+            else:
+                head = head.next
+                
+        return sentinel.next
+
+
+# Solution 2: TLE
 class Solution:
     def insertionSortList(self, head: ListNode) -> ListNode:
         sentinel = ListNode(None)
@@ -44,7 +68,7 @@ class Solution:
         return sentinel.next
 
 
-# Solution 2: TLE
+# Solution 3: TLE
 class Solution:
     def insertionSortList(self, head: ListNode) -> ListNode:
         sentinel = ListNode(float("-inf"))
