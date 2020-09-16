@@ -23,6 +23,7 @@ Thought process:
           if the number of nodes is odd.
 """
 
+
 # Definition for singly-linked list.
 class ListNode:
     def __init__(self, x):
@@ -30,7 +31,28 @@ class ListNode:
         self.next = None
 
 
-# Solution 1
+# Solution 1: use stack O(n) SC
+class Solution:
+    def isPalindrome(self, head: ListNode) -> bool:
+        stk = []
+        cur = head
+        
+        while cur:
+            stk.append(cur.val)
+            cur = cur.next
+            
+        cur = head
+        
+        while cur:
+            if cur.val != stk.pop():
+                return False 
+            
+            cur = cur.next
+            
+        return True
+
+
+# Solution 2: O(1) SC
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
         if not head or not head.next:
@@ -52,11 +74,13 @@ class Solution:
         while rev:
             if head.val != rev.val:
                 return False
+
             head = head.next
             rev = rev.next
 
         return True
 
+        
     def reverse(self, head: ListNode) -> ListNode:
         prev = None
 
