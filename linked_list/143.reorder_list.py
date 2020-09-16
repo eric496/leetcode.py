@@ -25,9 +25,54 @@ class ListNode:
         self.next = None
 
 
+# Solution 1
 class Solution:
     def reorderList(self, head: ListNode) -> None:
-        if not head:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        
+        if not head or not head.next:
+            return head
+    
+        slow = fast = ListNode(None)
+        slow.next = head
+        
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+         
+        l2 = self.reverse(slow.next)
+        slow.next = None
+        self.merge(head, l2)
+        
+    
+    def reverse(self, head: ListNode) -> ListNode:
+        prev = None
+        
+        while head:
+            nxt = head.next
+            head.next = prev
+            prev = head
+            head = nxt 
+            
+        return prev
+    
+     
+    def merge(self, l1: ListNode, l2: ListNode) -> None:
+        while l1 and l2:
+            nxt1 = l1.next
+            nxt2 = l2.next
+            l1.next = l2
+            l2.next = nxt1
+            l1 = nxt1
+            l2 = nxt2
+
+
+# Solution 2
+class Solution:
+    def reorderList(self, head: ListNode) -> None:
+        if not head or not head.next:
             return head
 
         slow = fast = ListNode(None)
@@ -47,6 +92,7 @@ class Solution:
             walk1.next = walk2
             walk1 = walk2.next
             walk2 = slow.next
+
 
     def reverse(self, head: ListNode) -> ListNode:
         prev = None
