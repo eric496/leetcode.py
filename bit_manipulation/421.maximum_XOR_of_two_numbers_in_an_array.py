@@ -12,24 +12,20 @@ Explanation: The maximum result is 5 ^ 25 = 28.
 
 class Solution:
     def findMaximumXOR(self, nums: List[int]) -> int:
-        mask = 0
         res = 0
-
+        mask = 0 
+        
         for i in range(31, -1, -1):
-            mask = mask | (1 << i)
+            mask |= 1 << i
             lookup = set()
-
+            
             for num in nums:
-                left = num & mask
-                lookup.add(left)
-
+                lookup.add(num & mask)
+                
             want = res | (1 << i)
-
-            for n in lookup:
-                m = n ^ want
-
-                if m in lookup:
+            
+            for prefix in lookup:
+                if want ^ prefix in lookup:
                     res = want
-                    break
-
+                    
         return res
