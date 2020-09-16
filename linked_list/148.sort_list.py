@@ -15,6 +15,7 @@ Thought process:
     Merge sort 
 """
 
+
 # Definition for singly-linked list.
 class ListNode:
     def __init__(self, val):
@@ -22,6 +23,7 @@ class ListNode:
         self.next = None
 
 
+# Solution 1: merge sort O(n) TC and O(n) SC
 class Solution:
     def sortList(self, head: ListNode) -> ListNode:
         if not head or not head.next:
@@ -34,25 +36,28 @@ class Solution:
             prev = slow
             slow = slow.next
             fast = fast.next.next
-
+        
+        # Cut the list to avoid loitering
         prev.next = None
         left = self.sortList(head)
         right = self.sortList(slow)
 
         return self.merge(left, right)
 
-    def merge(self, left: ListNode, right: ListNode) -> None:
-        sentinel = walk = ListNode(None)
 
-        while left and right:
-            if left.val < right.val:
-                walk.next = left
-                left = left.next
+    def merge(self, l1: ListNode, l2: ListNode) -> None:
+        sentinel = cur = ListNode(None)
+
+        while l1 and l2:
+            if l1.val < l2.val:
+                cur.next = l1
+                l1 = l1.next
             else:
-                walk.next = right
-                right = right.next
-            walk = walk.next
+                cur.next = l2
+                l2 = l2.next
+                
+            cur = cur.next
 
-        walk.next = left or right
+        cur.next = l1 or l2
 
         return sentinel.next
