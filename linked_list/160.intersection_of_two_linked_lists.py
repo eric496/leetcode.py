@@ -32,36 +32,38 @@ class ListNode(object):
         self.next = None
 
 
-class Solution(object):
-    def getIntersectionNode(self, h1: ListNode, h2: ListNode) -> ListNode:
-        walk1, walk2 = h1, h2
-        len1 = len2 = 0
-
-        while walk1:
-            walk1 = walk1.next
-            len1 += 1
-
-        while walk2:
-            walk2 = walk2.next
-            len2 += 1
-
-        diff = abs(len1 - len2)
-        walk1, walk2 = h1, h2
-
-        if len1 > len2:
-            while diff:
-                walk1 = walk1.next
-                diff -= 1
-
-        if len2 > len1:
-            while diff:
-                walk2 = walk2.next
-                diff -= 1
-
-        while walk1 and walk2:
-            if walk1 is walk2:
-                return walk1
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        if not headA or not headB:
+            return None
+        
+        n1 = n2 = 1
+        cur1 = headA
+        cur2 = headB
+        
+        while cur1:
+            n1 += 1
+            cur1 = cur1.next
+            
+        while cur2:
+            n2 += 1 
+            cur2 = cur2.next
+            
+        cur1 = headA
+        cur2 = headB
+        
+        if n1 > n2:
+            for _ in range(n1 - n2):
+                cur1 = cur1.next
+        else:
+            for _ in range(n2 - n1):
+                cur2 = cur2.next
+                
+        while cur1 and cur2:
+            if cur1 is cur2:
+                return cur1
             else:
-                walk1, walk2 = walk1.next, walk2.next
-
+                cur1 = cur1.next
+                cur2 = cur2.next
+                
         return None
