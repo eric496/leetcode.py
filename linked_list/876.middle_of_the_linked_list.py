@@ -25,6 +25,18 @@ class ListNode:
         self.next = None
 
 
+class Solution:
+    def middleNode(self, head: ListNode) -> ListNode:
+        slow = fast = head
+        
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            
+        return slow
+
+
+'''
 # Solution 1
 class Solution:
     def middleNode(self, head: ListNode) -> ListNode:
@@ -75,3 +87,4 @@ class Solution:
             fast = fast.next.next
 
         return slow.next
+'''
