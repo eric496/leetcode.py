@@ -4,31 +4,50 @@ Design an algorithm to find the maximum profit. You may complete as many transac
 Note: You may not engage in multiple transactions at the same time (i.e., you must sell the stock before you buy again).
 
 Example 1:
-
 Input: [7,1,5,3,6,4]
 Output: 7
 Explanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
              Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.
-Example 2:
 
+Example 2:
 Input: [1,2,3,4,5]
 Output: 4
 Explanation: Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.
              Note that you cannot buy on day 1, buy on day 2 and sell them later, as you are
              engaging multiple transactions at the same time. You must sell before buying again.
-Example 3:
 
+Example 3:
 Input: [7,6,4,3,1]
 Output: 0
 Explanation: In this case, no transaction is done, i.e. max profit = 0.
 """
 
-# greedy
+
+# DP
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        
+        if n < 2:
+            return 0
+        
+        dp = [0] * n
+        min_price = prices[0]
+        
+        for i in range(1, n):
+            dp[i] = max(dp[i-1], prices[i] - min_price)
+            min_price = min(min_price, prices[i])
+            
+        return dp[-1]
+        
+
+# Kadane's algorithm
 class Solution:
     def maxProfit(self, prices: list) -> int:
-        profit = 0
+        cur_max = global_max = 0
 
-        for i in range(len(prices) - 1):
-            profit += prices[i + 1] - prices[i] if prices[i + 1] - prices[i] > 0 else 0
+        for i in range(1, len(prices)):
+            cur_max = max(0, prices[i] - prices[i - 1] + cur_max)
+            global_max = max(global_max, cur_max)
 
-        return profit
+        return global_max
