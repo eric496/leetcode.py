@@ -13,26 +13,31 @@ class Node:
 
 
 class Solution:
-    def insert(self, head: "Node", val: int) -> "Node":
-        insert_node = Node(val, head)
-
+    def insert(self, head: 'Node', insertVal: int) -> 'Node':
+        node = Node(insertVal, head) 
+        
         if not head:
-            # Given an empty list, the inserted node's next pointer should point to itself
-            insert_node.next = insert_node
-            return insert_node
-
+            # Point to itself so it is circular
+            node.next = node
+            return node
+        
         cur = head
-
-        while 1:
-            if cur.val <= val <= cur.next.val:
+        
+        while cur:
+            # Case 1: climbing
+            if cur.val <= node.val <= cur.next.val:
                 break
-            elif cur.val > cur.next.val and (val >= cur.val or val <= cur.next.val):
-                break
+            # Case 2: insert val is either min or max - at the tail of the list
+            elif cur.val > cur.next.val:
+                if node.val >= cur.val or node.val <= cur.next.val:
+                    break
+            # Case 3: all values are flat, insert into either head or tail
             elif cur.next is head:
                 break
+            
             cur = cur.next
-
-        insert_node.next = cur.next
-        cur.next = insert_node
-
+        
+        node.next = cur.next
+        cur.next = node
+                
         return head
