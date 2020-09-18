@@ -12,7 +12,37 @@ class ListNode:
         self.child = child
 
 
-# Solution 1: DFS
+# Solution 1
+class Solution:
+    def flatten(self, head: 'Node') -> 'Node':
+        if not head:
+            return head
+         
+        cur = head
+        
+        while cur:
+            if not cur.child:
+                cur = cur.next
+                continue 
+                
+            child_cur = cur.child
+
+            while child_cur.next:
+                child_cur = child_cur.next
+
+            child_cur.next = cur.next
+
+            if cur.next:
+                cur.next.prev = child_cur
+
+            cur.next = cur.child
+            cur.child.prev = cur
+            cur.child = None
+            
+        return head
+
+
+# Solution 2: DFS
 class Solution:
     def flatten(self, head: ListNode) -> ListNode:
         walk = head
@@ -36,7 +66,7 @@ class Solution:
         return head
 
 
-# Solution 2: Stack
+# Solution 3: Stack
 class Solution:
     def flatten(self, head: ListNode) -> ListNode:
         if not head:
