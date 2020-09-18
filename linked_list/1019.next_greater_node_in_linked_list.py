@@ -32,21 +32,25 @@ class ListNode:
 # Solution 1: backward traversal of elements:
 class Solution:
     def nextLargerNodes(self, head: ListNode) -> List[int]:
-        vals = []
-
-        while head:
-            vals.append(head.val)
-            head = head.next
-
-        res, stk = [0] * len(vals), []
-
-        for i in range(len(vals) - 1, -1, -1):
+        vals = [] 
+        cur = head 
+        
+        while cur:
+            vals.append(cur.val)
+            cur = cur.next
+        
+        n = len(vals)
+        res = [0] * n
+        stk = []
+        
+        for i in range(n-1, -1, -1):
             while stk and stk[-1] <= vals[i]:
                 stk.pop()
-
+            
             res[i] = stk[-1] if stk else 0
+            
             stk.append(vals[i])
-
+            
         return res
 
 
