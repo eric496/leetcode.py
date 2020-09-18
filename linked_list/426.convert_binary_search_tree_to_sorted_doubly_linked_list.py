@@ -26,6 +26,8 @@ class Solution:
 
         return sentinel.right
 
+
+    # Inorder traversal
     def dfs(self, node: "Node", prev: "Node") -> "Node":
         if not node:
             return prev
