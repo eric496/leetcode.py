@@ -38,13 +38,16 @@ class Solution:
     def numComponents(self, head: ListNode, G: List[int]) -> int:
         lookup = set(G)
         res = cnt = 0
-
-        while head:
-            if head.val in lookup:
+        cur = head
+        
+        while cur:
+            if cur.val in lookup:
                 cnt += 1
             else:
                 res += 1 if cnt else 0
                 cnt = 0
-            head = head.next
-
+                
+            cur = cur.next
+            
         return res + 1 if cnt else res
+        
