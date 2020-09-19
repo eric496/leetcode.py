@@ -50,6 +50,7 @@ class Solution:
 
         return res
 
+
     def reverse(self, head: ListNode) -> ListNode:
         prev = None
 
