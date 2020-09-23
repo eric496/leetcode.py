@@ -21,6 +21,7 @@ There are many calls to sumRegion function.
 You may assume that row1 ≤ row2 and col1 ≤ col2.
 """
 
+
 # AC but too many edge cases - need to simplify
 class NumMatrix:
     def __init__(self, matrix: List[List[int]]):

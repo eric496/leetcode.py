@@ -30,7 +30,7 @@ class Solution:
     def titleToNumber(self, s: str) -> int:
         res = 0
 
-        for ix, ch in enumerate(s[::-1]):
-            res += (ord(ch) - ord("A") + 1) * 26 ** ix
+        for i, c in enumerate(s[::-1]):
+            res += (ord(c) - ord("A") + 1) * 26 ** i
 
         return res

@@ -53,13 +53,17 @@ class Solution:
     def inorderSuccessor(self, node: "Node") -> "Node":
         if node.right:
             cur = node.right
+
             while cur.left:
                 cur = cur.left
+
             return cur
         else:
             p = node.parent
+
             while p and p.val < node.val:
                 p = p.parent
+
             return p
 
         return None
@@ -70,13 +74,17 @@ class Solution:
     def inorderSuccessor(self, node: "Node") -> "Node":
         if node.right:
             cur = node.right
+
             while cur.left:
                 cur = cur.left
+
             return cur
         else:
             cur = node
+
             while cur.parent and cur.parent.right is cur:
                 cur = cur.parent
+                
             return cur.parent
 
         return None
