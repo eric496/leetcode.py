@@ -39,18 +39,21 @@ Therefore, you can't travel around the circuit once no matter where you start.
 
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        if not gas or not cost or len(gas) == 0 or len(cost) == 0:
+        if not gas or not cost:
             return -1
-
-        cur = total = 0
-        start = -1
-
-        for idx, n in enumerate(gas):
-            cur += n - cost[idx]
-            total += n - cost[idx]
-
-            if cur < 0:
-                cur = 0
-                start = idx
-
-        return start + 1 if total >= 0 else -1
+        
+        gas_total = 0
+        cost_total = 0
+        start = 0
+        tank = 0
+        
+        for i in range(len(gas)):
+            gas_total += gas[i]
+            cost_total += cost[i]
+            tank += gas[i] - cost[i]
+            
+            if tank < 0:
+                start = i + 1
+                tank = 0
+                
+        return start if gas_total >= cost_total else -1
