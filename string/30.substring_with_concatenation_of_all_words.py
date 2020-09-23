@@ -16,6 +16,7 @@ Input:
 Output: []
 """
 
+
 # Brute force
 class Solution:
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
@@ -36,7 +37,7 @@ class Solution:
         return res
 
 
-# Solution 2: use two dictionaries
+# Solution 2: use two hashmaps
 class Solution:
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
         if not s or not words:
@@ -64,7 +65,10 @@ class Solution:
                 if seen[sub] > cnt[sub]:
                     break
 
-                if j == i + window - unit_len:
-                    res.append(i)
+                # if j == i + window - unit_len:
+                #     res.append(i)
+
+            if seen == cnt:
+                res.append(i)
 
         return res
