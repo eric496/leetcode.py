@@ -28,15 +28,20 @@ for (int i = 0; i < len; i++) {
 
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        n = len(nums) 
-        pos = 1
+        if not nums:
+            return 0
         
-        for i in range(1, n):
-            if nums[i] != nums[i-1]:
-                nums[pos] = nums[i]
-                pos += 1
-                
-        return pos
+        i = j = 1
+        n = len(nums)
+        
+        while j < n:
+            if nums[j] != nums[j-1]:
+                nums[i] = nums[j]
+                i += 1
+            
+            j += 1
+            
+        return i
 
 
 # Solution 2: count duplicates

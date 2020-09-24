@@ -25,26 +25,29 @@ for (int i = 0; i < len; i++) {
 }
 """
 
+
 # Two pointers
 # This solution can be generalized to any k, here k = 2
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        if len(nums) <= 2:
-            return len(nums)
-
-        p1 = p2 = cnt = 1
-
-        while p2 < len(nums):
-            if nums[p2] == nums[p2 - 1]:
+        if not nums:
+            return 0
+        
+        i = j = 1
+        cnt = 1
+        n = len(nums)
+        
+        while j < n:
+            if nums[j] == nums[j-1]:
                 if cnt < 2:
-                    nums[p1] = nums[p2]
-                    p1 += 1
+                    nums[i] = nums[j]
+                    i += 1
                     cnt += 1
             else:
-                nums[p1] = nums[p2]
-                p1 += 1
+                nums[i] = nums[j]
+                i += 1
                 cnt = 1
-
-            p2 += 1
-
-        return p1
+            
+            j += 1
+        
+        return i
