@@ -36,16 +36,16 @@ class Solution:
 # Solution 2: two pointers - O(n) TC
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        low, high = 0, len(nums) - 1
-
-        while low < high:
-            twosum = nums[low] + nums[high]
-
+        i, j = 0, len(nums) - 1
+        
+        while i < j:
+            twosum = nums[i] + nums[j] 
+            
             if twosum == target:
-                return [low + 1, high + 1]
-            elif twosum > target:
-                high -= 1
+                return [i+1, j+1]
             elif twosum < target:
-                low += 1
-
+                i += 1
+            elif twosum > target:
+                j -= 1
+                
         return []
