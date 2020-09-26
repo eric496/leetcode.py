@@ -21,25 +21,27 @@ The length of input string is a positive integer and will not exceed 10,000
 
 class Solution:
     def findPermutation(self, s: str) -> List[int]:
-        res = list(range(1, len(s) + 2))
+        n = len(s)
+        res = list(range(1, n + 2))
         i = 0
         
-        while i < len(s):
+        while i < n:
             if s[i] == "D":
-                j = i 
+                start = i
                 
-                while i < len(s) and s[i] == "D":
+                while i < n and s[i] == "D":
                     i += 1
                     
-                self.reverse(res, j, i)
+                self.reverse(res, start, i)
             else:
                 i += 1
                 
         return res
     
     
-    def reverse(self, s: str, start: int, end: int) -> None:
+    def reverse(self, res: List[int], start: int, end: int) -> None:
         while start < end:
-            s[start], s[end] = s[end], s[start]
+            res[start], res[end] = res[end], res[start]
             start += 1
             end -= 1
+            
