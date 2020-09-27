@@ -14,16 +14,21 @@ Follow up: Could you solve it in O(n2) runtime?
 
 class Solution:
     def threeSumSmaller(self, nums: List[int], target: int) -> int:
+        if not nums:
+            return 0
+        
+        n = len(nums)
         res = 0
         nums.sort()
-
-        for i in range(len(nums) - 2):
-            low, high = i + 1, len(nums) - 1
-            while low < high:
-                if nums[i] + nums[low] + nums[high] < target:
-                    res += high - low
-                    low += 1
+        
+        for i in range(n - 2):
+            j, k = i + 1, n - 1
+            
+            while j < k:
+                if nums[i] + nums[j] + nums[k] < target:
+                    res += k - j
+                    j += 1
                 else:
-                    high -= 1
-
+                    k -= 1
+                    
         return res
