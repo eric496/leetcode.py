@@ -34,6 +34,7 @@ class Solution:
 
         return res[0]
 
+        
     def dfs(self, node: TreeNode, target: float, res: List[int]) -> None:
         if not node:
             return
@@ -51,15 +52,20 @@ class Solution:
 # Solution 2: iterative
 class Solution:
     def closestValue(self, root: TreeNode, target: float) -> int:
-        res = float("inf")
-
-        while root:
-            if abs(root.val - target) < abs(res - target):
-                res = root.val
-
-            if root.val > target:
-                root = root.left
-            else:
-                root = root.right
-
+        diff = float("inf")
+        res = root.val
+        cur = root
+        
+        while cur:
+            if abs(cur.val - target) < diff:
+                diff = abs(cur.val - target)
+                res = cur.val
+            
+            if cur.val == target:
+                break
+            elif cur.val < target:
+                cur = cur.right
+            elif cur.val > target:
+                cur = cur.left
+                
         return res
