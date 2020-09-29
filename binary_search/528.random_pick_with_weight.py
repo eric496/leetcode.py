@@ -36,7 +36,8 @@ class Solution:
         low, high = 0, len(self.w) - 1
 
         while low < high:
-            mid = low + (high - low) // 2
+            mid = low + (high - low >> 1)
+
             if r <= self.w[mid]:
                 high = mid
             else:

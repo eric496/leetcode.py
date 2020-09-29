@@ -26,7 +26,8 @@ Thought:
         update the global maximum with whichever is greater.
 """
 
-# DP
+
+# Solution 1: DP
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         if not nums:
@@ -43,7 +44,7 @@ class Solution:
         return res
 
 
-# Greedy: Kadane's algorithm
+# Solution 2: Greedy - Kadane's algorithm
 class Solution:
     def maxSubArray(self, nums: list) -> int:
         cur = res = nums[0]
@@ -55,7 +56,7 @@ class Solution:
         return res
 
 
-# Divide and Conquer
+# Solution 3: Divide and Conquer
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         return self.dfs(nums, 0, len(nums) - 1)
