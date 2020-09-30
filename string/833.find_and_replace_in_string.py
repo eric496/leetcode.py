@@ -25,15 +25,16 @@ All characters in given inputs are lowercase letters.
 
 
 class Solution:
-    def findReplaceString(
-        self, S: str, indexes: List[int], sources: List[str], targets: List[str]
-    ) -> str:
-        ls, offset = list(S), 0
-        idx_sort = sorted(zip(indexes, sources, targets))
-
-        for idx, src, trgt in idx_sort:
-            if ls[idx + offset : idx + len(src) + offset] == list(src):
-                ls[idx + offset : idx + len(src) + offset] = list(trgt)
-                offset += len(trgt) - len(src)
-
-        return "".join(ls)
+    def findReplaceString(self, S: str, indexes: List[int], sources: List[str], targets: List[str]) -> str:
+        res = list(S)
+        
+        for i, s, t in zip(indexes, sources, targets):
+            if not S.startswith(s, i):
+                continue
+            else:
+                res[i] = t
+                
+                for j in range(i + 1, len(s) + i):
+                    res[j] = ""
+                    
+        return "".join(res)
