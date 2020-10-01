@@ -21,10 +21,12 @@ Your algorithm should run in O(n) time and uses constant extra space.
 class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
         i = 1
+        n = len(nums)
 
-        while i <= len(nums):
+        while i <= n:
             x = nums[i - 1]
-            if 1 <= x <= len(nums) and nums[x - 1] != x:
+
+            if 1 <= x <= n and nums[x - 1] != x:
                 nums[i - 1], nums[x - 1] = nums[x - 1], x
             else:
                 i += 1
@@ -33,4 +35,21 @@ class Solution:
             if i != x:
                 return i
 
-        return len(nums) + 1
+        return n + 1
+
+
+
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        n = len(nums)
+        
+        for i in range(n):
+            while 0 < nums[i] < n and nums[nums[i]-1] != nums[i]:
+                nums[nums[i]-1], nums[i] = nums[i], nums[nums[i]-1]
+        
+        for i, num in enumerate(nums, 1):
+            if i != num:
+                return i
+            
+        return n + 1
+        
