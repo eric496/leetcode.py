@@ -24,6 +24,7 @@ All the integers in the given input belong to the range: [-1e7, 1e7].
 """
 
 
+# Solution 1: hashmap
 class Solution:
     def findPairs(self, nums: List[int], k: int) -> int:
         cnt, res = {}, 0
@@ -38,3 +39,32 @@ class Solution:
                 res += 1
 
         return res
+
+
+# Solution 2: two pointers
+class Solution:
+    def findPairs(self, nums: List[int], k: int) -> int:
+        if len(nums) < 2:
+            return 0
+        
+        nums.sort()
+        i = j = 0
+        res = 0
+        n = len(nums)
+        
+        while i < n and j < n:
+            if i == j or nums[i] + k > nums[j]:
+                j += 1
+            elif nums[i] + k < nums[j]:
+                i += 1
+            else:
+                res += 1
+                i += 1
+                
+                while j < n - 1 and nums[j] == nums[j+1]:
+                    j += 1
+                    
+                j += 1
+            
+        return res
+        
