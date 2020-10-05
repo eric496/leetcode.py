@@ -27,15 +27,27 @@ Thought process:
 # Solution 1
 class Solution:
     def findComplement(self, num: int) -> int:
-        i = 1
-
-        while i <= num:
-            i <<= 1
-
-        return (i - 1) ^ num
+        i = j = 0
+        
+        while i < num:
+            i += 2 ** j
+            j += 1
+            
+        return i - num
 
 
 # Solution 2
+class Solution:
+    def findComplement(self, num: int) -> int:
+        i = 0
+        
+        while i < num:
+            i = (i << 1) | 1
+            
+        return i - num
+
+
+# Solution 3
 class Solution:
     def findComplement(self, num: int) -> int:
         mask = ~0
