@@ -21,34 +21,36 @@ Thought process:
 
 
 class Solution:
-    def sortTransformedArray(
-        self, nums: List[int], a: int, b: int, c: int
-    ) -> List[int]:
-        res = [0] * len(nums)
-        start, end = 0, len(nums) - 1
-        ix = len(nums) - 1 if a >= 0 else 0
-
-        while start <= end:
-            quad_start = self.calc_quad(a, b, c, nums[start])
-            quad_end = self.calc_quad(a, b, c, nums[end])
+    def sortTransformedArray(self, nums: List[int], a: int, b: int, c: int) -> List[int]:
+        n = len(nums)
+        res = [0] * n
+        i, j = 0, n - 1
+        cur = n - 1 if a >= 0 else 0
+        
+        while i <= j:
+            x = self.calc(a, b, c, nums[i])
+            y = self.calc(a, b, c, nums[j])
+            
             if a >= 0:
-                if quad_start >= quad_end:
-                    res[ix] = quad_start
-                    start += 1
+                if x > y:
+                    res[cur] = x
+                    i += 1
                 else:
-                    res[ix] = quad_end
-                    end -= 1
-                ix -= 1
+                    res[cur] = y
+                    j -= 1
+                
+                cur -= 1
             else:
-                if quad_start > quad_end:
-                    res[ix] = quad_end
-                    end -= 1
+                if x > y:
+                    res[cur] = y
+                    j -= 1
                 else:
-                    res[ix] = quad_start
-                    start += 1
-                ix += 1
-
+                    res[cur] = x
+                    i += 1
+                
+                cur += 1
+        
         return res
-
-    def calc_quad(self, a: int, b: int, c: int, x: int) -> int:
-        return a * x ** 2 + b * x + c
+    
+    def calc(self, a: int, b: int, c: int, x: int) -> int:
+        return a * x**2 + b * x + c
