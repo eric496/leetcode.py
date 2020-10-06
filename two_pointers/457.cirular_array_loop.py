@@ -30,7 +30,7 @@ Could you solve it in O(n) time complexity and O(1) extra space complexity?
 # Method 1
 class Solution:
     def circularArrayLoop(self, nums: List[int]) -> bool:
-        if not nums or len(nums) == 1:
+        if len(nums) < 2:
             return False
 
         n = len(nums)

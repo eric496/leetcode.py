@@ -16,6 +16,28 @@ What if the input numbers come in one by one as an infinite stream? In other wor
 """
 
 
+# Solution 1
+class Solution:
+    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        cnt = [0] * 2
+        res = 0
+        left = right = 0
+        n = len(nums)
+        
+        while right < n:
+            cnt[nums[right]] += 1
+            
+            while cnt[0] > 1 and left < right:
+                cnt[nums[left]] -= 1
+                left += 1
+            
+            res = max(res, right-left+1)
+            right += 1
+            
+        return res
+
+
+# Solution 2
 class Solution:
     def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
         start = end = res = 0
