@@ -20,6 +20,7 @@ The length of all the strings in the input won't exceed 1,000.
 """
 
 
+# Solution 1
 class Solution:
     def findLongestWord(self, s: str, d: List[str]) -> str:
         if not s or not d:
@@ -35,6 +36,33 @@ class Solution:
                     res = min(res, word)
 
         return res
+
+    def is_sub(self, s: str, word: str) -> bool:
+        i = j = 0
+
+        while i < len(s) and j < len(word):
+            if s[i] == word[j]:
+                i += 1
+                j += 1
+            else:
+                i += 1
+
+        return j == len(word)
+
+
+# Solution 2: sort
+class Solution:
+    def findLongestWord(self, s: str, d: List[str]) -> str:
+        if not s or not d:
+            return ""
+        
+        d.sort(key=lambda x: (-len(x), x))
+        
+        for word in d:
+            if self.is_sub(s, word):
+                return word
+        
+        return ""
 
     def is_sub(self, s: str, word: str) -> bool:
         i = j = 0
