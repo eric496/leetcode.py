@@ -22,14 +22,14 @@ class Solution:
             return []
         
         last = {c: i for i, c in enumerate(S)}
-        start = end = 0
+        left = right = 0
         res = []
         
         for i, c in enumerate(S):
-            end = max(end, last[c])
+            right = max(right, last[c])
             
-            if end == i:
-                res.append(end-start+1) 
-                start = end + 1
-                
+            if right == i:
+                res.append(right - left + 1)
+                left = right + 1
+        
         return res
