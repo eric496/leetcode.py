@@ -28,38 +28,30 @@ class ListNode:
 # Solution 1: three-step reversal
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
-        if not head:
+        if not head or k < 1:
             return head
         
-        sentinel = cur = ListNode(-1)
-        sentinel.next = head
+        cur = head
         n = 0
         
-        while cur and cur.next:
-            cur = cur.next
+        while cur:
             n += 1
-        
-        k %= n
-        cur = sentinel
-        cnt = 0
-        
-        while cnt < n - k:
             cur = cur.next
-            cnt += 1 
             
+        cur = head
+        
+        for _ in range(n - k%n - 1):
+            cur = cur.next
+         
         nxt = cur.next
         cur.next = None
-        h1 = self.reverse(head)
-        h2 = self.reverse(nxt)
-        sentinel.next.next = h2
+        rev1 = self.reverse(head)
+        rev2 = self.reverse(nxt)
+        head.next = rev2
         
-        return self.reverse(h1)
-    
+        return self.reverse(cur)
     
     def reverse(self, head: ListNode) -> ListNode:
-        if not head:
-            return head
-        
         prev = None
         
         while head:
