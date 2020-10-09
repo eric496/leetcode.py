@@ -19,35 +19,46 @@ from collections import deque
 
 
 class Codec:
-    def serialize(self, root):
+
+    def serialize(self, root: TreeNode) -> str:
+        """Encodes a tree to a single string.
+        """
         res = []
-        self.serialize_dfs(root, res)
+        self.sdfs(root, res)
+        
         return "".join(res)
+        
 
-    def deserialize(self, data):
+    def deserialize(self, data: str) -> TreeNode:
+        """Decodes your encoded data to tree.
+        """
         q = deque([x for x in data.split("#")])
-        return self.deserialize_dfs(q, float("-inf"), float("inf"))
-
-    def serialize_dfs(self, root, res):
+        
+        return self.ddfs(q, float("-inf"), float("inf"))
+    
+    
+    def sdfs(self, root: TreeNode, res: List[str]) -> None:
         if root:
             res.append(str(root.val))
             res.append("#")
-            self.serialize_dfs(root.left, res)
-            self.serialize_dfs(root.right, res)
+            self.sdfs(root.left, res)
+            self.sdfs(root.right, res)
         else:
             res.append("X")
             res.append("#")
-
-    def deserialize_dfs(self, q, low, high):
+            
+    
+    def ddfs(self, q: deque, lo: int, hi: int) -> TreeNode:
         if not q:
             return None
-
+        
         val = q.popleft()
-
+        
         if val == "X":
             return None
-        elif low <= int(val) <= high:
+        elif lo <= int(val) <= hi:
             root = TreeNode(int(val))
-            root.left = self.deserialize_dfs(q, low, int(val))
-            root.right = self.deserialize_dfs(q, int(val), high)
-            return root
+            root.left = self.ddfs(q, lo, int(val))
+            root.right = self.ddfs(q, int(val), hi)
+            
+            return root   
