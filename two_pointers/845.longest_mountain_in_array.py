@@ -53,7 +53,7 @@ class Solution:
         return max(longest) if longest else 0
 
 
-# Solution 2: one pass
+# Solution 2: one pass, two pinters
 class Solution:
     def longestMountain(self, A: List[int]) -> int:
         res = 0
