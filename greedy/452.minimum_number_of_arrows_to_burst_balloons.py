@@ -16,11 +16,12 @@ One way is to shoot one arrow for example at x = 6 (bursting the balloons [2,8] 
 class Solution:
     def findMinArrowShots(self, points: List[List[int]]) -> int:
         points.sort(key=lambda x: x[1])
-        res, end = 0, float("-inf")
-
-        for point in points:
-            if point[0] > end:
-                end = point[1]
+        res = 0
+        cur_end = float("-inf")
+        
+        for start, end in points:
+            if start > cur_end:
+                cur_end = end
                 res += 1
-
+                
         return res
