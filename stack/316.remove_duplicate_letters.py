@@ -24,24 +24,18 @@ Thoguht process:
 
 class Solution:
     def removeDuplicateLetters(self, s: str) -> str:
-        cnt = [0] * 26
-        anchor = ord("a")
-
-        for c in s:
-            cnt[ord(c) - anchor] += 1
-
+        last_i = {c: i for i, c in enumerate(s)}
         stk = []
-        visited = [0] * 26
-
-        for c in s:
-            cnt[ord(c) - anchor] -= 1
-
-            if not visited[ord(c) - anchor]:
-                while stk and ord(c) < ord(stk[-1]) and cnt[ord(stk[-1]) - anchor]:
-                    prev_letter = stk.pop()
-                    visited[ord(prev_letter) - anchor] = 0
-
-                stk.append(c)
-                visited[ord(c) - anchor] = 1
-
+        visited = set()
+        
+        for i, c in enumerate(s):
+            if c in visited:
+                continue
+                
+            while stk and c < stk[-1] and last_i[stk[-1]] > i:
+                visited.remove(stk.pop())
+                
+            stk.append(c)
+            visited.add(c)
+            
         return "".join(stk)
