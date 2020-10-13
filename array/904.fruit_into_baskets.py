@@ -38,23 +38,26 @@ Note:
 
 class Solution:
     def totalFruit(self, tree: List[int]) -> int:
-        if not tree:
-            return 0
-
-        res = 1
-        start = end = 0
-        d = {}
-
-        while end < len(tree):
-            if len(d) <= 2:
-                d[tree[end]] = end
-                end += 1
-
-            if len(d) > 2:
-                min_ = min(d.values())
-                start = min_ + 1
-                d.pop(tree[min_])
-
-            res = max(res, end - start)
-
+        if len(tree) < 2:
+            return len(tree)
+        
+        left = right = 0
+        n = len(tree)
+        cnt = {}
+        res = 0
+        
+        while right < n:
+            cnt[tree[right]] = cnt.get(tree[right], 0) + 1
+            
+            while left < right and len(cnt) > 2:
+                cnt[tree[left]] -= 1
+                
+                if cnt[tree[left]] == 0:
+                    del cnt[tree[left]]
+                
+                left += 1
+            
+            res = max(res, right - left + 1)
+            right += 1
+            
         return res
