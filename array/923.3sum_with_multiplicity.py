@@ -26,6 +26,41 @@ Note:
 0 <= target <= 300
 """
 
+
+# Solution 1: two pointers
+class Solution:
+    def threeSumMulti(self, A: List[int], target: int) -> int:
+        A.sort()
+        n = len(A)
+        res = 0
+        
+        for i in range(n-2):
+            left, right = i + 1, n - 1
+            
+            while left < right:
+                total = A[i] + A[left] + A[right]
+                
+                if total == target:                
+                    dup1 = dup2 = 1
+
+                    while left + dup1 < right and A[left] == A[left+dup1]:
+                        dup1 += 1
+
+                    while left < right - dup2 and A[right] == A[right-dup2]:
+                        dup2 += 1
+                    
+                    res += (right - left + 1) * (right - left) // 2 if A[left] == A[right] else dup1 * dup2
+                    left += dup1
+                    right -= dup2
+                elif total < target:
+                    left += 1
+                elif total > target:
+                    right -= 1
+                
+        return res % (10**9 + 7)
+
+
+# Solution 2: dictionary
 from collections import defaultdict
 
 
@@ -36,7 +71,10 @@ class Solution:
 
         for n in A:
             res += d2[target - n]
+
             for k, v in d1.items():
                 d2[k + n] += v
+
             d1[n] += 1
+
         return res % (10 ** 9 + 7)
