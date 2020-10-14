@@ -40,9 +40,11 @@ class Solution:
 # O(n) time and O(1) space
 class Solution:
     def rob(self, nums: list) -> int:
-        first, second = 0, 0
+        rob, not_rob = 0, 0
 
         for num in nums:
-            second, first = num + first, max(first, second)
+            prev = max(rob, not_rob)
+            rob = not_rob + num
+            not_rob = prev
 
-        return max(first, second)
+        return max(rob, not_rob)
