@@ -47,8 +47,9 @@ class Solution:
         ends = sorted(x[1] for x in intervals)
         i = j = 0
         res = avail = 0
+        n = len(intervals)
         
-        while i < len(starts):
+        while i < n:
             if starts[i] < ends[j]:
                 if avail == 0:
                     res += 1
@@ -61,3 +62,24 @@ class Solution:
                 j += 1
                 
         return res
+
+
+# Solution 3
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
+        
+        starts = sorted(x[0] for x in intervals)
+        ends = sorted(x[1] for x in intervals)
+        res = earliest_end = 0
+        n = len(intervals)
+        
+        for start in starts:
+            if start < ends[earliest_end]:
+                res += 1
+            else:
+                earliest_end += 1
+                
+        return res
+                
