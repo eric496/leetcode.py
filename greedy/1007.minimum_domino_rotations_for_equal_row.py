@@ -26,19 +26,19 @@ Note:
 class Solution:
     def minDominoRotations(self, A: List[int], B: List[int]) -> int:
         # Case 1: A is the equal row with swapping the first values
-        cnt1 = self.min_swap(A, B, B[0])
+        cnt1 = self.swap(A, B, B[0])
         # Case 2: A is the equal row without swapping the first values
-        cnt2 = self.min_swap(A, B, A[0])
+        cnt2 = self.swap(A, B, A[0])
         # Case 3: B is the equal row with swapping the first values
-        cnt3 = self.min_swap(B, A, A[0])
+        cnt3 = self.swap(B, A, A[0])
         # Case 4: B is the equal row without swapping the first values
-        cnt4 = self.min_swap(B, A, B[0])
+        cnt4 = self.swap(B, A, B[0])
 
         res = min(cnt1, cnt2, cnt3, cnt4)
 
         return res if res != 20001 else -1
 
-    def min_swap(self, A: List[int], B: List[int], common: int) -> int:
+    def swap(self, A: List[int], B: List[int], common: int) -> int:
         cnt = 0
 
         for a, b in zip(A, B):
@@ -46,8 +46,6 @@ class Solution:
             if b == common and a != common:
                 cnt += 1
             elif a != common:
-                break
-        else:
-            return cnt
+                return 20001
 
-        return 20001
+        return cnt
