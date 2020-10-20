@@ -29,23 +29,24 @@ class Node:
 
 
 class Solution:
-    def cloneGraph(self, node: "Node") -> "Node":
+    def cloneGraph(self, node: 'Node') -> 'Node':
         if not node:
             return node
-
+        
         new_node = Node(node.val, [])
-        d = {node: new_node}
+        mp = {node: new_node}
         q = deque([node])
-
+        
         while q:
-            node = q.popleft()
-            for neighbor in node.neighbors:
-                if neighbor not in d:
-                    new_neighbor = Node(neighbor.val, [])
-                    d[neighbor] = new_neighbor
-                    d[node].neighbors.append(new_neighbor)
-                    q.append(neighbor)
+            cur = q.popleft()
+            
+            for neighbor in cur.neighbors:
+                if neighbor in mp:
+                    mp[cur].neighbors.append(mp[neighbor])
                 else:
-                    d[node].neighbors.append(d[neighbor])
-
+                    new_neighbor = Node(neighbor.val, [])
+                    mp[neighbor] = new_neighbor
+                    mp[cur].neighbors.append(new_neighbor)
+                    q.append(neighbor)
+                    
         return new_node
