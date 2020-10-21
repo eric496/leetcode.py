@@ -41,7 +41,7 @@ Each asteroid will be a non-zero integer in the range [-1000, 1000]..
 class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
         stk = []
-
+        
         for ast in asteroids:
             if ast > 0:
                 stk.append(ast)
@@ -49,14 +49,14 @@ class Solution:
                 # Postive on the left are smaller, it explodes
                 while stk and stk[-1] > 0 and stk[-1] < -ast:
                     stk.pop()
-
+                    
                 # Two asteroids are opposites, e.g. [-8,8] >>> []
-                if stk[-1] == -ast:
-                    stk.pop()
-
+                if stk and stk[-1] == -ast:
+                    stk.pop() 
                 # Current asteroid is largest in size and all previous exploded
                 # Or the previous one is moving towards left too
-                if not stk or stk[-1] < 0:
+                elif not stk or stk[-1] < 0:
                     stk.append(ast)
-
+                    
         return stk
+        
