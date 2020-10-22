@@ -32,18 +32,18 @@ class Solution:
         :type target: int
         :rtype: int
         """
-
-        low, high = 0, 2147483647
-
-        while low <= high:
-            mid = low + ((high - low) >> 1)
+        bound = 2147483647
+        lo, hi = 0, bound
+        
+        while lo <= hi:
+            mid = lo + (hi - lo >> 1)
             cur = reader.get(mid)
-
-            if cur == 2147483647 or cur > target:
-                high = mid - 1
-            elif cur < target:
-                low = mid + 1
-            elif cur == target:
+            
+            if cur == target:
                 return mid
-
+            elif cur < target:
+                lo = mid + 1
+            elif cur > target or cur == bound:
+                hi = mid - 1
+            
         return -1
