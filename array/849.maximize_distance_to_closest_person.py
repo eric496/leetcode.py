@@ -27,16 +27,16 @@ seats contains only 0s or 1s, at least one 0, and at least one 1.
 
 class Solution:
     def maxDistToClosest(self, seats: List[int]) -> int:
-        prev, dist = 0, []
+        left, dist = 0, []
 
-        for ix, s in enumerate(seats):
-            if s:
-                if not seats[prev]:
-                    dist.append(ix - prev)
+        for i, seat in enumerate(seats):
+            if seat:
+                if seats[left] == 0:
+                    dist.append(i - left)
                 else:
-                    dist.append((ix - prev) // 2)
-                prev = ix
-            elif ix == len(seats) - 1:
-                dist.append(ix - prev)
+                    dist.append((i - left) // 2)
+                left = i
+            elif i == len(seats) - 1:
+                dist.append(i - left)
 
         return max(dist)
