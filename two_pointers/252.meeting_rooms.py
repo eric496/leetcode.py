@@ -11,6 +11,7 @@ Output: true
 """
 
 
+# Solution 1
 class Solution:
     def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
         if not intervals:
@@ -25,4 +26,17 @@ class Solution:
             else:
                 prev = intervals[i]
                 
+        return True
+
+
+# Solution 2
+class Solution:
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        intervals.sort(key=lambda x: x[1])
+        n = len(intervals)
+        
+        for i in range(n-1):
+            if intervals[i][1] > intervals[i+1][0]:
+                return False
+            
         return True
