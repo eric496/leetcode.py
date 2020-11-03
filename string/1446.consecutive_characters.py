@@ -30,6 +30,24 @@ s contains only lowercase English letters.
 """
 
 
+# Solution 1: two pointers
+class Solution:
+    def maxPower(self, s: str) -> int:
+        res = 0
+        left = right = 0
+        n = len(s)
+        
+        while right < n:
+            while right < n and s[right] == s[left]:
+                right += 1
+                
+            res = max(res, right - left)
+            left = right
+            
+        return res
+
+
+# Solution 2
 class Solution:
     def maxPower(self, s: str) -> int:
         res = cnt = 1
