@@ -21,15 +21,23 @@ Constraints:
 1 <= chips[i] <= 10^9
 """
 
+"""
+Thought process:
+    Moving from an even position to another even or moving from an odd to an odd is free.
+    Untimately we need to move all chips to the same position, which means we either
+    move all even-positioned to an odd position or all odd-positioned to an even position 
+    whichever operation is cheaper.
+"""
+
 
 class Solution:
-    def minCostToMoveChips(self, chips: List[int]) -> int:
+    def minCostToMoveChips(self, position: List[int]) -> int:
         odd = even = 0
-
-        for chip in chips:
-            if chip % 2:
-                odd += 1
-            else:
+        
+        for p in position:
+            if p & 1:
                 even += 1
-
+            else:
+                odd += 1
+        
         return min(odd, even)
