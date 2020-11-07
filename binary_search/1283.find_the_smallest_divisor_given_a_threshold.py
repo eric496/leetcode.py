@@ -26,7 +26,6 @@ nums.length <= threshold <= 10^6
 
 import math
 
-
 class Solution:
     def smallestDivisor(self, nums: List[int], threshold: int) -> int:
         lo, hi = 1, max(nums) + 1
