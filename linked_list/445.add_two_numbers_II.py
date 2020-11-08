@@ -171,24 +171,24 @@ class Solution:
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         stk1, stk2 = [], []
-
+        
         while l1:
-            stk1.append(l1)
+            stk1.append(l1.val)
             l1 = l1.next
-
+            
         while l2:
-            stk2.append(l2)
+            stk2.append(l2.val)
             l2 = l2.next
-
-        sum_ = 0
-        cur = nxt = None
-
-        while stk1 or stk2 or sum_:
-            sum_ += stk1.pop().val if stk1 else 0
-            sum_ += stk2.pop().val if stk2 else 0
-            cur = ListNode(sum_ % 10)
-            cur.next = nxt
-            nxt = cur
-            sum_ //= 10
-
-        return cur
+        
+        cur = 0
+        head = nxt = None
+        
+        while stk1 or stk2 or cur:
+            cur += stk1.pop() if stk1 else 0
+            cur += stk2.pop() if stk2 else 0
+            head = ListNode(cur % 10)
+            head.next = nxt
+            nxt = head
+            cur //= 10
+            
+        return head
