@@ -22,15 +22,17 @@ Note:
 
 class Solution:
     def twoSumLessThanK(self, A: List[int], K: int) -> int:
+        lo, hi = 0, len(A) - 1
         A.sort()
         res = -1
-        low, high = 0, len(A) - 1
-
-        while low < high:
-            if A[low] + A[high] < K:
-                res = max(res, A[low] + A[high])
-                low += 1
+        
+        while lo < hi:
+            cur = A[lo] + A[hi]                
+            
+            if cur < K:
+                res = max(res, cur)
+                lo += 1
             else:
-                high -= 1
-
+                hi -= 1
+                
         return res
