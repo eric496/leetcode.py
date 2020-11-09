@@ -31,22 +31,22 @@ class TreeNode:
 class Solution:
     def maxAncestorDiff(self, root: TreeNode) -> int:
         res = [float("-inf")]
-        self.traverse(root, float("inf"), float("-inf"), res)
-
+        self.dfs(root, float("inf"), float("-inf"), res)
+        
         return res[0]
-
-    def traverse(self, root: TreeNode, path_min: int, path_max: int, res) -> None:
-        if not root:
+        
+    def dfs(self, node: TreeNode, mn: int, mx: int, res: List[int]) -> None:
+        if not node:
             return
-
-        path_min = min(path_min, root.val)
-        path_max = max(path_max, root.val)
-
-        if not root.left and not root.right:
-            res[0] = max(res[0], path_max - path_min)
-
-        self.traverse(root.left, path_min, path_max, res)
-        self.traverse(root.right, path_min, path_max, res)
+        
+        mn = min(mn, node.val)
+        mx = max(mx, node.val)
+        
+        if not node.left and not node.right:
+            res[0] = max(res[0], mx - mn)
+            
+        self.dfs(node.left, mn, mx, res)
+        self.dfs(node.right, mn, mx, res)
 
 
 # Solution 1: recursive - a variation
