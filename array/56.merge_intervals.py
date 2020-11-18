@@ -43,12 +43,12 @@ class Solution:
         intervals.sort()
         res = []
         prev = None
-
-        for cur in intervals:
-            if prev is None or prev[1] < cur[0]:
-                res.append(cur)
-                prev = cur
+        
+        for interval in intervals:
+            if prev is None or prev[1] < interval[0]:
+                res.append(interval)
+                prev = interval
             else:
-                prev[1] = max(prev[1], cur[1])
-
+                prev[1] = max(prev[1], interval[1])
+        
         return res
