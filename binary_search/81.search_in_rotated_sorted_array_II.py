@@ -21,27 +21,27 @@ class Solution:
     def search(self, nums: List[int], target: int) -> bool:
         if not nums:
             return False
-
-        low, high = 0, len(nums) - 1
-
-        while low <= high:
-            mid = low + ((high - low) >> 1)
-            if target == nums[mid]:
+        
+        lo, hi = 0, len(nums) - 1
+        
+        while lo <= hi:
+            mid = lo + (hi - lo >> 1)
+            
+            if nums[mid] == target:
                 return True
-
-            # Skip the duplicates
-            while low < mid and nums[low] == nums[mid]:
-                low += 1
-
-            if nums[low] <= nums[mid]:
-                if nums[low] <= target <= nums[mid]:
-                    high = mid - 1
+            
+            while lo < mid and nums[lo] == nums[mid]:
+                lo += 1
+                
+            if nums[lo] <= nums[mid]:
+                if nums[lo] <= target <= nums[mid]:
+                    hi = mid - 1
                 else:
-                    low = mid + 1
+                    lo = mid + 1
             else:
-                if nums[mid] <= target <= nums[high]:
-                    low = mid + 1
+                if nums[mid] <= target <= nums[hi]:
+                    lo = mid + 1
                 else:
-                    high = mid - 1
-
+                    hi = mid - 1
+        
         return False
