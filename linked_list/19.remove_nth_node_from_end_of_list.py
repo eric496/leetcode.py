@@ -44,3 +44,22 @@ class Solution:
         slow.next = slow.next.next
 
         return sentinel.next
+
+
+# Solution 2 - a minor variation n + 1 -> n
+class Solution:
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        sentinel = slow = fast = ListNode(-1)
+        sentinel.next = head
+        
+        for _ in range(n):
+            fast = fast.next
+            
+        while fast and fast.next:
+            fast = fast.next 
+            slow = slow.next
+        
+        slow.next = slow.next.next
+        
+        return sentinel.next
+        
