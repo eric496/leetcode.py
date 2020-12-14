@@ -135,3 +135,31 @@ class Solution:
             fast = fast.next
             
         return None
+
+
+# Solution 4
+class Solution:
+    def detectCycle(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return None
+        
+        slow = fast = head
+        
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            
+            if slow is fast:
+                break
+                
+        if slow is not fast:
+            return None
+        
+        slow = head
+        
+        while slow is not fast:
+            slow = slow.next
+            fast = fast.next
+            
+        return slow
+        
