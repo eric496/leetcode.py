@@ -39,7 +39,7 @@ class TreeNode:
 class Solution:
     def sortedListToBST(self, head: ListNode) -> TreeNode:
         if not head:
-            return
+            return head
 
         if not head.next:
             return TreeNode(head.val)
