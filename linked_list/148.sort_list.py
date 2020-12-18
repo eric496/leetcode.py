@@ -8,6 +8,8 @@ Output: 1->2->3->4
 Example 2:
 Input: -1->5->3->4->0
 Output: -1->0->3->4->5
+
+Follow up: Can you sort the linked list in O(n logn) time and O(1) memory (i.e. constant space)?
 """
 
 """
