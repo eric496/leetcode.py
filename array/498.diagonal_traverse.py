@@ -36,7 +36,7 @@ class Solution(object):
                 diag[row + col].append(matrix[row][col])
 
         for idx, ls in diag.items():
-            if idx % 2:
+            if idx & 1:
                 res.extend(ls)
             else:
                 res.extend(ls[::-1])
