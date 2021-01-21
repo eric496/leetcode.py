@@ -51,7 +51,7 @@ class Solution:
             elif not stk or stk.pop() != c:
                 return False
 
-        return stk == []
+        return not stk
 
 
 # Solution 2: not need to use map since there are only 3 pairs of symbols
@@ -69,4 +69,4 @@ class Solution:
             elif not stk or stk.pop() != c:
                 return False
 
-        return False if stk else True
+        return not stk
