@@ -19,7 +19,7 @@ class ListNode:
         self.next = None
 
 
-# Solution: Recursion
+# Solution 1: Recursion
 class Solution:
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
         # Step 1: count k nodes
@@ -47,3 +47,39 @@ class Solution:
             cnt -= 1
             
         return prev
+
+
+# Solution 2
+class Solution:
+    def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+        if not head:
+            return head
+        
+        sentinel = prev = ListNode()
+        sentinel.next = head
+        
+        while prev:
+            prev = self.reverse(prev, k)
+            
+        return sentinel.next
+    
+    def reverse(self, prev: ListNode, k: int) -> ListNode:
+        last = prev
+        
+        for i in range(k+1):
+            last = last.next
+            
+            if i != k and not last:
+                return None
+            
+        tail = prev.next
+        cur = prev.next.next
+        
+        while cur != last:
+            nxt = cur.next
+            cur.next = prev.next
+            prev.next = cur 
+            tail.next = nxt
+            cur = nxt
+        
+        return tail
