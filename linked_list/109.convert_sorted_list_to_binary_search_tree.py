@@ -35,7 +35,7 @@ class TreeNode:
         self.left = None
         self.right = None
 
-
+# Solution 1: two pointers
 class Solution:
     def sortedListToBST(self, head: ListNode) -> TreeNode:
         if not head:
@@ -58,4 +58,35 @@ class Solution:
         root.left = self.sortedListToBST(head)
         root.right = self.sortedListToBST(slow.next)
 
+        return root
+
+
+# Solution 2: count the length of the linked list
+class Solution:
+    def sortedListToBST(self, head: ListNode) -> TreeNode:
+        if not head:
+            return None
+        
+        if not head.next:
+            return TreeNode(head.val)
+        
+        cnt = 0
+        cur = head
+        
+        while cur:
+            cur = cur.next
+            cnt += 1
+            
+        prev = cur = head
+        
+        for _ in range(cnt//2):
+            prev = cur
+            cur = cur.next
+        
+        # IMPORTANT: Cut and terminate the linked list to avoid loitering
+        prev.next = None
+        root = TreeNode(cur.val)
+        root.left = self.sortedListToBST(head)
+        root.right = self.sortedListToBST(cur.next)
+        
         return root
