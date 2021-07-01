@@ -45,10 +45,8 @@ class Solution:
         if None in (p, q):
             return False
 
-        if p and q and p.val == q.val:
+        if p.val == q.val:
             return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
-
-        return False
 
 
 # Solution 2: iterative solution
@@ -74,23 +72,3 @@ class Solution:
             res.append((n1.right, n2.right))
 
         return True
-
-
-# Solution 3: preorder traversal
-class Solution:
-    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
-        p_res = []
-        q_res = []
-        self.preorderTraversal(p, p_res)
-        self.preorderTraversal(q, q_res)
-
-        return p_res == q_res
-
-    def preorderTraversal(self, root: TreeNode, res: List[int]) -> None:
-        if not root:
-            res.append(float("-inf"))
-            return
-
-        res.append(root.val)
-        self.preorderTraversal(root.left, res)
-        self.preorderTraversal(root.right, res)
