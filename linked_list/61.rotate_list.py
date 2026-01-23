@@ -90,3 +90,36 @@ class Solution:
         new_walk.next = head
 
         return new_head
+
+
+# Solution 3
+class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if not head or not head.next or k == 0:
+            return head
+
+        n = 0
+        cur = head
+        while cur:
+            n += 1
+            cur = cur.next
+        
+        k %= n
+        if k == 0:
+            return head
+
+        sentinel = slow = fast = ListNode()
+        sentinel.next = head
+
+        for _ in range(k):
+            fast = fast.next
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next
+        
+        new_h = slow.next
+        slow.next = None
+        fast.next = sentinel.next
+
+        return new_h
