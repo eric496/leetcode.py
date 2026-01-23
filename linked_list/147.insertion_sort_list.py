@@ -46,7 +46,29 @@ class Solution:
         return sentinel.next
 
 
-# Solution 2: TLE
+# Solution 2
+class Solution:
+    def insertionSortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head:
+            return head
+        
+        dummy = ListNode()
+        cur = head
+        
+        while cur:
+            nxt = cur.next
+            prev = dummy
+            while prev.next and prev.next.val < cur.val:
+                prev = prev.next
+            
+            cur.next = prev.next
+            prev.next = cur            
+            cur = nxt
+            
+        return dummy.next
+    
+
+# Solution 3: TLE
 class Solution:
     def insertionSortList(self, head: ListNode) -> ListNode:
         sentinel = ListNode(None)
@@ -68,7 +90,7 @@ class Solution:
         return sentinel.next
 
 
-# Solution 3: TLE
+# Solution 4: TLE
 class Solution:
     def insertionSortList(self, head: ListNode) -> ListNode:
         sentinel = ListNode(float("-inf"))
