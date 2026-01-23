@@ -112,3 +112,50 @@ class Solution:
             cur = nxt
         
         return tail
+    
+
+# Solution 4
+class Solution:
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if not head or not head.next or k == 1:
+            return head
+
+        n = 0
+        cur = head
+        while cur:
+            n += 1
+            cur = cur.next
+
+        sentinel = prev = ListNode()
+        sentinel.next = head
+
+        while n >= k:
+            start = prev.next
+            end = prev
+
+            for _ in range(k):
+                end = end.next
+            
+            nxt_start = end.next
+            end.next = None
+            self.reverse(start)
+            prev.next = end
+            start.next = nxt_start
+            prev = start
+            n -= k
+        
+        return sentinel.next
+
+    def reverse(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+
+        prev = None
+
+        while head:
+            nxt = head.next
+            head.next = prev
+            prev = head
+            head = nxt
+
+        return prev
