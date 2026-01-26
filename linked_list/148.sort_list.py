@@ -25,7 +25,7 @@ class ListNode:
         self.next = None
 
 
-# Solution 1: merge sort O(n) TC and O(n) SC
+# Solution 1: merge sort O(NlogN) TC and O(logN) SC
 class Solution:
     def sortList(self, head: ListNode) -> ListNode:
         if not head or not head.next:
