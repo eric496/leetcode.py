@@ -12,33 +12,33 @@ class ListNode:
         self.child = child
 
 
-# Solution 1
+# Solution 1 - O(N) TC and O(1) SC
 class Solution:
-    def flatten(self, head: 'Node') -> 'Node':
+    def flatten(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
             return head
-         
+
         cur = head
-        
+
         while cur:
-            if not cur.child:
-                cur = cur.next
-                continue 
+            if cur.child:
+                nxt = cur.next
+                child = cur.child
+                cur.next = child
+                child.prev = cur
+                cur.child = None # Set child pointer to null to avoid loistering
+
+                tail = child
+                while tail.next:
+                    tail = tail.next
                 
-            child_cur = cur.child
-
-            while child_cur.next:
-                child_cur = child_cur.next
-
-            child_cur.next = cur.next
-
-            if cur.next:
-                cur.next.prev = child_cur
-
-            cur.next = cur.child
-            cur.child.prev = cur
-            cur.child = None
+                tail.next = nxt
+                # Check nxt exists
+                if nxt:
+                    nxt.prev = tail
             
+            cur = cur.next
+        
         return head
 
 
