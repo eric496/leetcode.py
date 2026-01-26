@@ -24,15 +24,17 @@ class Solution:
         cur = head
         
         while cur:
-            # Case 1: climbing
+            # Case 1: insert in the middle of the climbing
             if cur.val <= node.val <= cur.next.val:
                 break
+            
             # Case 2: insert val is either min or max - at the tail of the list
-            elif cur.val > cur.next.val:
+            if cur.val > cur.next.val:
                 if node.val >= cur.val or node.val <= cur.next.val:
                     break
+            
             # Case 3: all values are flat, insert into either head or tail
-            elif cur.next is head:
+            if cur.next is head:
                 break
             
             cur = cur.next
