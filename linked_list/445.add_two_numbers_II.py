@@ -98,73 +98,43 @@ class Solution:
 
 
 # Follow up: Use stack
-# Solution 1: Use 3 stacks
+# Solution 1
 class Solution:
-    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        stk1, stk2, stk3 = [], [], []
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        if not l1 or not l2:
+            return l1 or l2
+
+        s1 = []
+        s2 = []
 
         while l1:
-            stk1.append(l1)
+            s1.append(l1.val)
             l1 = l1.next
-
+        
         while l2:
-            stk2.append(l2)
+            s2.append(l2.val)
             l2 = l2.next
-
-        sum_ = 0
-
-        while stk1 or stk2 or sum_:
-            sum_ += stk1.pop().val if stk1 else 0
-            sum_ += stk2.pop().val if stk2 else 0
-            stk3.append(sum_ % 10)
-            sum_ //= 10
-
-        sentinel = walk = ListNode(None)
-
-        while stk3:
-            walk.next = ListNode(stk3.pop())
-            walk = walk.next
-
-        return sentinel.next
-
-
-# Solution 2: Use 2 stacks, swap nodes on the fly
-class Solution:
-    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        stk1 = []
-        stk2 = []
-
-        while l1:
-            stk1.append(l1.val)
-            l1 = l1.next
-
-        while l2:
-            stk2.append(l2.val)
-            l2 = l2.next
-
+        
+        head = None
         carry = 0
-        cur = nxt = None
 
-        while stk1 or stk2:
-            sum_ = 0
+        while s1 or s2:
+            res = 0
+            res += s1.pop() if s1 else 0
+            res += s2.pop() if s2 else 0
+            res += carry
+            carry = res // 10     
 
-            if stk1:
-                sum_ += stk1.pop()
-
-            if stk2:
-                sum_ += stk2.pop()
-
-            sum_ += carry
-            carry = sum_ // 10
-            cur = ListNode(sum_ % 10)
-            cur.next = nxt
-            nxt = cur
+            node = ListNode(res%10)
+            node.next = head
+            head = node       
 
         if carry:
-            cur = ListNode(carry)
-            cur.next = nxt
+            node = ListNode(carry)
+            node.next = head
+            head = node
 
-        return cur
+        return head
 
 
 # Solution 2: More concise
