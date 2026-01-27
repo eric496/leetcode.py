@@ -44,17 +44,18 @@ class Solution:
             return 0
 
         slow = fast = nums[0]
-        fast = nums[fast]
+
+        while True:
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+            
+            if slow == fast:
+                break
+
+        slow = nums[0]
 
         while slow != fast:
             slow = nums[slow]
             fast = nums[fast]
-            fast = nums[fast]
 
-        slow = 0
-
-        while nums[slow] != nums[fast]:
-            slow = nums[slow]
-            fast = nums[fast]
-
-        return nums[slow]
+        return slow
