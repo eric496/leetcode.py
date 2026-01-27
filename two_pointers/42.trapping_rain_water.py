@@ -52,19 +52,20 @@ class Solution:
 # Solution 3: two pointers - O(n) TC and O(1) SC
 class Solution:
     def trap(self, height: List[int]) -> int:
-        res = 0
         left_max = right_max = 0
-        start, end = 0, len(height) - 1
+        left, right = 0, len(height) - 1
+        res = 0
 
-        while start < end:
-            left_max = max(left_max, height[start])
-            right_max = max(right_max, height[end])
+        while left < right:
+            left_max = max(left_max, height[left])
+            right_max = max(right_max, height[right])
 
             if left_max < right_max:
-                res += left_max - height[start]
-                start += 1
+                res += left_max - height[left]
+                left += 1
             else:
-                res += right_max - height[end]
-                end -= 1
-
+                res += right_max - height[right]
+                right -= 1
+        
         return res
+    
