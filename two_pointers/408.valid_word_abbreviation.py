@@ -23,23 +23,24 @@ Thought process:
 
 class Solution:
     def validWordAbbreviation(self, word: str, abbr: str) -> bool:
-        i = j = n = 0
+        i = j = 0
+        m, n = len(word), len(abbr)
 
-        while i < len(word) and j < len(abbr):
+        while i < m and j < n:
             if abbr[j].isdigit():
-                n = n * 10 + int(abbr[j])
-                # Handle cases like "01"
-                if n == 0:
+                if int(abbr[j]) == 0:
                     return False
-                j += 1
+                
+                val = 0
+                while j < n and abbr[j].isdigit():
+                    val = val * 10 + int(abbr[j])
+                    j += 1
+                
+                i += val
             else:
-                i += n
-                if i >= len(word) or word[i] != abbr[j]:
+                if word[i] != abbr[j]:
                     return False
-                n = 0
                 i += 1
                 j += 1
-
-        i += n
-
-        return i == len(word) and j == len(abbr)
+        
+        return i == m and j == n
