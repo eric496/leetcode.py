@@ -17,20 +17,17 @@ The string will only contain lowercase characters a-z. The maximum length of the
 
 class Solution:
     def validPalindrome(self, s: str) -> bool:
-        start, end = 0, len(s) - 1
+        left, right = 0, len(s) - 1
 
-        while start < end:
-            if s[start] != s[end]:
-                if self.isPalindrome(s[:start] + s[start + 1 :]) or self.isPalindrome(
-                    s[:end] + s[end + 1 :]
-                ):
-                    return True
-                else:
+        while left < right:
+            if s[left] != s[right]:
+                skip_left = s[left+1: right+1]
+                skip_right = s[left: right]
+
+                if not self.isPalindrome(skip_left) and not self.isPalindrome(skip_right):
                     return False
-            start += 1
-            end -= 1
+            
+            left += 1
+            right -= 1
 
         return True
-
-    def isPalindrome(self, s: str) -> bool:
-        return True if s == s[::-1] else False
