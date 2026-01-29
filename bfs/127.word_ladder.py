@@ -29,28 +29,30 @@ Explanation: The endWord "cog" is not in wordList, therefore no possible transfo
 """
 
 
-from collections import deque
 import string
+from collections import deque
 
 
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         word_set = set(wordList)
-        q = deque([(beginWord, 1)])
-        visited = {beginWord}
+        visited = set([beginWord])
+        queue = deque([(beginWord, 1)])
 
-        while q:
-            word, step = q.popleft()
+        if endWord not in word_set:
+            return 0
+
+        while queue:
+            word, steps = queue.popleft()
 
             if word == endWord:
-                return step
+                return steps
 
             for i in range(len(word)):
                 for c in string.ascii_lowercase:
-                    new_word = word[:i] + c + word[i + 1 :]
-
+                    new_word = word[:i] + c + word[i+1:]
                     if new_word in word_set and new_word not in visited:
-                        q.append((new_word, step + 1))
+                        queue.append((new_word, steps + 1))
                         visited.add(new_word)
-
+            
         return 0
