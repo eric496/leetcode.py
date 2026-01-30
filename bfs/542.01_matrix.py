@@ -29,45 +29,66 @@ The cells are adjacent in only four directions: up, down, left and right.
 """
 
 
+# Solution 1: BFS (from 1s to 0s) - TLE
 from collections import deque
 
 
 class Solution:
-    def updateMatrix(self, matrix: List[List[int]]) -> List[List[int]]:
-        m, n = len(matrix), len(matrix[0])
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        m, n  = len(mat), len(mat[0])
         res = [[0] * n for _ in range(m)]
+        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        queue = deque()
 
-        for i in range(m):
-            for j in range(n):
-                if matrix[i][j]:
-                    res[i][j] = self.bfs(matrix, i, j)
-                else:
-                    res[i][j] = 0
+        for r in range(m):
+            for c in range(n):
+                if mat[r][c] == 1:
+                    q = deque([(r, c, 0)])
+                    visited = set((r, c))
+                    found = False
 
+                    while q and not found:
+                        cur_r, cur_c, dist = q.popleft()
+
+                        for dr, dc in directions:
+                            nr, nc = cur_r + dr, cur_c + dc
+                            if 0 <= nr < m and 0 <= nc < n and (nr, nc) not in visited:
+                                if mat[nr][nc] == 0:
+                                    res[r][c] = dist + 1
+                                    found = True
+                                    break
+                                q.append((nr, nc, dist + 1))
+                                visited.add((nr, nc))
         return res
 
-    def bfs(self, matrix: List[List[int]], i: int, j: int) -> int:
-        q = deque([(i, j, 0)])
-        m, n = len(matrix), len(matrix[0])
 
+
+# Solution 2: BFS (from 0s to 1s)
+from collections import deque
+
+
+class Solution:
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        m, n = len(mat), len(mat[0])
+        res = [[0] * n for _ in range(m)]
+        visited = set()
+        q = deque()
+        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+
+        for r in range(m):
+            for c in range(n):
+                if mat[r][c] == 0:
+                    q.append((r, c))
+                    visited.add((r, c))
+        
         while q:
-            visited = set()
-
-            for _ in range(len(q)):
-                y, x, dist = q.popleft()
-                visited.add((y, x))
-
-                if matrix[y][x] == 0:
-                    return dist
-
-                if y + 1 < m and (y + 1, x) not in visited:
-                    q.append((y + 1, x, dist + 1))
-
-                if y - 1 >= 0 and (y - 1, x) not in visited:
-                    q.append((y - 1, x, dist + 1))
-
-                if x + 1 < n and (y, x + 1) not in visited:
-                    q.append((y, x + 1, dist + 1))
-
-                if x - 1 >= 0 and (y, x - 1) not in visited:
-                    q.append((y, x - 1, dist + 1))
+            r, c = q.popleft()
+            
+            for dr, dc in directions:
+                nr, nc = r + dr, c + dc
+                if 0 <= nr < m and 0 <= nc < n and (nr, nc) not in visited:
+                    res[nr][nc] = res[r][c] + 1
+                    q.append((nr, nc))
+                    visited.add((nr, nc))
+        
+        return res
