@@ -19,36 +19,31 @@ After running your function, the 2D grid should be:
 """
 
 
+from collections import deque
+
+
 class Solution:
     def wallsAndGates(self, rooms: List[List[int]]) -> None:
-        q = []
+        """
+        Do not return anything, modify rooms in-place instead.
+        """
+        m, n = len(rooms), len(rooms[0])
+        queue = deque()
+        INF = 2147483647
 
-        for row in range(len(rooms)):
-            for col in range(len(rooms[0])):
-                if rooms[row][col] == 0:
-                    q.append((row, col))
-                    while q:
-                        i, j = q.pop()
-                        self.calc_dist(i, j, q, rooms)
+        for r in range(m):
+            for c in range(n):
+                if rooms[r][c] == 0:
+                    queue.append((r, c))
 
-    def calc_dist(self, i: int, j: int, q: deque, rooms: List[List[int]]) -> None:
-        if i - 1 >= 0 and rooms[i - 1][j] > 0 and rooms[i][j] + 1 < rooms[i - 1][j]:
-            rooms[i - 1][j] = rooms[i][j] + 1
-            q.append((i - 1, j))
-        if (
-            i + 1 < len(rooms)
-            and rooms[i + 1][j] > 0
-            and rooms[i][j] + 1 < rooms[i + 1][j]
-        ):
-            rooms[i + 1][j] = rooms[i][j] + 1
-            q.append((i + 1, j))
-        if j - 1 >= 0 and rooms[i][j - 1] > 0 and rooms[i][j] + 1 < rooms[i][j - 1]:
-            rooms[i][j - 1] = rooms[i][j] + 1
-            q.append((i, j - 1))
-        if (
-            j + 1 < len(rooms[0])
-            and rooms[i][j + 1] > 0
-            and rooms[i][j] + 1 < rooms[i][j + 1]
-        ):
-            rooms[i][j + 1] = rooms[i][j] + 1
-            q.append((i, j + 1))
+        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+
+        while queue:
+            r, c = queue.popleft()
+
+            for dr, dc in directions:
+                nr, nc = r + dr, c + dc
+
+                if 0 <= nr < m and 0 <= nc < n and rooms[nr][nc] == INF:
+                    rooms[nr][nc] = rooms[r][c] + 1
+                    queue.append((nr, nc))
