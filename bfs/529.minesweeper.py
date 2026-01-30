@@ -42,33 +42,53 @@ For simplicity, not mentioned rules should be ignored in this problem. For examp
 
 
 from collections import deque
+from typing import List
+
 
 class Solution:
     def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
         m, n = len(board), len(board[0])
-        q = deque([click])
+        
+        # 1. Handle the "Game Over" case immediately
+        # If the first click is a mine, boom.
+        if board[click[0]][click[1]] == 'M':
+            board[click[0]][click[1]] = 'X'
+            return board
+
+        # 2. Initialize BFS
+        # Use tuple(click) to keep types consistent (tuples in queue)
+        q = deque([tuple(click)])
         visited = {tuple(click)}
         directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
         
         while q:
-            y, x = q.popleft()
+            r, c = q.popleft()
             
-            if board[y][x] == "M":
-                board[y][x] = "X"
-            elif board[y][x] == "E":
-                cnt = 0
+            # We already handled 'M' at the start, so in BFS we only process 'E'
+            if board[r][c] == "E":
+                # --- Step A: Count Mines ---
+                mines_cnt = 0
+                for dr, dc in directions:
+                    nr, nc = r + dr, c + dc
+                    if 0 <= nr < m and 0 <= nc < n and board[nr][nc] == "M":
+                        mines_cnt += 1
                 
-                for dy, dx in directions:
-                    if 0 <= y + dy < m and 0 <= x + dx < n and board[y+dy][x+dx] == "M":
-                        cnt += 1
+                # --- Step B: Update Board ---
+                if mines_cnt > 0:
+                    board[r][c] = str(mines_cnt)
+                    # We STOP here. Do not add neighbors to queue.
+                else:
+                    board[r][c] = "B"
                     
-                board[y][x] = str(cnt) if cnt else "B"
-                
-                if cnt == 0:
-                    for dy, dx in directions:
-                        if 0 <= y + dy < m and 0 <= x + dx < n and (y + dy, x + dx) not in visited:
-                            q.append((y + dy, x + dx))
-                            visited.add((y + dy, x + dx))
+                    # --- Step C: Expand (Only if blank) ---
+                    for dr, dc in directions:
+                        nr, nc = r + dr, c + dc  # <--- FIX: Calculate nr, nc here!
+                        
+                        if 0 <= nr < m and 0 <= nc < n:
+                            # Only add unvisited 'E' squares to the queue
+                            if (nr, nc) not in visited and board[nr][nc] == "E": # Check 'E' to be safe
+                                visited.add((nr, nc))
+                                q.append((nr, nc))
                             
         return board
         
