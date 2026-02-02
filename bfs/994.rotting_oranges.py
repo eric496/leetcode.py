@@ -33,32 +33,40 @@ from collections import deque
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
-        res = 0
+        queue = deque()
         visited = set()
-        rotten = deque()
-        
-        for i in range(m):
-            for j in range(n):
-                if grid[i][j] == 2:
-                    rotten.append((i, j))
-                    
-        while rotten:
-            res += 1
-            
-            for _ in range(len(rotten)):
-                y, x = rotten.popleft()
-                visited.add((y, x))
+        fresh_count = 0
+
+        for r in range(m):
+            for c in range(n):
+                if grid[r][c] == 2:
+                    queue.append((r, c))
+                    visited.add((r, c))
+                if grid[r][c] == 1:
+                    fresh_count += 1
+
+        if fresh_count == 0:
+            return 0
+
+        mins = 0
+        d = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+
+        while queue:
+            size = len(queue)
+
+            for _ in range(size):
+                r, c = queue.popleft()
+
+                for dr, dc in d:
+                    nr, nc = r + dr, c + dc
+                    if 0 <= nr and 0 <= nc and nr < m and nc < n and (nr, nc) not in visited and grid[nr][nc] == 1:
+                        queue.append((nr, nc))
+                        visited.add((nr, nc))
+                        fresh_count -= 1
                 
-                for dy, dx in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
-                    new_y, new_x = y + dy, x + dx
-                    
-                    if 0 <= new_y < m and 0 <= new_x < n and (new_y, new_x) not in visited and grid[new_y][new_x] == 1:
-                        grid[new_y][new_x] = 2
-                        rotten.append((new_y, new_x))
-                        
-        for i in range(m):
-            for j in range(n):
-                if grid[i][j] == 1:
-                    return -1
-                
-        return res - 1 if res else 0
+            mins += 1
+
+            if fresh_count == 0:
+                return mins
+
+        return -1
