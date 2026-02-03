@@ -51,3 +51,40 @@ class Solution:
             )
         
         return 0
+    
+    
+# Solution 2: BFS
+from collections import deque
+
+
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        visited = set()
+        res = 0
+        queue = deque()
+
+        def bfs(queue: deque) -> int:
+            area = 0
+            ds = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+
+            while queue:
+                area += 1
+                r, c = queue.popleft()
+                for dr, dc in ds:
+                    nr, nc = r + dr, c + dc
+                    if 0 <= nr < m and 0 <= nc < n and (nr, nc) not in visited and grid[nr][nc] == 1:
+                        queue.append((nr, nc))
+                        visited.add((nr, nc))
+            
+            return area
+        
+        for r in range(m):
+            for c in range(n):
+                if grid[r][c] == 1 and (r, c) not in visited:
+                    queue.append((r, c))
+                    visited.add((r, c))
+                    area = bfs(queue)
+                    res = max(res, area)
+        
+        return res
