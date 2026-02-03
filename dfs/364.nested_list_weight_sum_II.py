@@ -85,19 +85,23 @@ class Solution:
 
 
 # Solution 2: BFS
+from collections import deque
+
+
 class Solution:
     def depthSumInverse(self, nestedList: List[NestedInteger]) -> int:
-        res = level_sum = 0
+        res = []
+        queue = deque([(ni, 1) for ni in nestedList])
+        max_depth = 1
 
-        while nestedList:
-            next_level = []
-            for nint in nestedList:
-                if nint.isInteger():
-                    level_sum += nint.getInteger()
-                else:
-                    for nint_nxt in nint.getList():
-                        next_level.append(nint_nxt)
-            res += level_sum
-            nestedList = next_level
+        while queue:
+            ni, depth = queue.popleft()
+            max_depth = max(max_depth, depth)
 
-        return res
+            if ni.isInteger():
+                res.append((ni.getInteger(), depth))
+            else:
+                for item in ni.getList():
+                    queue.append((item, depth+1))
+        
+        return sum(v * (max_depth - d + 1) for v, d in res)
