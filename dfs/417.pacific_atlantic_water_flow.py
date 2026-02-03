@@ -69,3 +69,46 @@ class Solution:
 
             for d in directions:
                 self.dfs(matrix, visited, matrix[i][j], i + d[0], j + d[1], directions)
+
+
+# Solution 2: BFS
+from collections import deque
+
+
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        m, n = len(heights), len(heights[0])
+        aq = deque()
+        pq = deque()
+
+        for r in range(m):
+            pq.append((r, 0))
+            aq.append((r, n-1))
+
+        for c in range(n):
+            pq.append((0, c))
+            aq.append((m-1, c))
+
+        def bfs(queue):
+            reachable = set()
+
+            for r, c in queue:
+                reachable.add((r, c))
+
+            ds = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+            while queue:
+                r, c = queue.popleft()
+                for dr, dc in ds:
+                    nr, nc = r + dr, c + dc
+                    if 0 <= nr < m and 0 <= nc < n and (nr, nc) not in reachable and heights[nr][nc] >= heights[r][c]:
+                        queue.append((nr, nc))
+                        reachable.add((nr, nc))
+
+            return reachable
+
+        avisited = bfs(aq)
+        pvisited = bfs(pq)
+
+        return list(avisited & pvisited)
+    
