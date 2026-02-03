@@ -61,14 +61,14 @@ class Solution:
     def depthSum(self, nestedList: List[NestedInteger]) -> int:
         res = [0]
 
-        for n in nestedList:
-            self.dfs(n, res, 1)
+        for ni in nestedList:
+            self.dfs(ni, 1, res)
 
         return res[0]
 
-    def dfs(self, nestedElement: NestedInteger, res: List[int], depth: int) -> None:
-        if nestedElement.isInteger():
-            res[0] += nestedElement.getInteger() * depth
+    def dfs(self, ni: NestedInteger, depth: int, cursum: List[int]) -> None:
+        if ni.isInteger():
+            cursum[0] += ni.getInteger() * depth
         else:
-            for n in nestedElement.getList():
-                self.dfs(n, res, depth + 1)
+            for n in ni.getList():
+                self.dfs(n, depth+1, cursum)
