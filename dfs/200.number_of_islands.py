@@ -22,32 +22,29 @@ Output: 3
 # Solution 1: DFS
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        if not grid or not grid[0]:
-            return 0
-
+        m, n = len(grid), len(grid[0])
         res = 0
         visited = set()
 
-        for r in range(len(grid)):
-            for c in range(len(grid[0])):
+        for r in range(m):
+            for c in range(n):
                 if grid[r][c] == "1" and (r, c) not in visited:
-                    self.dfs(grid, r, c, visited)
                     res += 1
+                    self.dfs(r, c, grid, visited)
 
         return res
 
-    def dfs(self, grid: List[List[int]], r: int, c: int, visited: set) -> None:
-        if (
-            0 <= r < len(grid)
-            and 0 <= c < len(grid[0])
-            and (r, c) not in visited
-            and grid[r][c] == "1"
-        ):
-            visited.add((r, c))
-            dirs = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+    def dfs(self, r: int, c: int, grid: List[List[str]], visited: Set[Tuple[int, int]]) -> None:
+        m, n = len(grid), len(grid[0])
 
-            for dy, dx in dirs:
-                self.dfs(grid, r + dy, c + dx, visited)
+        if r < 0 or r >= m or c < 0 or c >= n or (r, c) in visited or grid[r][c] == "0":
+            return
+        
+        visited.add((r, c))
+        ds = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        for dr, dc in ds:
+            nr, nc = r + dr, c + dc
+            self.dfs(nr, nc, grid, visited)
 
 
 # Solution 2: BFS
@@ -56,38 +53,30 @@ from collections import deque
 
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        if not grid or not grid[0]:
-            return 0
-
         m, n = len(grid), len(grid[0])
-        res = 0
+        queue = deque()
         visited = set()
-        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+        res = 0
+        ds = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 
-        for i in range(m):
-            for j in range(n):
-                if (i, j) not in visited:
-                    visited.add((i, j))
+        for r in range(m):
+            for c in range(n):
+                if (r, c) in visited:
+                    continue
 
-                    if grid[i][j] == "1":
-                        res += 1
-                        q = deque([(i, j)])
+                if grid[r][c] == "1":
+                    res += 1
+                    queue.append((r, c))
+                    visited.add((r, c))
 
-                        while q:
-                            y, x = q.popleft()
-
-                            for dy, dx in directions:
-                                y1, x1 = y + dy, x + dx
-
-                                if (
-                                    0 <= y1 < m
-                                    and 0 <= x1 < n
-                                    and grid[y1][x1] == "1"
-                                    and (y1, x1) not in visited
-                                ):
-                                    q.append((y1, x1))
-                                    visited.add((y1, x1))
-
+                    while queue:
+                        cur_r, cur_c = queue.popleft()
+                        for dr, dc in ds:
+                            nr, nc = cur_r + dr, cur_c + dc
+                            if 0 <= nr < m and 0 <= nc < n and (nr, nc) not in visited and grid[nr][nc] == "1":
+                                queue.append((nr, nc))
+                                visited.add((nr, nc))
+                    
         return res
 
 
