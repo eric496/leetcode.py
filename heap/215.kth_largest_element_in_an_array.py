@@ -17,7 +17,7 @@ Constraints:
 """
 
 
-# Solution 1: heap
+# Solution 1: heap - O(N + KlogN) TC and O(N) SC
 import heapq
 
 
