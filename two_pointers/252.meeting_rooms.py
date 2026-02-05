@@ -14,18 +14,17 @@ Output: true
 # Solution 1
 class Solution:
     def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
-        if not intervals:
+        if len(intervals) <= 1:
             return True
         
         intervals.sort()
-        prev = intervals[0]
-        
-        for i in range(1, len(intervals)):
-            if prev[1] > intervals[i][0]:
+        prev_end = intervals[0][1]
+
+        for start, end in intervals[1:]:
+            if start < prev_end:
                 return False
-            else:
-                prev = intervals[i]
-                
+            prev_end = end
+
         return True
 
 
