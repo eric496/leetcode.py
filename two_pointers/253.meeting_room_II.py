@@ -17,22 +17,19 @@ import heapq
 
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        if not intervals:
-            return 0
+        sorted_intervals = sorted(intervals, key=lambda x: x[0])
 
-        intervals.sort()
-        pq = [intervals[0][1]]
+        rooms = []
+        heapq.heappush(rooms, sorted_intervals[0][1])
         res = 1
 
-        for i in range(1, len(intervals)):
-            start, end = intervals[i]
-
-            if start < pq[0]:
-                res += 1
+        for start, end in sorted_intervals[1:]:
+            if start >= rooms[0]:
+                heapq.heappop(rooms)
             else:
-                heapq.heappop(pq)
-
-            heapq.heappush(pq, end)
+                res += 1
+            
+            heapq.heappush(rooms, end)
 
         return res
 
@@ -40,46 +37,21 @@ class Solution:
 # Solution 2: two pointers
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        if not intervals:
-            return 0
-        
-        starts = sorted(x[0] for x in intervals)
-        ends = sorted(x[1] for x in intervals)
+        start_times = sorted([x[0] for x in intervals])
+        end_times = sorted([x[1] for x in intervals])
+
         i = j = 0
-        res = avail = 0
-        n = len(intervals)
-        
-        while i < n:
-            if starts[i] < ends[j]:
-                if avail == 0:
-                    res += 1
-                else:
-                    avail -= 1
-                
+        res = used = 0
+
+        while i < len(start_times):
+            if start_times[i] < end_times[j]:
+                used += 1
                 i += 1
             else:
-                avail += 1
+                used -= 1
                 j += 1
-                
-        return res
-
-
-# Solution 3
-class Solution:
-    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        if not intervals:
-            return 0
+            
+            res = max(res, used)
         
-        starts = sorted(x[0] for x in intervals)
-        ends = sorted(x[1] for x in intervals)
-        res = earliest_end = 0
-        n = len(intervals)
-        
-        for start in starts:
-            if start < ends[earliest_end]:
-                res += 1
-            else:
-                earliest_end += 1
-                
         return res
                 
