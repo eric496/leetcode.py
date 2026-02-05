@@ -26,17 +26,11 @@ Note:
 
 # Solution 1: sort
 class Solution:
-    def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:
-        res = []
-        for i, p in enumerate(points):
-            res.append((i, self.calcDist(p[0], p[1])))
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        dist = [(point, point[0]**2 + point[1]**2) for point in points]
+        dist.sort(key=lambda x: x[1])
 
-        res.sort(key=lambda x: x[1])
-
-        return [points[i] for i, d in res[:K]]
-
-    def calcDist(self, x: int, y: int) -> int:
-        return x ** 2 + y ** 2
+        return [point for point, d in dist][:k]
 
 
 # Solution 2: heap
@@ -44,21 +38,14 @@ import heapq
 
 
 class Solution:
-    def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:
-        # max heap
-        pq = []
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        heap = []
 
-        for point in points:
-            dist = self.calcDist(point)
+        for x, y in points:
+            dist = x**2 + y**2 
+            heapq.heappush(heap, (-dist, [x, y]))
 
-            if len(pq) == K:
-                if dist < -pq[0][0]:
-                    heapq.heappop(pq)
-                    heapq.heappush(pq, (-dist, point))
-            else:
-                heapq.heappush(pq, (-dist, point))
+            if len(heap) > k:
+                heapq.heappop(heap)
 
-        return [x[1] for x in pq]
-
-    def calcDist(self, point: List[int]) -> int:
-        return point[0] ** 2 + point[1] ** 2
+        return [point for dist, point in heap]
