@@ -23,36 +23,15 @@ You may assume both s and t have the same length.
 
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-        if len(s) != len(t):
-            return False
+        smap = dict()
+        tmap = dict()
 
-        iso = {}
-
-        for ch1, ch2 in zip(s, t):
-            if ch1 in iso:
-                if iso[ch1] != ch2:
-                    return False
-            else:
-                # One-to-one mapping, check duplicates
-                if ch2 in iso.values():
-                    return False
-                else:
-                    iso[ch1] = ch2
+        for sc, tc in zip(s, t):
+            if sc in smap and smap[sc] != tc:
+                return False
+            if tc in tmap and tmap[tc] != sc:
+                return False
+            smap[sc] = tc
+            tmap[tc] = sc
 
         return True
-
-
-# Some pythonic one-liner solution
-class Solution:
-    def isIsomorphic(self, s: str, t: str) -> bool:
-        return len(set(zip(s, t))) == len(set(s)) == len(set(t))
-
-
-class Solution:
-    def isIsomorphic(self, s: str, t: str) -> bool:
-        return [s.find(i) for i in s] == [t.find(j) for j in t]
-
-
-class Solution:
-    def isIsomorphic(self, s: str, t: str) -> bool:
-        return map(s.find, s) == map(t.find, t)
