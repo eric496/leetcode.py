@@ -18,36 +18,18 @@ class Solution:
     def isHappy(self, n: int) -> bool:
         seen = set()
 
-        while True:
-            res = 0
+        while n != 1:
+            new_n = 0
 
             while n:
-                res += (n % 10) ** 2
+                digit = n % 10
+                new_n += digit ** 2
                 n //= 10
-
-            if res == 1:
-                return True
-            elif res in seen:
+            
+            if new_n in seen:
                 return False
-            else:
-                seen.add(res)
-
-            n = res
-
-        return False
-
-
-# A more concise and smart pythonic solution
-class Solution:
-    def isHappy(self, n: int) -> bool:
-        seen = set()
-
-        while n != 1:
-            n = sum(int(ch) ** 2 for ch in str(n))
-
-            if n in seen:
-                return False
-            else:
-                seen.add(n)
-
+            
+            seen.add(new_n)
+            n = new_n
+        
         return True
