@@ -33,13 +33,19 @@ class Solution:
 # How to make it faster? Don't use str copy, use list instead
 class Solution:
     def isStrobogrammatic(self, num: str) -> bool:
-        stro = {"0": "0", "1": "1", "6": "9", "8": "8", "9": "6"}
-        res = []
-
-        for ch in num[::-1]:
-            if ch in stro:
-                res.append(stro[ch])
-            else:
+        strob_nums = {
+            "0": "0",
+            "1": "1",
+            "6": "9",
+            "8": "8",
+            "9": "6",
+        }
+        
+        res_list = []
+        for c in num:
+            if c not in strob_nums:
                 return False
-
-        return res == list(num)
+            res_list.append(strob_nums[c])
+        
+        res_str = "".join(res_list[::-1])
+        return num == res_str
