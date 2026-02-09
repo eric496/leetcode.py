@@ -89,28 +89,31 @@ class Solution:
 
 
 # More concise one-pass solution
+from collections import defaultdict
+
+
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        row_d = [{} for _ in range(9)]
-        col_d = [{} for _ in range(9)]
-        square_d = [{} for _ in range(9)]
+        rows_seen = defaultdict(set)
+        cols_seen = defaultdict(set)
+        grid_seen = defaultdict(set)
 
-        for i in range(9):
-            for j in range(9):
-                digit = board[i][j]
+        m, n = len(board), len(board[0])
 
-                if digit != ".":
-                    square_idx = (i // 3) * 3 + j // 3
+        for r in range(m):
+            for c in range(n):
+                v = board[r][c]
 
-                    if (
-                        digit in row_d[i]
-                        or digit in col_d[j]
-                        or digit in square_d[square_idx]
-                    ):
-                        return False
-                    else:
-                        row_d[i][digit] = 1
-                        col_d[j][digit] = 1
-                        square_d[square_idx][digit] = 1
+                if v == ".":
+                    continue
 
+                k = r // 3 * 3 + c // 3
+
+                if v in rows_seen[r] or v in cols_seen[c] or v in grid_seen[k]:
+                    return False
+
+                rows_seen[r].add(v)
+                cols_seen[c].add(v)
+                grid_seen[k].add(v)
+        
         return True
