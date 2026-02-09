@@ -16,12 +16,17 @@ Output: false
 """
 
 
+from collections import defaultdict
+
+
 class Solution:
-    def containsNearbyDuplicate(self, nums: list, k: int) -> bool:
-        count_duplicate = {}
-        for i, n in enumerate(nums):
-            if n not in count_duplicate or abs(count_duplicate[n] - i) > k:
-                count_duplicate[n] = i
-            else:
-                return True
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        seen = defaultdict(list)
+
+        for i, num in enumerate(nums):
+            if num in seen:
+                if abs(seen[num][-1] - i) <= k:
+                    return True
+            seen[num].append(i)
+        
         return False
