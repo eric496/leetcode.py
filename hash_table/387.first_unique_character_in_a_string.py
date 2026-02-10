@@ -13,21 +13,20 @@ Note: You may assume the string contain only lowercase letters.
 """
 
 # Solution 1 - O(n) TC and O(n) SC
+from collections import defaultdict
+
+
 class Solution:
     def firstUniqChar(self, s: str) -> int:
-        cnt = [0] * len(s)
-        seen = {}
+        count = defaultdict(int)
 
+        for c in s:
+            count[c] += 1
+        
         for i, c in enumerate(s):
-            cnt[seen.get(c, i)] += 1
-
-            if c not in seen:
-                seen[c] = i
-
-        for i, n in enumerate(cnt):
-            if n == 1:
+            if count[c] == 1:
                 return i
-
+        
         return -1
 
 
