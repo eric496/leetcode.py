@@ -21,9 +21,31 @@ class Solution:
                     res.add(n1)
 
         return list(res)
+    
+    
+# Solution 2: hash table - O(n) TC and SC
+from collections import defaultdict
 
 
-# Solution 2: two pointers, max(O(nlogn), O(mlogm)) TC
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        count = defaultdict(int)
+
+        for num in nums1:
+            count[num] += 1
+        
+        res = set()
+
+        for num in nums2:
+            if count[num] > 0:
+                res.add(num)
+            
+            count[num] -= 1
+
+        return list(res)
+
+
+# Solution 3: two pointers, max(O(nlogn), O(mlogm)) TC
 class Solution:
     def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
         nums1.sort()
@@ -44,7 +66,7 @@ class Solution:
         return list(res)
 
 
-# Solution 3: binary search - O(nlogm) TC
+# Solution 4: binary search - O(nlogm) TC
 class Solution:
     def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
         if len(nums1) > len(nums2):
