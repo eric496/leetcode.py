@@ -19,45 +19,44 @@ You can return the answer in any order.
 
 # Solution 1: heap
 import heapq
+from collections import defaultdict
+
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        freq = {}
-        
-        for num in nums:
-            freq[num] = freq.get(num, 0) + 1
-            
-        pq = []
-            
-        for key, val in freq.items():
-            heapq.heappush(pq, (val, key))
+        count = defaultdict(int)
 
-            if len(pq) > k:
-                heapq.heappop(pq)
-                        
-        return [x[1] for x in pq]
+        for num in nums:
+            count[num] += 1
+        
+        heap = []
+
+        for num, freq in count.items():
+            heapq.heappush(heap, (freq, num))
+            if len(heap) > k:
+                heapq.heappop(heap)
+
+        return [num for freq, num in heap]
 
 
 # Solution 2: bucket sort
+from collections import defaultdict
+
+
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        freq = {}
-        
+        count = defaultdict(int)
+
         for num in nums:
-            freq[num] = freq.get(num, 0) + 1
-            
-        bucket = [[] for _ in range(len(nums) + 1)] 
+            count[num] += 1
         
-        for key, val in freq.items():
-            bucket[val].append(key)
+        bucket = [[] for _ in range(len(nums) + 1)]
+
+        for num, freq in count.items():
+            bucket[freq].append(num)
         
         res = []
-        
-        print(bucket)
-        
-        for i in range(len(bucket)-1, -1, -1):
-            if bucket[i]:
-                res.extend(bucket[i])
-            
-            if len(res) >= k:
+        for freq_list in bucket[::-1]:
+            res.extend(freq_list)
+            if len(res) == k:
                 return res
