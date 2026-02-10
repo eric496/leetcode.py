@@ -15,22 +15,20 @@ Output:
 """
 
 
+from collections import defaultdict
+
+
 class Solution:
     def groupStrings(self, strings: List[str]) -> List[List[str]]:
-        pattern = {}
+        groups = defaultdict(list)
 
-        for s in strings:
+        for string in strings:
             key = []
-
-            for i in range(1, len(s)):
-                offset = ord(s[i]) - ord(s[i - 1])
-
-                if offset < 0:
-                    key.append(offset + 26)
-                else:
-                    key.append(offset)
-
-            key = "-".join(map(str, key))
-            pattern[key] = pattern.get(key, []) + [s]
-
-        return list(pattern.values())
+            
+            for i in range(1, len(string)):
+                diff = ord(string[i]) - ord(string[i-1])
+                key.append(diff % 26)
+                
+            groups[tuple(key)].append(string)
+        
+        return list(groups.values())
