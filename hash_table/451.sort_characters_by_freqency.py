@@ -30,13 +30,45 @@ Note that 'A' and 'a' are treated as two different characters.
 """
 
 
+# Solution 1: hash table
+from collections import defaultdict
+
+
 class Solution:
     def frequencySort(self, s: str) -> str:
-        freq = {}
+        count = defaultdict(int)
 
         for c in s:
-            freq[c] = freq.get(c, 0) + 1
+            count[c] += 1
+        
+        freq_list = [(freq, char) for char, freq in count.items()]
+        freq_list.sort(reverse=True)
 
-        sort_by_freq = sorted(freq.items(), key=lambda x: x[1], reverse=True)
+        return "".join(char*freq for freq, char in freq_list)
 
-        return "".join(c * n for c, n in sort_by_freq)
+
+
+# Solution 2: bucket sort
+from collections import defaultdict
+
+
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        count = defaultdict(int)
+
+        for c in s:
+            count[c] += 1
+        
+        bucket = defaultdict(list)
+
+        for char, freq in count.items():
+            bucket[freq].append(char)
+
+        res = []
+        for freq in range(len(s), 0, -1):
+            if freq in bucket:
+                for char in bucket[freq]:
+                    res.append(char * freq)
+        
+        return "".join(res)
+    
