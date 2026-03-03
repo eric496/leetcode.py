@@ -27,16 +27,16 @@ class Solution:
         stk = []
 
         for n in num:
-            while stk and k and stk[-1] > n:
+            while k and stk and stk[-1] > n:
                 stk.pop()
                 k -= 1
-
+            
             stk.append(n)
 
-        # edge cases like "1111" or "9"
-        while k and stk:
+        while k:
             stk.pop()
             k -= 1
+        
+        res = "".join(stk).lstrip("0")
 
-        # edge case when stack is empty
-        return str(int("".join(stk))) if stk else "0"
+        return res if res else "0"
