@@ -17,19 +17,17 @@ S will consist of lowercase letters ('a' to 'z') only.
 
 
 class Solution:
-    def partitionLabels(self, S: str) -> List[int]:
-        if not S:
-            return []
-        
-        last = {c: i for i, c in enumerate(S)}
-        left = right = 0
+    def partitionLabels(self, s: str) -> List[int]:
+        last_idx = {c: i for i, c in enumerate(s)}
+
         res = []
-        
-        for i, c in enumerate(S):
-            right = max(right, last[c])
-            
-            if right == i:
-                res.append(right - left + 1)
-                left = right + 1
-        
+        start = end = 0
+
+        for i, c in enumerate(s):
+            end = max(end, last_idx[c])
+
+            if i == end:
+                res.append(end - start + 1)
+                start = i + 1
+
         return res
