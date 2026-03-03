@@ -22,7 +22,7 @@ Intervals like [1,2] and [2,3] have borders "touching" but they don't overlap ea
 """
 
 
-# Solution 1
+# Solution 1: sort by start
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
         intervals.sort()
@@ -41,17 +41,18 @@ class Solution:
         return res
 
 
-# Solution 2
+# Solution 2: sort by end
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
         intervals.sort(key=lambda x: x[1])
-        end = float("-inf")
+
+        prev_end = float("-inf")
         res = 0
-        
-        for i, j in intervals:
-            if i < end:
+
+        for start, end in intervals:
+            if start < prev_end:
                 res += 1
             else:
-                end = j
-                
+                prev_end = end
+        
         return res
