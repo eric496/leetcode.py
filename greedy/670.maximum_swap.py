@@ -18,17 +18,13 @@ The given number is in the range [0, 108]
 
 class Solution:
     def maximumSwap(self, num: int) -> int:
-        digits = [int(ch) for ch in str(num)]
-        # index of the last apperance of each digit
-        char_to_ix = [0] * 10
+        digits = list(str(num))
+        last_idx = {int(d): i for i, d in enumerate(digits)}
 
         for i, d in enumerate(digits):
-            char_to_ix[d] = i
-
-        for i in range(len(digits)):
-            for j in range(9, digits[i], -1):
-                if char_to_ix[j] > i:
-                    digits[i], digits[char_to_ix[j]] = digits[char_to_ix[j]], digits[i]
-                    return int("".join(map(str, digits)))
-
+            for larger_d in range(9, int(d), -1):
+                if last_idx.get(larger_d, -1) > i:
+                    digits[i], digits[last_idx[larger_d]] = digits[last_idx[larger_d]], digits[i]
+                    return int("".join(digits))
+        
         return num
