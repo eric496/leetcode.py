@@ -24,6 +24,28 @@ Each answers[i] will be an integer in the range [0, 999].
 """
 
 
+# Solution 1 - Greedy
+class Solution:
+    def numRabbits(self, answers: List[int]) -> int:
+        answers.sort()
+
+        i = 0
+        n = len(answers)
+        rabbits = 0
+
+        while i < n:
+            rabbits += answers[i] + 1
+            limit = answers[i]
+            i += 1
+            
+            while limit > 0 and i < n and answers[i] == answers[i-1]:
+                i += 1
+                limit -= 1
+
+        return rabbits
+
+
+# Solution 2 - hash table
 class Solution:
     def numRabbits(self, answers: List[int]) -> int:
         if not answers:
@@ -45,3 +67,19 @@ class Solution:
                 res += answer + 1
 
         return res
+    
+    
+    # Solution 3 - math
+    class Solution:
+    def numRabbits(self, answers: List[int]) -> int:
+        counts = defaultdict(int)
+        for answer in answers:
+            counts[answer] += 1
+        
+        rabbits = 0
+
+        for k, v in counts.items():
+            groups = (v + k) // (k + 1)
+            rabbits += groups * (k + 1)
+
+        return rabbits
