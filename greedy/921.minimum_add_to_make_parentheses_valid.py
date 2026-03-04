@@ -29,20 +29,17 @@ S only consists of '(' and ')' characters.
 
 
 class Solution:
-    def minAddToMakeValid(self, S: str) -> int:
-        stk = []
-        res = 0
+    def minAddToMakeValid(self, s: str) -> int:
+        open_needed = 0
+        closed_needed = 0
 
-        for ch in S:
-            if ch == "(":
-                stk.append(ch)
-            elif ch == ")":
-                if stk:
-                    if stk[-1] == "(":
-                        stk.pop()
-                    elif stk[-1] == ")":
-                        res += 1
+        for c in s:
+            if c == "(":
+                closed_needed += 1
+            else:
+                if closed_needed:
+                    closed_needed -= 1
                 else:
-                    stk.append(ch)
-
-        return res + len(stk)
+                    open_needed += 1
+        
+        return open_needed + closed_needed
