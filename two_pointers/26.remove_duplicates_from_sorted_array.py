@@ -1,46 +1,48 @@
 """
-Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.
-Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same.
+Consider the number of unique elements in nums to be k​​​​​​​​​​​​​​. After removing duplicates, return the number of unique elements k.
+The first k elements of nums should contain the unique numbers in sorted order. The remaining elements beyond index k - 1 can be ignored.
+Custom Judge:
+The judge will test your solution with the following code:
+int[] nums = [...]; // Input array
+int[] expectedNums = [...]; // The expected answer with correct length
+int k = removeDuplicates(nums); // Calls your implementation
+assert k == expectedNums.length;
+for (int i = 0; i < k; i++) {
+    assert nums[i] == expectedNums[i];
+}
+If all assertions pass, then your solution will be accepted. 
 
 Example 1:
-Given nums = [1,1,2],
-Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively.
-It doesn't matter what you leave beyond the returned length.
+Input: nums = [1,1,2]
+Output: 2, nums = [1,2,_]
+Explanation: Your function should return k = 2, with the first two elements of nums being 1 and 2 respectively.
+It does not matter what you leave beyond the returned k (hence they are underscores).
 
 Example 2:
-Given nums = [0,0,1,1,1,2,2,3,3,4],
-Your function should return length = 5, with the first five elements of nums being modified to 0, 1, 2, 3, and 4 respectively.
-It doesn't matter what values are set beyond the returned length.
+Input: nums = [0,0,1,1,1,2,2,3,3,4]
+Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
+Explanation: Your function should return k = 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively.
+It does not matter what you leave beyond the returned k (hence they are underscores).
 
-Clarification:
-Confused why the returned value is an integer but your answer is an array?
-Note that the input array is passed in by reference, which means modification to the input array will be known to the caller as well.
-Internally you can think of this:
-// nums is passed in by reference. (i.e., without making a copy)
-int len = removeDuplicates(nums);
-// any modification to nums in your function would be known by the caller.
-// using the length returned by your function, it prints the first len elements.
-for (int i = 0; i < len; i++) {
-    print(nums[i]);
-}
+Constraints:
+    1 <= nums.length <= 3 * 104
+    -100 <= nums[i] <= 100
+    nums is sorted in non-decreasing order.
 """
 
 
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        if not nums:
-            return 0
-        
         i = j = 1
         n = len(nums)
-        
+
         while j < n:
             if nums[j] != nums[j-1]:
                 nums[i] = nums[j]
                 i += 1
-            
             j += 1
-            
+        
         return i
 
 
