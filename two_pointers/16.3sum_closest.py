@@ -17,22 +17,22 @@ class Solution:
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
 
-            lo, hi = i + 1, n - 1
+            left, right = i + 1, n - 1
 
-            while lo < hi:
-                cur = nums[i] + nums[lo] + nums[hi]
-                res = cur if abs(cur - target) < abs(res - target) else res
+            while left < right:
+                val = nums[i] + nums[left] + nums[right]
+                res = val if abs(val - target) < abs(res - target) else res
 
-                if cur < target:
+                if val < target:
                     # Skip duplicate
-                    while lo < hi and nums[lo] == nums[lo + 1]:
-                        lo += 1
-                    lo += 1
-                elif cur > target:
+                    while left < right and nums[left] == nums[left + 1]:
+                        left += 1
+                    left += 1
+                elif val > target:
                     # Skip duplicate
-                    while lo < hi and nums[hi] == nums[hi - 1]:
-                        hi -= 1
-                    hi -= 1
+                    while left < right and nums[right] == nums[right - 1]:
+                        right -= 1
+                    right -= 1
                 else:
                     break
 
