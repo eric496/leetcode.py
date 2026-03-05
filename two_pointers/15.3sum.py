@@ -17,33 +17,32 @@ A solution set is:
 # Solution 0: Brute force - 3 nested loops - O(n^3) TC
 
 
-# Solution 1: use a set as a lookup table - O(n^2) TC and O(n) SC
+# Solution 1: fixed one element and use two pointers
 class Solution:
-    def threeSum(self, nums: List[int]) -> List[List[int]]:
-        if len(nums) < 3:
-            return []
-
+    def threeSum(self, nums: list[int]) -> list[list[int]]:
+        n = len(nums)
         res = set()
         nums.sort()
 
-        for i in range(len(nums)):
-            # Early stopping - all following elements are positive
+        for i in range(n - 2):
             if nums[i] > 0:
                 break
 
-            # Skip duplicates
-            if i and nums[i] == nums[i - 1]:
-                continue
+            left = i + 1
+            right = n - 1
 
-            lookup = set()
-
-            for j in range(i + 1, len(nums)):
-                if nums[j] in lookup:
-                    res.add((nums[i], -nums[i] - nums[j], nums[j]))
-                else:
-                    lookup.add(-nums[i] - nums[j])
-
-        return map(list, res)
+            while left < right:
+                val = nums[i] + nums[left] + nums[right]
+                if val == 0:
+                    res.add((nums[i], nums[left], nums[right]))
+                    left += 1
+                    right -= 1
+                elif val > 0:
+                    right -= 1
+                elif val < 0:
+                    left += 1
+            
+        return list(map(list, res))
 
 
 # Solution 2: without changing the input, convert it to a two sum problem by fixing one number
