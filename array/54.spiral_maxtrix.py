@@ -22,39 +22,28 @@ Output: [1,2,3,4,8,12,11,10,9,5,6,7]
 
 
 class Solution:
-    def generateMatrix(self, n: int) -> List[List[int]]:
-        res = [[0] * n for _ in range(n)]
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        left, right = 0, len(matrix[0]) - 1
+        top, bottom = 0, len(matrix) - 1
+        res = []
+
+        while left <= right and top <= bottom:
+            for j in range(left, right + 1):
+                res.append(matrix[top][j])
+            top += 1
+
+            for i in range(top, bottom + 1):
+                res.append(matrix[i][right])
+            right -= 1
+
+            if top <= bottom:
+                for j in range(right, left - 1, -1):
+                    res.append(matrix[bottom][j])
+                bottom -= 1
+
+            if left <= right:
+                for i in range(bottom, top - 1, -1):
+                    res.append(matrix[i][left])
+                left += 1
         
-        if n == 0:
-            return res
-        
-        row_start = col_start = 0
-        row_end = col_end = n - 1
-        fill = 1
-        
-        while row_start <= row_end and col_start <= col_end:
-            for j in range(col_start, col_end+1):
-                res[row_start][j] = fill
-                fill += 1
-            
-            row_start += 1
-            
-            for i in range(row_start, row_end+1):
-                res[i][col_end] = fill
-                fill += 1
-            
-            col_end -= 1
-            
-            for j in range(col_end, col_start-1, -1):
-                res[row_end][j] = fill
-                fill += 1
-                
-            row_end -= 1
-            
-            for i in range(row_end, row_start-1, -1):
-                res[i][col_start] = fill
-                fill += 1
-                
-            col_start += 1
-            
         return res
