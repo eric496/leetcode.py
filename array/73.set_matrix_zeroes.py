@@ -35,55 +35,68 @@ A simple improvement uses O(m + n) space, but still not the best solution.
 Could you devise a constant space solution?
 """
 
-# O(mn^2) or O(nm^2) TC
+
+# Solution 1: use extra space - O(mn) TC and O(mn) SC
 class Solution:
     def setZeroes(self, matrix: List[List[int]]) -> None:
-        if not matrix or not matrix[0]:
-            return
-
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        rows = set()
+        cols = set()
         m, n = len(matrix), len(matrix[0])
 
-        for row in range(m):
-            for col in range(n):
-                if matrix[row][col] == 0:
-                    for c in range(n):
-                        matrix[row][c] = None if matrix[row][c] != 0 else 0
-                    for r in range(m):
-                        matrix[r][col] = None if matrix[r][col] != 0 else 0
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j] == 0:
+                    rows.add(i)
+                    cols.add(j)
 
-        for row in range(m):
-            for col in range(n):
-                if matrix[row][col] is None:
-                    matrix[row][col] = 0
+        for i in rows:
+            for j in range(n):
+                matrix[i][j] = 0
+        
+        for j in cols:
+            for i in range(m):
+                matrix[i][j] = 0
 
 
-# O(mn) TC
+# Solution 2: O(1) space
 class Solution:
     def setZeroes(self, matrix: List[List[int]]) -> None:
-        if not matrix or not matrix[0]:
-            return
-
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        first_row_zeros = False
+        first_col_zeros = False
         m, n = len(matrix), len(matrix[0])
-        first_row_has_zero = not all(matrix[0])
-        first_col_has_zero = False
-        for row in matrix:
-            if row[0] == 0:
-                first_col_has_zero = True
+
+        for i in range(m):
+            if matrix[i][0] == 0:
+                first_col_zeros = True
+                break
+        
+        for j in range(n):
+            if matrix[0][j] == 0:
+                first_row_zeros = True
                 break
 
-        for row in range(1, m):
-            for col in range(1, n):
-                if matrix[row][col] == 0:
-                    matrix[0][col] = matrix[row][0] = 0
+        for i in range(1, m):
+            for j in range(1, n):
+                if matrix[i][j] == 0:
+                    matrix[0][j] = 0
+                    matrix[i][0] = 0
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                if matrix[i][0] == 0 or matrix[0][j] == 0:
+                    matrix[i][j] = 0
 
-        for row in range(1, m):
-            for col in range(1, n):
-                if matrix[0][col] == 0 or matrix[row][0] == 0:
-                    matrix[row][col] = 0
-
-        if first_row_has_zero:
-            matrix[0] = [0] * n
-
-        if first_col_has_zero:
-            for row in matrix:
-                row[0] = 0
+        if first_row_zeros:
+            for j in range(n):
+                matrix[0][j] = 0
+        
+        if first_col_zeros:
+            for i in range(m):
+                matrix[i][0] = 0
+                
