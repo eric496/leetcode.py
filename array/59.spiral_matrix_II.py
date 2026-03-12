@@ -14,22 +14,32 @@ Output:
 
 class Solution:
     def generateMatrix(self, n: int) -> List[List[int]]:
-        matrix = [[0] * n for _ in range(n)]
-        coord = [[(x, y) for y in range(n)] for x in range(n)]
-        flat_coord = self.flatten(coord)
-        cnt = 1
+        res = [[0] * n for _ in range(n)]
+        left, right = 0, n - 1
+        top, bottom = 0, n - 1
+        fill = 1
 
-        for (x, y) in flat_coord:
-            matrix[x][y] = cnt
-            cnt += 1
+        while left <= right and top <= bottom:
+            for j in range(left, right + 1):
+                res[top][j] = fill
+                fill += 1
+            top += 1
 
-        return matrix
+            for i in range(top, bottom + 1):
+                res[i][right] = fill
+                fill += 1
+            right -= 1
 
-    def flatten(self, matrix: List[List[int]]) -> List[tuple]:
-        res = []
+            if top <= bottom:
+                for j in range(right, left - 1, -1):
+                    res[bottom][j] = fill
+                    fill += 1
+                bottom -= 1
 
-        while matrix:
-            res.extend(matrix.pop(0))
-            matrix = list(zip(*matrix))[::-1]
+            if left <= right:
+                for i in range(bottom, top - 1, -1):
+                    res[i][left] = fill
+                    fill += 1
+                left += 1
 
-        return res
+        return res 
