@@ -31,9 +31,3 @@ class Solution:
             res.append(carry)
 
         return res[::-1]
-
-
-# One liner
-class Solution:
-    def plusOne(self, digits: list) -> list:
-        return [int(d) for d in list(str(int("".join(map(str, digits))) + 1))]
