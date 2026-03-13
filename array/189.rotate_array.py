@@ -23,8 +23,28 @@ Try to come up as many solutions as you can, there are at least 3 different ways
 Could you do it in-place with O(1) extra space?
 """
 
-# solution 1: O(n) space and O(n) time
+# Solution 1: O(n) space and O(n) time
 class Solution:
     def rotate(self, nums: list, k: int) -> None:
         k %= len(nums)
         nums[:] = nums[len(nums) - k :] + nums[: len(nums) - k]
+
+
+# Solution 2 - reversal algorithm
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        k %= n
+        self.reverse(nums, 0, n - k - 1)
+        self.reverse(nums, n - k, n - 1)
+        self.reverse(nums, 0, n - 1)
+        
+    def reverse(self, nums: List[int], left: int, right: int) -> None:
+        while left < right:
+            nums[left], nums[right] = nums[right], nums[left]
+            left += 1
+            right -= 1
+            
