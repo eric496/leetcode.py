@@ -19,8 +19,9 @@ class Solution:
         i = j = 0
         
         while j < len(nums):
-            if nums[j]:
-                nums[i], nums[j] = nums[j], nums[i]
+            if nums[j] != 0:
+                if nums[i] != nums[j]:
+                    nums[i], nums[j] = nums[j], nums[i]
                 i += 1
             
             j += 1
