@@ -15,30 +15,39 @@ Note:
 The total number of elements of the given matrix will not exceed 10,000.
 """
 
-from collections import defaultdict
 
+class Solution:
+    def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
+        if not mat or not mat[0]:
+            return mat
 
-class Solution(object):
-    def findDiagonalOrder(self, matrix):
-        """
-        :type matrix: List[List[int]]
-        :rtype: List[int]
-        """
+        r = c = 0
+        m, n = len(mat), len(mat[0])
+        direction = 1 # 1 UP-RIGHT, -1 DOWN-LEFT
         res = []
 
-        if not matrix or not matrix[0]:
-            return res
+        for _ in range(m * n):
+            res.append(mat[r][c])
 
-        diag = defaultdict(list)
-
-        for row in range(len(matrix)):
-            for col in range(len(matrix[0])):
-                diag[row + col].append(matrix[row][col])
-
-        for idx, ls in diag.items():
-            if idx & 1:
-                res.extend(ls)
+            if direction == 1:
+                if c == n - 1: # hit the right wall
+                    r += 1
+                    direction = -1
+                elif r == 0: # hit the ceiling
+                    c += 1
+                    direction = -1
+                else: # normal diagnal traversal
+                    r -= 1
+                    c += 1
             else:
-                res.extend(ls[::-1])
-
+                if r == m - 1: # hit the floor
+                    c += 1
+                    direction = 1
+                elif c == 0: # hit the left wall
+                    r += 1
+                    direction = 1
+                else:
+                    r += 1
+                    c -= 1
+        
         return res
