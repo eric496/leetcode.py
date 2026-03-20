@@ -16,7 +16,7 @@ The input array size is in the range of [1, 20000].
 n is a non-negative integer which won't exceed the input array size.
 """
 
-# Trick: pad head and tail
+# Solution 1: pad head and tail with 0s
 class Solution:
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
         if not n:
@@ -33,3 +33,29 @@ class Solution:
                 return True
 
         return False
+
+
+# Solution 2
+class Solution:
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        if n == 0:
+            return True
+            
+        k = len(flowerbed)
+
+        for i in range(k):
+            if flowerbed[i] == 1:
+                continue
+
+            empty_left = i == 0 or flowerbed[i-1] == 0
+            empty_right = i == k - 1 or flowerbed[i+1] == 0
+
+            if empty_left and empty_right:
+                flowerbed[i] = 1
+                n -= 1
+
+            if n == 0:
+                return True
+        
+        return False
+    
