@@ -15,14 +15,16 @@ The length of input array is a positive integer and will not exceed 10,000
 
 class Solution:
     def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
-        cur = max_ = 0
+        res = 0
+        count = 0
 
-        for n in nums:
-            if n:
-                cur += 1
+        for num in nums:
+            if num == 1:
+                count += 1
             else:
-                max_ = max(max_, cur)
-                cur = 0
+                res = max(res, count)
+                count = 0
 
-        # Need to compare cur and max_ in case the last element of nums is 1
-        return max_ if max_ > cur else cur
+        res = max(res, count)
+
+        return res
