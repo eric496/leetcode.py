@@ -24,42 +24,34 @@ Each board[i][j] will initially start as an integer in the range [1, 2000].
 class Solution:
     def candyCrush(self, board: List[List[int]]) -> List[List[int]]:
         m, n = len(board), len(board[0])
-        found = True
+        stable_state = False
 
-        while found:
-            found = False
-            for i in range(m):
-                for j in range(n):
-                    num = abs(board[i][j])
-                    if num:
-                        if (
-                            j < n - 2
-                            and abs(board[i][j + 1]) == num
-                            and abs(board[i][j + 2]) == num
-                        ):
-                            found = True
-                            ix = j
-                            while ix < n and abs(board[i][ix]) == num:
-                                board[i][ix] = -num
-                                ix += 1
-                        if (
-                            i < m - 2
-                            and abs(board[i + 1][j]) == num
-                            and abs(board[i + 2][j]) == num
-                        ):
-                            found = True
-                            ix = i
-                            while ix < m and abs(board[ix][j]) == num:
-                                board[ix][j] = -num
-                                ix += 1
-            if found:
-                for j in range(n):
-                    ix = m - 1
-                    for i in range(m - 1, -1, -1):
-                        if board[i][j] > 0:
-                            board[ix][j] = board[i][j]
-                            ix -= 1
-                    for k in range(ix, -1, -1):
-                        board[k][j] = 0
+        while not stable_state:
+            stable_state = True
+
+            for r in range(m):
+                for c in range(n-2):
+                    val = abs(board[r][c])
+                    if val != 0 and val == abs(board[r][c+1]) == abs(board[r][c+2]):
+                        board[r][c] = board[r][c+1] = board[r][c+2] = -val
+                        stable_state = False
+
+            for r in range(m-2):
+                for c in range(n):
+                    val = abs(board[r][c])
+                    if val != 0 and val == abs(board[r+1][c]) == abs(board[r+2][c]):
+                        board[r][c] = board[r+1][c] = board[r+2][c] = -val
+                        stable_state = False
+
+            if not stable_state:
+                for c in range(n):
+                    write_r = m - 1
+                    for read_r in range(m-1, -1, -1):
+                        if board[read_r][c] > 0:
+                            board[write_r][c] = board[read_r][c]
+                            write_r -= 1
+
+                    for r in range(write_r, -1, -1):
+                        board[r][c] = 0
 
         return board
