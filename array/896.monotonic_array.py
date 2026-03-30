@@ -29,6 +29,7 @@ Note:
 """
 
 
+# Solution 1
 class Solution:
     def isMonotonic(self, A: List[int]) -> bool:
         inc = dec = False
@@ -43,3 +44,19 @@ class Solution:
                 return False
 
         return True
+
+
+# Solution 2
+class Solution:
+    def isMonotonic(self, nums: List[int]) -> bool:
+        is_increasing = True
+        is_decreasing = True
+
+        for i in range(1, len(nums)):
+            if nums[i-1] > nums[i]:
+                is_increasing = False
+
+            if nums[i-1] < nums[i]:
+                is_decreasing = False
+
+        return is_increasing or is_decreasing
