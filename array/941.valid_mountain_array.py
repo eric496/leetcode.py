@@ -46,16 +46,14 @@ class Solution:
 
 # Solution 2: Two pointers
 class Solution:
-    def validMountainArray(self, A: List[int]) -> bool:
-        if len(A) < 3:
-            return False
+    def validMountainArray(self, arr: List[int]) -> bool:
+        n = len(arr)
+        left, right = 0, n - 1
 
-        i, j = 0, len(A) - 1
+        while left + 1 < n and arr[left] < arr[left+1]:
+            left += 1
 
-        while i + 1 < len(A) and A[i] < A[i + 1]:
-            i += 1
+        while right - 1 > 0 and arr[right] < arr[right-1]:
+            right -= 1
 
-        while j - 1 >= 0 and A[j] < A[j - 1]:
-            j -= 1
-
-        return i > 0 and j < len(A) - 1 and i == j
+        return left != n - 1 and right != 0 and left == right 
