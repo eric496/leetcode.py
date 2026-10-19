@@ -26,16 +26,16 @@ Constraints:
 
 
 class Solution:
-    def findMissingRanges(self, nums: List[int], lower: int, upper: int) -> List[List[int]]:
-        res = []
-        prev = lower - 1
+    def findMissingRanges(self, nums: list[int], lower: int, upper: int) -> list[list[int]]:
+        missing_ranges = []
+        curr = lower
 
         for num in nums:
-            if prev + 1 <= num - 1:
-                res.append([prev+1, num-1])
-            prev = num
-
-        if prev + 1 <= upper:
-            res.append([prev+1, upper])
+            if curr < num:
+                missing_ranges.append([curr, num-1])
+            curr = num + 1
         
-        return res
+        if curr <= upper:
+            missing_ranges.append([curr, upper])
+
+        return missing_ranges
