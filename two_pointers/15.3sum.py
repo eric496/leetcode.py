@@ -17,35 +17,7 @@ A solution set is:
 # Solution 0: Brute force - 3 nested loops - O(n^3) TC
 
 
-# Solution 1: fixed one element and use two pointers
-class Solution:
-    def threeSum(self, nums: list[int]) -> list[list[int]]:
-        n = len(nums)
-        res = set()
-        nums.sort()
-
-        for i in range(n - 2):
-            if nums[i] > 0:
-                break
-
-            left = i + 1
-            right = n - 1
-
-            while left < right:
-                val = nums[i] + nums[left] + nums[right]
-                if val == 0:
-                    res.add((nums[i], nums[left], nums[right]))
-                    left += 1
-                    right -= 1
-                elif val > 0:
-                    right -= 1
-                elif val < 0:
-                    left += 1
-            
-        return list(map(list, res))
-
-
-# Solution 2: dedup using set and tuple
+# Solution 1: dedup using set and tuple
 class Solution:
     def threeSum(self, nums: list[int]) -> list[list[int]]:
         sorted_nums = sorted(nums)
@@ -56,8 +28,10 @@ class Solution:
         while i < n - 2:
             if sorted_nums[i] > 0:
                 break
+              
             while 0 < i < n - 2 and sorted_nums[i] == sorted_nums[i-1]:
                 i +=1
+              
             j, k = i + 1, n - 1
             while j < k:
                 val = sorted_nums[i] + sorted_nums[j] + sorted_nums[k]
@@ -74,7 +48,7 @@ class Solution:
         return list(map(list, res))
 
 
-# Solution 3: two pointers - O(n^2) TC and O(1) SC
+# Solution 2: two pointers - O(n^2) TC and O(1) SC
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         if len(nums) < 3:
