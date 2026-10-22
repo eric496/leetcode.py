@@ -45,24 +45,32 @@ class Solution:
         return list(map(list, res))
 
 
-# Solution 2: without changing the input, convert it to a two sum problem by fixing one number
-# TLE
+# Solution 2: dedup using set and tuple
 class Solution:
-    def threeSum(self, nums: List[int]) -> List[List[int]]:
-        n = len(nums)
-        need = set()
+    def threeSum(self, nums: list[int]) -> list[list[int]]:
+        sorted_nums = sorted(nums)
+        i = 0
+        n = len(sorted_nums)
         res = set()
 
-        for i in range(n - 2):
-            need.clear()
-            target = -nums[i]
-
-            for j in range(i + 1, n):
-                if target - nums[j] in need:
-                    res.add(tuple(sorted([nums[i], nums[j], target - nums[j]])))
+        while i < n - 2:
+            if sorted_nums[i] > 0:
+                break
+            while 0 < i < n - 2 and sorted_nums[i] == sorted_nums[i-1]:
+                i +=1
+            j, k = i + 1, n - 1
+            while j < k:
+                val = sorted_nums[i] + sorted_nums[j] + sorted_nums[k]
+                if val == 0:
+                    res.add((sorted_nums[i], sorted_nums[j], sorted_nums[k]))
+                    j += 1
+                    k -= 1
+                elif val < 0:
+                    j += 1
                 else:
-                    need.add(nums[j])
-
+                    k -= 1
+            i += 1
+        
         return list(map(list, res))
 
 
