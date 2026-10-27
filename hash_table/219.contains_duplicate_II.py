@@ -16,17 +16,30 @@ Output: false
 """
 
 
-from collections import defaultdict
-
-
+# Solution 1: hash map
 class Solution:
-    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
-        seen = defaultdict(list)
+    def containsNearbyDuplicate(self, nums: list[int], k: int) -> bool:
+        seen = dict()
+        
+        for i, num in enumerate(nums):
+            if num in seen and abs(i-seen[num]) <= k:
+                return True
+            seen[num] = i
+
+        return False 
+
+
+# Solution 2: sliding window
+class Solution:
+    def containsNearbyDuplicate(self, nums: list[int], k: int) -> bool:
+        window = set()
 
         for i, num in enumerate(nums):
-            if num in seen:
-                if abs(seen[num][-1] - i) <= k:
-                    return True
-            seen[num].append(i)
-        
+            if num in window:
+                return True
+            window.add(num)
+
+            if len(window) > k:
+                window.remove(nums[i-k])
+
         return False
