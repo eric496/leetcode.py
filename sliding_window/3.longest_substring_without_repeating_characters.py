@@ -19,33 +19,20 @@ Explanation: The answer is "wke", with the length of 3.
 """
 
 
-# Solution 1
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        last_seen = {}
-        start = res = 0
+        last_seen = dict()
+        left = 0
+        max_len = 0
 
-        for i, c in enumerate(s):
-            if c in last_seen and start <= last_seen[c]:
-                start = last_seen[c] + 1
-            else:
-                res = max(res, i - start + 1)
+        for right, c in enumerate(s):
+            if c in last_seen and last_seen[c] >= left:
+                left = last_seen[c] + 1
+                
+            max_len = max(max_len, right - left + 1)
+            last_seen[c] = right
 
-            last_seen[c] = i
-
-        return res
-
-
-# Solution 2
-class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        last_seen = {}
-        start = res = 0
-
-        for i, c in enumerate(s):
-            start = max(start, last_seen.get(c, -1) + 1)
-            res = max(res, i - start + 1)
-            last_seen[c] = i
+        return max_len
 
         return res
         
