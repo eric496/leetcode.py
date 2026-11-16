@@ -21,13 +21,17 @@ class Solution:
 
         while left < right:
             if s[left] != s[right]:
-                skip_left = s[left+1: right+1]
-                skip_right = s[left: right]
-
-                if not self.isPalindrome(skip_left) and not self.isPalindrome(skip_right):
-                    return False
-            
+                return self.isPalindrome(s, left+1, right) or self.isPalindrome(s, left, right-1)
             left += 1
             right -= 1
+        
+        return True
 
+    def isPalindrome(self, s: str, left: int, right: int) -> bool:
+        while left < right:
+            if s[left] != s[right]:
+                return False
+            left += 1
+            right -= 1
+        
         return True
