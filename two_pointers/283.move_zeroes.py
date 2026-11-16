@@ -12,16 +12,15 @@ Minimize the total number of operations.
 
 
 class Solution:
-    def moveZeroes(self, nums: List[int]) -> None:
+    def moveZeroes(self, nums: list[int]) -> None:
         """
         Do not return anything, modify nums in-place instead.
         """
-        i = j = 0
+        left = right = 0
         
-        while j < len(nums):
-            if nums[j] != 0:
-                if nums[i] != nums[j]:
-                    nums[i], nums[j] = nums[j], nums[i]
-                i += 1
-            
-            j += 1
+        while right < len(nums):
+            if nums[right] != 0:
+                if left != right:
+                    nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+            right += 1
