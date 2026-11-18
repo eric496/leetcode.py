@@ -46,25 +46,19 @@ class Solution:
         return float("inf") if low == len(nums) else low
 
 
-# Solution 2: two pointers O(n) TC
+# Solution 2: sliding window O(n) TC
 class Solution:
-    def minSubArrayLen(self, s: int, nums: List[int]) -> int:
-        if not nums:
-            return 0
+    def minSubArrayLen(self, target: int, nums: list[int]) -> int:
+        left = 0
+        res = float('inf')
+        window_sum = 0
+
+        for right, num in enumerate(nums):
+            window_sum += nums[right]
+
+            while window_sum >= target:
+                res = min(res, right - left + 1)
+                window_sum -= nums[left]
+                left += 1
         
-        n = len(nums)
-        i = j = 0
-        res = float("inf")
-        cursum = 0
-        
-        while j < n:
-            cursum += nums[j]
-            
-            while cursum >= s: 
-                res = min(res, j - i + 1)
-                cursum -= nums[i]
-                i += 1
-            
-            j += 1
-            
-        return res if res != float("inf") else 0
+        return 0 if res == float('inf') else res
