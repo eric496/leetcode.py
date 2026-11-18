@@ -10,7 +10,7 @@ Follow up:
 If you have figured out the O(n) solution, try coding another solution of which the time complexity is O(n log n). 
 """
 
-# Solution 1: binary search O(nlogn) TC
+# Solution 1: prefix sum + binary search O(nlogn) TC
 class Solution:
     def minSubArrayLen(self, s: int, nums: List[int]) -> int:
         if not nums:
