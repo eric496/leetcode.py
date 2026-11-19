@@ -23,24 +23,46 @@ The input is two lists: the subroutines called and their arguments. Solution's c
 """
 
 
-class Solution:
-    def __init__(self, w: List[int]):
-        self.w = w
-        self.wsum = sum(w)
+"""
+Thought Process:
+    1. Model probabilities as intervals: Lay each weight `w[i]` end-to-end
+       on a number line so index `i` spans a bucket of width `w[i]`.
+    2. Build prefix sums: Store cumulative weights so `prefix_sums[i]`
+       marks the right endpoint of bucket `i` (strictly increasing since
+       `w[i] >= 1`).
+    3. Sample uniformly: Pick a random integer `target` in
+       `[1, total_sum]`, giving every bucket `i` exactly `w[i]` winning
+       numbers out of `total_sum`.
+    4. Binary search the bucket: Use `bisect_left` to find the smallest
+       index `i` where `prefix_sums[i] >= target`.
 
-        for i in range(1, len(w)):
-            w[i] += w[i - 1]
+Complexity:
+    __init__: Time O(n), Space O(n)
+    pickIndex: Time O(log n), Space O(1)
+"""
+
+
+import random
+
+
+class Solution:
+    def __init__(self, w: list[int]):
+        self.prefix_sums = [0] * len(w)
+        current_sum = 0
+        for i, weight in enumerate(w):
+            current_sum += weight
+            self.prefix_sums[i] = current_sum
+        self.total_sum = current_sum
 
     def pickIndex(self) -> int:
-        r = random.randint(1, self.wsum)
-        low, high = 0, len(self.w) - 1
+        target = random.randint(1, self.total_sum)
+        left, right = 0, len(self.prefix_sums) - 1
 
-        while low < high:
-            mid = low + (high - low >> 1)
-
-            if r <= self.w[mid]:
-                high = mid
+        while left < right:
+            mid = (left + right) // 2
+            if self.prefix_sums[mid] < target:
+                left = mid + 1
             else:
-                low = mid + 1
+                right = mid
 
-        return low
+        return left
