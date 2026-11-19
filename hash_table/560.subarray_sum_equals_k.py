@@ -11,17 +11,42 @@ The range of numbers in the array is [-1000, 1000] and the range of the integer 
 """
 
 
+"""
+Thought Process:
+    1. Rule out sliding window: Negative numbers break monotonicity, so
+       shrinking a window cannot reliably shrink the sum.
+    2. Express any subarray as a difference: Every subarray sum equals
+       `current_sum - previous_prefix_sum`.
+    3. Rearrange the equation: Setting
+       `current_sum - previous_prefix_sum = k` gives
+       `previous_prefix_sum = current_sum - k`.
+    4. Count valid cut points with a hash map: Track how many times
+       each prefix sum has appeared so far.
+    5. Seed `{0: 1}` before starting: Account for subarrays that start
+       directly at index 0 without chopping off a prefix.
+    6. Accumulate in one pass: At each element, add
+       `prefix_counts[current_sum - k]` to the answer, then record
+       `current_sum`.
+    
+    Complexity:
+        Time: O(n)
+        Space: O(n)
+"""
+
+
+from collections import defaultdict
+
+
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        cnt = {0: 1}
-        presum = res = 0
+        current_sum = 0
+        prefix_counts = defaultdict(int)
+        prefix_counts[0] = 1
+        count = 0
 
         for num in nums:
-            presum += num
+            current_sum += num
+            count += prefix_counts[current_sum - k]
+            prefix_counts[current_sum] += 1
 
-            if presum - k in cnt:
-                res += cnt[presum - k]
-
-            cnt[presum] = cnt.get(presum, 0) + 1
-
-        return res
+        return count
