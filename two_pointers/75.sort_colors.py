@@ -15,6 +15,28 @@ Could you come up with a one-pass algorithm using only constant space?
 """
 
 
+"""
+Thought Process:
+    1. Partition into 4 zones with 3 pointers: Maintain `low` (boundary for 0s),
+       `mid` (current scanner), and `high` (boundary for 2s).
+    2. Loop invariant:
+       - `nums[0 : low]` contains only 0s.
+       - `nums[low : mid]` contains only 1s.
+       - `nums[mid : high + 1]` is unprocessed.
+       - `nums[high + 1 : n]` contains only 2s.
+    3. Handle `nums[mid] == 0`: Swap with `nums[low]` and advance both `low`
+       and `mid` (the swapped-in value at `low` is guaranteed to be 1 or 0).
+    4. Handle `nums[mid] == 1`: Already in the middle zone; advance `mid` only.
+    5. Handle `nums[mid] == 2`: Swap with `nums[high]` and decrement `high`
+       only; keep `mid` stationary to inspect the unknown swapped-in element.
+    6. Terminate at `mid > high`: The unprocessed region is empty.
+
+Complexity:
+    Time: O(n) — single pass; every iteration increments `mid` or decrements `high`.
+    Space: O(1) — in-place swaps with three integer pointers.
+"""
+
+
 # Solution 1: counting sort
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
@@ -38,23 +60,21 @@ class Solution:
             nums[i] = 2
 
 
-# Dutch National Flag problem (https://en.wikipedia.org/wiki/Dutch_national_flag_problem)
-# Solution 2
+# Solution 2: Dutch National Flag problem (https://en.wikipedia.org/wiki/Dutch_national_flag_problem)
+from typing import List
+
+
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        lo, hi = 0, len(nums) - 1
-        i = lo
+        low, mid, high = 0, 0, len(nums) - 1
 
-        while i <= hi:
-            if nums[i] == 0:
-                nums[lo], nums[i] = nums[i], nums[lo]
-                lo += 1
-                i += 1
-            elif nums[i] == 2:
-                nums[i], nums[hi] = nums[hi], nums[i]
-                hi -= 1
-            elif nums[i] == 1:
-                i += 1
+        while mid <= high:
+            if nums[mid] == 0:
+                nums[low], nums[mid] = nums[mid], nums[low]
+                low += 1
+                mid += 1
+            elif nums[mid] == 1:
+                mid += 1
+            else:  # nums[mid] == 2
+                nums[mid], nums[high] = nums[high], nums[mid]
+                high -= 1
