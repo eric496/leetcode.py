@@ -6,38 +6,37 @@ Note: The length of temperatures will be in the range [1, 30000]. Each temperatu
 """
 
 
-# Solution 1: backward traversal
+"""
+Thought Process:
+    1. Identify the pattern: Finding the "next greater element to the right"
+       for every position in an array maps directly to a monotonic stack.
+    2. Store indices on a decreasing stack: Keep indices of unresolved days
+       whose temperatures are in non-increasing order from bottom to top.
+    3. Resolve colder days on arrival: When `temperatures[curr_day]` is strictly
+       greater than `temperatures[stack[-1]]`, `curr_day` is the very first
+       warmer day for `stack[-1]`.
+    4. Pop and compute wait distance: Pop `prev_day` and record
+       `answer[prev_day] = curr_day - prev_day` until the stack is empty or
+       its top temperature is >= `temperatures[curr_day]`.
+    5. Push current day: Push `curr_day` onto the stack to await its own
+       future warmer day (any indices left at the end stay 0 by default).
+
+Complexity:
+    Time: O(n) — each day's index is pushed once and popped at most once.
+    Space: O(n) — worst-case stack size when temperatures strictly decrease.
+"""
+
+
 class Solution:
-    def dailyTemperatures(self, T: List[int]) -> List[int]:
-        stk = []
-        res = [0] * len(T)
+    def dailyTemperatures(self, temperatures: list[int]) -> list[int]:
+        stack = []
+        res = [0] * len(temperatures)
 
-        for i in range(len(T) - 1, -1, -1):
-            if not stk:
-                stk.append((T[i], i))
-            else:
-                while stk and stk[-1][0] <= T[i]:
-                    stk.pop()
-
-                if stk:
-                    res[i] = stk[-1][1] - i
-
-                stk.append((T[i], i))
+        for curr_day, curr_temp in enumerate(temperatures):
+            while stack and temperatures[stack[-1]] < curr_temp:
+                prev_day = stack.pop()
+                res[prev_day] = curr_day - prev_day
+            stack.append(curr_day)
 
         return res
-
-
-# Solution 2: forward traversal
-class Solution:
-    def dailyTemperatures(self, T: List[int]) -> List[int]:
-        res = [0] * len(T)
-        stk = []
-
-        for i, t in enumerate(T):
-            while stk and T[stk[-1]] < t:
-                top = stk.pop()
-                res[top] = i - top
-
-            stk.append(i)
-
-        return res
+        
