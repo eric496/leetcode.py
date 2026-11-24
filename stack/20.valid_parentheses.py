@@ -42,16 +42,21 @@ Thought:
 # Solution 1
 class Solution:
     def isValid(self, s: str) -> bool:
-        stk = []
-        pairs = {"(": ")", "{": "}", "[": "]"}
+        pairs = {
+            "(": ")",
+            "{": "}",
+            "[": "]"
+        }
+        stack = []
 
         for c in s:
-            if c in pairs:
-                stk.append(pairs[c])
-            elif not stk or stk.pop() != c:
-                return False
+            if c in "({[":
+                stack.append(c)
+            else:
+                if not stack or pairs[stack.pop()] != c:
+                    return False
 
-        return not stk
+        return not stack
 
 
 # Solution 2: not need to use map since there are only 3 pairs of symbols
