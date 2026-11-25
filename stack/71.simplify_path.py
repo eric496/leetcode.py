@@ -32,18 +32,37 @@ Output: "/a/b/c"
 """
 
 
+"""
+Thought Process:
+    1. Split on slashes: `path.split("/")` breaks the path into directory
+       tokens while turning consecutive, leading, and trailing slashes into
+       empty strings `""`.
+    2. Simulate directory depth with a stack:
+       - Ignore `""` and `"."` (no change in directory).
+       - On `".."`: Pop the top directory from `stack` if non-empty (stay at
+         root if already empty).
+       - On any other token (including `"..."` or `"...."`): Push onto `stack`.
+    3. Reconstruct canonical path: Join surviving directories with `"/"` and
+       prepend a leading `"/"` (returns `"/"` automatically when `stack` is empty).
+
+Complexity:
+    Time: O(n) — splitting, scanning tokens, and joining each take linear time.
+    Space: O(n) — for the split token list and directory stack.
+"""
+
+
 class Solution:
     def simplifyPath(self, path: str) -> str:
-        split = path.split("/")
-        stk = []
+        stack = []
+        sep = "/"
 
-        for s in split:
-            if s in {"/", ".", ""}:
+        for d in path.split(sep):
+            if d in ("", "."):
                 continue
-            elif s == "..":
-                if stk:
-                    stk.pop()
+            elif d == "..":
+                if stack:
+                    stack.pop()
             else:
-                stk.append(s)
+                stack.append(d)
 
-        return "/" + "/".join(stk)
+        return sep + sep.join(stack) 
