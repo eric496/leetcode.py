@@ -30,21 +30,39 @@ s[i] is one of  '(' , ')' and lowercase English letters.
 """
 
 
+"""
+Thought Process:
+    1. Track unmatched parentheses by index: Only unmatched '(' and ')'
+       need removal; lowercase letters always stay.
+    2. Scan left-to-right with a stack:
+       - On '(': Push its index onto `stack` (pending a future ')').
+       - On ')': If `stack` is non-empty, pop the matching '(' index;
+         otherwise, this ')' has no opener, so record its index in `to_remove`.
+    3. Collect leftover openers: After the scan, any indices remaining in
+       `stack` are unmatched '('—add them to `to_remove`.
+    4. Rebuild the valid string: Join all characters whose index is not in
+       `to_remove` in O(n) time.
+
+Complexity:
+    Time: O(n) — two linear passes over `s` with O(1) set lookups.
+    Space: O(n) — for `stack`, `to_remove`, and the output character list.
+"""
+
+
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
-        stk = []
-        arr = list(s)
+        stack = []
+        to_remove = set()
 
-        for i in range(len(arr)):
-            if arr[i] == "(":
-                stk.append(i)
-            elif arr[i] == ")":
-                if stk:
-                    stk.pop()
+        for i, c in enumerate(s):
+            if c == "(":
+                stack.append(i)
+            elif c == ")":
+                if stack:
+                    stack.pop()
                 else:
-                    arr[i] = "*"
+                    to_remove.add(i)
 
-        while stk:
-            arr[stk.pop()] = "*"
+        to_remove.update(stack)
 
-        return "".join(x for x in arr if x != "*")
+        return "".join(c for i, c in enumerate(s) if i not in to_remove)
