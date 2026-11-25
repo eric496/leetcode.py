@@ -20,74 +20,48 @@ Do not use the eval built-in library function.
 """
 
 
-# Solution 1
+"""
+Thought Process:
+    1. Respect operator precedence via a stack: Defer `+` and `-` by pushing
+       signed integers onto `stack`; execute `*` and `/` immediately against
+       `stack[-1]`.
+    2. Track the previous operator (`prev_op`): Initialize `prev_op = '+'` and
+       `num = 0`. Apply `prev_op` only when encountering the next operator or
+       reaching the end of the string (once all digits of `num` are parsed).
+    3. Build multi-digit numbers: Accumulate `num = num * 10 + int(char)` while
+       reading consecutive digits; skip spaces except at the final index.
+    4. Truncate division toward zero: Use `int(stack.pop() / num)` rather than
+       `//`, since Python's `//` floors toward negative infinity (e.g., `-3 // 2 == -2`).
+    5. Sum the stack: Return `sum(stack)` after the final token is processed.
+
+Complexity:
+    Time: O(n) — single linear scan over `s` plus linear sum of `stack`.
+    Space: O(n) — worst-case stack size when all operators are `+` or `-`.
+"""
+
+
 class Solution:
     def calculate(self, s: str) -> int:
-        tokens = self.tokenize(s)
-        num_stk = []
-        op_stk = []
+        prev_op = "+"
+        num = 0
+        stack = []
 
-        for token in tokens:
-            if token.isdigit():
-                if op_stk and op_stk[-1] in "*/":
-                    op = op_stk.pop()
-                    left = abs(num_stk.pop())
-                    num_stk.append(
-                        left // int(token) if op == "/" else left * int(token)
-                    )
-                else:
-                    num_stk.append(int(token))
-            else:
-                op_stk.append(token)
+        for i, c in enumerate(s):
+            if c.isdigit():
+                num = 10 * num + int(c)
 
-        op_stk.reverse()
-        num_stk.reverse()
+            if c in "+-*/" or i == len(s) - 1:
+                if prev_op == "+":
+                    stack.append(num)
+                elif prev_op == "-":
+                    stack.append(-num)
+                elif prev_op == "*":
+                    stack.append(stack.pop() * num)
+                elif prev_op == "/":
+                    stack.append(int(stack.pop() / num))
 
-        while op_stk:
-            op = op_stk.pop()
-            left, right = num_stk.pop(), num_stk.pop()
-            num_stk.append(left + right if op == "+" else left - right)
-
-        return num_stk[0]
-
-    def tokenize(self, s: str) -> List[str]:
-        res = []
-        cur = -1
-
-        for c in s:
-            if c.isspace():
-                continue
-            elif c.isdigit():
-                cur = cur * 10 + int(c) if cur != -1 else int(c)
-            else:
-                if cur != -1:
-                    res.append(str(cur))
-                    cur = -1
-
-                res.append(c)
-
-        return res + [str(cur)] if cur != -1 else res
-
-
-# Solution 2
-class Solution:
-    def calculate(self, s: str) -> int:
-        stk, cur, op = [], 0, "+"
-
-        for i in range(len(s)):
-            if s[i].isdigit():
-                cur = cur * 10 + int(s[i])
-
-            if s[i] in "+-*/" or i == len(s) - 1:
-                if op == "+":
-                    stk.append(cur)
-                elif op == "-":
-                    stk.append(-cur)
-                elif op == "*":
-                    stk.append(stk.pop() * cur)
-                elif op == "/":
-                    stk.append(int(stk.pop() / cur))
-
-                cur, op = 0, s[i]
-
-        return sum(stk)
+                prev_op = c
+                num = 0
+        
+        return sum(stack)
+        
