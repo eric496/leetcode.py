@@ -24,28 +24,45 @@ Functions will always log when they exit.
 """
 
 """
-Thought process:
+Thought Process:
+    1. Model the CPU call stack: Maintain `stack` holding active function IDs,
+       where `stack[-1]` is the function currently holding the CPU, and
+       `prev_time` marking when the current execution slice began.
+    2. Handle "start" logs (beginning of `timestamp`):
+       - If `stack` is non-empty, credit `timestamp - prev_time` units to the
+         paused caller `stack[-1]`.
+       - Push `func_id` onto `stack` and set `prev_time = timestamp`.
+    3. Handle "end" logs (end of `timestamp`):
+       - Pop the finishing function `stack.pop()` and credit
+         `timestamp - prev_time + 1` units (inclusive of `timestamp`).
+       - Advance `prev_time = timestamp + 1` because the caller resumes at
+         the start of the next time unit.
+
+Complexity:
+    Time: O(m) — single linear pass over `m = len(logs)`.
+    Space: O(m) — worst-case call stack depth when calls are deeply nested.
 
 """
 
 
 class Solution:
-    def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
-        stk = []
+    def exclusiveTime(self, n: int, logs: list[str]) -> list[int]:
+        stack = []
         res = [0] * n
+        prev_time = 0
 
         for log in logs:
-            fn, tag, t = log.split(":")
-            fn, t = int(fn), int(t)
+            func_id_str, event, timestamp_str = log.split(":")
+            func_id = int(func_id_str)
+            timestamp = int(timestamp_str)
 
-            if tag == "start":
-                if stk:
-                    res[stk[-1]] += t - prev_t
-
-                stk.append(fn)
-                prev_t = t
-            elif tag == "end":
-                res[stk.pop()] += t - prev_t + 1
-                prev_t = t + 1
-
+            if event == "start":
+                if stack:
+                    res[stack[-1]] += timestamp - prev_time
+                stack.append(func_id)
+                prev_time = timestamp
+            else:
+                res[stack.pop()] += timestamp - prev_time + 1
+                prev_time = timestamp + 1
+        
         return res
